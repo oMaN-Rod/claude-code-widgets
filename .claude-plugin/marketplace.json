@@ -671,6 +671,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "boss-widget",
+      "source": "./plugins/boss-widget",
+      "description": "A boss fight against the context window: its health drops as context fills, and compaction defeats it.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
