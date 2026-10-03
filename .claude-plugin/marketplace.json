@@ -1012,6 +1012,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "donut-widget",
+      "source": "./plugins/donut-widget",
+      "description": "The spinning 3D donut, drawn in pixels; it spins faster while tool calls are running.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

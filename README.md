@@ -108,6 +108,7 @@ Abstract pictures driven by tool activity.
 | `rain-widget` | `/rain-widget [on\|off]` | Falling code rain that speeds up the busier the turn gets |
 | `orbit-widget` | `/orbit-widget [on\|off]` | A small solar system; the planets speed up while tool calls run |
 | `life-widget` | `/life-widget [on\|off\|reset]` | Conway's Game of Life; every tool call drops a glider |
+| `donut-widget` | `/donut-widget [on\|off]` | The spinning 3D donut; it spins faster while tool calls run |
 
 ### Games
 
