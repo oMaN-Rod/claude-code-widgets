@@ -1,0 +1,21 @@
+{
+  "name": "marquee-widget",
+  "version": "1.0.0",
+  "description": "An LED ticker that scrolls session events across the card: turns, tool calls and failures.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "pixel-art",
+    "fun",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
