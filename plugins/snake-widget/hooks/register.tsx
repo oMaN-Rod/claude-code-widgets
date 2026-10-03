@@ -7,8 +7,12 @@ const CARD_COLUMNS = 40
 const BOARD_COLUMNS = 32
 const BOARD_ROWS = 10
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'snake-widget', key: 'isOn' } as const, false)
 const best = atom({ plugin: 'snake-widget', key: 'best' } as const, 0)
+
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['snake-widget'] ?? CARD_COLUMNS
 
 const show = async (
   $: EngineInterface,
@@ -22,7 +26,7 @@ const show = async (
 
   const { Text } = table
   const record = await read($, best)
-  const width = Math.min(CARD_COLUMNS, Math.max(BOARD_COLUMNS + 4, columns))
+  const width = Math.min(await wide($), Math.max(BOARD_COLUMNS + 4, columns))
   const board =
     'Client' in table ? (
       <table.Client

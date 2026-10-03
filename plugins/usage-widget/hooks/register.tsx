@@ -28,6 +28,7 @@ const COLORS: Record<string, string> = {
   spend_limit: 'yellow',
 }
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'usage-widget', key: 'isOn' } as const, false)
 const snapshot = atom(
   { plugin: 'usage-widget', key: 'snapshot' } as const,
@@ -103,6 +104,9 @@ const drawCard = async ($: EngineInterface, { Box, Text }: Tags, width: number):
   )
 }
 
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['usage-widget'] ?? CARD_COLUMNS
+
 const show = async (
   $: EngineInterface,
   tags: Tags,
@@ -113,7 +117,7 @@ const show = async (
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  const width = Math.min(CARD_COLUMNS, Math.max(20, columns))
+  const width = Math.min(await wide($), Math.max(20, columns))
 
   return $.widgets.stack({ beneath, card: await drawCard($, tags, width) })
 }

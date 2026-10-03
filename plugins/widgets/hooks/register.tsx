@@ -12,9 +12,11 @@ const MAX_COLUMNS = 120
 const PLACES: readonly string[] = ['side', 'above', 'below']
 const SETTLE_MS = 400
 const SETTLE_TRIES = 10
-const USAGE = 'Usage: /widgets [side|above|below|close|<columns>]'
+const MIN_CARD = 20
+const USAGE = 'Usage: /widgets [side|above|below|close|<columns>|width <widget> <columns|reset>]'
 const site = atom({ plugin: 'widgets', key: 'site' } as const, 'off')
 const last = atom({ plugin: 'widgets', key: 'last' } as const, 'side')
+const widths = atom({ plugin: 'widgets', key: 'widths' } as const, {})
 
 const isPlace = (value: unknown): value is WidgetsPlace =>
   typeof value === 'string' && PLACES.includes(value)
@@ -39,6 +41,27 @@ const settle = async ($: EngineInterface, tries: number): Promise<void> => {
   }
 }
 
+const isWidths = (value: unknown): value is Record<string, number> =>
+  typeof value === 'object' &&
+  value !== null &&
+  Object.values(value).every(columns => typeof columns === 'number')
+
+const resize = async ($: EngineInterface, name: string, size: string): Promise<string> => {
+  const widget = name.endsWith('-widget') ? name : `${name}-widget`
+  const isReset = size === 'reset'
+  if (name === '' || (!isReset && !/^\d+$/.test(size))) return USAGE
+
+  const columns = Math.min(MAX_COLUMNS, Math.max(MIN_CARD, Number(size)))
+  const kept = await update($, widths, held => {
+    const { [widget]: _dropped, ...rest } = held ?? {}
+
+    return isReset ? rest : { ...rest, [widget]: columns }
+  })
+  await $.store.set('widths', kept)
+
+  return isReset ? `${widget} card width reset.` : `${widget} cards are ${columns} columns wide.`
+}
+
 const isPaneOpen = async ($: EngineInterface): Promise<boolean> =>
   (await $.ui.panes()).some(pane => pane.id === PANE)
 
@@ -49,9 +72,11 @@ export const register: Register = on => {
     await $.command.register({
       name: 'widgets',
       description: 'Toggle or move the widget cards: side, above or below the prompt',
-      argumentHint: '[side|above|below|close|<columns>]',
+      argumentHint: '[side|above|below|close|<columns>|width <widget> <columns|reset>]',
     })
 
+    const sized = await $.store.get('widths')
+    if (isWidths(sized)) await update($, widths, () => sized)
     const kept = await $.store.get('last')
     if (isPlace(kept)) await update($, last, () => kept)
     const shown = await $.store.get('site')
@@ -71,6 +96,9 @@ export const register: Register = on => {
 
   on('command.run', { command: 'widgets' }, async ($, e) => {
     const arg = e.args.trim().toLowerCase()
+    const [verb, name = '', size = ''] = arg.split(/\s+/)
+    if (verb === 'width') return { text: await resize($, name, size) }
+
     const isWidth = /^\d+$/.test(arg)
     const now = await read($, site)
     const target =

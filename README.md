@@ -22,7 +22,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 
 | Plugin | Command | What it shows |
 | --- | --- | --- |
-| `widgets` | `/widgets [side\|above\|below\|close\|<columns>]` | Places the cards: below the prompt, above it, or docked beside the transcript in fullscreen |
+| `widgets` | `/widgets [side\|above\|below\|close\|<columns>\|width <widget> <columns\|reset>]` | Places the cards: below the prompt, above it, or docked beside the transcript in fullscreen |
 | `context-widget` | `/context-widget [auto\|detailed\|grid\|top\|bar\|line]` | The context window as a stacked bar, one colour per `/context` category |
 | `usage-widget` | `/usage-widget` | A bar per rate-limit window, time to reset, session cost |
 | `file-tree-widget` | `/file-tree-widget` | The project directory; folders expand on click |
@@ -36,6 +36,7 @@ Placement, which widgets are on, and view modes are saved and restored in every 
 
 ## Notes
 
+- `/widgets width pet 60` sets how wide one widget's card may grow (the default is 40 columns); `/widgets width pet reset` puts it back.
 - `/widgets side` docks the cards beside the transcript only in the fullscreen layout (`/tui fullscreen`). In the default layout it falls back to below the prompt.
 - The pixel art is drawn with terminal block characters and shows in the terminal only.
 - Taking over snake needs a mouse click on the board, which the fullscreen layout reports.

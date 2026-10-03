@@ -172,3 +172,30 @@ test('restores a saved placement above the prompt as it was', { plugins: [PROBE]
 
   expect((await $.command.run(run('', 'site'))).text).toBe('above')
 })
+
+const SIZES: Plugin = {
+  name: 'sizes',
+  register(on) {
+    on('command.run', { command: 'sizes' }, async $ => {
+      const { value } = await $.state.get({ plugin: 'widgets', key: 'widths' } as const)
+
+      return { text: JSON.stringify(value) }
+    })
+  },
+}
+
+test('keeps a card width per widget', { plugins: [SIZES] }, async ($, on) => {
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  mock.clock(on, { now: 1000 })
+  mock.store(on, { widths: { 'snake-widget': 50 } })
+
+  await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
+
+  expect((await $.command.run(run('', 'sizes'))).text).toBe('{"snake-widget":50}')
+  expect((await $.command.run(run('width pet 60'))).text).toMatch(/pet-widget cards are 60 columns wide/)
+  expect((await $.command.run(run('width usage-widget 5'))).text).toMatch(/usage-widget cards are 20 columns/)
+  expect((await $.command.run(run('width snake reset'))).text).toMatch(/reset/)
+  expect((await $.command.run(run('', 'sizes'))).text).toBe('{"pet-widget":60,"usage-widget":20}')
+  expect((await $.command.run(run('width pet wide'))).text).toMatch(/Usage/)
+})

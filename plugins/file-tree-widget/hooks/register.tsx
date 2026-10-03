@@ -20,6 +20,7 @@ const COMPACT_ROWS = 10
 const SKIPPED = new Set(['.git', 'node_modules'])
 const MAX_ENTRIES = 200
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'file-tree-widget', key: 'isOn' } as const, false)
 const tree = atom({ plugin: 'file-tree-widget', key: 'tree' } as const, null)
 
@@ -152,6 +153,9 @@ const drawCard = async (
   )
 }
 
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['file-tree-widget'] ?? CARD_COLUMNS
+
 const show = async (
   $: EngineInterface,
   tags: Tags,
@@ -163,7 +167,7 @@ const show = async (
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  const width = Math.min(CARD_COLUMNS, Math.max(20, columns))
+  const width = Math.min(await wide($), Math.max(20, columns))
 
   const card = await drawCard($, tags, width, maxRows)
   const stacked = await $.widgets.stack({ beneath, card: <tags.Box key={SLOT} /> })

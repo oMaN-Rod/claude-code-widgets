@@ -55,6 +55,7 @@ const SAYS: Record<PetMood, string> = {
   hot: 'context is filling up',
 }
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'pet-widget', key: 'isOn' } as const, false)
 const tick = atom({ plugin: 'pet-widget', key: 'tick' } as const, 0)
 const status = atom({ plugin: 'pet-widget', key: 'status' } as const, RESTING)
@@ -88,6 +89,9 @@ const moodAt = (held: PetStatus, now: number): PetMood => {
 
   return now - held.activeAt > SLEEPY_MS ? 'sleep' : 'idle'
 }
+
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['pet-widget'] ?? CARD_COLUMNS
 
 const show = async (
   $: EngineInterface,
@@ -140,7 +144,7 @@ const show = async (
 
   return $.widgets.card({
     beneath,
-    width: Math.min(CARD_COLUMNS, Math.max(20, columns)),
+    width: Math.min(await wide($), Math.max(20, columns)),
     title: 'Clawd',
     note: mood,
     body: (

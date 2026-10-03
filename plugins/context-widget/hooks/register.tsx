@@ -28,6 +28,7 @@ const SHORT: Record<string, string> = {
   'Autocompact buffer': 'Buffer',
 }
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'context-widget', key: 'isOn' } as const, false)
 const mode = atom({ plugin: 'context-widget', key: 'mode' } as const, 'auto')
 const snapshot = atom(
@@ -226,6 +227,9 @@ const drawCard = async (
   )
 }
 
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['context-widget'] ?? CARD_COLUMNS
+
 const show = async (
   $: EngineInterface,
   tags: Tags,
@@ -237,7 +241,7 @@ const show = async (
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  const width = Math.min(CARD_COLUMNS, Math.max(20, columns))
+  const width = Math.min(await wide($), Math.max(20, columns))
 
   return $.widgets.stack({ beneath, card: await drawCard($, tags, width, isDocked) })
 }

@@ -35,7 +35,7 @@ export type Widgets<Element, Node> = {
 
 declare module 'claude-code' {
   interface PluginState {
-    'widgets': { site: WidgetsPlace | 'off'; last: WidgetsPlace }
+    'widgets': { site: WidgetsPlace | 'off'; last: WidgetsPlace; widths: Record<string, number> }
   }
   interface EngineInterface {
     widgets: Widgets<RenderElement, RenderNode>

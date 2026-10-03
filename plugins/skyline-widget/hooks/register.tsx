@@ -45,6 +45,7 @@ const STARS = [
 ] as const
 const SAMPLE = ['rrre', 'rses', 'rrrrees', 'aar', 'ssx', 'rreess', 'wwr', 'rrrreeeess', 'es']
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'skyline-widget', key: 'isOn' } as const, false)
 const turns = atom({ plugin: 'skyline-widget', key: 'turns' } as const, [])
 
@@ -125,6 +126,9 @@ const drawCard = async (
   })
 }
 
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['skyline-widget'] ?? CARD_COLUMNS
+
 const show = async (
   $: EngineInterface,
   surface: RenderSurface,
@@ -136,7 +140,7 @@ const show = async (
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  return drawCard($, surface, tags, beneath, Math.min(CARD_COLUMNS, Math.max(20, columns)))
+  return drawCard($, surface, tags, beneath, Math.min(await wide($), Math.max(20, columns)))
 }
 
 export const register: Register = on => {

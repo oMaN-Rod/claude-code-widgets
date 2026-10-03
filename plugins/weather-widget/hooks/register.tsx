@@ -40,6 +40,7 @@ const RAIN = 0x58a6ff
 const LABELS: Record<string, string> = { five_hour: '5h', seven_day: '7d', spend_limit: 'spend' }
 const CALM: WeatherReading = { percent: null, limits: [] }
 const site = { plugin: 'widgets', key: 'site' } as const
+const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'weather-widget', key: 'isOn' } as const, false)
 const tick = atom({ plugin: 'weather-widget', key: 'tick' } as const, 0)
 const reading = atom({ plugin: 'weather-widget', key: 'reading' } as const, CALM)
@@ -144,6 +145,9 @@ const drawCard = async (
   })
 }
 
+const wide = async ($: EngineInterface): Promise<number> =>
+  (await $.state.get(widths)).value?.['weather-widget'] ?? CARD_COLUMNS
+
 const show = async (
   $: EngineInterface,
   surface: RenderSurface,
@@ -155,7 +159,7 @@ const show = async (
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  return drawCard($, surface, tags, beneath, Math.min(CARD_COLUMNS, Math.max(20, columns)))
+  return drawCard($, surface, tags, beneath, Math.min(await wide($), Math.max(20, columns)))
 }
 
 export const register: Register = on => {
