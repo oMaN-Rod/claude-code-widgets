@@ -1,0 +1,21 @@
+{
+  "name": "map-widget",
+  "version": "1.0.0",
+  "description": "A pixel map of the repository: every tracked file a block, lit blue where Claude has read and green where it has edited.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "pixel-art",
+    "files",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

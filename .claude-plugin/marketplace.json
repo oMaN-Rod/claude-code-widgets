@@ -921,6 +921,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "map-widget",
+      "source": "./plugins/map-widget",
+      "description": "A pixel map of the repository: every tracked file a block, lit blue where Claude has read and green where it has edited.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "files",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
