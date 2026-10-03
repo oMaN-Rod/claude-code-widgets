@@ -1,0 +1,21 @@
+{
+  "name": "world-widget",
+  "version": "1.0.0",
+  "description": "One diorama for the whole session: the sky follows the clock, the weather follows context, a tower rises per turn, a train carries the tool calls and a crab walks through it.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "pixel-art",
+    "fun",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

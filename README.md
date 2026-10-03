@@ -92,6 +92,7 @@ Pixel art that reacts to turns, tool calls, checks and context usage.
 | `weather-widget` | `/weather-widget [on\|off\|live\|<percent>]` | Clear sky when context has room, a storm near compaction |
 | `boss-widget` | `/boss-widget [on\|off]` | Context usage as a boss health bar; compaction defeats it and starts the next level |
 | `sky-widget` | `/sky-widget [on\|off]` | The sky at your local time: sun by day, moon by night, more stars the longer the session runs |
+| `world-widget` | `/world-widget [on\|off\|clear]` | One scene for everything: sky by the clock, weather by context, a tower per turn, a train of tool calls and a wandering crab |
 
 ### Visualizers
 
