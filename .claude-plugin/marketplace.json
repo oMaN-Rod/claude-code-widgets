@@ -743,6 +743,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "tetris-widget",
+      "source": "./plugins/tetris-widget",
+      "description": "Tetris; it plays itself until you take the keys.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "game",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
