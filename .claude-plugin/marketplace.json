@@ -545,6 +545,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "mosaic-widget",
+      "source": "./plugins/mosaic-widget",
+      "description": "A mosaic that gains one tile per tool call, coloured by tool, until the session is a picture.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
