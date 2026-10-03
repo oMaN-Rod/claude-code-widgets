@@ -110,6 +110,7 @@ Abstract pictures driven by tool activity.
 | `life-widget` | `/life-widget [on\|off\|reset]` | Conway's Game of Life; every tool call drops a glider |
 | `donut-widget` | `/donut-widget [on\|off]` | The spinning 3D donut; it spins faster while tool calls run |
 | `pipes-widget` | `/pipes-widget [on\|off]` | The pipes screensaver; it grows while the session is idle and pauses while Claude works |
+| `maze-widget` | `/maze-widget [on\|off\|new]` | A first-person walk through a maze seeded by the project folder |
 
 ### Games
 

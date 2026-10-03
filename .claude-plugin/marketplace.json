@@ -1048,6 +1048,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "maze-widget",
+      "source": "./plugins/maze-widget",
+      "description": "A first-person walk through a maze seeded by the project folder, drawn with a raycaster.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
