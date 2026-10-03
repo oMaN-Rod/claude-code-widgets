@@ -58,6 +58,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `orbit-widget` | `/orbit-widget [on\|off]` | A small solar system; the planets speed up while tool calls run |
 | `sorting-widget` | `/sorting-widget [on\|off\|step]` | A bar chart being sorted, one swap per tool call |
 | `equalizer-widget` | `/equalizer-widget [on\|off]` | Level meters that jump with each tool call and fall back to rest |
+| `constellation-widget` | `/constellation-widget [on\|off\|clear]` | A star per turn, joined into a constellation that gets a name after nine |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

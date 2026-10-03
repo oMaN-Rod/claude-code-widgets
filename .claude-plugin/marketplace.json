@@ -653,6 +653,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "constellation-widget",
+      "source": "./plugins/constellation-widget",
+      "description": "A night sky that gains a star each turn and joins them into a named constellation.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
