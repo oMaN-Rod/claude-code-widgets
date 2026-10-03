@@ -60,6 +60,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `equalizer-widget` | `/equalizer-widget [on\|off]` | Level meters that jump with each tool call and fall back to rest |
 | `constellation-widget` | `/constellation-widget [on\|off\|clear]` | A star per turn, joined into a constellation that gets a name after nine |
 | `boss-widget` | `/boss-widget [on\|off]` | Context usage as a boss health bar; compaction defeats it and starts the next level |
+| `8ball-widget` | `/8ball-widget [on\|off]`, `/8ball <question>` | `/8ball <question>` gives an answer of doubtful reliability |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

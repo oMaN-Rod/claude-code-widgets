@@ -689,6 +689,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "8ball-widget",
+      "source": "./plugins/8ball-widget",
+      "description": "Ask a yes or no question and get an answer of doubtful reliability.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
