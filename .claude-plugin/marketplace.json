@@ -313,6 +313,78 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "checks-widget",
+      "source": "./plugins/checks-widget",
+      "description": "The latest test, lint and build runs: whether each passed, how long it took and how long ago.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "tests",
+        "checks",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "timer-widget",
+      "source": "./plugins/timer-widget",
+      "description": "How long the current turn has run, with the last, average and longest turn and a sparkline.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "timer",
+        "turns",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "fireworks-widget",
+      "source": "./plugins/fireworks-widget",
+      "description": "A night sky that sets off fireworks when a test, lint or build run passes.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "rain-widget",
+      "source": "./plugins/rain-widget",
+      "description": "Falling code rain that speeds up while tool calls are running.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

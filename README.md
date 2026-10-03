@@ -39,6 +39,10 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `tasks-widget` | `/tasks-widget [on\|off\|clear]` | The task list Claude is working through, with a progress bar |
 | `train-widget` | `/train-widget [on\|off]` | A locomotive pulling one wagon per tool call this turn, coloured by tool |
 | `sky-widget` | `/sky-widget [on\|off]` | The sky at your local time: sun by day, moon by night, more stars the longer the session runs |
+| `checks-widget` | `/checks-widget [on\|off\|clear]` | The latest test, lint and build runs: pass or fail, duration and how long ago |
+| `timer-widget` | `/timer-widget [on\|off\|clear]` | The running turn's elapsed time, plus last, average and longest turn and a sparkline |
+| `fireworks-widget` | `/fireworks-widget [on\|off\|demo]` | A night sky that sets off fireworks when checks pass, and a dud when they fail |
+| `rain-widget` | `/rain-widget [on\|off]` | Falling code rain that speeds up the busier the turn gets |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

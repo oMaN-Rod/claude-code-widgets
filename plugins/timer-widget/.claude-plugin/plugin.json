@@ -1,0 +1,21 @@
+{
+  "name": "timer-widget",
+  "version": "1.0.0",
+  "description": "How long the current turn has run, with the last, average and longest turn and a sparkline.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "timer",
+    "turns",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
