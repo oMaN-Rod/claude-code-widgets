@@ -385,6 +385,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "notes-widget",
+      "source": "./plugins/notes-widget",
+      "description": "Pinned notes that stay on screen and survive restarts; add one with /note.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "notes",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

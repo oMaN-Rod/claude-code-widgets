@@ -43,6 +43,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `timer-widget` | `/timer-widget [on\|off\|clear]` | The running turn's elapsed time, plus last, average and longest turn and a sparkline |
 | `fireworks-widget` | `/fireworks-widget [on\|off\|demo]` | A night sky that sets off fireworks when checks pass, and a dud when they fail |
 | `rain-widget` | `/rain-widget [on\|off]` | Falling code rain that speeds up the busier the turn gets |
+| `notes-widget` | `/notes-widget [on\|off\|clear]`, `/note <text\|done <n>>` | Pinned notes kept across sessions; `/note <text>` adds one, `/note done <n>` removes it |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
