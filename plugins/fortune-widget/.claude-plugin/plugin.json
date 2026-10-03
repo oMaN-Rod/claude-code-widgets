@@ -1,0 +1,20 @@
+{
+  "name": "fortune-widget",
+  "version": "1.0.0",
+  "description": "A one-line fortune for the turn, drawn fresh each time you send a prompt.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "fun",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

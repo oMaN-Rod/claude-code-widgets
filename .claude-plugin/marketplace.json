@@ -420,6 +420,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "fortune-widget",
+      "source": "./plugins/fortune-widget",
+      "description": "A one-line fortune for the turn, drawn fresh each time you send a prompt.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
