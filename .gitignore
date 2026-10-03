@@ -1,0 +1,7 @@
+# Written by Claude Code beside each mod it loads
+plugins/*/.claude-plugin/types/
+plugins/*/tsconfig.json
+
+node_modules/
+.DS_Store
+Thumbs.db

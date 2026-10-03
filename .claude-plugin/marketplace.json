@@ -1,0 +1,174 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-code-widgets",
+  "description": "Live widgets for Claude Code: context, usage and file tree cards, plus a pixel pet, skyline, aquarium, weather and snake.",
+  "owner": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "metadata": {
+    "description": "Live widgets for Claude Code, built as mods.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "widgets",
+      "source": "./plugins/widgets",
+      "description": "Layout for the widget cards: below the prompt, above it, or docked beside the transcript. Required by every widget.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "layout",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "context-widget",
+      "source": "./plugins/context-widget",
+      "description": "The context window as a stacked bar, one colour per /context category, with six view modes.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "context",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "usage-widget",
+      "source": "./plugins/usage-widget",
+      "description": "A bar per rate-limit window with time to reset and session cost.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "usage",
+        "rate-limits",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "file-tree-widget",
+      "source": "./plugins/file-tree-widget",
+      "description": "A file tree of the project directory with expandable folders.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "files",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "pet-widget",
+      "source": "./plugins/pet-widget",
+      "description": "Clawd, a pixel crab whose mood follows the session.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "skyline-widget",
+      "source": "./plugins/skyline-widget",
+      "description": "A pixel skyline: one building per turn, one floor per tool call.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "aquarium-widget",
+      "source": "./plugins/aquarium-widget",
+      "description": "An aquarium with a fish for every running tool call and agent.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "weather-widget",
+      "source": "./plugins/weather-widget",
+      "description": "Context usage drawn as weather, from clear skies to a storm near compaction.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "snake-widget",
+      "source": "./plugins/snake-widget",
+      "description": "Snake that plays itself until you take the keys.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "game",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    }
+  ]
+}
