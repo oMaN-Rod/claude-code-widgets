@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 42 widgets, from git status and a turn timer to a pixel crab, a campfire and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 61 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 ## Install
 
@@ -80,7 +80,7 @@ Pixel art that reacts to turns, tool calls, checks and context usage.
 
 | Plugin | Command | What it shows |
 | --- | --- | --- |
-| `pet-widget` | `/pet-widget [on\|off\|<mood>]` | Clawd, a pixel crab: works during a turn, dizzy when a tool call fails, happy when tests pass |
+| `pet-widget` | `/pet-widget [on\|off\|<mood>]` | Clawd, a pixel crab: works during a turn, dizzy when a tool call fails, happy when tests pass. Earns XP and levels up across sessions, wears a hat once `badges-widget` has awarded a badge, and with two sessions open stays in the one you last prompted |
 | `aquarium-widget` | `/aquarium-widget [on\|off\|demo]` | A fish for every running tool call and agent |
 | `skyline-widget` | `/skyline-widget [on\|off\|demo\|clear]` | One building per turn, one floor per tool call |
 | `train-widget` | `/train-widget [on\|off]` | A locomotive pulling one wagon per tool call this turn, coloured by tool |
@@ -143,6 +143,9 @@ Placement, which widgets are on, and view modes are saved and restored in every 
 - `/widgets width pet 60` sets how wide one widget's card may grow (the default is 40 columns); `/widgets width pet reset` puts it back.
 - `/widgets side` docks the cards beside the transcript only in the fullscreen layout (`/tui fullscreen`). In the default layout it falls back to below the prompt.
 - The pixel art is drawn with terminal block characters and shows in the terminal only.
+- `sound-widget` plays audio on macOS only; elsewhere it stays silent and just draws the piano roll.
+- `board-widget` registers a `pin` tool that Claude can call, so its description is part of the context while the board is on.
+- `watch-widget` runs your command through `sh -c`, falling back to `cmd /c`.
 - Taking over a game, and playing Minesweeper at all, needs a mouse click on the board, which the fullscreen layout reports.
 
 ## Develop

@@ -54,6 +54,8 @@ const SAYS: Record<PetMood, string> = {
   dizzy: 'ouch',
   hot: 'context is filling up',
 }
+const POLL_TICKS = 5
+const STAY_MS = 30 * 60_000
 const SHELLS = [0xd97757, 0xe8a23a, 0x9775fa]
 const HATS = [
   { badges: 8, lines: ['c.cc.c', 'cccccc'], palette: { c: 0xffd43b } },
@@ -66,6 +68,7 @@ const isOn = atom({ plugin: 'pet-widget', key: 'isOn' } as const, false)
 const tick = atom({ plugin: 'pet-widget', key: 'tick' } as const, 0)
 const status = atom({ plugin: 'pet-widget', key: 'status' } as const, RESTING)
 const growth = atom({ plugin: 'pet-widget', key: 'growth' } as const, { xp: 0 })
+const visit = atom({ plugin: 'pet-widget', key: 'visit' } as const, { id: '', isAway: false })
 
 let timer: Timer | undefined
 
@@ -76,11 +79,52 @@ const shade = (color: number, factor: number): number =>
 
 const isMood = (value: string): value is PetMood => MOODS.includes(value)
 
+const isHome = (value: unknown): value is { holder: string; at: number } =>
+  typeof value === 'object' &&
+  value !== null &&
+  typeof (value as { holder?: unknown }).holder === 'string' &&
+  typeof (value as { at?: unknown }).at === 'number'
+
+const claim = async ($: EngineInterface): Promise<void> => {
+  const me = await read($, visit)
+  if (me.id === '') return
+
+  await $.store.set('home', { holder: me.id, at: await $.clock.now() })
+  await update($, visit, held => ({ id: held?.id ?? me.id, isAway: false }))
+}
+
+const look = async ($: EngineInterface): Promise<void> => {
+  const me = await read($, visit)
+  const home = await $.store.get('home')
+  const now = await $.clock.now()
+  if (me.id === '') return
+  if (!isHome(home) || now - home.at >= STAY_MS) {
+    await claim($)
+
+    return
+  }
+
+  const isAway = home.holder !== me.id
+  if (isAway !== me.isAway) await update($, visit, held => ({ id: held?.id ?? me.id, isAway }))
+}
+
+const pulse = async ($: EngineInterface): Promise<void> => {
+  const count = await update($, tick, held => ((held ?? 0) + 1) % 1_000_000)
+  if (count % POLL_TICKS === 0) await look($)
+}
+
+const enrol = async ($: EngineInterface): Promise<void> => {
+  const now = await $.clock.now()
+  await update($, visit, held =>
+    held === undefined || held.id === '' ? { id: `${now}-${Math.floor(Math.random() * 1_000_000)}`, isAway: false } : held,
+  )
+}
+
 const sync = async ($: EngineInterface): Promise<void> => {
   const isWanted = await read($, isOn)
   if (isWanted && timer === undefined) {
     timer = $.clock.every(TICK_MS, () => {
-      void update($, tick, count => ((count ?? 0) + 1) % 1_000_000)
+      void pulse($)
     })
   }
   if (!isWanted && timer !== undefined) {
@@ -132,6 +176,20 @@ const show = async (
   const shell = mood === 'hot' ? 0xe5484d : isStill ? shade(form, 0.7) : form
   const badges = await badgesOf($)
   const hat = HATS.find(one => badges >= one.badges)
+
+  if ((await read($, visit)).isAway) {
+    return $.widgets.card({
+      beneath,
+      width: Math.min(await wide($), Math.max(20, columns)),
+      title: `Clawd Lv ${level}`,
+      note: 'away',
+      body: (
+        <Text dimColor wrap="wrap">
+          Clawd is visiting another session. It comes back when you send a prompt here.
+        </Text>
+      ),
+    })
+  }
   const palette = {
     o: shell,
     d: shade(shell, 0.7),
@@ -195,6 +253,8 @@ export const register: Register = on => {
     if (typeof kept === 'number') await update($, growth, () => ({ xp: kept }))
     const now = await $.clock.now()
     await update($, status, held => ({ ...(held ?? RESTING), isWorking: false, activeAt: now }))
+    await enrol($)
+    if (await read($, isOn)) await look($)
     await sync($)
 
     return next(e)
@@ -230,6 +290,8 @@ export const register: Register = on => {
 
   on('turn.start', async ($, e, next) => {
     const now = await $.clock.now()
+    await enrol($)
+    if (await read($, isOn)) await claim($)
     await update($, status, held => ({
       ...(held ?? RESTING),
       isWorking: true,

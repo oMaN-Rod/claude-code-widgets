@@ -154,3 +154,43 @@ test('levels up with XP and wears a hat once badges are earned', { plugins: [LAY
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(bare)
   await ui.unmount()
 })
+
+test('goes away when another session holds it and comes back on a prompt', { plugins: [LAYOUT] }, async ($, on) => {
+  const data: Record<string, unknown> = { isOn: true }
+
+  on('ui.render', ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('turn.start', (_$, e) => ({ turnId: e.turnId }))
+  on('store.get', (_$, e) => ({ value: data[e.key] }))
+  on('store.set', (_$, e) => {
+    data[e.key] = e.value
+
+    return { value: undefined }
+  })
+  const clock = mock.clock(on, { now: 1000 })
+
+  await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
+  await $.command.run(run('place', 'above'))
+  const mine = (data.home as { holder: string }).holder
+  expect(mine).not.toBe('')
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Raster' })).toBeDefined()
+
+  data.home = { holder: 'another-session', at: 2000 }
+  await clock.advance(3000)
+  expect(await ui.find({ text: /^away$/ })).toBeDefined()
+  expect(await ui.find({ text: /visiting another session/ })).toBeDefined()
+  expect(await ui.find({ type: 'Raster' })).toBeUndefined()
+
+  await $.turn.start({ text: 'go', turnId: 't1' })
+  expect((data.home as { holder: string }).holder).toBe(mine)
+  expect(await ui.find({ text: /^work$/ })).toBeDefined()
+  expect(await ui.find({ type: 'Raster' })).toBeDefined()
+  await ui.unmount()
+})

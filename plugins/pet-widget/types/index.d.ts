@@ -12,8 +12,13 @@ export type PetGrowth = {
   xp: number
 }
 
+export type PetVisit = {
+  id: string
+  isAway: boolean
+}
+
 declare module 'claude-code' {
   interface PluginState {
-    'pet-widget': { isOn: boolean; tick: number; status: PetStatus; growth: PetGrowth }
+    'pet-widget': { isOn: boolean; tick: number; status: PetStatus; growth: PetGrowth; visit: PetVisit }
   }
 }
