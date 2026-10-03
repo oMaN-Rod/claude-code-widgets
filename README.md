@@ -49,6 +49,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `badges-widget` | `/badges-widget [on\|off\|reset]` | Achievements earned across sessions, with a toast when one unlocks |
 | `invaders-widget` | `/invaders-widget [on\|off\|demo\|clear]` | An invader arrives for every failing check; passing checks shoot them down |
 | `2048-widget` | `/2048-widget [on\|off]` | 2048; it plays itself until you take the keys |
+| `commits-widget` | `C:/Program Files/Git/commits-widget` | The commits made since the session started |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

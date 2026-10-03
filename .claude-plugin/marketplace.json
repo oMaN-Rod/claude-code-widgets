@@ -491,6 +491,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "commits-widget",
+      "source": "./plugins/commits-widget",
+      "description": "The commits made since the session started.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "git",
+        "commits",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
