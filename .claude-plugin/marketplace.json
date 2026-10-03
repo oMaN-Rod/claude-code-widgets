@@ -851,6 +851,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "guard-widget",
+      "source": "./plugins/guard-widget",
+      "description": "A tally of this session's permission checks: what was allowed, what you were asked about and what was denied.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "permissions",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

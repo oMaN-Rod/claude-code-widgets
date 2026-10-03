@@ -1,0 +1,20 @@
+{
+  "name": "guard-widget",
+  "version": "1.0.0",
+  "description": "A tally of this session's permission checks: what was allowed, what you were asked about and what was denied.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "permissions",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

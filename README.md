@@ -43,6 +43,7 @@ What Claude is doing and what it is costing.
 | `timeline-widget` | `/timeline-widget [on\|off]` | The turn as a chart: one bar per tool call on a time axis, parallel calls stacked |
 | `board-widget` | `/board-widget [on\|off\|clear]` | A status board Claude writes itself through a `pin` tool: goal, findings and open questions |
 | `forecast-widget` | `/forecast-widget [on\|off\|clear]` | Context growth per turn as a chart, with the turns left before compaction |
+| `guard-widget` | `/guard-widget [on\|off\|clear]` | Permission checks this session: allowed, asked and denied, with what you keep being asked about |
 
 ### Project and git
 
