@@ -599,6 +599,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "orbit-widget",
+      "source": "./plugins/orbit-widget",
+      "description": "A small solar system whose planets speed up while tool calls are running.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
