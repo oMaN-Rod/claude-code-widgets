@@ -7,15 +7,13 @@ import type {
   RenderNode,
   RenderSurface,
 } from 'claude-code'
+import type { WidgetsPlace } from 'widgets'
 
 import type { ContextMode, ContextSlice, ContextSnapshot } from '../types'
 
 type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text'>
-type Place = 'side' | 'above' | 'below'
 
 const PANE = 'widgets'
-const STACK = 'widgets-stack'
-const HINT = 'widgets-hint'
 const CARD_COLUMNS = 40
 const LINE_CELLS = 20
 const GLYPH = { used: '█', buffer: '▒', free: '░' } as const
@@ -36,27 +34,6 @@ const snapshot = atom(
   { plugin: 'context-widget', key: 'snapshot' } as const,
   null,
 )
-
-const keyOf = (node: RenderNode | undefined): unknown =>
-  typeof node === 'object' ? (node as { props?: { key?: unknown } }).props?.key : undefined
-
-const childrenOf = (node: RenderNode | undefined): RenderNode[] =>
-  typeof node === 'object' ? ((node as { children?: RenderNode[] }).children ?? []) : []
-
-const stack = ({ Box }: Tags, beneath: RenderElement, card: RenderElement): RenderElement => {
-  const isStack = keyOf(beneath) === STACK
-  const [base, cards] = childrenOf(beneath)
-
-  return (
-    <Box key={STACK} flexDirection="column">
-      {isStack ? base : <Box flexDirection="column">{keyOf(beneath) === HINT ? null : beneath}</Box>}
-      <Box flexDirection="row" flexWrap="wrap" columnGap={1}>
-        {isStack ? childrenOf(cards) : null}
-        {card}
-      </Box>
-    </Box>
-  )
-}
 
 const tokens = (count: number): string => {
   if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1)}M`
@@ -253,7 +230,7 @@ const show = async (
   $: EngineInterface,
   tags: Tags,
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
   isDocked: boolean,
 ): Promise<RenderElement> => {
@@ -262,7 +239,7 @@ const show = async (
 
   const width = Math.min(CARD_COLUMNS, Math.max(20, columns))
 
-  return stack(tags, beneath, await drawCard($, tags, width, isDocked))
+  return $.widgets.stack({ beneath, card: await drawCard($, tags, width, isDocked) })
 }
 
 export const register: Register = on => {

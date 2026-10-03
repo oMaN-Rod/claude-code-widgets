@@ -51,6 +51,22 @@ const place = (args: string) =>
 const LAYOUT: Plugin = {
   name: 'widgets',
   register(on) {
+    on('engine.create', async (_$, e, next) => ({
+      ...(await next(e)),
+      widgets: {
+        stack: async ({ beneath, card }) => ({ type: 'Box' as const, children: [beneath, card] }),
+        card: async ({ beneath, title, note, body }) => ({
+          type: 'Box' as const,
+          children: [
+            beneath,
+            { type: 'Text' as const, children: [title ?? 'untitled'] },
+            { type: 'Text' as const, children: [note ?? 'no note'] },
+            body,
+          ],
+        }),
+        picture: async () => ({ type: 'Text' as const, children: ['no picture'] }),
+      },
+    }))
     on('command.run', { command: 'place' }, async ($, e) => {
       await $.state.set({ plugin: 'widgets', key: 'site' } as const, e.args as 'side')
 

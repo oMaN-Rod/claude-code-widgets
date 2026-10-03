@@ -40,6 +40,22 @@ const run = (command: string, args = '') =>
 const LAYOUT: Plugin = {
   name: 'widgets',
   register(on) {
+    on('engine.create', async (_$, e, next) => ({
+      ...(await next(e)),
+      widgets: {
+        stack: async ({ beneath, card }) => ({ type: 'Box' as const, children: [beneath, card] }),
+        card: async ({ beneath, title, note, body }) => ({
+          type: 'Box' as const,
+          children: [
+            beneath,
+            { type: 'Text' as const, children: [title ?? 'untitled'] },
+            { type: 'Text' as const, children: [note ?? 'no note'] },
+            body,
+          ],
+        }),
+        picture: async () => ({ type: 'Text' as const, children: ['no picture'] }),
+      },
+    }))
     on('command.run', { command: 'place' }, async ($, e) => {
       await $.state.set({ plugin: 'widgets', key: 'site' } as const, e.args as 'side')
 
@@ -120,7 +136,6 @@ test('draws its card where the layout mod places the widgets', { plugins: [LAYOU
   await $.command.run(run('place', 'above'))
   const band = await $.ui.mount({ ...BAND, surface: 'terminal' })
   expect(await band.find({ text: /Messages 30%/ })).toBeDefined()
-  expect((await band.find({ key: 'widgets-stack' }))?.type).toBe('Box')
   await band.unmount()
 
   const pane = await $.ui.mount({ ...PANE, surface: 'terminal' })
@@ -128,36 +143,6 @@ test('draws its card where the layout mod places the widgets', { plugins: [LAYOU
   await pane.unmount()
 
   expect((await $.command.run(run('context-widget'))).text).toMatch(/off/)
-})
-
-test('joins the row of cards another widget already drew', { plugins: [LAYOUT] }, async ($, on) => {
-  on('ui.render', ($, e) => {
-    const { Box, Text } = $.ui.resolve(e)
-
-    return (
-      <Box key="widgets-stack" flexDirection="column">
-        <Box flexDirection="column" />
-        <Box flexDirection="row" flexWrap="wrap" columnGap={1}>
-          <Text>another card</Text>
-        </Box>
-      </Box>
-    )
-  })
-  on('session.usage', () => ({ value: USAGE }))
-  mock.store(on)
-
-  await $.command.run(run('place', 'side'))
-  await $.command.run(run('context-widget'))
-
-  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
-  const drawn = (await ui.drawn()) as {
-    children: { props?: { flexDirection?: string }; children: unknown[] }[]
-  }
-  expect(await ui.findAll({ key: 'widgets-stack' })).toHaveLength(1)
-  expect(drawn.children).toHaveLength(2)
-  expect(drawn.children[1]?.props?.flexDirection).toBe('row')
-  expect(drawn.children[1]?.children).toHaveLength(2)
-  expect(await ui.find({ text: /^another card$/ })).toBeDefined()
 })
 
 test('draws each view mode at its own height', { plugins: [LAYOUT] }, async ($, on) => {

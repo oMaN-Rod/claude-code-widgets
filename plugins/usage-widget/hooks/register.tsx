@@ -9,15 +9,13 @@ import type {
   SessionCost,
   SessionRateLimit,
 } from 'claude-code'
+import type { WidgetsPlace } from 'widgets'
 
 import type { UsageSnapshot } from '../types'
 
 type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text'>
-type Place = 'side' | 'above' | 'below'
 
 const PANE = 'widgets'
-const STACK = 'widgets-stack'
-const HINT = 'widgets-hint'
 const CARD_COLUMNS = 40
 const LABELS: Record<string, string> = {
   five_hour: '5-hour',
@@ -35,27 +33,6 @@ const snapshot = atom(
   { plugin: 'usage-widget', key: 'snapshot' } as const,
   null,
 )
-
-const keyOf = (node: RenderNode | undefined): unknown =>
-  typeof node === 'object' ? (node as { props?: { key?: unknown } }).props?.key : undefined
-
-const childrenOf = (node: RenderNode | undefined): RenderNode[] =>
-  typeof node === 'object' ? ((node as { children?: RenderNode[] }).children ?? []) : []
-
-const stack = ({ Box }: Tags, beneath: RenderElement, card: RenderElement): RenderElement => {
-  const isStack = keyOf(beneath) === STACK
-  const [base, cards] = childrenOf(beneath)
-
-  return (
-    <Box key={STACK} flexDirection="column">
-      {isStack ? base : <Box flexDirection="column">{keyOf(beneath) === HINT ? null : beneath}</Box>}
-      <Box flexDirection="row" flexWrap="wrap" columnGap={1}>
-        {isStack ? childrenOf(cards) : null}
-        {card}
-      </Box>
-    </Box>
-  )
-}
 
 const snap = (
   rateLimits: readonly SessionRateLimit[],
@@ -130,7 +107,7 @@ const show = async (
   $: EngineInterface,
   tags: Tags,
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
 ): Promise<RenderElement> => {
   if (!(await read($, isOn))) return beneath
@@ -138,7 +115,7 @@ const show = async (
 
   const width = Math.min(CARD_COLUMNS, Math.max(20, columns))
 
-  return stack(tags, beneath, await drawCard($, tags, width))
+  return $.widgets.stack({ beneath, card: await drawCard($, tags, width) })
 }
 
 export const register: Register = on => {

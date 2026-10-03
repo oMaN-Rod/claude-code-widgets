@@ -7,15 +7,14 @@ import type {
   RenderNode,
   RenderSurface,
 } from 'claude-code'
+import type { WidgetsPlace } from 'widgets'
 
 import type { Tree, TreeDir } from '../types'
 
 type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text' | 'Button'>
-type Place = 'side' | 'above' | 'below'
 
 const PANE = 'widgets'
-const STACK = 'widgets-stack'
-const HINT = 'widgets-hint'
+const SLOT = 'file-tree-slot'
 const CARD_COLUMNS = 40
 const COMPACT_ROWS = 10
 const SKIPPED = new Set(['.git', 'node_modules'])
@@ -23,27 +22,6 @@ const MAX_ENTRIES = 200
 const site = { plugin: 'widgets', key: 'site' } as const
 const isOn = atom({ plugin: 'file-tree-widget', key: 'isOn' } as const, false)
 const tree = atom({ plugin: 'file-tree-widget', key: 'tree' } as const, null)
-
-const keyOf = (node: RenderNode | undefined): unknown =>
-  typeof node === 'object' ? (node as { props?: { key?: unknown } }).props?.key : undefined
-
-const childrenOf = (node: RenderNode | undefined): RenderNode[] =>
-  typeof node === 'object' ? ((node as { children?: RenderNode[] }).children ?? []) : []
-
-const stack = ({ Box }: Tags, beneath: RenderElement, card: RenderElement): RenderElement => {
-  const isStack = keyOf(beneath) === STACK
-  const [base, cards] = childrenOf(beneath)
-
-  return (
-    <Box key={STACK} flexDirection="column">
-      {isStack ? base : <Box flexDirection="column">{keyOf(beneath) === HINT ? null : beneath}</Box>}
-      <Box flexDirection="row" flexWrap="wrap" columnGap={1}>
-        {isStack ? childrenOf(cards) : null}
-        {card}
-      </Box>
-    </Box>
-  )
-}
 
 const list = async ($: EngineInterface, path: string): Promise<TreeDir> => {
   const found = await $.fs.list(path)
@@ -102,6 +80,16 @@ const toggle = async ($: EngineInterface, path: string): Promise<void> => {
         }
       : null,
   )
+}
+
+const fill = (node: RenderNode, card: RenderElement): RenderNode => {
+  if (typeof node !== 'object') return node
+  const { props, children } = node as { props?: { key?: unknown }; children?: RenderNode[] }
+  if (props?.key === SLOT) return card
+
+  return children === undefined
+    ? node
+    : ({ ...node, children: children.map(child => fill(child, card)) } as RenderElement)
 }
 
 const drawCard = async (
@@ -168,7 +156,7 @@ const show = async (
   $: EngineInterface,
   tags: Tags,
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
   maxRows: number,
 ): Promise<RenderElement> => {
@@ -177,7 +165,10 @@ const show = async (
 
   const width = Math.min(CARD_COLUMNS, Math.max(20, columns))
 
-  return stack(tags, beneath, await drawCard($, tags, width, maxRows))
+  const card = await drawCard($, tags, width, maxRows)
+  const stacked = await $.widgets.stack({ beneath, card: <tags.Box key={SLOT} /> })
+
+  return fill(stacked, card) as RenderElement
 }
 
 export const register: Register = on => {
