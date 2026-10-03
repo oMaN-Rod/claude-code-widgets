@@ -1084,6 +1084,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "typer-widget",
+      "source": "./plugins/typer-widget",
+      "description": "A typing game for long turns: words fall, taken from your own file names; type them before they land.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "game",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

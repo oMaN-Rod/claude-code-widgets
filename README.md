@@ -124,6 +124,7 @@ Snake, 2048 and Tetris play themselves until you click the board and take the ke
 | `tetris-widget` | `/tetris-widget [on\|off]` | Tetris; it plays itself until you take the keys |
 | `minesweeper-widget` | `/minesweeper-widget [on\|off]` | Minesweeper: click to reveal, right-click or `f` to flag, `r` to restart |
 | `breakout-widget` | `/breakout-widget [on\|off\|reset]` | A self-playing brick breaker; every tool call adds a row of bricks |
+| `typer-widget` | `/typer-widget [on\|off]` | A typing game: words from your own file names fall, and you type them before they land |
 
 ### Just for fun
 
