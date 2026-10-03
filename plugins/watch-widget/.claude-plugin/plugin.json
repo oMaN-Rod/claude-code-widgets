@@ -1,0 +1,21 @@
+{
+  "name": "watch-widget",
+  "version": "1.0.0",
+  "description": "Reruns a command after every edit and shows a pass or fail light with the first failing lines.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "tests",
+    "watch",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

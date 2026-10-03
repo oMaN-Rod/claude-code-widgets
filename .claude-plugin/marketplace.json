@@ -886,6 +886,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "watch-widget",
+      "source": "./plugins/watch-widget",
+      "description": "Reruns a command after every edit and shows a pass or fail light with the first failing lines.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "tests",
+        "watch",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

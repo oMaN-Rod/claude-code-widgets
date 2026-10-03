@@ -58,6 +58,7 @@ The state of the working tree.
 | `commits-widget` | `/commits-widget` | The commits made since the session started |
 | `todos-widget` | `/todos-widget` | TODO, FIXME, HACK and XXX comments in tracked files, counted and listed |
 | `diff-widget` | `/diff-widget [on\|off\|clear]` | The last edit as a syntax-highlighted diff |
+| `watch-widget` | `/watch-widget [on\|off\|run\|stop]`, `/watch <command>` | `/watch bun test` reruns the command after every edit: a pass or fail light and the last failing lines |
 
 ### Time and focus
 
