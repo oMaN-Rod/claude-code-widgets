@@ -1,0 +1,21 @@
+{
+  "name": "stream-widget",
+  "version": "1.0.0",
+  "description": "A live gauge of how fast Claude is writing, in tokens per second, with a sparkline.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "tokens",
+    "streaming",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
