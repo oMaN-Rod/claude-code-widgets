@@ -904,6 +904,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "sessions-widget",
+      "source": "./plugins/sessions-widget",
+      "description": "The other Claude Code sessions open on this machine: folder, branch, and whether each is busy.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "sessions",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

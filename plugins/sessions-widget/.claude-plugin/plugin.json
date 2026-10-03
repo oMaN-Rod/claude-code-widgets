@@ -1,0 +1,20 @@
+{
+  "name": "sessions-widget",
+  "version": "1.0.0",
+  "description": "The other Claude Code sessions open on this machine: folder, branch, and whether each is busy.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "sessions",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

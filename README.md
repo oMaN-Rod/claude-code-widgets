@@ -45,6 +45,7 @@ What Claude is doing and what it is costing.
 | `forecast-widget` | `/forecast-widget [on\|off\|clear]` | Context growth per turn as a chart, with the turns left before compaction |
 | `guard-widget` | `/guard-widget [on\|off\|clear]` | Permission checks this session: allowed, asked and denied, with what you keep being asked about |
 | `stream-widget` | `/stream-widget [on\|off]` | A live tokens-per-second gauge and sparkline while Claude is writing (estimated from text length) |
+| `sessions-widget` | `/sessions-widget [on\|off]` | The other Claude Code sessions open on this machine: folder, branch, busy or idle |
 
 ### Project and git
 
