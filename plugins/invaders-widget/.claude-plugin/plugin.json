@@ -1,0 +1,21 @@
+{
+  "name": "invaders-widget",
+  "version": "1.0.0",
+  "description": "Every failing check sends in an invader; every passing check shoots one down.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "pixel-art",
+    "fun",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
