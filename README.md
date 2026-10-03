@@ -56,6 +56,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `countdown-widget` | `/countdown-widget [on\|off\|clear]`, `/countdown <HH:MM\|<n>m\|<n>h> [label]` | Time left to a deadline you set, with a progress bar and a toast when it arrives |
 | `clocks-widget` | `/clocks-widget [on\|off\|add <zone>\|remove <zone>\|clear]` | Your local time beside the time zones you add, such as `Asia/Tokyo` |
 | `orbit-widget` | `/orbit-widget [on\|off]` | A small solar system; the planets speed up while tool calls run |
+| `sorting-widget` | `/sorting-widget [on\|off\|step]` | A bar chart being sorted, one swap per tool call |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
