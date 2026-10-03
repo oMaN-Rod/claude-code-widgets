@@ -94,6 +94,7 @@ Pixel art that reacts to turns, tool calls, checks and context usage.
 | `sky-widget` | `/sky-widget [on\|off]` | The sky at your local time: sun by day, moon by night, more stars the longer the session runs |
 | `world-widget` | `/world-widget [on\|off\|clear]` | One scene for everything: sky by the clock, weather by context, a tower per turn, a train of tool calls and a wandering crab |
 | `quest-widget` | `/quest-widget [on\|off\|reset]` | The session as a dungeon crawl: a room per turn, a monster per tool call, loot when checks pass; the hero is kept across sessions |
+| `race-widget` | `/race-widget [on\|off\|clear]` | Parallel subagents as cars on a track, one stride per tool call, with a podium as they finish |
 
 ### Visualizers
 

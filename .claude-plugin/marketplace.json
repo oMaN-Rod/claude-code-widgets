@@ -975,6 +975,25 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "race-widget",
+      "source": "./plugins/race-widget",
+      "description": "A race track for parallel subagents: each advances one stride per tool call, with a podium as they finish.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "agents",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
