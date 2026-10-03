@@ -1,0 +1,21 @@
+{
+  "name": "timeline-widget",
+  "version": "1.0.0",
+  "description": "A chart of the turn: one bar per tool call on a time axis, parallel calls stacked, coloured by tool.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "timeline",
+    "tools",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
