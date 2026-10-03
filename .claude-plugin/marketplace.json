@@ -724,6 +724,25 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "breakout-widget",
+      "source": "./plugins/breakout-widget",
+      "description": "A brick breaker that plays itself; every tool call adds a row of bricks.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "game",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

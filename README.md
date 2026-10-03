@@ -62,6 +62,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `boss-widget` | `/boss-widget [on\|off]` | Context usage as a boss health bar; compaction defeats it and starts the next level |
 | `8ball-widget` | `/8ball-widget [on\|off]`, `/8ball <question>` | `/8ball <question>` gives an answer of doubtful reliability |
 | `coffee-widget` | `/coffee-widget [on\|off\|refill\|<minutes>]` | A cup that empties over 90 minutes and nudges you to take a break |
+| `breakout-widget` | `/breakout-widget [on\|off\|reset]` | A self-playing brick breaker; every tool call adds a row of bricks |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
