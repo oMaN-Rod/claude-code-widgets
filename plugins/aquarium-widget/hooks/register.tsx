@@ -1,11 +1,11 @@
 import { atom, read, update } from 'claude-code'
-import type { EngineInterface, Register, RenderElement, Timer } from 'claude-code'
+import type { EngineInterface, Register, RenderElement, RenderSurface, Timer } from 'claude-code'
+import type { WidgetsMark, WidgetsPlace } from 'widgets'
 
 import type { Swimmer } from '../types'
-import { CARD_COLUMNS, canvas, dot, frame, paint, picture, stack, tagsOf } from './kit'
-import type { Place, Tags } from './kit'
 
 const PANE = 'widgets'
+const CARD_COLUMNS = 40
 const TICK_MS = 400
 const DEMO_MS = 30_000
 const TANK_ROWS = 12
@@ -58,26 +58,31 @@ const hash = (text: string): number => {
   return sum
 }
 
-const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<RenderElement> => {
+const drawCard = async (
+  $: EngineInterface,
+  surface: RenderSurface,
+  beneath: RenderElement,
+  width: number,
+): Promise<RenderElement> => {
   const beat = await read($, tick)
   const now = await $.clock.now()
   const swimming = (await read($, swimmers)).filter(one => one.until === undefined || one.until > now)
   const inner = (width - 4) * 2
-  const pixels = canvas(inner, TANK_ROWS, WATER)
+  const marks: WidgetsMark[] = []
 
   for (let x = 0; x < inner; x += 1) {
-    dot(pixels, x, 0, SURFACE)
-    dot(pixels, x, TANK_ROWS - 1, x % 5 === 0 ? PEBBLE : SAND)
+    marks.push([x, 0, SURFACE])
+    marks.push([x, TANK_ROWS - 1, x % 5 === 0 ? PEBBLE : SAND])
   }
   for (const [x, height] of [[8, 5], [12, 3], [inner - 14, 4]] as const) {
     for (let y = 0; y < height; y += 1) {
       const sway = (beat + y) % 4 === 0 ? 1 : 0
-      dot(pixels, x + sway, TANK_ROWS - 2 - y, WEED)
-      dot(pixels, x + sway + 1, TANK_ROWS - 2 - y, WEED_DARK)
+      marks.push([x + sway, TANK_ROWS - 2 - y, WEED])
+      marks.push([x + sway + 1, TANK_ROWS - 2 - y, WEED_DARK])
     }
   }
   for (const [x, offset] of [[18, 0], [inner - 24, 4], [Math.floor(inner / 2), 7]] as const) {
-    dot(pixels, x, TANK_ROWS - 2 - ((beat + offset) % (TANK_ROWS - 2)), BUBBLE)
+    marks.push([x, TANK_ROWS - 2 - ((beat + offset) % (TANK_ROWS - 2)), BUBBLE])
   }
 
   for (const fish of [RESIDENT, ...swimming]) {
@@ -90,32 +95,39 @@ const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<
     const isLeftward = seed % 2 === 1
     const left = isLeftward ? inner + length - travelled : travelled - length
 
-    paint(pixels, sprite, COLORS[fish.kind], left, lane, isLeftward)
+    marks.push({ lines: sprite, palette: COLORS[fish.kind], left, top: lane, isMirrored: isLeftward })
   }
 
   const agents = swimming.filter(one => one.kind === 'agent').length
   const tools = swimming.length - agents
 
-  return frame(
-    tags,
+  return $.widgets.card({
+    beneath,
     width,
-    'Aquarium',
-    swimming.length === 0 ? 'all quiet' : `${agents} agents · ${tools} tools running`,
-    picture(tags, 'aquarium', pixels),
-  )
+    title: 'Aquarium',
+    note: swimming.length === 0 ? 'all quiet' : `${agents} agents · ${tools} tools running`,
+    body: await $.widgets.picture({
+      surface,
+      key: 'aquarium',
+      columns: inner,
+      rows: TANK_ROWS,
+      fill: WATER,
+      marks,
+    }),
+  })
 }
 
 const show = async (
   $: EngineInterface,
-  tags: Tags,
+  surface: RenderSurface,
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
 ): Promise<RenderElement> => {
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  return stack(tags, beneath, await drawCard($, tags, Math.min(CARD_COLUMNS, Math.max(20, columns))))
+  return drawCard($, surface, beneath, Math.min(CARD_COLUMNS, Math.max(20, columns)))
 }
 
 export const register: Register = on => {
@@ -175,16 +187,16 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'side', e.props.bodyColumns),
+    show($, e.surface, await next(e), 'side', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) =>
     e.props.hasSurvey
       ? next(e)
-      : show($, tagsOf($.ui.resolve(e)), await next(e), 'above', e.props.bodyColumns),
+      : show($, e.surface, await next(e), 'above', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'PromptHint' }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'below', e.viewport?.columns ?? 80),
+    show($, e.surface, await next(e), 'below', e.viewport?.columns ?? 80),
   )
 }

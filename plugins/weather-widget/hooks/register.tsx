@@ -1,18 +1,22 @@
 import { atom, read, update } from 'claude-code'
 import type {
+  Elements,
   EngineInterface,
   Register,
   RenderElement,
+  RenderSurface,
   SessionContextUsage,
   SessionRateLimit,
   Timer,
 } from 'claude-code'
+import type { WidgetsMark, WidgetsPlace } from 'widgets'
 
 import type { WeatherReading } from '../types'
-import { CARD_COLUMNS, canvas, dot, frame, paint, picture, stack, tagsOf } from './kit'
-import type { Place, Tags } from './kit'
+
+type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text'>
 
 const PANE = 'widgets'
+const CARD_COLUMNS = 40
 const TICK_MS = 500
 const SKY_ROWS = 10
 const SUN = [
@@ -70,13 +74,18 @@ const forecast = (percent: number): string => {
   return 'Clear skies'
 }
 
-const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<RenderElement> => {
-  const { Box, Text } = tags
+const drawCard = async (
+  $: EngineInterface,
+  surface: RenderSurface,
+  { Box, Text }: Tags,
+  beneath: RenderElement,
+  width: number,
+): Promise<RenderElement> => {
   const beat = await read($, tick)
   const held = await read($, reading)
   const percent = (await read($, preview)) ?? held.percent ?? 0
   const inner = (width - 4) * 2
-  const pixels = canvas(inner, SKY_ROWS)
+  const marks: WidgetsMark[] = []
   const isStormy = percent >= 90
   const isRainy = percent >= 75
   const cloud = isStormy
@@ -86,60 +95,67 @@ const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<
       : { c: 0xe6edf3, g: 0xafb8c1 }
   const clouds = percent >= 75 ? 4 : percent >= 50 ? 3 : percent >= 25 ? 1 : 0
 
-  for (let x = 0; x < inner; x += 1) dot(pixels, x, SKY_ROWS - 1, x % 7 === 3 ? GRASS_LIGHT : GRASS)
+  for (let x = 0; x < inner; x += 1) marks.push([x, SKY_ROWS - 1, x % 7 === 3 ? GRASS_LIGHT : GRASS])
 
   if (!isRainy) {
-    paint(pixels, SUN, { y: 0xf2cc60, h: 0xfff1b8 }, 4, 1)
+    marks.push({ lines: SUN, palette: { y: 0xf2cc60, h: 0xfff1b8 }, left: 4, top: 1 })
     if (beat % 2 === 0) {
       for (const [x, y] of [[1, 3], [2, 4], [22, 3], [23, 4], [11, 8], [12, 8], [12, 0], [13, 0]] as const) {
-        dot(pixels, x, y, 0xf2cc60)
+        marks.push([x, y, 0xf2cc60])
       }
     }
   }
   for (let index = 0; index < clouds; index += 1) {
     const span = inner + 24
     const left = ((beat + index * Math.floor(span / Math.max(1, clouds))) % span) - 20
-    paint(pixels, CLOUD, cloud, left, index % 2)
+    marks.push({ lines: CLOUD, palette: cloud, left, top: index % 2 })
   }
   if (isRainy) {
     for (let x = 2; x < inner; x += 5) {
-      dot(pixels, x, 5 + ((beat + x) % (SKY_ROWS - 6)), RAIN)
+      marks.push([x, 5 + ((beat + x) % (SKY_ROWS - 6)), RAIN])
     }
   }
-  if (isStormy && beat % 6 < 2) paint(pixels, BOLT, { z: 0xffe066 }, Math.floor(inner / 2), 4)
+  if (isStormy && beat % 6 < 2) {
+    marks.push({ lines: BOLT, palette: { z: 0xffe066 }, left: Math.floor(inner / 2), top: 4 })
+  }
 
   const limits = held.limits
     .map(limit => `${LABELS[limit.kind] ?? limit.kind} ${Math.round(limit.percentUsed)}%`)
     .join(' · ')
 
-  return frame(
-    tags,
+  const picture = await $.widgets.picture({ surface, key: 'weather', columns: inner, rows: SKY_ROWS, marks })
+
+  return $.widgets.card({
+    beneath,
     width,
-    'Weather',
-    `context ${Math.round(percent)}%`,
-    <Box flexDirection="column">
-      {picture(tags, 'weather', pixels)}
-      <Text wrap="truncate-end">{forecast(percent)}</Text>
-      {limits !== '' && (
-        <Text dimColor wrap="truncate-end">
-          limits {limits}
-        </Text>
-      )}
-    </Box>,
-  )
+    title: 'Weather',
+    note: `context ${Math.round(percent)}%`,
+    body: (
+      <Box flexDirection="column">
+        {picture}
+        <Text wrap="truncate-end">{forecast(percent)}</Text>
+        {limits !== '' && (
+          <Text dimColor wrap="truncate-end">
+            limits {limits}
+          </Text>
+        )}
+      </Box>
+    ),
+  })
 }
 
 const show = async (
   $: EngineInterface,
+  surface: RenderSurface,
   tags: Tags,
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
 ): Promise<RenderElement> => {
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  return stack(tags, beneath, await drawCard($, tags, Math.min(CARD_COLUMNS, Math.max(20, columns))))
+  return drawCard($, surface, tags, beneath, Math.min(CARD_COLUMNS, Math.max(20, columns)))
 }
 
 export const register: Register = on => {
@@ -192,16 +208,16 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'side', e.props.bodyColumns),
+    show($, e.surface, $.ui.resolve(e), await next(e), 'side', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) =>
     e.props.hasSurvey
       ? next(e)
-      : show($, tagsOf($.ui.resolve(e)), await next(e), 'above', e.props.bodyColumns),
+      : show($, e.surface, $.ui.resolve(e), await next(e), 'above', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'PromptHint' }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'below', e.viewport?.columns ?? 80),
+    show($, e.surface, $.ui.resolve(e), await next(e), 'below', e.viewport?.columns ?? 80),
   )
 }

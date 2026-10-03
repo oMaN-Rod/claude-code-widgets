@@ -1,10 +1,9 @@
 import { atom, read, update } from 'claude-code'
 import type { Elements, EngineInterface, Register, RenderElement, RenderSurface } from 'claude-code'
-
-import { CARD_COLUMNS, frame, stack, tagsOf } from './kit'
-import type { Place } from './kit'
+import type { WidgetsPlace } from 'widgets'
 
 const PANE = 'widgets'
+const CARD_COLUMNS = 40
 const BOARD_COLUMNS = 32
 const BOARD_ROWS = 10
 const site = { plugin: 'widgets', key: 'site' } as const
@@ -15,14 +14,13 @@ const show = async (
   $: EngineInterface,
   table: Elements[RenderSurface],
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
 ): Promise<RenderElement> => {
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  const tags = tagsOf(table)
-  const { Text } = tags
+  const { Text } = table
   const record = await read($, best)
   const width = Math.min(CARD_COLUMNS, Math.max(BOARD_COLUMNS + 4, columns))
   const board =
@@ -38,7 +36,7 @@ const show = async (
       <Text dimColor>Snake plays in the terminal.</Text>
     )
 
-  return stack(tags, beneath, frame(tags, width, 'Snake', `best ${record}`, board))
+  return $.widgets.card({ beneath, width, title: 'Snake', note: `best ${record}`, body: board })
 }
 
 export const register: Register = on => {

@@ -1,11 +1,14 @@
 import { atom, read, update } from 'claude-code'
-import type { EngineInterface, Register, RenderElement, Timer } from 'claude-code'
+import type { Elements, EngineInterface, Register, RenderElement, RenderSurface, Timer } from 'claude-code'
+
+import type { WidgetsPlace } from 'widgets'
 
 import type { PetMood, PetStatus } from '../types'
-import { CARD_COLUMNS, canvas, frame, paint, picture, shade, stack, tagsOf } from './kit'
-import type { Place, Tags } from './kit'
+
+type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text'>
 
 const PANE = 'widgets'
+const CARD_COLUMNS = 40
 const TICK_MS = 600
 const FLASH_MS = 6000
 const SLEEPY_MS = 90_000
@@ -58,6 +61,11 @@ const status = atom({ plugin: 'pet-widget', key: 'status' } as const, RESTING)
 
 let timer: Timer | undefined
 
+const shade = (color: number, factor: number): number =>
+  (Math.round((color >> 16) * factor) << 16) |
+  (Math.round(((color >> 8) & 255) * factor) << 8) |
+  Math.round((color & 255) * factor)
+
 const isMood = (value: string): value is PetMood => MOODS.includes(value)
 
 const sync = async ($: EngineInterface): Promise<void> => {
@@ -81,8 +89,17 @@ const moodAt = (held: PetStatus, now: number): PetMood => {
   return now - held.activeAt > SLEEPY_MS ? 'sleep' : 'idle'
 }
 
-const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<RenderElement> => {
-  const { Box, Text } = tags
+const show = async (
+  $: EngineInterface,
+  surface: RenderSurface,
+  { Box, Text }: Tags,
+  beneath: RenderElement,
+  place: WidgetsPlace,
+  columns: number,
+): Promise<RenderElement> => {
+  if (!(await read($, isOn))) return beneath
+  if ((await $.state.get(site)).value !== place) return beneath
+
   const held = await read($, status)
   const beat = await read($, tick)
   const now = await $.clock.now()
@@ -103,44 +120,39 @@ const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<
     isStill || isBlinking
       ? BODY.map((line, row) => (row < 2 ? line.replaceAll('e', 'o').replaceAll('p', 'd') : line))
       : BODY
-  const frame2 = isStill ? 0 : step
-  const pixels = canvas(32, 14)
-  paint(
-    pixels,
-    [...(CLAWS[frame2] ?? CLAWS[0]), ...body, ...(LEGS[frame2] ?? LEGS[0])],
-    palette,
-    2,
-    isStill ? 2 : 1 + step,
-  )
+  const pose = isStill ? 0 : step
+  const picture = await $.widgets.picture({
+    surface,
+    key: 'pet',
+    columns: 32,
+    rows: 14,
+    marks: [
+      {
+        lines: [...(CLAWS[pose] ?? CLAWS[0]), ...body, ...(LEGS[pose] ?? LEGS[0])],
+        palette,
+        left: 2,
+        top: isStill ? 2 : 1 + step,
+      },
+    ],
+  })
 
   const said = held.forced !== null && now < held.forced.until && held.forced.note !== '' ? held.forced.note : SAYS[mood]
 
-  return frame(
-    tags,
-    width,
-    'Clawd',
-    mood,
-    <Box columnGap={2}>
-      {picture(tags, 'pet', pixels)}
-      <Box flexDirection="column" justifyContent="center">
-        <Text wrap="wrap">{said}</Text>
-        {held.isWorking && <Text dimColor>{held.calls} tool calls this turn</Text>}
+  return $.widgets.card({
+    beneath,
+    width: Math.min(CARD_COLUMNS, Math.max(20, columns)),
+    title: 'Clawd',
+    note: mood,
+    body: (
+      <Box columnGap={2}>
+        {picture}
+        <Box flexDirection="column" justifyContent="center">
+          <Text wrap="wrap">{said}</Text>
+          {held.isWorking && <Text dimColor>{held.calls} tool calls this turn</Text>}
+        </Box>
       </Box>
-    </Box>,
-  )
-}
-
-const show = async (
-  $: EngineInterface,
-  tags: Tags,
-  beneath: RenderElement,
-  place: Place,
-  columns: number,
-): Promise<RenderElement> => {
-  if (!(await read($, isOn))) return beneath
-  if ((await $.state.get(site)).value !== place) return beneath
-
-  return stack(tags, beneath, await drawCard($, tags, Math.min(CARD_COLUMNS, Math.max(20, columns))))
+    ),
+  })
 }
 
 export const register: Register = on => {
@@ -235,16 +247,16 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'side', e.props.bodyColumns),
+    show($, e.surface, $.ui.resolve(e), await next(e), 'side', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) =>
     e.props.hasSurvey
       ? next(e)
-      : show($, tagsOf($.ui.resolve(e)), await next(e), 'above', e.props.bodyColumns),
+      : show($, e.surface, $.ui.resolve(e), await next(e), 'above', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'PromptHint' }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'below', e.viewport?.columns ?? 80),
+    show($, e.surface, $.ui.resolve(e), await next(e), 'below', e.viewport?.columns ?? 80),
   )
 }

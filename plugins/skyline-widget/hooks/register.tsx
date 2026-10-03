@@ -1,10 +1,11 @@
 import { atom, read, update } from 'claude-code'
-import type { EngineInterface, Register, RenderElement } from 'claude-code'
+import type { Elements, EngineInterface, Register, RenderElement, RenderSurface } from 'claude-code'
+import type { WidgetsMark, WidgetsPlace } from 'widgets'
 
-import { CARD_COLUMNS, canvas, dot, frame, paint, picture, shade, stack, tagsOf } from './kit'
-import type { Place, Tags } from './kit'
+type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text'>
 
 const PANE = 'widgets'
+const CARD_COLUMNS = 40
 const MAX_TURNS = 60
 const SKY_ROWS = 12
 const MAX_FLOORS = 10
@@ -57,6 +58,11 @@ const kindOf = (tool: string): string => {
   return 'o'
 }
 
+const shade = (color: number, factor: number): number =>
+  (Math.round((color >> 16) * factor) << 16) |
+  (Math.round(((color >> 8) & 255) * factor) << 8) |
+  Math.round((color & 255) * factor)
+
 const sample = (floors: string): string => {
   if (floors.length <= MAX_FLOORS) return floors
 
@@ -66,17 +72,22 @@ const sample = (floors: string): string => {
   ).join('')
 }
 
-const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<RenderElement> => {
-  const { Box, Text } = tags
+const drawCard = async (
+  $: EngineInterface,
+  surface: RenderSurface,
+  { Box, Text }: Tags,
+  beneath: RenderElement,
+  width: number,
+): Promise<RenderElement> => {
   const built = await read($, turns)
   const inner = (width - 4) * 2
-  const pixels = canvas(inner, SKY_ROWS)
+  const marks: WidgetsMark[] = []
   const room = Math.floor((inner + GAP) / (BUILDING + GAP))
   const shown = built.slice(-room)
 
-  for (const [x, y] of STARS) dot(pixels, x, y, STAR)
-  paint(pixels, CRESCENT, { m: MOON }, inner - 8, 0)
-  for (let x = 0; x < inner; x += 1) dot(pixels, x, SKY_ROWS - 1, GROUND)
+  for (const [x, y] of STARS) marks.push([x, y, STAR])
+  marks.push({ lines: CRESCENT, palette: { m: MOON }, left: inner - 8, top: 0 })
+  for (let x = 0; x < inner; x += 1) marks.push([x, SKY_ROWS - 1, GROUND])
 
   shown.forEach((floors, index) => {
     const left = index * (BUILDING + GAP)
@@ -84,43 +95,48 @@ const drawCard = async ($: EngineInterface, tags: Tags, width: number): Promise<
     ;[...levels].forEach((kind, floor) => {
       const color = FLOORS[kind] ?? 0x8b949e
       for (let x = 0; x < BUILDING; x += 1) {
-        dot(pixels, left + x, SKY_ROWS - 2 - floor, x < FACE ? color : shade(color, 0.55))
+        marks.push([left + x, SKY_ROWS - 2 - floor, x < FACE ? color : shade(color, 0.55)])
       }
     })
   })
 
   const calls = built.reduce((sum, floors) => sum + floors.length, 0)
 
-  return frame(
-    tags,
+  const picture = await $.widgets.picture({ surface, key: 'skyline', columns: inner, rows: SKY_ROWS, marks })
+
+  return $.widgets.card({
+    beneath,
     width,
-    'Skyline',
-    `${built.length} turns · ${calls} tool calls`,
-    <Box flexDirection="column">
-      {picture(tags, 'skyline', pixels)}
-      <Text wrap="truncate-end">
-        {LEGEND.map(([kind, label], index) => (
-          <Text>
-            {index > 0 ? ' ' : ''}
-            <Text color={`#${(FLOORS[kind] ?? 0).toString(16).padStart(6, '0')}`}>■</Text> {label}
-          </Text>
-        ))}
-      </Text>
-    </Box>,
-  )
+    title: 'Skyline',
+    note: `${built.length} turns · ${calls} tool calls`,
+    body: (
+      <Box flexDirection="column">
+        {picture}
+        <Text wrap="truncate-end">
+          {LEGEND.map(([kind, label], index) => (
+            <Text>
+              {index > 0 ? ' ' : ''}
+              <Text color={`#${(FLOORS[kind] ?? 0).toString(16).padStart(6, '0')}`}>■</Text> {label}
+            </Text>
+          ))}
+        </Text>
+      </Box>
+    ),
+  })
 }
 
 const show = async (
   $: EngineInterface,
+  surface: RenderSurface,
   tags: Tags,
   beneath: RenderElement,
-  place: Place,
+  place: WidgetsPlace,
   columns: number,
 ): Promise<RenderElement> => {
   if (!(await read($, isOn))) return beneath
   if ((await $.state.get(site)).value !== place) return beneath
 
-  return stack(tags, beneath, await drawCard($, tags, Math.min(CARD_COLUMNS, Math.max(20, columns))))
+  return drawCard($, surface, tags, beneath, Math.min(CARD_COLUMNS, Math.max(20, columns)))
 }
 
 export const register: Register = on => {
@@ -173,16 +189,16 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'side', e.props.bodyColumns),
+    show($, e.surface, $.ui.resolve(e), await next(e), 'side', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) =>
     e.props.hasSurvey
       ? next(e)
-      : show($, tagsOf($.ui.resolve(e)), await next(e), 'above', e.props.bodyColumns),
+      : show($, e.surface, $.ui.resolve(e), await next(e), 'above', e.props.bodyColumns),
   )
 
   on('ui.render', { component: 'PromptHint' }, async ($, e, next) =>
-    show($, tagsOf($.ui.resolve(e)), await next(e), 'below', e.viewport?.columns ?? 80),
+    show($, e.surface, $.ui.resolve(e), await next(e), 'below', e.viewport?.columns ?? 80),
   )
 }
