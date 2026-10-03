@@ -1,0 +1,21 @@
+{
+  "name": "board-widget",
+  "version": "1.0.0",
+  "description": "A status board Claude keeps itself: its current goal, key findings and open questions, pinned through a tool the plugin registers.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "status",
+    "tool",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

@@ -815,6 +815,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "board-widget",
+      "source": "./plugins/board-widget",
+      "description": "A status board Claude keeps itself: its current goal, key findings and open questions, pinned through a tool the plugin registers.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "status",
+        "tool",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
