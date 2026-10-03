@@ -1,0 +1,21 @@
+{
+  "name": "train-widget",
+  "version": "1.0.0",
+  "description": "A locomotive that crosses the card pulling one wagon per tool call this turn.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "pixel-art",
+    "fun",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

@@ -37,6 +37,8 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `life-widget` | `/life-widget [on\|off\|reset]` | Conway's Game of Life; every tool call drops a glider |
 | `activity-widget` | `/activity-widget [on\|off\|clear]` | The latest tool calls with their duration and whether they failed |
 | `tasks-widget` | `/tasks-widget [on\|off\|clear]` | The task list Claude is working through, with a progress bar |
+| `train-widget` | `/train-widget [on\|off]` | A locomotive pulling one wagon per tool call this turn, coloured by tool |
+| `sky-widget` | `/sky-widget [on\|off]` | The sky at your local time: sun by day, moon by night, more stars the longer the session runs |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

@@ -277,6 +277,42 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "train-widget",
+      "source": "./plugins/train-widget",
+      "description": "A locomotive that crosses the card pulling one wagon per tool call this turn.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "sky-widget",
+      "source": "./plugins/sky-widget",
+      "description": "The sky at your local time of day: sun by day, moon and stars by night, more stars the longer the session.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
