@@ -8,8 +8,12 @@ export type PetStatus = {
   forced: { mood: PetMood; until: number; note: string } | null
 }
 
+export type PetGrowth = {
+  xp: number
+}
+
 declare module 'claude-code' {
   interface PluginState {
-    'pet-widget': { isOn: boolean; tick: number; status: PetStatus }
+    'pet-widget': { isOn: boolean; tick: number; status: PetStatus; growth: PetGrowth }
   }
 }

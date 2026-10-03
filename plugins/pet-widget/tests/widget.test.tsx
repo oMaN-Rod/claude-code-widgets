@@ -106,3 +106,51 @@ test('draws the pet and follows the session mood', { plugins: [LAYOUT] }, async 
   expect((await $.command.run(run('pet-widget', 'off'))).text).toMatch(/off/)
   expect((await $.command.run(run('pet-widget', 'purple'))).text).toMatch(/Usage/)
 })
+
+const BADGES: Plugin = {
+  name: 'badges-widget',
+  register(on) {
+    on('command.run', { command: 'earn' }, async ($, e) => {
+      await $.state.set({ plugin: 'badges-widget', key: 'earned' } as never, e.args.split(',') as never)
+
+      return { text: e.args }
+    })
+  },
+}
+
+test('levels up with XP and wears a hat once badges are earned', { plugins: [LAYOUT, BADGES] }, async ($, on) => {
+  const toasts: string[] = []
+
+  on('ui.render', ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+  on('tool.call', () => ({ result: 'ok', text: 'ok' }))
+  mock.clock(on, { now: 1000 })
+  mock.store(on)
+
+  await $.command.run(run('place', 'above'))
+  await $.command.run(run('pet-widget', 'on'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ text: /^Clawd Lv 1$/ })).toBeDefined()
+  expect(await ui.find({ text: /^0 XP$/ })).toBeDefined()
+
+  for (let call = 0; call < 20; call += 1) {
+    await $.tool.call({ tool: 'Glob', tool_use_id: `g${call}`, pattern: '*.ts' })
+  }
+  expect(await ui.find({ text: /^Clawd Lv 2$/ })).toBeDefined()
+  expect(await ui.find({ text: /^20 XP$/ })).toBeDefined()
+  expect(toasts).toEqual(['Clawd reached level 2.'])
+
+  const bare = (await ui.find({ type: 'Raster' }))?.props.cells
+  await $.command.run(run('earn', 'first'))
+  expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(bare)
+  await ui.unmount()
+})

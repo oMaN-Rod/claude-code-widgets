@@ -54,11 +54,18 @@ const SAYS: Record<PetMood, string> = {
   dizzy: 'ouch',
   hot: 'context is filling up',
 }
+const SHELLS = [0xd97757, 0xe8a23a, 0x9775fa]
+const HATS = [
+  { badges: 8, lines: ['c.cc.c', 'cccccc'], palette: { c: 0xffd43b } },
+  { badges: 4, lines: ['.tttt.', 'tbbbbt'], palette: { t: 0x1f2328, b: 0xe5484d } },
+  { badges: 1, lines: ['.kkkk.', 'kkkkkk'], palette: { k: 0x4dabf7 } },
+] as const
 const site = { plugin: 'widgets', key: 'site' } as const
 const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'pet-widget', key: 'isOn' } as const, false)
 const tick = atom({ plugin: 'pet-widget', key: 'tick' } as const, 0)
 const status = atom({ plugin: 'pet-widget', key: 'status' } as const, RESTING)
+const growth = atom({ plugin: 'pet-widget', key: 'growth' } as const, { xp: 0 })
 
 let timer: Timer | undefined
 
@@ -80,6 +87,14 @@ const sync = async ($: EngineInterface): Promise<void> => {
     timer.cancel()
     timer = undefined
   }
+}
+
+const levelOf = (xp: number): number => 1 + Math.floor(Math.sqrt(xp / 20))
+
+const badgesOf = async ($: EngineInterface): Promise<number> => {
+  const earned = (await $.state.get({ plugin: 'badges-widget', key: 'earned' } as never)) as { value?: unknown }
+
+  return Array.isArray(earned.value) ? earned.value.length : 0
 }
 
 const moodAt = (held: PetStatus, now: number): PetMood => {
@@ -111,7 +126,12 @@ const show = async (
   const isStill = mood === 'sleep'
   const step = mood === 'work' || mood === 'happy' ? beat % 2 : Math.floor(beat / 2) % 2
   const isBlinking = mood === 'idle' && beat % 7 === 0
-  const shell = mood === 'hot' ? 0xe5484d : isStill ? 0x9a5b45 : 0xd97757
+  const { xp } = await read($, growth)
+  const level = levelOf(xp)
+  const form = SHELLS[Math.min(SHELLS.length - 1, Math.floor((level - 1) / 3))] ?? 0xd97757
+  const shell = mood === 'hot' ? 0xe5484d : isStill ? shade(form, 0.7) : form
+  const badges = await badgesOf($)
+  const hat = HATS.find(one => badges >= one.badges)
   const palette = {
     o: shell,
     d: shade(shell, 0.7),
@@ -137,6 +157,9 @@ const show = async (
         left: 2,
         top: isStill ? 2 : 1 + step,
       },
+      ...(hat === undefined
+        ? []
+        : [{ lines: hat.lines, palette: hat.palette, left: 13, top: isStill ? 2 : 1 + step }]),
     ],
   })
 
@@ -145,7 +168,7 @@ const show = async (
   return $.widgets.card({
     beneath,
     width: Math.min(await wide($), Math.max(20, columns)),
-    title: 'Clawd',
+    title: `Clawd Lv ${level}`,
     note: mood,
     body: (
       <Box columnGap={2}>
@@ -153,6 +176,7 @@ const show = async (
         <Box flexDirection="column" justifyContent="center">
           <Text wrap="wrap">{said}</Text>
           {held.isWorking && <Text dimColor>{held.calls} tool calls this turn</Text>}
+          <Text dimColor>{xp} XP</Text>
         </Box>
       </Box>
     ),
@@ -167,6 +191,8 @@ export const register: Register = on => {
       argumentHint: '[on|off|sleep|idle|work|happy|dizzy|hot]',
     })
     if ((await $.store.get('isOn')) === true) await update($, isOn, () => true)
+    const kept = await $.store.get('xp')
+    if (typeof kept === 'number') await update($, growth, () => ({ xp: kept }))
     const now = await $.clock.now()
     await update($, status, held => ({ ...(held ?? RESTING), isWorking: false, activeAt: now }))
     await sync($)
@@ -233,6 +259,13 @@ export const register: Register = on => {
       ran.isError === true ? { mood: 'dizzy' as const, until: now + FLASH_MS, note: `${e.tool} failed` }
       : e.tool === 'Bash' && CHECKS.test(command) ? { mood: 'happy' as const, until: now + FLASH_MS, note: '' }
       : undefined
+    if (ran.isError !== true) {
+      const grown = await update($, growth, held => ({ xp: (held?.xp ?? 0) + (forced?.mood === 'happy' ? 5 : 1) }))
+      await $.store.set('xp', grown.xp)
+      if (levelOf(grown.xp) > levelOf(grown.xp - (forced?.mood === 'happy' ? 5 : 1))) {
+        $.ui.toast(`Clawd reached level ${levelOf(grown.xp)}.`)
+      }
+    }
     await update($, status, held => ({
       ...(held ?? RESTING),
       calls: (held ?? RESTING).calls + 1,
