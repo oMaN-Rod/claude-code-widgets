@@ -35,6 +35,8 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `changes-widget` | `/changes-widget [on\|off\|clear]` | Files edited this session, most recent first, with an edit count each |
 | `garden-widget` | `/garden-widget [on\|off\|reset]` | A plant: a leaf per tool call, a flower when checks pass, wilting when a call fails |
 | `life-widget` | `/life-widget [on\|off\|reset]` | Conway's Game of Life; every tool call drops a glider |
+| `activity-widget` | `/activity-widget [on\|off\|clear]` | The latest tool calls with their duration and whether they failed |
+| `tasks-widget` | `/tasks-widget [on\|off\|clear]` | The task list Claude is working through, with a progress bar |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

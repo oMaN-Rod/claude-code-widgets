@@ -241,6 +241,42 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "activity-widget",
+      "source": "./plugins/activity-widget",
+      "description": "The most recent tool calls with how long each took and whether it failed.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "tools",
+        "log",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "tasks-widget",
+      "source": "./plugins/tasks-widget",
+      "description": "The session's task list with a progress bar.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "tasks",
+        "todo",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
