@@ -53,6 +53,7 @@ The state of the working tree.
 | `changes-widget` | `/changes-widget [on\|off\|clear]` | Files edited this session, most recent first, with an edit count each |
 | `commits-widget` | `/commits-widget` | The commits made since the session started |
 | `todos-widget` | `/todos-widget` | TODO, FIXME, HACK and XXX comments in tracked files, counted and listed |
+| `diff-widget` | `/diff-widget [on\|off\|clear]` | The last edit as a syntax-highlighted diff |
 
 ### Time and focus
 

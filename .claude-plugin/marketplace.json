@@ -797,6 +797,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "diff-widget",
+      "source": "./plugins/diff-widget",
+      "description": "The last edit as a syntax-highlighted diff.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "diff",
+        "edits",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
