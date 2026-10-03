@@ -706,6 +706,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "coffee-widget",
+      "source": "./plugins/coffee-widget",
+      "description": "A coffee cup that empties as you work and nudges you to take a break when it runs dry.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

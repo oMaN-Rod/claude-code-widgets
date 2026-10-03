@@ -61,6 +61,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `constellation-widget` | `/constellation-widget [on\|off\|clear]` | A star per turn, joined into a constellation that gets a name after nine |
 | `boss-widget` | `/boss-widget [on\|off]` | Context usage as a boss health bar; compaction defeats it and starts the next level |
 | `8ball-widget` | `/8ball-widget [on\|off]`, `/8ball <question>` | `/8ball <question>` gives an answer of doubtful reliability |
+| `coffee-widget` | `/coffee-widget [on\|off\|refill\|<minutes>]` | A cup that empties over 90 minutes and nudges you to take a break |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
