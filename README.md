@@ -53,6 +53,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `todos-widget` | `C:/Program Files/Git/todos-widget` | TODO, FIXME, HACK and XXX comments in tracked files, counted and listed |
 | `campfire-widget` | `/campfire-widget [on\|off\|stoke]` | A campfire that burns higher with tool calls and dies down to embers when idle |
 | `mosaic-widget` | `/mosaic-widget [on\|off\|clear]` | One tile per tool call, coloured by tool; failures are red |
+| `countdown-widget` | `/countdown-widget [on\|off\|clear]`, `/countdown <HH:MM\|<n>m\|<n>h> [label]` | Time left to a deadline you set, with a progress bar and a toast when it arrives |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

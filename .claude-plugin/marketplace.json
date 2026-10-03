@@ -563,6 +563,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "countdown-widget",
+      "source": "./plugins/countdown-widget",
+      "description": "A countdown to a deadline you set, with a toast when it arrives.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "timer",
+        "deadline",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
