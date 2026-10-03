@@ -2,10 +2,9 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import type { WidgetsPlace } from '../types'
+import { HINT, STACK, widgets } from './kit'
 
 const PANE = 'widgets'
-const STACK = 'widgets-stack'
-const HINT = 'widgets-hint'
 const TITLE = 'Widgets'
 const DEFAULT_COLUMNS = 44
 const MIN_COLUMNS = 24
@@ -44,6 +43,8 @@ const isPaneOpen = async ($: EngineInterface): Promise<boolean> =>
   (await $.ui.panes()).some(pane => pane.id === PANE)
 
 export const register: Register = on => {
+  on('engine.create', async (_$, e, next) => ({ ...(await next(e)), widgets }))
+
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'widgets',
