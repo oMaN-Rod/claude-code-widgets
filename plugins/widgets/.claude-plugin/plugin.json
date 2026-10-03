@@ -1,0 +1,17 @@
+{
+  "name": "widgets",
+  "version": "1.0.0",
+  "description": "Layout for the widget cards: below the prompt, above it, or docked beside the transcript. Required by every widget.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "layout",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts"
+}
