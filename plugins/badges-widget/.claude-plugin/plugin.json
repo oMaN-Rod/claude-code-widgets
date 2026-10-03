@@ -1,0 +1,21 @@
+{
+  "name": "badges-widget",
+  "version": "1.0.0",
+  "description": "Achievements earned across sessions, such as twenty tool calls in a row without a failure.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "fun",
+    "achievements",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

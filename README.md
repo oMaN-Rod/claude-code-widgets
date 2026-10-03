@@ -46,6 +46,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `notes-widget` | `/notes-widget [on\|off\|clear]`, `/note <text\|done <n>>` | Pinned notes kept across sessions; `/note <text>` adds one, `/note done <n>` removes it |
 | `pomodoro-widget` | `/pomodoro-widget [on\|off\|start\|break\|stop\|<minutes>]` | A focus timer with a countdown, a progress bar and a count of finished sessions |
 | `fortune-widget` | `/fortune-widget [on\|off\|next]` | A one-line fortune that changes with every turn |
+| `badges-widget` | `/badges-widget [on\|off\|reset]` | Achievements earned across sessions, with a toast when one unlocks |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
