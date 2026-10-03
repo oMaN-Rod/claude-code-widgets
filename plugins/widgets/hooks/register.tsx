@@ -170,8 +170,7 @@ export const register: Register = on => {
       <Box key={HINT} flexDirection="column">
         {beneath}
         <Text dimColor wrap="wrap">
-          No widgets on. Try /context-widget, /usage-widget, /file-tree-widget, /pet-widget,
-          /skyline-widget, /aquarium-widget, /weather-widget or /snake-widget.
+          No widgets on. Turn one on with its command, such as /context-widget or /pet-widget.
         </Text>
       </Box>
     )
