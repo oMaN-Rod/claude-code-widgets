@@ -581,6 +581,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "clocks-widget",
+      "source": "./plugins/clocks-widget",
+      "description": "Your local time beside the time zones you pick.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "time",
+        "clock",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
