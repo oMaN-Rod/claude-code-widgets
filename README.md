@@ -42,6 +42,7 @@ What Claude is doing and what it is costing.
 | `checks-widget` | `/checks-widget [on\|off\|clear]` | The latest test, lint and build runs: pass or fail, duration and how long ago |
 | `timeline-widget` | `/timeline-widget [on\|off]` | The turn as a chart: one bar per tool call on a time axis, parallel calls stacked |
 | `board-widget` | `/board-widget [on\|off\|clear]` | A status board Claude writes itself through a `pin` tool: goal, findings and open questions |
+| `forecast-widget` | `/forecast-widget [on\|off\|clear]` | Context growth per turn as a chart, with the turns left before compaction |
 
 ### Project and git
 

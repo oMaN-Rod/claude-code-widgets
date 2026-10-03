@@ -1,0 +1,21 @@
+{
+  "name": "forecast-widget",
+  "version": "1.0.0",
+  "description": "Context growth per turn as a chart, with a prediction of how many turns are left before compaction.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "context",
+    "forecast",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
