@@ -957,6 +957,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "quest-widget",
+      "source": "./plugins/quest-widget",
+      "description": "The session as a dungeon crawl: every turn is a room, tool calls are monsters, failures wound you and passing checks drop loot. Your hero carries over between sessions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "game",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
