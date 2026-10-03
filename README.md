@@ -50,7 +50,7 @@ claude plugin validate plugins/<name>  # check a manifest and hooks module
 claude plugin test plugins/<name>      # run its tests
 ```
 
-`hooks/kit.tsx` (card stacking and the pixel renderer) is the same file in each plugin that draws pictures, since plugins cannot import from one another.
+Plugins cannot import from one another, so `widgets` shares card stacking and the pixel renderer as `$.widgets` (`plugins/widgets/hooks/kit.tsx`), which every widget calls.
 
 ## License
 
