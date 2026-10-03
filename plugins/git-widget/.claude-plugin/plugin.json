@@ -1,0 +1,21 @@
+{
+  "name": "git-widget",
+  "version": "1.0.0",
+  "description": "The current branch, how far it is ahead or behind, what is staged or changed, and the last commit.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "git",
+    "status",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

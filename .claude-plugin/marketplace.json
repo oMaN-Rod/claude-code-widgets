@@ -169,6 +169,42 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "git-widget",
+      "source": "./plugins/git-widget",
+      "description": "The current branch, how far it is ahead or behind, what is staged or changed, and the last commit.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "git",
+        "status",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "changes-widget",
+      "source": "./plugins/changes-widget",
+      "description": "The files edited this session, with how many edits each took.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "files",
+        "edits",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

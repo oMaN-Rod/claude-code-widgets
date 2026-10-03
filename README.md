@@ -31,6 +31,8 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `aquarium-widget` | `/aquarium-widget [on\|off\|demo]` | A fish for every running tool call and agent |
 | `weather-widget` | `/weather-widget [on\|off\|live\|<percent>]` | Clear sky when context has room, a storm near compaction |
 | `snake-widget` | `/snake-widget [on\|off]` | Snake; it plays itself until you take the keys |
+| `git-widget` | `C:/Program Files/Git/git-widget` | Branch, ahead/behind, staged, changed and untracked counts, and the last commit |
+| `changes-widget` | `/changes-widget [on\|off\|clear]` | Files edited this session, most recent first, with an edit count each |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
