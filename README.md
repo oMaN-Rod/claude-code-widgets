@@ -50,6 +50,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `invaders-widget` | `/invaders-widget [on\|off\|demo\|clear]` | An invader arrives for every failing check; passing checks shoot them down |
 | `2048-widget` | `/2048-widget [on\|off]` | 2048; it plays itself until you take the keys |
 | `commits-widget` | `C:/Program Files/Git/commits-widget` | The commits made since the session started |
+| `todos-widget` | `C:/Program Files/Git/todos-widget` | TODO, FIXME, HACK and XXX comments in tracked files, counted and listed |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

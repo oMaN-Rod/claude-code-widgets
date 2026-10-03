@@ -1,0 +1,21 @@
+{
+  "name": "todos-widget",
+  "version": "1.0.0",
+  "description": "The TODO, FIXME, HACK and XXX comments in the repository, counted and listed.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "todo",
+    "comments",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

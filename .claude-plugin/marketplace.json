@@ -509,6 +509,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "todos-widget",
+      "source": "./plugins/todos-widget",
+      "description": "The TODO, FIXME, HACK and XXX comments in the repository, counted and listed.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "todo",
+        "comments",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
