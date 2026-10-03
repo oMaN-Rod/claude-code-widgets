@@ -57,6 +57,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `clocks-widget` | `/clocks-widget [on\|off\|add <zone>\|remove <zone>\|clear]` | Your local time beside the time zones you add, such as `Asia/Tokyo` |
 | `orbit-widget` | `/orbit-widget [on\|off]` | A small solar system; the planets speed up while tool calls run |
 | `sorting-widget` | `/sorting-widget [on\|off\|step]` | A bar chart being sorted, one swap per tool call |
+| `equalizer-widget` | `/equalizer-widget [on\|off]` | Level meters that jump with each tool call and fall back to rest |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

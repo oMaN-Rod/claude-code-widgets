@@ -635,6 +635,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "equalizer-widget",
+      "source": "./plugins/equalizer-widget",
+      "description": "Level meters that jump with every tool call and fall back to rest.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
