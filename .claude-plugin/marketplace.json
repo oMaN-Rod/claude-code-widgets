@@ -402,6 +402,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "pomodoro-widget",
+      "source": "./plugins/pomodoro-widget",
+      "description": "A focus timer: 25 minutes of work, a 5 minute break, and a count of the sessions finished.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "timer",
+        "focus",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

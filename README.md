@@ -44,6 +44,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `fireworks-widget` | `/fireworks-widget [on\|off\|demo]` | A night sky that sets off fireworks when checks pass, and a dud when they fail |
 | `rain-widget` | `/rain-widget [on\|off]` | Falling code rain that speeds up the busier the turn gets |
 | `notes-widget` | `/notes-widget [on\|off\|clear]`, `/note <text\|done <n>>` | Pinned notes kept across sessions; `/note <text>` adds one, `/note done <n>` removes it |
+| `pomodoro-widget` | `/pomodoro-widget [on\|off\|start\|break\|stop\|<minutes>]` | A focus timer with a countdown, a progress bar and a count of finished sessions |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
