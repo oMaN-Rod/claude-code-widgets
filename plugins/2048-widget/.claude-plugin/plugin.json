@@ -1,0 +1,21 @@
+{
+  "name": "2048-widget",
+  "version": "1.0.0",
+  "description": "The 2048 sliding-tile puzzle; it plays itself until you take the keys.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "game",
+    "fun",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
