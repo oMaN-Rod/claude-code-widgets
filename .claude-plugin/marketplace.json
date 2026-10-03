@@ -205,6 +205,42 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "garden-widget",
+      "source": "./plugins/garden-widget",
+      "description": "A plant that grows a leaf per tool call, flowers when checks pass and wilts when a call fails.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
+    },
+    {
+      "name": "life-widget",
+      "source": "./plugins/life-widget",
+      "description": "Conway's Game of Life; every tool call drops a glider.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
