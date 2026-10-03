@@ -1102,6 +1102,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "sound-widget",
+      "source": "./plugins/sound-widget",
+      "description": "The session as music: a note per tool call, a chord when checks pass and a buzz on failure, with a piano roll. Playback currently works on macOS only.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "audio",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
