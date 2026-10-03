@@ -128,6 +128,7 @@ Snake, 2048 and Tetris play themselves until you click the board and take the ke
 | `fortune-widget` | `/fortune-widget [on\|off\|next]` | A one-line fortune that changes with every turn |
 | `8ball-widget` | `/8ball-widget [on\|off]`, `/8ball <question>` | `/8ball <question>` gives an answer of doubtful reliability |
 | `badges-widget` | `/badges-widget [on\|off\|reset]` | Achievements earned across sessions, with a toast when one unlocks |
+| `sigil-widget` | `/sigil-widget [on\|off\|clear]` | A pixel emblem generated from this session's activity, beside a gallery of the ones from earlier sessions |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 

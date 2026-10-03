@@ -994,6 +994,24 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "sigil-widget",
+      "source": "./plugins/sigil-widget",
+      "description": "A unique pixel emblem generated from each session's activity, kept in a gallery across sessions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pixel-art",
+        "fun",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
