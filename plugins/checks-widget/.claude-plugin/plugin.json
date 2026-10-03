@@ -1,0 +1,21 @@
+{
+  "name": "checks-widget",
+  "version": "1.0.0",
+  "description": "The latest test, lint and build runs: whether each passed, how long it took and how long ago.",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "tests",
+    "checks",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
