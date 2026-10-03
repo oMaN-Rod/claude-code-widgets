@@ -51,6 +51,7 @@ Requires a Claude Code version with mod (function hook) support. The mod API is 
 | `2048-widget` | `/2048-widget [on\|off]` | 2048; it plays itself until you take the keys |
 | `commits-widget` | `C:/Program Files/Git/commits-widget` | The commits made since the session started |
 | `todos-widget` | `C:/Program Files/Git/todos-widget` | TODO, FIXME, HACK and XXX comments in tracked files, counted and listed |
+| `campfire-widget` | `/campfire-widget [on\|off\|stoke]` | A campfire that burns higher with tool calls and dies down to embers when idle |
 
 Placement, which widgets are on, and view modes are saved and restored in every session.
 
