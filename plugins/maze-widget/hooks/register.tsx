@@ -29,6 +29,8 @@ const trek = atom({ plugin: 'maze-widget', key: 'trek' } as const, START)
 let timer: Timer | undefined
 let built: { seed: number; layout: Layout } | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const hash = (text: string): number => {
   let sum = 7
   for (const letter of text) sum = (sum * 31 + letter.charCodeAt(0)) % 100_003
@@ -178,7 +180,7 @@ const show = async (
     beneath,
     width,
     title: 'Maze',
-    note: `${Math.floor(held.step / STRIDE_TICKS)} steps`,
+    note: some(Math.floor(held.step / STRIDE_TICKS), 'step'),
     body: await $.widgets.picture({ surface, key: 'maze', columns: inner, rows: VIEW_ROWS, fill: CEILING, marks }),
   })
 }

@@ -102,7 +102,7 @@ test('turns tool calls into fights, checks into loot and failures into wounds', 
   for (let call = 0; call < 5; call += 1) {
     await $.tool.call({ tool: 'Read', tool_use_id: `r${call}`, file_path: '/x' })
   }
-  expect(await ui.find({ text: /^6 gold · 8 slain · 1 falls$/ })).toBeDefined()
+  expect(await ui.find({ text: /^6 gold · 8 slain · 1 fall$/ })).toBeDefined()
   expect(toasts).toEqual(['Quest: level 2 reached.', 'Quest: you fell in battle.'])
 
   expect((await $.command.run(run('quest-widget', 'reset'))).text).toMatch(/reset/)

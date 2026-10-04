@@ -90,22 +90,22 @@ test('adds a star per turn and names the constellation when it is full', { plugi
 
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
-  expect(await ui.find({ text: /^0\/9 stars · 0 charted$/ })).toBeDefined()
+  expect(await ui.find({ text: /^0\/9 · 0 charted$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props).toMatchObject({ columns: 36, rows: 8 })
   const empty = (await ui.find({ type: 'Raster' }))?.props.cells
 
   await $.tool.call({ tool: 'Read', tool_use_id: 'u1', file_path: '/x' })
   await $.turn.complete(done('t1'))
   await $.turn.complete({ ...done('sub'), agentId: 'a1' })
-  expect(await ui.find({ text: /^1\/9 stars · 0 charted$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1\/9 · 0 charted$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(empty)
 
   for (let turn = 2; turn <= 9; turn += 1) await $.turn.complete(done(`t${turn}`))
-  expect(await ui.find({ text: /^9\/9 stars · 1 charted$/ })).toBeDefined()
+  expect(await ui.find({ text: /^9\/9 · 1 charted$/ })).toBeDefined()
   expect(toasts).toEqual(['Constellation charted: The Lesser Linter'])
 
   await $.turn.complete(done('t10'))
-  expect(await ui.find({ text: /^1\/9 stars · 1 charted$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1\/9 · 1 charted$/ })).toBeDefined()
 
   expect((await $.command.run(run('constellation-widget', 'clear'))).text).toMatch(/cleared/)
   expect((await ui.find({ type: 'Raster' }))?.props.cells).toBe(empty)

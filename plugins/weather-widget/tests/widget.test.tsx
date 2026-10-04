@@ -107,3 +107,37 @@ test('turns context usage into a forecast', { plugins: [LAYOUT] }, async ($, on)
   expect((await $.command.run(run('weather-widget', 'off'))).text).toMatch(/off/)
   expect((await $.command.run(run('weather-widget', 'snow'))).text).toMatch(/Usage/)
 })
+
+test('reads the estimate before the first response and keeps it until a real figure arrives', { plugins: [LAYOUT] }, async ($, on) => {
+  on('ui.render', ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+  on('session.usage', (_$, e) => ({
+    value: {
+      startedAt: 0,
+      context: {
+        window: 200_000,
+        ...(e.breakdown === undefined ? {} : { breakdown: { percentage: 6 } }),
+      },
+      rateLimits: [],
+    } as never,
+  }))
+  on('session.measure', (_$, e) => ({ changed: e.changed }))
+  mock.clock(on, { now: 1000 })
+  mock.store(on)
+
+  await $.command.run(run('place', 'above'))
+  await $.command.run(run('weather-widget', 'on'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ text: /^context 6%$/ })).toBeDefined()
+
+  await $.session.measure({ context: { window: 200_000 }, rateLimits: [], changed: ['rateLimits'] })
+  expect(await ui.find({ text: /^context 6%$/ })).toBeDefined()
+
+  await $.session.measure({ context: { window: 200_000, tokens: 60_000, percent: 30 }, rateLimits: [], changed: ['context'] })
+  expect(await ui.find({ text: /^context 30%$/ })).toBeDefined()
+  await ui.unmount()
+})

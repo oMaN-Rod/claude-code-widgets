@@ -90,7 +90,7 @@ test('grows with tool calls, flowers on checks and wilts on a failure', { plugin
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u1', command: 'ls' })
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u2', command: 'bun test' })
   expect(await ui.find({ text: /^2 leaves$/ })).toBeDefined()
-  expect(await ui.find({ text: /^1 blooms$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 bloom$/ })).toBeDefined()
   expect(await ui.find({ text: /^seedling$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(bare)
 

@@ -40,7 +40,7 @@ const show = async (
       <Text dimColor>Minesweeper plays in the terminal.</Text>
     )
 
-  return $.widgets.card({ beneath, width, title: 'Minesweeper', note: `${record} wins`, body: board })
+  return $.widgets.card({ beneath, width, title: 'Minesweeper', note: `${record} ${record === 1 ? 'win' : 'wins'}`, body: board })
 }
 
 export const register: Register = on => {

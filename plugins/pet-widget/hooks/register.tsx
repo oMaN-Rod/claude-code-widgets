@@ -3,7 +3,7 @@ import type { Elements, EngineInterface, Register, RenderElement, RenderSurface,
 
 import type { WidgetsPlace } from 'widgets'
 
-import type { PetMood, PetStatus } from '../types'
+import type { PetMemory, PetMood, PetStatus } from '../types'
 
 type Tags = Pick<Elements[RenderSurface], 'Box' | 'Text'>
 
@@ -55,6 +55,12 @@ const SAYS: Record<PetMood, string> = {
   hot: 'context is filling up',
 }
 const POLL_TICKS = 5
+const SAY_MS = 12_000
+const HOUR_MS = 60 * 60_000
+const DAY_MS = 24 * HOUR_MS
+const LONG_TURN_MS = 10 * 60_000
+const BIG_TURN_CALLS = 25
+const HOME_FILE = '.home.json'
 const STAY_MS = 30 * 60_000
 const SHELLS = [0xd97757, 0xe8a23a, 0x9775fa]
 const HATS = [
@@ -71,6 +77,8 @@ const growth = atom({ plugin: 'pet-widget', key: 'growth' } as const, { xp: 0 })
 const visit = atom({ plugin: 'pet-widget', key: 'visit' } as const, { id: '', isAway: false })
 
 let timer: Timer | undefined
+let home = ''
+let memory: PetMemory = { at: 0, isFailing: false, visits: 0 }
 
 const shade = (color: number, factor: number): number =>
   (Math.round((color >> 16) * factor) << 16) |
@@ -89,23 +97,61 @@ const claim = async ($: EngineInterface): Promise<void> => {
   const me = await read($, visit)
   if (me.id === '') return
 
-  await $.store.set('home', { holder: me.id, at: await $.clock.now() })
+  const held = JSON.stringify({ holder: me.id, at: await $.clock.now() })
+  await $.fs.write(`${$.plugin.root}/${HOME_FILE}`, held).catch(() => undefined)
   await update($, visit, held => ({ id: held?.id ?? me.id, isAway: false }))
 }
 
 const look = async ($: EngineInterface): Promise<void> => {
   const me = await read($, visit)
-  const home = await $.store.get('home')
   const now = await $.clock.now()
   if (me.id === '') return
-  if (!isHome(home) || now - home.at >= STAY_MS) {
+
+  let kept: unknown
+  try {
+    kept = JSON.parse(await $.fs.read(`${$.plugin.root}/${HOME_FILE}`))
+  } catch {
+    kept = undefined
+  }
+  if (!isHome(kept) || now - kept.at >= STAY_MS) {
     await claim($)
 
     return
   }
 
-  const isAway = home.holder !== me.id
+  const isAway = kept.holder !== me.id
   if (isAway !== me.isAway) await update($, visit, held => ({ id: held?.id ?? me.id, isAway }))
+}
+
+const isMemory = (value: unknown): value is PetMemory =>
+  typeof value === 'object' &&
+  value !== null &&
+  typeof (value as PetMemory).at === 'number' &&
+  typeof (value as PetMemory).isFailing === 'boolean' &&
+  typeof (value as PetMemory).visits === 'number'
+
+const say = async ($: EngineInterface, text: string): Promise<void> => {
+  const until = (await $.clock.now()) + SAY_MS
+  await update($, status, held => ({ ...(held ?? RESTING), said: { text, until } }))
+}
+
+const greetingOf = (kept: PetMemory | undefined, now: number): string => {
+  if (kept === undefined) return 'a new project! I like it here'
+
+  const away = now - kept.at
+  if (away < HOUR_MS) return 'back already?'
+  if (away < DAY_MS) return kept.isFailing ? 'welcome back. the checks are still red' : 'welcome back'
+
+  const days = Math.floor(away / DAY_MS)
+
+  return `${days} ${days === 1 ? 'day' : 'days'} away. ${kept.isFailing ? 'the checks were red when you left' : 'all was green when you left'}`
+}
+
+const remember = async ($: EngineInterface): Promise<void> => {
+  if (home === '') return
+
+  memory = { ...memory, at: await $.clock.now() }
+  await $.store.set(`seen:${home}`, memory)
 }
 
 const pulse = async ($: EngineInterface): Promise<void> => {
@@ -221,7 +267,10 @@ const show = async (
     ],
   })
 
-  const said = held.forced !== null && now < held.forced.until && held.forced.note !== '' ? held.forced.note : SAYS[mood]
+  const said =
+    held.forced !== null && now < held.forced.until && held.forced.note !== '' ? held.forced.note
+    : held.said !== undefined && now < held.said.until ? held.said.text
+    : SAYS[mood]
 
   return $.widgets.card({
     beneath,
@@ -255,6 +304,11 @@ export const register: Register = on => {
     await update($, status, held => ({ ...(held ?? RESTING), isWorking: false, activeAt: now }))
     await enrol($)
     if (await read($, isOn)) await look($)
+    home = e.cwd
+    const seen = await $.store.get(`seen:${e.cwd}`)
+    await say($, greetingOf(isMemory(seen) ? seen : undefined, now))
+    memory = { at: now, isFailing: isMemory(seen) ? seen.isFailing : false, visits: (isMemory(seen) ? seen.visits : 0) + 1 }
+    if (await read($, isOn)) await $.store.set(`seen:${e.cwd}`, memory)
     await sync($)
 
     return next(e)
@@ -297,6 +351,7 @@ export const register: Register = on => {
       isWorking: true,
       activeAt: now,
       calls: 0,
+      startedAt: now,
     }))
 
     return next(e)
@@ -305,7 +360,12 @@ export const register: Register = on => {
   on('turn.complete', async ($, e, next) => {
     if (e.agentId === undefined) {
       const now = await $.clock.now()
+      const before = await read($, status)
       await update($, status, held => ({ ...(held ?? RESTING), isWorking: false, activeAt: now }))
+      const hour = new Date(now).getHours()
+      if (before.isWorking && now - (before.startedAt ?? now) >= LONG_TURN_MS) await say($, 'phew, long one. stretch?')
+      else if (before.isWorking && hour < 5) await say($, "it's late. one more?")
+      await remember($)
     }
 
     return next(e)
@@ -328,12 +388,22 @@ export const register: Register = on => {
         $.ui.toast(`Clawd reached level ${levelOf(grown.xp)}.`)
       }
     }
+    const isCheck = e.tool === 'Bash' && CHECKS.test(command)
+    const before = await read($, status)
+    const fails = ran.isError === true ? (before.fails ?? 0) + 1 : isCheck ? 0 : (before.fails ?? 0)
     await update($, status, held => ({
       ...(held ?? RESTING),
       calls: (held ?? RESTING).calls + 1,
       activeAt: now,
       forced: forced ?? (held ?? RESTING).forced,
+      fails,
     }))
+    if (isCheck) {
+      if (ran.isError !== true && memory.isFailing) await say($, 'green again!')
+      memory = { ...memory, isFailing: ran.isError === true }
+    }
+    if (ran.isError === true && fails === 3) await say($, 'third time... read the error?')
+    if (before.calls + 1 === BIG_TURN_CALLS) await say($, 'big one, this')
 
     return ran
   })

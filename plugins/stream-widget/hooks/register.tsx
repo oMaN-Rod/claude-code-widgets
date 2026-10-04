@@ -84,8 +84,8 @@ const show = async (
             {shown.map(chars => BARS[Math.min(BARS.length - 1, Math.floor((chars / most) * BARS.length))]).join('')}
           </Text>
         )}
-        <Text dimColor wrap="truncate-end">
-          ~{count(Math.round(held.turnChars / CHARS_PER_TOKEN))} tokens this turn · peak ~{held.peak} tok/s
+        <Text dimColor>
+          ~{count(Math.round(held.turnChars / CHARS_PER_TOKEN))} tokens this turn, peak ~{held.peak}/s
         </Text>
       </Box>
     ),

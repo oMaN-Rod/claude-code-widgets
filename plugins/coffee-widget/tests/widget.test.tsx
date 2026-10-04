@@ -89,7 +89,7 @@ test('empties over the session, nudges for a break and refills', { plugins: [LAY
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
   expect(await ui.find({ text: /^100% left$/ })).toBeDefined()
   expect(await ui.find({ text: /^90m until a break$/ })).toBeDefined()
-  expect(await ui.find({ text: /^1 cups this session$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 cup this session$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props).toMatchObject({ columns: 9, rows: 7 })
   const full = (await ui.find({ type: 'Raster' }))?.props.cells
 

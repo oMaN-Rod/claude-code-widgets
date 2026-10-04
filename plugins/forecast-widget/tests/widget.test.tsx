@@ -54,6 +54,7 @@ const done = (turnId: string) => ({ answer: 'ok', durationMs: 1000, isAborted: f
 
 test('charts context growth and predicts the turns left', { plugins: [LAYOUT] }, async ($, on) => {
   let percent = 10
+  const toasts: string[] = []
 
   on('ui.render', { component: 'Pane' }, ($, e) => {
     const { Text } = $.ui.resolve(e)
@@ -64,6 +65,11 @@ test('charts context growth and predicts the turns left', { plugins: [LAYOUT] },
     value: { startedAt: 0, context: { window: 200_000, tokens: percent * 2000, percent }, rateLimits: [] },
   }))
   on('turn.complete', (_$, e) => ({ text: e.answer }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
   mock.store(on)
 
   await $.command.run(run('place', 'side'))
@@ -72,7 +78,7 @@ test('charts context growth and predicts the turns left', { plugins: [LAYOUT] },
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
   expect(await ui.find({ text: /^context 10%$/ })).toBeDefined()
-  expect(await ui.find({ text: /^holding steady$/ })).toBeDefined()
+  expect(await ui.find({ text: /^no trend yet$/ })).toBeDefined()
 
   for (const next of [20, 30, 40]) {
     percent = next
@@ -84,10 +90,17 @@ test('charts context growth and predicts the turns left', { plugins: [LAYOUT] },
   expect(await ui.find({ text: /^\+10\.0% per turn over the last 3$/ })).toBeDefined()
   expect((await ui.find({ type: 'Text', text: /^[▁▂▃▄▅▆▇█]+$/ }))?.text).toBe('▁▂▃▄')
 
+  expect(toasts).toEqual([])
+  for (const next of [55, 70, 85]) {
+    percent = next
+    await $.turn.complete(done(`t${next}`))
+  }
+  expect(toasts).toEqual(['Forecast: about 2 turns until compaction at this pace. /compact now, while you can still say what to keep.'])
+
   percent = 12
   await $.turn.complete(done('compacted'))
   expect(await ui.find({ text: /^context 12%$/ })).toBeDefined()
-  expect(await ui.find({ text: /^holding steady$/ })).toBeDefined()
+  expect(await ui.find({ text: /^no trend yet$/ })).toBeDefined()
 
   expect((await $.command.run(run('forecast-widget', 'clear'))).text).toMatch(/cleared/)
   expect(await ui.find({ text: /No turns measured yet/ })).toBeDefined()

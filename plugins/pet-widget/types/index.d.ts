@@ -6,10 +6,19 @@ export type PetStatus = {
   activeAt: number
   calls: number
   forced: { mood: PetMood; until: number; note: string } | null
+  said?: { text: string; until: number }
+  fails?: number
+  startedAt?: number
 }
 
 export type PetGrowth = {
   xp: number
+}
+
+export type PetMemory = {
+  at: number
+  isFailing: boolean
+  visits: number
 }
 
 export type PetVisit = {

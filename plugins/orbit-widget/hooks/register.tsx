@@ -26,6 +26,8 @@ const spin = atom({ plugin: 'orbit-widget', key: 'spin' } as const, STILL)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const sync = async ($: EngineInterface): Promise<void> => {
   const isWanted = await read($, isOn)
   if (isWanted && timer === undefined) {
@@ -82,7 +84,7 @@ const show = async (
     beneath,
     width,
     title: 'Orbit',
-    note: held.running === 0 ? 'cruising' : `${held.running} calls · full speed`,
+    note: held.running === 0 ? 'cruising' : `${some(held.running, 'call')} · full speed`,
     body: await $.widgets.picture({ surface, key: 'orbit', columns: inner, rows: SPACE_ROWS, fill: SPACE, marks }),
   })
 }

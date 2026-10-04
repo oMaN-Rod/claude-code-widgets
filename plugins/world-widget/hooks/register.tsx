@@ -35,6 +35,8 @@ const scene = atom({ plugin: 'world-widget', key: 'scene' } as const, EMPTY)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const phaseAt = (hour: number): Phase => (hour < 5 || hour >= 21 ? 'night' : hour < 7 ? 'dawn' : hour < 18 ? 'day' : 'dusk')
 
 const sync = async ($: EngineInterface): Promise<void> => {
@@ -139,7 +141,7 @@ const show = async (
     beneath,
     width,
     title: 'World',
-    note: `${held.towers.length} towers · context ${Math.round(held.percent)}%`,
+    note: `${some(held.towers.length, 'tower')} · context ${Math.round(held.percent)}%`,
     body: await $.widgets.picture({
       surface,
       key: 'world',
@@ -179,8 +181,9 @@ export const register: Register = on => {
     const isShown = await update($, isOn, shown => (arg === '' ? !(shown ?? false) : arg === 'on'))
     await $.store.set('isOn', isShown)
     if (isShown) {
-      const { context } = await $.session.usage()
-      await update($, scene, held => ({ ...(held ?? EMPTY), percent: context.percent ?? (held ?? EMPTY).percent }))
+      const { context } = await $.session.usage({ breakdown: 'summary' })
+      const percent = context.percent ?? context.breakdown?.percentage
+      await update($, scene, held => ({ ...(held ?? EMPTY), percent: percent ?? (held ?? EMPTY).percent }))
     }
     await sync($)
 

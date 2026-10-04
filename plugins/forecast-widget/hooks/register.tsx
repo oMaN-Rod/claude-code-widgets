@@ -9,23 +9,45 @@ const CARD_COLUMNS = 40
 const MAX_READINGS = 60
 const RECENT = 5
 const DROP = 20
+const WARN_TURNS = 3
 const BARS = '▁▂▃▄▅▆▇█'
 const site = { plugin: 'widgets', key: 'site' } as const
 const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'forecast-widget', key: 'isOn' } as const, false)
 const readings = atom({ plugin: 'forecast-widget', key: 'readings' } as const, [])
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
+const growthOf = (held: readonly number[]): number => {
+  const recent = held.slice(-(RECENT + 1))
+
+  return recent.length < 2 ? 0 : ((recent.at(-1) ?? 0) - (recent[0] ?? 0)) / (recent.length - 1)
+}
+
+const leftOf = (held: readonly number[]): number | undefined => {
+  const now = held.at(-1)
+  const growth = growthOf(held)
+
+  return now === undefined || growth <= 0 ? undefined : Math.floor((100 - now) / growth)
+}
+
 const record = async ($: EngineInterface): Promise<void> => {
   const { context } = await $.session.usage()
   const percent = context.percent
   if (percent === undefined) return
 
-  await update($, readings, held => {
-    const before = held ?? []
-    const last = before[before.length - 1]
+  const before = await read($, readings)
+  const after = await update($, readings, held => {
+    const kept = held ?? []
+    const last = kept[kept.length - 1]
 
-    return last !== undefined && percent < last - DROP ? [percent] : [...before, percent].slice(-MAX_READINGS)
+    return last !== undefined && percent < last - DROP ? [percent] : [...kept, percent].slice(-MAX_READINGS)
   })
+  const was = leftOf(before)
+  const left = leftOf(after)
+  if (left !== undefined && left <= WARN_TURNS && (was === undefined || was > WARN_TURNS)) {
+    $.ui.toast(`Forecast: about ${left} ${left === 1 ? 'turn' : 'turns'} until compaction at this pace. /compact now, while you can still say what to keep.`)
+  }
 }
 
 const show = async (
@@ -43,8 +65,8 @@ const show = async (
   const held = await read($, readings)
   const now = held[held.length - 1]
   const recent = held.slice(-(RECENT + 1))
-  const growth = recent.length < 2 ? 0 : ((recent[recent.length - 1] ?? 0) - (recent[0] ?? 0)) / (recent.length - 1)
-  const left = now === undefined || growth <= 0 ? undefined : Math.floor((100 - now) / growth)
+  const growth = growthOf(held)
+  const left = leftOf(held)
   const shown = held.slice(-(width - 4))
 
   return $.widgets.card({
@@ -57,13 +79,14 @@ const show = async (
         {now === undefined && <Text dimColor>No turns measured yet.</Text>}
         {now !== undefined && (
           <Text wrap="truncate-end">
-            {left === undefined ? 'holding steady' : `about ${left} turns until compaction`}
+            {recent.length < 2 ? 'no trend yet' : left === undefined ? 'holding steady' : `about ${some(left, 'turn')} until compaction`}
           </Text>
         )}
         {now !== undefined && (
           <Text dimColor wrap="truncate-end">
-            {growth >= 0 ? '+' : ''}
-            {growth.toFixed(1)}% per turn over the last {Math.max(1, recent.length - 1)}
+            {recent.length < 2
+              ? 'one turn measured; a trend needs two'
+              : `${growth >= 0 ? '+' : ''}${growth.toFixed(1)}% per turn over the last ${recent.length - 1}`}
           </Text>
         )}
         {shown.length > 0 && (

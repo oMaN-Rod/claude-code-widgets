@@ -86,7 +86,7 @@ test('kicks a band per tool call and lets it fall back to rest', { plugins: [LAY
   const rest = (await ui.find({ type: 'Raster' }))?.props.cells
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u1', command: 'ls' })
-  expect(await ui.find({ text: /^1 calls$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 call$/ })).toBeDefined()
   const loud = (await ui.find({ type: 'Raster' }))?.props.cells
   expect(loud).not.toBe(rest)
 

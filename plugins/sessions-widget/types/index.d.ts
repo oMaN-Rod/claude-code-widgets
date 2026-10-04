@@ -4,6 +4,7 @@ export type SessionsPeer = {
   branch: string
   isBusy: boolean
   at: number
+  since?: number
 }
 
 declare module 'claude-code' {

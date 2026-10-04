@@ -93,7 +93,7 @@ test('launches a firework when checks pass and a dud when they fail', { plugins:
   expect((await ui.find({ type: 'Raster' }))?.props.cells).toBe(dark)
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u2', command: 'bun test' })
-  expect(await ui.find({ text: /^1 celebrations$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 celebration$/ })).toBeDefined()
   const rising = (await ui.find({ type: 'Raster' }))?.props.cells
   expect(rising).not.toBe(dark)
 
@@ -104,7 +104,7 @@ test('launches a firework when checks pass and a dud when they fail', { plugins:
   expect((await ui.find({ type: 'Raster' }))?.props.cells).toBe(dark)
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u3', command: 'bun run lint' })
-  expect(await ui.find({ text: /^1 celebrations$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 celebration$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(dark)
   await ui.unmount()
 

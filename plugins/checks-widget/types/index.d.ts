@@ -3,6 +3,7 @@ export type CheckRun = {
   isPassed: boolean
   ms: number
   at: number
+  isAsked?: boolean
 }
 
 declare module 'claude-code' {

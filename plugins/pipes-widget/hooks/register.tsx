@@ -31,6 +31,8 @@ const maze = atom({ plugin: 'pipes-widget', key: 'maze' } as const, EMPTY)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const shade = (color: number, factor: number): number =>
   (Math.round((color >> 16) * factor) << 16) |
   (Math.round(((color >> 8) & 255) * factor) << 8) |
@@ -118,7 +120,7 @@ const show = async (
     beneath,
     width,
     title: 'Pipes',
-    note: held.isPaused ? 'paused while Claude works' : `${held.laid} segments`,
+    note: held.isPaused ? 'paused while Claude works' : some(held.laid, 'segment'),
     body: await $.widgets.picture({ surface, key: 'pipes', columns: inner, rows: DOWN * CELL, fill: DARK, marks }),
   })
 }

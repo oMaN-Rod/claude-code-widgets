@@ -95,7 +95,7 @@ test('charts each tool call of the turn against the clock', { plugins: [LAYOUT] 
 
   await $.turn.start({ text: 'go', turnId: 't1' })
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u1', command: 'bun test' })
-  expect(await ui.find({ text: /^1 calls · 3\.0s$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 call · 3\.0s$/ })).toBeDefined()
   const one = (await ui.find({ type: 'Raster' }))?.props.cells
   expect(one).not.toBe(empty)
 

@@ -64,6 +64,7 @@ test('records test, lint and build runs and ages them on the clock', { plugins: 
       ? { result: 'boom', isError: true, text: 'boom' }
       : { result: 'ok', text: 'ok' }
   })
+  on('tool.check', () => ({ decision: 'ask' as const }))
   mock.store(on)
 
   await $.command.run(run('place', 'side'))
@@ -93,6 +94,12 @@ test('records test, lint and build runs and ages them on the clock', { plugins: 
   await clock.advance(150_000)
   expect(await ui.find({ text: /^4s · 2m ago$/ })).toBeDefined()
   await ui.unmount()
+
+  await $.tool.check({ tool: 'Bash', input: { command: 'bun test' }, tool_use_id: 'u5' })
+  await $.tool.call({ tool: 'Bash', tool_use_id: 'u5', command: 'bun test' })
+  const waited = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await waited.find({ text: /^0s ago$/ })).toBeDefined()
+  await waited.unmount()
 
   expect((await $.command.run(run('checks-widget', 'clear'))).text).toMatch(/cleared/)
   expect((await $.command.run(run('checks-widget', 'sideways'))).text).toMatch(/Usage/)

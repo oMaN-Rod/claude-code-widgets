@@ -36,6 +36,8 @@ const turn = atom({ plugin: 'timeline-widget', key: 'turn' } as const, IDLE)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const span = (ms: number): string => (ms < 60_000 ? `${(ms / 1000).toFixed(1)}s` : `${Math.floor(ms / 60_000)}m ${Math.round((ms % 60_000) / 1000)}s`)
 
 const sync = async ($: EngineInterface): Promise<void> => {
@@ -89,7 +91,7 @@ const show = async (
     beneath,
     width,
     title: 'Timeline',
-    note: held.startedAt === 0 ? 'no turn yet' : `${held.calls.length} calls · ${span(now - held.startedAt)}`,
+    note: held.startedAt === 0 ? 'no turn yet' : `${some(held.calls.length, 'call')} · ${span(now - held.startedAt)}`,
     body: await $.widgets.picture({ surface, key: 'timeline', columns: inner, rows: CHART_ROWS, marks }),
   })
 }

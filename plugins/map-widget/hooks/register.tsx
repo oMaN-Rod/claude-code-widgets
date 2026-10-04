@@ -21,6 +21,8 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'map-widget', key: 'isOn' } as const, false)
 const atlas = atom({ plugin: 'map-widget', key: 'atlas' } as const, BLANK)
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const tidy = (path: string): string => path.replaceAll('\\', '/')
 
 const relative = (path: string, root: string): string => {
@@ -89,7 +91,7 @@ const show = async (
     beneath,
     width,
     title: 'Map',
-    note: held.isRepo ? `${count} files` : '',
+    note: held.isRepo ? some(count, 'file') : '',
     body: !held.isRepo ? (
       <Text dimColor>Not a git repository.</Text>
     ) : (

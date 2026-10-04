@@ -103,7 +103,7 @@ test('draws an emblem from the session and keeps one per session', { plugins: [L
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u1', command: 'ls' })
   await $.tool.call({ tool: 'Read', tool_use_id: 'u2', file_path: '/x' })
-  expect(await ui.find({ text: /^this session: 2 calls · 0 turns · 1 failures$/ })).toBeDefined()
+  expect(await ui.find({ text: /^this session: 2 calls · 0 turns · 1 failure$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(blank)
 
   await $.turn.complete(done('t1'))

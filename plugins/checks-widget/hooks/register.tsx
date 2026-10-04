@@ -14,6 +14,7 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'checks-widget', key: 'isOn' } as const, false)
 const tick = atom({ plugin: 'checks-widget', key: 'tick' } as const, 0)
 const runs = atom({ plugin: 'checks-widget', key: 'runs' } as const, [])
+const asked = new Set<string>()
 
 let timer: Timer | undefined
 
@@ -70,9 +71,12 @@ const show = async (
             <Box flexGrow={1}>
               <Text wrap="truncate-end">{run.command}</Text>
             </Box>
-            <Text dimColor>
-              {span(run.ms)} · {span(now - run.at)} ago
-            </Text>
+            <Box flexShrink={0}>
+              <Text dimColor>
+                {run.isAsked === true ? '' : `${span(run.ms)} · `}
+                {span(now - run.at)} ago
+              </Text>
+            </Box>
           </Box>
         ))}
       </Box>
@@ -112,6 +116,13 @@ export const register: Register = on => {
     return { text: isShown ? 'Checks widget on; /widgets places it.' : 'Checks widget off.' }
   })
 
+  on('tool.check', async (_$, e, next) => {
+    const verdict = await next(e)
+    if (verdict.decision === 'ask' && e.tool_use_id !== undefined) asked.add(e.tool_use_id)
+
+    return verdict
+  })
+
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
     const command = String((e as { command?: unknown }).command ?? '').split('\n')[0] ?? ''
     if (!CHECKS.test(command) || !(await read($, isOn))) return next(e)
@@ -121,7 +132,8 @@ export const register: Register = on => {
     if (ran.deny !== undefined) return ran
 
     const at = await $.clock.now()
-    const run = { command, isPassed: ran.isError !== true, ms: at - startedAt, at }
+    const isAsked = e.tool_use_id !== undefined && asked.delete(e.tool_use_id)
+    const run = { command, isPassed: ran.isError !== true, ms: at - startedAt, at, isAsked }
     await update($, runs, held => [run, ...(held ?? [])].slice(0, 20))
 
     return ran

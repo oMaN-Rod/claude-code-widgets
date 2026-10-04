@@ -28,6 +28,8 @@ const game = atom({ plugin: 'breakout-widget', key: 'game' } as const, FRESH)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const advance = (held: BreakoutGame | undefined): BreakoutGame => {
   const before = held ?? FRESH
   let { dx, dy, score, walls } = before
@@ -108,7 +110,7 @@ const show = async (
     beneath,
     width,
     title: 'Breakout',
-    note: `${held.score} bricks · ${held.walls} walls cleared`,
+    note: `${some(held.score, 'brick')} · ${some(held.walls, 'wall')}`,
     body: await $.widgets.picture({ surface, key: 'breakout', columns: inner, rows: FIELD_ROWS, fill: DARK, marks }),
   })
 }

@@ -54,7 +54,13 @@ const ran = (exitCode: number, stdout: string) => ({
   value: { exitCode, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false },
 })
 
-test('lists this session beside the others that checked in recently', { plugins: [LAYOUT] }, async ($, on) => {
+test('lists the live sessions from the shared file and relays a line to one', { plugins: [LAYOUT] }, async ($, on) => {
+  const sent: string[] = []
+  let file = JSON.stringify([
+    { id: 'other', cwd: '/work/api', branch: 'feature', isBusy: false, at: 95_000, since: 95_000 - 12 * 60_000 },
+    { id: 'gone', cwd: '/work/old', branch: 'main', isBusy: false, at: 1000 },
+  ])
+
   on('ui.render', { component: 'Pane' }, ($, e) => {
     const { Text } = $.ui.resolve(e)
 
@@ -62,21 +68,28 @@ test('lists this session beside the others that checked in recently', { plugins:
   })
   on('command.register', (_$, e) => ({ value: { command: e.name } }))
   on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('session.id', () => ({ value: 'mine' }))
+  on('session.send', (_$, e) => {
+    sent.push(`${e.to}:${e.text}`)
+
+    return e.text.includes('fail') ? { isDelivered: false as const, reason: 'no such session' } : { isDelivered: true as const }
+  })
   on('turn.start', (_$, e) => ({ turnId: e.turnId }))
+  on('turn.complete', (_$, e) => ({ text: e.answer }))
   on('process.run', () => ran(0, 'main\n'))
-  const clock = mock.clock(on, { now: 100_000 })
-  const data: Record<string, unknown> = {
-    peers: [
-      { id: 'other', cwd: '/work/api', branch: 'feature', isBusy: true, at: 95_000 },
-      { id: 'gone', cwd: '/work/old', branch: 'main', isBusy: false, at: 1000 },
-    ],
-  }
-  on('store.get', (_$, e) => ({ value: data[e.key] }))
-  on('store.set', (_$, e) => {
-    data[e.key] = e.value
+  on('fs.read', (_$, e) => {
+    expect(e.path.replaceAll('\\', '/')).toMatch(/sessions-widget\/\.sessions\.json$/)
+
+    return { value: file }
+  })
+  on('fs.write', (_$, e) => {
+    file = e.text
 
     return { value: undefined }
   })
+  mock.store(on)
+  const clock = mock.clock(on, { now: 100_000 })
+  const kept = () => JSON.parse(file) as { id: string; cwd: string; isBusy: boolean }[]
 
   await $.session.start({ cwd: 'C:\\code\\site', surface: 'terminal', isInteractive: true })
   await $.command.run(run('place', 'side'))
@@ -87,20 +100,28 @@ test('lists this session beside the others that checked in recently', { plugins:
   expect(await ui.find({ text: /^2 open$/ })).toBeDefined()
   expect(await ui.find({ text: /^site main$/ })).toBeDefined()
   expect(await ui.find({ text: /^here$/ })).toBeDefined()
-  expect(await ui.find({ text: /^api feature$/ })).toBeDefined()
-  expect(await ui.find({ text: /^busy$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 api feature$/ })).toBeDefined()
+  expect(await ui.find({ text: /^waiting 12m$/ })).toBeDefined()
   expect(await ui.find({ text: /old/ })).toBeUndefined()
-
-  const kept = data.peers as { id: string; cwd: string }[]
-  expect(kept.map(peer => peer.cwd).sort()).toEqual(['/work/api', 'C:\\code\\site'])
+  expect(kept().map(peer => peer.id).sort()).toEqual(['mine', 'other'])
 
   await $.turn.start({ text: 'go', turnId: 't1' })
-  const busy = data.peers as { cwd: string; isBusy: boolean }[]
-  expect(busy.find(peer => peer.cwd === 'C:\\code\\site')?.isBusy).toBe(true)
+  expect(kept().find(peer => peer.id === 'mine')?.isBusy).toBe(true)
+  await $.turn.complete({ answer: 'ok', durationMs: 5, isAborted: false, turnId: 't1', reason: 'answer' } as never)
+  expect(kept().find(peer => peer.id === 'mine')?.isBusy).toBe(false)
+
+  expect((await $.command.run(run('relay', 'hello'))).text).toMatch(/Usage/)
+  expect((await $.command.run(run('relay', '4 hello'))).text).toBe('No session 4 on the card.')
+  expect((await $.command.run(run('relay', '1 the API changed,\nre-read types.ts'))).text).toBe(
+    'Sent to api. It reads it as a message from this session.',
+  )
+  expect((await $.command.run(run('relay', '1 fail'))).text).toBe('Not delivered to api: no such session')
+  expect(sent).toHaveLength(2)
+  expect(sent[0]).toMatch(/the API changed,\nre-read types\.ts$/)
 
   await clock.advance(40_000)
   expect(await ui.find({ text: /^1 open$/ })).toBeDefined()
-  expect(await ui.find({ text: /^api feature$/ })).toBeUndefined()
+  expect(await ui.find({ text: /api feature/ })).toBeUndefined()
   await ui.unmount()
 
   expect((await $.command.run(run('sessions-widget', 'sideways'))).text).toMatch(/Usage/)

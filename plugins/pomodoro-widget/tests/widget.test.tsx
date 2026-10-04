@@ -84,14 +84,14 @@ test('counts a focus session down, announces its end and counts it', { plugins: 
 
   await clock.advance(61_000)
   expect(await ui.find({ text: /^idle$/ })).toBeDefined()
-  expect(await ui.find({ text: /^1 focus sessions done$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 focus session done$/ })).toBeDefined()
   expect(toasts).toEqual(['Focus session done. Take a break.'])
 
   expect((await $.command.run(run('pomodoro-widget', 'break'))).text).toMatch(/Break for 5 minutes/)
   expect(await ui.find({ text: /^break$/ })).toBeDefined()
   expect((await $.command.run(run('pomodoro-widget', 'stop'))).text).toMatch(/stopped/)
   expect(await ui.find({ text: /^idle$/ })).toBeDefined()
-  expect(await ui.find({ text: /^1 focus sessions done$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 focus session done$/ })).toBeDefined()
   await ui.unmount()
 
   expect((await $.command.run(run('pomodoro-widget', 'sideways'))).text).toMatch(/Usage/)

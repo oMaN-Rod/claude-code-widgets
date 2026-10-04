@@ -21,6 +21,8 @@ const flow = atom({ plugin: 'rain-widget', key: 'flow' } as const, CALM)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const shade = (color: number, factor: number): number =>
   (Math.round((color >> 16) * factor) << 16) |
   (Math.round(((color >> 8) & 255) * factor) << 8) |
@@ -71,7 +73,7 @@ const show = async (
     beneath,
     width,
     title: 'Rain',
-    note: held.running === 0 ? 'quiet' : `${held.running} calls running`,
+    note: held.running === 0 ? 'quiet' : `${some(held.running, 'call')} running`,
     body: await $.widgets.picture({ surface, key: 'rain', columns: inner, rows: RAIN_ROWS, fill: DARK, marks }),
   })
 }

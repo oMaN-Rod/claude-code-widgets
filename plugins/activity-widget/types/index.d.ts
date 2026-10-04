@@ -3,6 +3,7 @@ export type ActivityCall = {
   detail: string
   ms: number
   isFailed: boolean
+  isAsked?: boolean
 }
 
 export type ActivityLog = {

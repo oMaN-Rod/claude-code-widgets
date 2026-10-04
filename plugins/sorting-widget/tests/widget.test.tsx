@@ -85,7 +85,7 @@ test('makes one swap per tool call and reshuffles once sorted', { plugins: [LAYO
   const shuffled = (await ui.find({ type: 'Raster' }))?.props.cells
 
   await $.tool.call({ tool: 'Read', tool_use_id: 'u1', file_path: '/x' })
-  expect(await ui.find({ text: /^1 swaps · 0 sorted$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 swap · 0 sorted$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(shuffled)
 
   expect((await $.command.run(run('sorting-widget', 'step'))).text).toMatch(/One swap/)

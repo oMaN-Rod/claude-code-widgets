@@ -22,6 +22,8 @@ const mix = atom({ plugin: 'equalizer-widget', key: 'mix' } as const, SILENT)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const hash = (text: string): number => {
   let sum = 7
   for (const letter of text) sum = (sum * 31 + letter.charCodeAt(0)) % 100_003
@@ -76,7 +78,7 @@ const show = async (
     beneath,
     width,
     title: 'Equalizer',
-    note: `${held.calls} calls`,
+    note: some(held.calls, 'call'),
     body: await $.widgets.picture({ surface, key: 'equalizer', columns: inner, rows: METER_ROWS, marks }),
   })
 }

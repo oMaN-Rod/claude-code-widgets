@@ -25,6 +25,8 @@ const total = atom({ plugin: 'fireworks-widget', key: 'total' } as const, 0)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const shade = (color: number, factor: number): number =>
   (Math.round((color >> 16) * factor) << 16) |
   (Math.round(((color >> 8) & 255) * factor) << 8) |
@@ -104,7 +106,7 @@ const show = async (
     beneath,
     width,
     title: 'Fireworks',
-    note: `${await read($, total)} celebrations`,
+    note: some(await read($, total), 'celebration'),
     body: await $.widgets.picture({ surface, key: 'fireworks', columns: inner, rows: SKY_ROWS, fill: NIGHT, marks }),
   })
 }

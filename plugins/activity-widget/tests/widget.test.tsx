@@ -62,6 +62,7 @@ test('lists the latest tool calls with their duration and outcome', { plugins: [
 
     return e.tool === 'Read' ? { result: 'boom', isError: true, text: 'boom' } : { result: 'ok', text: 'ok' }
   })
+  on('tool.check', () => ({ decision: 'ask' as const }))
   mock.store(on)
 
   await $.command.run(run('place', 'side'))
@@ -92,6 +93,12 @@ test('lists the latest tool calls with their duration and outcome', { plugins: [
   expect(await full.find({ text: /^10 calls · 1 failed$/ })).toBeDefined()
   expect(await full.findAll({ type: 'Text', text: /^Glob / })).toHaveLength(6)
   await full.unmount()
+
+  await $.tool.check({ tool: 'Glob', input: { pattern: '*.md' }, tool_use_id: 'e1' })
+  await $.tool.call({ tool: 'Glob', tool_use_id: 'e1', pattern: '*.md' })
+  const waited = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await waited.find({ text: /^asked 40ms$/ })).toBeDefined()
+  await waited.unmount()
 
   expect((await $.command.run(run('activity-widget', 'clear'))).text).toMatch(/cleared/)
   expect((await $.command.run(run('activity-widget', 'sideways'))).text).toMatch(/Usage/)

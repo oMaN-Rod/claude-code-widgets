@@ -62,7 +62,7 @@ const sync = async ($: EngineInterface): Promise<void> => {
 }
 
 const taken = (context: SessionContextUsage, rateLimits: readonly SessionRateLimit[]): WeatherReading => ({
-  percent: context.percent ?? null,
+  percent: context.percent ?? context.breakdown?.percentage ?? null,
   limits: rateLimits.map(({ kind, percentUsed }) => ({ kind, percentUsed })),
 })
 
@@ -172,7 +172,7 @@ export const register: Register = on => {
     if ((await $.store.get('isOn')) === true) await update($, isOn, () => true)
     await update($, preview, () => null)
     if (await read($, isOn)) {
-      const { context, rateLimits } = await $.session.usage()
+      const { context, rateLimits } = await $.session.usage({ breakdown: 'summary' })
       await update($, reading, () => taken(context, rateLimits))
     }
     await sync($)
@@ -197,7 +197,7 @@ export const register: Register = on => {
     )
     await $.store.set('isOn', isShown)
     if (isShown) {
-      const { context, rateLimits } = await $.session.usage()
+      const { context, rateLimits } = await $.session.usage({ breakdown: 'summary' })
       await update($, reading, () => taken(context, rateLimits))
     }
     await sync($)
@@ -206,7 +206,11 @@ export const register: Register = on => {
   })
 
   on('session.measure', async ($, e, next) => {
-    await update($, reading, () => taken(e.context, e.rateLimits))
+    await update($, reading, held => {
+      const now = taken(e.context, e.rateLimits)
+
+      return { ...now, percent: now.percent ?? held?.percent ?? null }
+    })
 
     return next(e)
   })

@@ -10,7 +10,8 @@ const PANE = 'widgets'
 const CARD_COLUMNS = 40
 const BEAT_MS = 10_000
 const STALE_MS = 35_000
-const NOBODY: SessionsPeer = { id: '', cwd: '', branch: '', isBusy: false, at: 0 }
+const FILE = '.sessions.json'
+const NOBODY: SessionsPeer = { id: '', cwd: '', branch: '', isBusy: false, at: 0, since: 0 }
 const site = { plugin: 'widgets', key: 'site' } as const
 const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'sessions-widget', key: 'isOn' } as const, false)
@@ -30,9 +31,14 @@ const beat = async ($: EngineInterface): Promise<void> => {
   const mine = await update($, me, held => ({ ...(held ?? NOBODY), at: now }))
   if (mine.id === '') return
 
-  const kept = await $.store.get('peers')
+  let kept: unknown = []
+  try {
+    kept = JSON.parse(await $.fs.read(`${$.plugin.root}/${FILE}`))
+  } catch {
+    kept = []
+  }
   const others = (isPeers(kept) ? kept : []).filter(peer => peer.id !== mine.id && now - peer.at < STALE_MS)
-  await $.store.set('peers', [...others, mine])
+  await $.fs.write(`${$.plugin.root}/${FILE}`, JSON.stringify([...others, mine])).catch(() => undefined)
   await update($, peers, () => others)
 }
 
@@ -58,13 +64,28 @@ const enrol = async ($: EngineInterface, cwd: string): Promise<void> => {
   } catch {
     branch = ''
   }
+  const id = await $.session.id().catch(() => `${now}-${Math.floor(Math.random() * 1_000_000)}`)
   await update($, me, held => ({
-    id: (held ?? NOBODY).id === '' ? `${now}-${Math.floor(Math.random() * 1_000_000)}` : (held ?? NOBODY).id,
+    id: (held ?? NOBODY).id === '' ? id : (held ?? NOBODY).id,
     cwd: cwd === '' ? (held ?? NOBODY).cwd : cwd,
     branch,
     isBusy: (held ?? NOBODY).isBusy,
     at: now,
+    since: (held ?? NOBODY).since === 0 ? now : (held ?? NOBODY).since,
   }))
+}
+
+const span = (ms: number): string => {
+  const minutes = Math.floor(Math.max(0, ms) / 60_000)
+  if (minutes < 1) return ''
+
+  return minutes < 60 ? ` ${minutes}m` : ` ${Math.floor(minutes / 60)}h`
+}
+
+const mark = async ($: EngineInterface, isBusy: boolean): Promise<void> => {
+  const now = await $.clock.now()
+  await update($, me, held => ((held ?? NOBODY).isBusy === isBusy ? (held ?? NOBODY) : { ...(held ?? NOBODY), isBusy, since: now }))
+  if (await read($, isOn)) await beat($)
 }
 
 const show = async (
@@ -80,6 +101,7 @@ const show = async (
   const wanted = (await $.state.get(widths)).value?.['sessions-widget'] ?? CARD_COLUMNS
   const mine = await read($, me)
   const others = await read($, peers)
+  const now = await $.clock.now()
 
   return $.widgets.card({
     beneath,
@@ -93,11 +115,14 @@ const show = async (
             <Text color={peer.isBusy ? 'yellow' : 'green'}>●</Text>
             <Box flexGrow={1}>
               <Text wrap="truncate-end" bold={index === 0}>
+                {index > 0 && <Text color="cyan">{index} </Text>}
                 {folderOf(peer.cwd) || 'this session'}
                 {peer.branch !== '' && <Text dimColor> {peer.branch}</Text>}
               </Text>
             </Box>
-            <Text dimColor>{index === 0 ? 'here' : peer.isBusy ? 'busy' : 'idle'}</Text>
+            <Text dimColor>
+              {index === 0 ? 'here' : `${peer.isBusy ? 'busy' : 'waiting'}${span(now - (peer.since ?? peer.at))}`}
+            </Text>
           </Box>
         ))}
       </Box>
@@ -111,6 +136,11 @@ export const register: Register = on => {
       name: 'sessions-widget',
       description: 'Toggle the card listing the other Claude Code sessions open on this machine',
       argumentHint: '[on|off]',
+    })
+    await $.command.register({
+      name: 'relay',
+      description: 'Send a line to another session listed on the sessions card',
+      argumentHint: '<number> <message>',
     })
     if ((await $.store.get('isOn')) === true) await update($, isOn, () => true)
     await enrol($, e.cwd)
@@ -135,18 +165,33 @@ export const register: Register = on => {
     return { text: isShown ? 'Sessions on; /widgets places it.' : 'Sessions off.' }
   })
 
+  on('command.run', { command: 'relay' }, async ($, e) => {
+    const sent = /^(\d+)\s+(.+)$/s.exec(e.args.trim())
+    if (sent === null) return { text: 'Usage: /relay <number> <message>, the number shown on the sessions card' }
+
+    await beat($)
+    const peer = (await read($, peers))[Number(sent[1]) - 1]
+    if (peer === undefined) return { text: `No session ${sent[1]} on the card.` }
+
+    const done = await $.session
+      .send({ to: { sessionId: peer.id }, text: sent[2] ?? '' })
+      .catch(error => ({ isDelivered: false as const, reason: String(error) }))
+
+    return {
+      text: done.isDelivered
+        ? `Sent to ${folderOf(peer.cwd)}. It reads it as a message from this session.`
+        : `Not delivered to ${folderOf(peer.cwd)}: ${done.reason}`,
+    }
+  })
+
   on('turn.start', async ($, e, next) => {
-    await update($, me, held => ({ ...(held ?? NOBODY), isBusy: true }))
-    if (await read($, isOn)) await beat($)
+    await mark($, true)
 
     return next(e)
   })
 
   on('turn.complete', async ($, e, next) => {
-    if (e.agentId === undefined) {
-      await update($, me, held => ({ ...(held ?? NOBODY), isBusy: false }))
-      if (await read($, isOn)) await beat($)
-    }
+    if (e.agentId === undefined) await mark($, false)
 
     return next(e)
   })

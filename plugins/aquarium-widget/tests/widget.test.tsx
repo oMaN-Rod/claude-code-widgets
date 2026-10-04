@@ -96,7 +96,7 @@ test('adds a fish while a tool call runs and animates on the clock', { plugins: 
 
   const call = $.tool.call({ tool: 'Agent', tool_use_id: 'u1', description: 'd', prompt: 'p' })
   await clock.settle()
-  expect(await ui.find({ text: /^1 agents · 0 tools running$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 agent · 0 tools running$/ })).toBeDefined()
   finish?.()
   await call
   expect(await ui.find({ text: /^all quiet$/ })).toBeDefined()

@@ -14,6 +14,8 @@ const isOn = atom({ plugin: 'changes-widget', key: 'isOn' } as const, false)
 const root = atom({ plugin: 'changes-widget', key: 'root' } as const, '')
 const files = atom({ plugin: 'changes-widget', key: 'files' } as const, [])
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const tidy = (path: string): string => path.replaceAll('\\', '/')
 
 const relative = (path: string, base: string): string =>
@@ -40,7 +42,7 @@ const show = async (
     beneath,
     width,
     title: 'Changes',
-    note: edited.length === 0 ? '' : `${edited.length} files · ${edits} edits`,
+    note: edited.length === 0 ? '' : `${some(edited.length, 'file')} · ${some(edits, 'edit')}`,
     body: (
       <Box flexDirection="column">
         {edited.length === 0 && <Text dimColor>No files edited yet.</Text>}

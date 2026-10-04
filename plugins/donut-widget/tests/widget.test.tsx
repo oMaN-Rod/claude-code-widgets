@@ -98,7 +98,7 @@ test('turns on the clock and counts the tool calls in flight', { plugins: [LAYOU
 
   const call = $.tool.call({ tool: 'Bash', tool_use_id: 'u1', command: 'sleep 1' })
   await clock.settle()
-  expect(await ui.find({ text: /^1 calls · spinning fast$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 call · spinning fast$/ })).toBeDefined()
   finish?.()
   await call
   expect(await ui.find({ text: /^turning$/ })).toBeDefined()

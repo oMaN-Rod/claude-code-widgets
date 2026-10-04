@@ -30,6 +30,8 @@ const fleet = atom({ plugin: 'invaders-widget', key: 'fleet' } as const, CLEAR)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const sync = async ($: EngineInterface): Promise<void> => {
   const isWanted = await read($, isOn)
   if (isWanted && timer === undefined) {
@@ -107,7 +109,7 @@ const show = async (
     beneath,
     width,
     title: 'Invaders',
-    note: held.invaders === 0 ? `all clear · ${held.downed} shot down` : `${held.invaders} invaders · ${held.downed} shot down`,
+    note: held.invaders === 0 ? `all clear · ${held.downed} down` : `${some(held.invaders, 'invader')} · ${held.downed} down`,
     body: await $.widgets.picture({ surface, key: 'invaders', columns: inner, rows: SPACE_ROWS, fill: SPACE, marks }),
   })
 }

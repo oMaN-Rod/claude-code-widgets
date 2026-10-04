@@ -97,7 +97,7 @@ const show = async (
     beneath,
     width,
     title: 'Constellation',
-    note: `${held.stars.length}/${FULL} stars · ${held.finished} charted`,
+    note: `${held.stars.length}/${FULL} · ${held.finished} charted`,
     body: await $.widgets.picture({ surface, key: 'constellation', columns: inner, rows: SKY_ROWS, fill: NIGHT, marks }),
   })
 }

@@ -39,6 +39,8 @@ const isOn = atom({ plugin: 'quest-widget', key: 'isOn' } as const, false)
 const hero = atom({ plugin: 'quest-widget', key: 'hero' } as const, NOVICE)
 const news = atom({ plugin: 'quest-widget', key: 'news' } as const, 'The dungeon waits. Send a prompt to enter.')
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const healthAt = (level: number): number => 50 + level * 10
 
 const needAt = (level: number): number => level * 50
@@ -140,7 +142,7 @@ const show = async (
           <Text dimColor>{'░'.repeat(cells - progress)}</Text> {held.xp}
         </Text>
         <Text dimColor wrap="truncate-end">
-          {held.gold} gold · {held.slain} slain · {held.falls} falls
+          {held.gold} gold · {held.slain} slain · {some(held.falls, 'fall')}
         </Text>
         <Text wrap="wrap">{await read($, news)}</Text>
       </Box>

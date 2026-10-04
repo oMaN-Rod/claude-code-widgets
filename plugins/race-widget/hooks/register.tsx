@@ -90,7 +90,7 @@ const show = async (
       <Box flexDirection="column">
         {picture}
         <Text dimColor wrap="truncate-end">
-          {podium.length === 0 ? 'Subagents race here, one stride per tool call.' : podium.join(' · ')}
+          {podium.length === 0 ? 'One stride per tool call.' : podium.join(' · ')}
         </Text>
       </Box>
     ),

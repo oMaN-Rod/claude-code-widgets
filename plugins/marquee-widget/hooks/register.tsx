@@ -124,7 +124,7 @@ const show = async (
     beneath,
     width,
     title: 'Marquee',
-    note: `${held.items.length} headlines`,
+    note: `${held.items.length} ${held.items.length === 1 ? 'headline' : 'headlines'}`,
     body: await $.widgets.picture({ surface, key: 'marquee', columns: inner, rows: SIGN_ROWS, fill: PANEL, marks }),
   })
 }

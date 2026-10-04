@@ -80,10 +80,10 @@ test('plays itself, breaks bricks and takes a new row per tool call', { plugins:
   expect((await $.command.run(run('breakout-widget', 'on'))).text).toMatch(/Breakout on/)
 
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
-  const score = async () => Number(/^(\d+) bricks/.exec((await ui.find({ type: 'Text', text: /bricks · \d+ walls cleared$/ }))?.text ?? '')?.[1])
+  const score = async () => Number(/^(\d+) bricks/.exec((await ui.find({ type: 'Text', text: /bricks · \d+ walls$/ }))?.text ?? '')?.[1])
 
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
-  expect(await ui.find({ text: /^0 bricks · 0 walls cleared$/ })).toBeDefined()
+  expect(await ui.find({ text: /^0 bricks · 0 walls$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props).toMatchObject({ columns: 36, rows: 9 })
   const start = (await ui.find({ type: 'Raster' }))?.props.cells
 

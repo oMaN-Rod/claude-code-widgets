@@ -34,6 +34,8 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'sound-widget', key: 'isOn' } as const, false)
 const roll = atom({ plugin: 'sound-widget', key: 'roll' } as const, SILENT)
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const sound = async ($: EngineInterface, pitch: number): Promise<void> => {
   const held = await update($, roll, before => ({
     ...(before ?? SILENT),
@@ -81,7 +83,7 @@ const show = async (
     beneath,
     width,
     title: 'Sound',
-    note: `${held.played} notes${held.isMuted ? ' · muted' : ''}`,
+    note: `${some(held.played, 'note')}${held.isMuted ? ' · muted' : ''}`,
     body: await $.widgets.picture({ surface, key: 'sound', columns: inner, rows: ROLL_ROWS, marks }),
   })
 }

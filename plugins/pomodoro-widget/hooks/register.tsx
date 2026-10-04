@@ -22,6 +22,8 @@ const run = atom({ plugin: 'pomodoro-widget', key: 'run' } as const, RESTING)
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const pad = (value: number): string => String(value).padStart(2, '0')
 
 const beat = async ($: EngineInterface): Promise<void> => {
@@ -107,7 +109,7 @@ const show = async (
             <Text dimColor>{'░'.repeat(inner - filled)}</Text>
           </Box>
         )}
-        <Text dimColor>{held.done} focus sessions done</Text>
+        <Text dimColor>{some(held.done, 'focus session')} done</Text>
       </Box>
     ),
   })

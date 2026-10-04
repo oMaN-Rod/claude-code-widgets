@@ -28,6 +28,8 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'garden-widget', key: 'isOn' } as const, false)
 const plot = atom({ plugin: 'garden-widget', key: 'plot' } as const, BARE)
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const isPlot = (value: unknown): value is Pick<GardenPlot, 'leaves' | 'blooms'> =>
   typeof value === 'object' &&
   value !== null &&
@@ -106,8 +108,8 @@ const show = async (
       <Box columnGap={2}>
         {picture}
         <Box flexDirection="column" justifyContent="center">
-          <Text>{held.leaves} leaves</Text>
-          <Text>{held.blooms} blooms</Text>
+          <Text>{held.leaves === 1 ? '1 leaf' : `${held.leaves} leaves`}</Text>
+          <Text>{some(held.blooms, 'bloom')}</Text>
           {isWilted && <Text dimColor>a call failed</Text>}
         </Box>
       </Box>

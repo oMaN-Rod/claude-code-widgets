@@ -70,6 +70,9 @@ const show = async (
 
   const wanted = (await $.state.get(widths)).value?.['diff-widget'] ?? CARD_COLUMNS
   const held = await read($, patch)
+  const full = held === null ? '' : held.path.replaceAll('\\', '/')
+  const root = `${(await $.session.root()).replaceAll('\\', '/').replace(/\/$/, '')}/`
+  const shown = full.toLowerCase().startsWith(root.toLowerCase()) ? full.slice(root.length) : full
 
   return $.widgets.card({
     beneath,
@@ -82,7 +85,7 @@ const show = async (
       ) : (
         <Box flexDirection="column">
           <Text dimColor wrap="truncate-start">
-            {held.path.replaceAll('\\', '/')}
+            {shown}
           </Text>
           <Code source={held.source} format="diff" path={held.path} wrap="truncate-end" />
         </Box>

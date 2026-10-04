@@ -84,11 +84,11 @@ test('measures how fast text arrives while a step streams', { plugins: [LAYOUT] 
   expect(kinds).toEqual(['text', 'thinking'])
 
   expect(await ui.find({ text: /^idle$/ })).toBeDefined()
-  expect(await ui.find({ text: /^~150 tokens this turn · peak ~200 tok\/s$/ })).toBeDefined()
+  expect(await ui.find({ text: /^~150 tokens this turn, peak ~200\/s$/ })).toBeDefined()
   expect((await ui.find({ type: 'Text', text: /^[▁▂▃▄▅▆▇█]+$/ }))?.text.startsWith('█▅')).toBe(true)
 
   await $.turn.start({ text: 'go', turnId: 't2' })
-  expect(await ui.find({ text: /^~0 tokens this turn · peak ~0 tok\/s$/ })).toBeDefined()
+  expect(await ui.find({ text: /^~0 tokens this turn, peak ~0\/s$/ })).toBeDefined()
   await ui.unmount()
 
   expect((await $.command.run(run('stream-widget', 'sideways'))).text).toMatch(/Usage/)

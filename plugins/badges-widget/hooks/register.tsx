@@ -37,6 +37,8 @@ const isIds = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every(id => typeof id === 'string')
 
 const award = async ($: EngineInterface, held: BadgesStats): Promise<void> => {
+  if (!(await read($, isOn))) return
+
   const before = await read($, earned)
   const fresh = BADGES.filter(badge => !before.includes(badge.id) && badge.isEarned(held))
 
@@ -74,7 +76,7 @@ const show = async (
               ★ {badge.name}
             </Text>
           ) : (
-            <Text dimColor wrap="truncate-end">
+            <Text dimColor>
               ☆ {badge.name}: {badge.hint}
             </Text>
           ),

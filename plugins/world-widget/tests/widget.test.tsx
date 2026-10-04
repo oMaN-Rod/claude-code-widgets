@@ -105,14 +105,14 @@ test('draws one scene from the clock, the turns, the tool calls and the context'
   expect(working).not.toBe(moved)
 
   await $.turn.complete(done('t1'))
-  expect(await ui.find({ text: /^1 towers · context 10%$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 tower · context 10%$/ })).toBeDefined()
 
   await $.session.measure({
     context: { window: 200_000, tokens: 164_000, percent: 82 },
     rateLimits: [],
     changed: ['context'],
   })
-  expect(await ui.find({ text: /^1 towers · context 82%$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 tower · context 82%$/ })).toBeDefined()
 
   expect((await $.command.run(run('world-widget', 'clear'))).text).toMatch(/cleared/)
   expect(await ui.find({ text: /^0 towers · context 82%$/ })).toBeDefined()

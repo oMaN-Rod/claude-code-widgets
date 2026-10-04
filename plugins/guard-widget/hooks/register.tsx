@@ -15,6 +15,8 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'guard-widget', key: 'isOn' } as const, false)
 const tally = atom({ plugin: 'guard-widget', key: 'tally' } as const, NONE)
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const labelOf = (tool: string, input: unknown): string => {
   const command = (input as { command?: unknown } | null)?.command
   const word = typeof command === 'string' ? (command.trim().split(/\s+/)[0] ?? '') : ''
@@ -50,7 +52,7 @@ const show = async (
     beneath,
     width: Math.min(wanted, Math.max(20, columns)),
     title: 'Guard',
-    note: total === 0 ? '' : `${total} checks`,
+    note: total === 0 ? '' : some(total, 'check'),
     body: (
       <Box flexDirection="column">
         {total === 0 && <Text dimColor>No permission checks yet.</Text>}

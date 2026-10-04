@@ -112,7 +112,9 @@ const show = async (
         {picture}
         <Box flexDirection="column" justifyContent="center">
           {left === 0 ? <Text color="yellow">Take a break.</Text> : <Text>{minutes}m until a break</Text>}
-          <Text dimColor>{held.cups} cups this session</Text>
+          <Text dimColor>
+            {held.cups} {held.cups === 1 ? 'cup' : 'cups'} this session
+          </Text>
           <Text dimColor>/coffee-widget refill</Text>
         </Box>
       </Box>

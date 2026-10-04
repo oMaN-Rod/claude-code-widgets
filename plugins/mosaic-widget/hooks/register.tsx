@@ -38,6 +38,8 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'mosaic-widget', key: 'isOn' } as const, false)
 const wall = atom({ plugin: 'mosaic-widget', key: 'wall' } as const, BARE)
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const shade = (color: number, factor: number): number =>
   (Math.round((color >> 16) * factor) << 16) |
   (Math.round(((color >> 8) & 255) * factor) << 8) |
@@ -72,7 +74,7 @@ const show = async (
     beneath,
     width,
     title: 'Mosaic',
-    note: `${held.laid} tiles`,
+    note: some(held.laid, 'tile'),
     body: await $.widgets.picture({
       surface,
       key: 'mosaic',

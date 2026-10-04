@@ -15,6 +15,9 @@ const site = { plugin: 'widgets', key: 'site' } as const
 const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'activity-widget', key: 'isOn' } as const, false)
 const log = atom({ plugin: 'activity-widget', key: 'log' } as const, QUIET)
+const asked = new Set<string>()
+
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
 
 const detailOf = (input: Readonly<Record<string, unknown>>): string => {
   for (const key of DETAILS) {
@@ -46,7 +49,7 @@ const show = async (
     beneath,
     width: Math.min(wanted, Math.max(20, columns)),
     title: 'Activity',
-    note: held.total === 0 ? '' : `${held.total} calls · ${held.failed} failed`,
+    note: held.total === 0 ? '' : `${some(held.total, 'call')} · ${held.failed} failed`,
     body: (
       <Box flexDirection="column">
         {held.calls.length === 0 && <Text dimColor>No tool calls yet.</Text>}
@@ -59,7 +62,7 @@ const show = async (
                 {call.detail !== '' && <Text dimColor> {call.detail}</Text>}
               </Text>
             </Box>
-            <Text dimColor>{took(call.ms)}</Text>
+            <Text dimColor>{call.isAsked === true ? `asked ${took(call.ms)}` : took(call.ms)}</Text>
           </Box>
         ))}
       </Box>
@@ -97,6 +100,13 @@ export const register: Register = on => {
     return { text: isShown ? 'Activity widget on; /widgets places it.' : 'Activity widget off.' }
   })
 
+  on('tool.check', async (_$, e, next) => {
+    const verdict = await next(e)
+    if (verdict.decision === 'ask' && e.tool_use_id !== undefined) asked.add(e.tool_use_id)
+
+    return verdict
+  })
+
   on('tool.call', async ($, e, next) => {
     if (!(await read($, isOn))) return next(e)
 
@@ -104,7 +114,8 @@ export const register: Register = on => {
     const ran = await next(e)
     const ms = (await $.clock.now()) - startedAt
     const isFailed = ran.isError === true || ran.deny !== undefined
-    const call = { tool: e.tool, detail: detailOf(e as Readonly<Record<string, unknown>>), ms, isFailed }
+    const isAsked = e.tool_use_id !== undefined && asked.delete(e.tool_use_id)
+    const call = { tool: e.tool, detail: detailOf(e as Readonly<Record<string, unknown>>), ms, isFailed, isAsked }
 
     await update($, log, held => {
       const before = held ?? QUIET

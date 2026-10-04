@@ -85,16 +85,16 @@ test('sends an invader per failing check and shoots one down per passing check',
 
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
-  expect(await ui.find({ text: /^all clear · 0 shot down$/ })).toBeDefined()
+  expect(await ui.find({ text: /^all clear · 0 down$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props).toMatchObject({ columns: 36, rows: 9 })
   const empty = (await ui.find({ type: 'Raster' }))?.props.cells
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u1', command: 'bun test' })
-  expect(await ui.find({ text: /^all clear · 0 shot down$/ })).toBeDefined()
+  expect(await ui.find({ text: /^all clear · 0 down$/ })).toBeDefined()
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u2', command: 'bun run lint' })
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u3', command: 'bun run lint' })
-  expect(await ui.find({ text: /^2 invaders · 0 shot down$/ })).toBeDefined()
+  expect(await ui.find({ text: /^2 invaders · 0 down$/ })).toBeDefined()
   const invaded = (await ui.find({ type: 'Raster' }))?.props.cells
   expect(invaded).not.toBe(empty)
 
@@ -102,10 +102,10 @@ test('sends an invader per failing check and shoots one down per passing check',
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(invaded)
 
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u4', command: 'bun test' })
-  expect(await ui.find({ text: /^1 invaders · 1 shot down$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 invader · 1 down$/ })).toBeDefined()
 
   expect((await $.command.run(run('invaders-widget', 'clear'))).text).toMatch(/cleared/)
-  expect(await ui.find({ text: /^all clear · 0 shot down$/ })).toBeDefined()
+  expect(await ui.find({ text: /^all clear · 0 down$/ })).toBeDefined()
   await ui.unmount()
 
   expect((await $.command.run(run('invaders-widget', 'demo'))).text).toMatch(/one incoming/)

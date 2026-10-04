@@ -56,6 +56,7 @@ test('shows the last edit as a unified diff', { plugins: [LAYOUT] }, async ($, o
 
     return <Text>beneath</Text>
   })
+  on('session.root', () => ({ value: '/work' }))
   on('tool.call', (_$, e) =>
     e.tool === 'Edit' && e.file_path === '/work/bad.ts'
       ? { result: 'boom', isError: true, text: 'boom' }
@@ -83,7 +84,7 @@ test('shows the last edit as a unified diff', { plugins: [LAYOUT] }, async ($, o
     const ui = await $.ui.mount({ ...PANE, surface })
     expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
     expect(await ui.find({ text: /^\+2 -1$/ })).toBeDefined()
-    expect(await ui.find({ text: /^\/work\/src\/sum\.ts$/ })).toBeDefined()
+    expect(await ui.find({ text: /^src\/sum\.ts$/ })).toBeDefined()
     const code = await ui.find({ type: 'Code' })
     expect(code?.props).toMatchObject({ format: 'diff', path: '/work/src/sum.ts' })
     expect(String(code?.props.source).split('\n')).toEqual([

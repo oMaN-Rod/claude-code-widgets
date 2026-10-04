@@ -28,7 +28,7 @@ const FLOORS: Record<string, number> = {
 const LEGEND = [
   ['r', 'read'],
   ['e', 'edit'],
-  ['s', 'shell'],
+  ['s', 'run'],
   ['a', 'agent'],
   ['w', 'web'],
 ] as const
@@ -48,6 +48,8 @@ const site = { plugin: 'widgets', key: 'site' } as const
 const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'skyline-widget', key: 'isOn' } as const, false)
 const turns = atom({ plugin: 'skyline-widget', key: 'turns' } as const, [])
+
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
 
 const kindOf = (tool: string): string => {
   if (/^(Read|Glob|Grep|LS|NotebookRead|ToolSearch)$/.test(tool)) return 'r'
@@ -109,11 +111,11 @@ const drawCard = async (
     beneath,
     width,
     title: 'Skyline',
-    note: `${built.length} turns · ${calls} tool calls`,
+    note: `${some(built.length, 'turn')} · ${some(calls, 'call')}`,
     body: (
       <Box flexDirection="column">
         {picture}
-        <Text wrap="truncate-end">
+        <Text>
           {LEGEND.map(([kind, label], index) => (
             <Text>
               {index > 0 ? ' ' : ''}

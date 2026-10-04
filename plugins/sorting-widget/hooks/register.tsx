@@ -15,6 +15,8 @@ const FLOOR = 0x30363d
 const site = { plugin: 'widgets', key: 'site' } as const
 const widths = { plugin: 'widgets', key: 'widths' } as const
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const shuffle = (seed: number): number[] => {
   const bars = Array.from({ length: BARS }, (_, index) => 1 + Math.round((index / (BARS - 1)) * (CHART_ROWS - 2)))
   let state = (seed % 2_147_483_647) + 1
@@ -87,7 +89,7 @@ const show = async (
     beneath,
     width,
     title: 'Sorting',
-    note: `${held.swaps} swaps · ${held.sorted} sorted`,
+    note: `${some(held.swaps, 'swap')} · ${held.sorted} sorted`,
     body: await $.widgets.picture({ surface, key: 'sorting', columns: inner, rows: CHART_ROWS, marks }),
   })
 }

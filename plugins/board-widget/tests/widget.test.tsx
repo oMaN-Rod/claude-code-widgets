@@ -79,7 +79,7 @@ test('registers a pin tool and shows what Claude pins', { plugins: [LAYOUT] }, a
   const first = await $.tool.call(
     pin('u1', { goal: 'Find why   login fails', findings: ['Token expires early', ''], questions: ['Which env?'] }),
   )
-  expect(first.text).toBe('Board updated: goal set, 1 findings, 1 questions.')
+  expect(first.text).toBe('Board updated: goal set, 1 finding, 1 question.')
   expect(await ui.find({ text: /^Find why login fails$/ })).toBeDefined()
   expect(await ui.find({ text: /^✓ Token expires early$/ })).toBeDefined()
   expect(await ui.find({ text: /^\? Which env\?$/ })).toBeDefined()

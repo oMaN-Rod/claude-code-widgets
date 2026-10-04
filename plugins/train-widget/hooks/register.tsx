@@ -48,6 +48,8 @@ const wagons = atom({ plugin: 'train-widget', key: 'wagons' } as const, [])
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const shade = (color: number, factor: number): number =>
   (Math.round((color >> 16) * factor) << 16) |
   (Math.round(((color >> 8) & 255) * factor) << 8) |
@@ -104,7 +106,7 @@ const show = async (
     beneath,
     width,
     title: 'Train',
-    note: pulled.length === 0 ? 'running light' : `${pulled.length} wagons this turn`,
+    note: pulled.length === 0 ? 'running light' : `${some(pulled.length, 'wagon')} this turn`,
     body: await $.widgets.picture({ surface, key: 'train', columns: inner, rows: TRACK_ROWS, marks }),
   })
 }

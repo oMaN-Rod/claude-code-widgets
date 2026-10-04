@@ -156,7 +156,7 @@ test('levels up with XP and wears a hat once badges are earned', { plugins: [LAY
 })
 
 test('goes away when another session holds it and comes back on a prompt', { plugins: [LAYOUT] }, async ($, on) => {
-  const data: Record<string, unknown> = { isOn: true }
+  let file = ''
 
   on('ui.render', ($, e) => {
     const { Text } = $.ui.resolve(e)
@@ -166,31 +166,97 @@ test('goes away when another session holds it and comes back on a prompt', { plu
   on('command.register', (_$, e) => ({ value: { command: e.name } }))
   on('session.start', (_$, e) => ({ cwd: e.cwd }))
   on('turn.start', (_$, e) => ({ turnId: e.turnId }))
-  on('store.get', (_$, e) => ({ value: data[e.key] }))
-  on('store.set', (_$, e) => {
-    data[e.key] = e.value
+  on('fs.read', (_$, e) => {
+    expect(e.path.replaceAll('\\', '/')).toMatch(/pet-widget\/\.home\.json$/)
+    if (file === '') throw new Error('ENOENT')
+
+    return { value: file }
+  })
+  on('fs.write', (_$, e) => {
+    file = e.text
 
     return { value: undefined }
   })
+  mock.store(on, { isOn: true })
   const clock = mock.clock(on, { now: 1000 })
 
   await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
   await $.command.run(run('place', 'above'))
-  const mine = (data.home as { holder: string }).holder
+  const mine = (JSON.parse(file) as { holder: string }).holder
   expect(mine).not.toBe('')
 
   const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
   expect(await ui.find({ type: 'Raster' })).toBeDefined()
 
-  data.home = { holder: 'another-session', at: 2000 }
+  file = JSON.stringify({ holder: 'another-session', at: 2000 })
   await clock.advance(3000)
   expect(await ui.find({ text: /^away$/ })).toBeDefined()
   expect(await ui.find({ text: /visiting another session/ })).toBeDefined()
   expect(await ui.find({ type: 'Raster' })).toBeUndefined()
 
   await $.turn.start({ text: 'go', turnId: 't1' })
-  expect((data.home as { holder: string }).holder).toBe(mine)
+  expect((JSON.parse(file) as { holder: string }).holder).toBe(mine)
   expect(await ui.find({ text: /^work$/ })).toBeDefined()
   expect(await ui.find({ type: 'Raster' })).toBeDefined()
   await ui.unmount()
+})
+
+test('remembers the project and speaks up about what happens', { plugins: [LAYOUT] }, async ($, on) => {
+  const DAY = 24 * 60 * 60_000
+  const data: Record<string, unknown> = { isOn: true, 'seen:/work': { at: 1000, isFailing: true, visits: 4 } }
+  let isBroken = true
+
+  on('ui.render', ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('turn.start', (_$, e) => ({ turnId: e.turnId }))
+  on('turn.complete', (_$, e) => ({ text: e.answer }))
+  on('tool.call', () => (isBroken ? { result: 'x', isError: true as const, text: 'x' } : { result: 'ok', text: 'ok' }))
+  on('fs.read', () => {
+    throw new Error('ENOENT')
+  })
+  on('fs.write', () => ({ value: undefined }))
+  on('store.get', (_$, e) => ({ value: data[e.key] }))
+  on('store.set', (_$, e) => {
+    data[e.key] = e.value
+
+    return { value: undefined }
+  })
+  const clock = mock.clock(on, { now: new Date(2026, 9, 3, 14, 0).getTime() })
+  data['seen:/work'] = { at: new Date(2026, 9, 3, 14, 0).getTime() - 3 * DAY, isFailing: true, visits: 4 }
+
+  await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
+  await $.command.run(run('place', 'above'))
+  expect(data['seen:/work']).toMatchObject({ isFailing: true, visits: 5 })
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ text: /^3 days away\. the checks were red when you left$/ })).toBeDefined()
+  await clock.advance(13_000)
+  expect(await ui.find({ text: /^3 days away/ })).toBeUndefined()
+
+  await $.turn.start({ text: 'go', turnId: 't1' })
+  for (const id of ['a', 'b', 'c']) await $.tool.call({ tool: 'Bash', tool_use_id: id, command: 'bun test' })
+  await clock.advance(7000)
+  expect(await ui.find({ text: /^third time\.\.\. read the error\?$/ })).toBeDefined()
+
+  isBroken = false
+  await $.tool.call({ tool: 'Bash', tool_use_id: 'd', command: 'bun test' })
+  await clock.advance(7000)
+  expect(await ui.find({ text: /^green again!$/ })).toBeDefined()
+
+  await clock.advance(11 * 60_000)
+  await $.turn.complete({ answer: 'ok', durationMs: 5, isAborted: false, turnId: 't1', reason: 'answer' } as never)
+  expect(await ui.find({ text: /^phew, long one\. stretch\?$/ })).toBeDefined()
+  expect(data['seen:/work']).toMatchObject({ isFailing: false, visits: 5 })
+  await ui.unmount()
+
+  delete data['seen:/work']
+  await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
+  const fresh = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await fresh.find({ text: /^a new project! I like it here$/ })).toBeDefined()
+  await fresh.unmount()
 })

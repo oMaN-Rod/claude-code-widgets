@@ -128,8 +128,9 @@ export const register: Register = on => {
     const isShown = await update($, isOn, shown => (arg === '' ? !(shown ?? false) : arg === 'on'))
     await $.store.set('isOn', isShown)
     if (isShown) {
-      const { context } = await $.session.usage()
-      await update($, fight, held => ({ ...(held ?? FRESH), percent: context.percent ?? (held ?? FRESH).percent }))
+      const { context } = await $.session.usage({ breakdown: 'summary' })
+      const percent = context.percent ?? context.breakdown?.percentage
+      await update($, fight, held => ({ ...(held ?? FRESH), percent: percent ?? (held ?? FRESH).percent }))
     }
 
     return { text: isShown ? 'Boss on; /widgets places it.' : 'Boss off.' }

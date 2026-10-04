@@ -81,20 +81,20 @@ test('adds a building per turn and a floor per tool call', { plugins: [LAYOUT] }
   expect((await $.command.run(run('skyline-widget', 'on'))).text).toMatch(/Skyline on/)
 
   const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
-  expect(await ui.find({ text: /^0 turns · 0 tool calls$/ })).toBeDefined()
+  expect(await ui.find({ text: /^0 turns · 0 calls$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props).toMatchObject({ columns: 36, rows: 6 })
   const empty = (await ui.find({ type: 'Raster' }))?.props.cells
 
   await $.turn.start({ text: 'go', turnId: 't1' })
   await $.tool.call({ tool: 'Read', tool_use_id: 'u1', file_path: '/x' })
   await $.tool.call({ tool: 'Bash', tool_use_id: 'u2', command: 'false' })
-  expect(await ui.find({ text: /^1 turns · 2 tool calls$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 turn · 2 calls$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props.cells).not.toBe(empty)
 
   await $.command.run(run('skyline-widget', 'demo'))
-  expect(await ui.find({ text: /^9 turns · 42 tool calls$/ })).toBeDefined()
+  expect(await ui.find({ text: /^9 turns · 42 calls$/ })).toBeDefined()
   await $.command.run(run('skyline-widget', 'clear'))
-  expect(await ui.find({ text: /^0 turns · 0 tool calls$/ })).toBeDefined()
+  expect(await ui.find({ text: /^0 turns · 0 calls$/ })).toBeDefined()
   await ui.unmount()
 
   expect((await $.command.run(run('skyline-widget', 'off'))).text).toMatch(/off/)

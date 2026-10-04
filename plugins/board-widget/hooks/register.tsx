@@ -35,6 +35,8 @@ const widths = { plugin: 'widgets', key: 'widths' } as const
 const isOn = atom({ plugin: 'board-widget', key: 'isOn' } as const, false)
 const notes = atom({ plugin: 'board-widget', key: 'notes' } as const, BLANK)
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const lineOf = (value: unknown): string => String(value).replaceAll(/\s+/g, ' ').trim().slice(0, MAX_LENGTH)
 
 const listOf = (value: unknown): string[] | undefined =>
@@ -146,7 +148,7 @@ export const register: Register = on => {
         questions: listOf(pin.questions) ?? before.questions,
       }
     })
-    const text = `Board updated: ${kept.goal === '' ? 'no goal' : 'goal set'}, ${kept.findings.length} findings, ${kept.questions.length} questions.`
+    const text = `Board updated: ${kept.goal === '' ? 'no goal' : 'goal set'}, ${some(kept.findings.length, 'finding')}, ${some(kept.questions.length, 'question')}.`
 
     return { result: text, text }
   })

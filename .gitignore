@@ -5,3 +5,7 @@ plugins/*/tsconfig.json
 node_modules/
 .DS_Store
 Thumbs.db
+
+# Written by widgets that share data between sessions
+plugins/*/.sessions.json
+plugins/*/.home.json

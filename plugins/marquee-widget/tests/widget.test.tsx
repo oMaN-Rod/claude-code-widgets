@@ -89,7 +89,7 @@ test('scrolls session events across the sign', { plugins: [LAYOUT] }, async ($, 
   const cells = async () => (await ui.find({ type: 'Raster' }))?.props.cells
 
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
-  expect(await ui.find({ text: /^1 headlines$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 headline$/ })).toBeDefined()
   expect((await ui.find({ type: 'Raster' }))?.props).toMatchObject({ columns: 36, rows: 4 })
   const dark = await cells()
 
@@ -107,7 +107,7 @@ test('scrolls session events across the sign', { plugins: [LAYOUT] }, async ($, 
   expect(await ui.find({ text: /^6 headlines$/ })).toBeDefined()
 
   expect((await $.command.run(run('marquee-widget', 'clear'))).text).toMatch(/cleared/)
-  expect(await ui.find({ text: /^1 headlines$/ })).toBeDefined()
+  expect(await ui.find({ text: /^1 headline$/ })).toBeDefined()
   await ui.unmount()
 
   const desktop = await $.ui.mount({ ...PANE, surface: 'desktop' })

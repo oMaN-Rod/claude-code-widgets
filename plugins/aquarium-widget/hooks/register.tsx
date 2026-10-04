@@ -39,6 +39,8 @@ const swimmers = atom({ plugin: 'aquarium-widget', key: 'swimmers' } as const, [
 
 let timer: Timer | undefined
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const sync = async ($: EngineInterface): Promise<void> => {
   const isWanted = await read($, isOn)
   if (isWanted && timer === undefined) {
@@ -106,7 +108,7 @@ const drawCard = async (
     beneath,
     width,
     title: 'Aquarium',
-    note: swimming.length === 0 ? 'all quiet' : `${agents} agents · ${tools} tools running`,
+    note: swimming.length === 0 ? 'all quiet' : `${some(agents, 'agent')} · ${some(tools, 'tool')} running`,
     body: await $.widgets.picture({
       surface,
       key: 'aquarium',

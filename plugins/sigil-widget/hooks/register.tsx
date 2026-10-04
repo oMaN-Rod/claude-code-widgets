@@ -19,6 +19,8 @@ const isOn = atom({ plugin: 'sigil-widget', key: 'isOn' } as const, false)
 const session = atom({ plugin: 'sigil-widget', key: 'session' } as const, NEW)
 const gallery = atom({ plugin: 'sigil-widget', key: 'gallery' } as const, [])
 
+const some = (count: number, word: string): string => `${count} ${word}${count === 1 ? '' : 's'}`
+
 const hash = (text: string): number => {
   let sum = 2_166_136_261
   for (const letter of text) sum = Math.imul(sum ^ letter.charCodeAt(0), 16_777_619) >>> 0
@@ -64,7 +66,7 @@ const stamp = (marks: WidgetsMark[], seed: number, left: number, top: number, sc
 
 const keep = async ($: EngineInterface): Promise<void> => {
   const held = await read($, session)
-  if (held.id === 0 || held.tools === '') return
+  if (held.id === 0 || held.tools === '' || !(await read($, isOn))) return
 
   const entry = { id: held.id, seed: seedOf(held), calls: held.tools.length }
   const kept = await update($, gallery, before =>
@@ -106,8 +108,8 @@ const show = async (
     body: (
       <Box flexDirection="column">
         {picture}
-        <Text dimColor wrap="truncate-end">
-          this session: {held.tools.length} calls · {held.turns} turns · {held.fails} failures
+        <Text dimColor>
+          this session: {some(held.tools.length, 'call')} · {some(held.turns, 'turn')} · {some(held.fails, 'failure')}
         </Text>
       </Box>
     ),
