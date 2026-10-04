@@ -4,6 +4,8 @@ Small cards that sit under the Claude Code prompt, or docked beside the transcri
 
 It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 61 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
+Try every widget in its own little terminal on the [demo page](docs/index.html): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page, so opening the file works, and GitHub Pages can serve it from `docs/`.
+
 ## Install
 
 Add the marketplace, then install the layout plugin and whichever widgets you want:
@@ -42,10 +44,10 @@ What Claude is doing and what it is costing.
 | `checks-widget` | `/checks-widget [on\|off\|clear]` | The latest test, lint and build runs: pass or fail, duration and how long ago |
 | `timeline-widget` | `/timeline-widget [on\|off]` | The turn as a chart: one bar per tool call on a time axis, parallel calls stacked |
 | `board-widget` | `/board-widget [on\|off\|clear]` | A status board Claude writes itself through a `pin` tool: goal, findings and open questions |
-| `forecast-widget` | `/forecast-widget [on\|off\|clear]` | Context growth per turn as a chart, with the turns left before compaction |
+| `forecast-widget` | `/forecast-widget [on\|off\|clear]` | Context growth per turn as a chart, with the turns left before compaction; warns once when three or fewer are left |
 | `guard-widget` | `/guard-widget [on\|off\|clear]` | Permission checks this session: allowed, asked and denied, with what you keep being asked about |
 | `stream-widget` | `/stream-widget [on\|off]` | A live tokens-per-second gauge and sparkline while Claude is writing (estimated from text length) |
-| `sessions-widget` | `/sessions-widget [on\|off]` | The other Claude Code sessions open on this machine: folder, branch, busy or idle |
+| `sessions-widget` | `/relay <number> <message>`, `/sessions-widget [on\|off]` | Every Claude Code session open on this machine: folder, branch, working or waiting and for how long; `/relay 1 <message>` sends a line to one |
 
 ### Project and git
 
@@ -80,7 +82,7 @@ Pixel art that reacts to turns, tool calls, checks and context usage.
 
 | Plugin | Command | What it shows |
 | --- | --- | --- |
-| `pet-widget` | `/pet-widget [on\|off\|<mood>]` | Clawd, a pixel crab: works during a turn, dizzy when a tool call fails, happy when tests pass. Earns XP and levels up across sessions, wears a hat once `badges-widget` has awarded a badge, and with two sessions open stays in the one you last prompted |
+| `pet-widget` | `/pet-widget [on\|off\|<mood>]` | Clawd, a pixel crab: works during a turn, dizzy when a tool call fails, happy when tests pass. Earns XP and levels up across sessions, wears a hat once `badges-widget` has awarded a badge, and with two sessions open stays in the one you last prompted. Remembers each project and greets you with how long you were away and whether the checks were red |
 | `aquarium-widget` | `/aquarium-widget [on\|off\|demo]` | A fish for every running tool call and agent |
 | `skyline-widget` | `/skyline-widget [on\|off\|demo\|clear]` | One building per turn, one floor per tool call |
 | `train-widget` | `/train-widget [on\|off]` | A locomotive pulling one wagon per tool call this turn, coloured by tool |
@@ -158,7 +160,13 @@ claude plugin validate plugins/<name>  # check a manifest and hooks module
 claude plugin test plugins/<name>      # run its tests
 ```
 
+Plugin storage (`$.store`) is read once per session, so a widget that has to see other live sessions keeps a file under its own folder instead (`$.plugin.root`).
+
 Plugins cannot import from one another, so `widgets` shares card stacking and the pixel renderer as `$.widgets` (`plugins/widgets/hooks/kit.tsx`), which every widget calls.
+
+### Demo page
+
+`docs/` is the demo page. `bun run site/build.ts` bundles every widget's hooks module into `docs/mods.js` and writes `docs/catalog.js` from the tables above, so a new widget appears on the page once it has a row here. `docs/engine.js` is a small stand-in for the mod engine (state, store, clock, commands, a made-up project and a scripted turn), and `docs/view.js` draws the card trees. `bun run site/smoke.ts` boots every widget in that engine and runs a turn; a widget that needs an engine call the stand-in lacks shows up there. `docs/widgets.js` holds recordings from the real interface, shown only if a widget fails to start.
 
 ## License
 

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Widgets</title>
+<meta name="description" content="Small cards that sit beside your Claude Code session. Every widget, playing in its own little terminal.">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header id="hero">
+  <h1>claude-code-<span>widgets</span></h1>
+  <p class="lede">Small cards that sit beside your Claude Code session, each one its own mod behind a slash command. <b id="total"></b> of them, from a context meter and git status to a pixel crab, a dungeon crawl and Tetris. Every card below is the real widget, running in your browser against a simulated session. Pick one to open it on the workbench, where you can type its slash commands, <b>run a turn</b> to give it some work, or take the keys of a game.</p>
+  <div class="install"><i># in Claude Code</i>
+/plugin marketplace add oMaN-Rod/claude-code-widgets
+/plugin install widgets@claude-code-widgets
+/plugin install pet-widget@claude-code-widgets</div>
+</header>
+<nav class="tools"><div id="tools">
+  <input id="search" type="search" placeholder="Search widgets" aria-label="Search widgets">
+  <span class="count" id="count"></span>
+</div></nav>
+<main>
+  <div class="wall" id="wall"></div>
+  <p class="none" id="none" hidden>No widget matches that.</p>
+  <section id="bench" hidden></section>
+</main>
+<footer><div>The widgets here run their real code against a small stand-in for Claude Code: a made-up project, made-up usage figures and a scripted turn. Source and install notes on <a href="https://github.com/oMaN-Rod/claude-code-widgets">GitHub</a>. MIT licensed.</div></footer>
+<script src="catalog.js"></script>
+<script src="widgets.js"></script>
+<script src="mods.js"></script>
+<script src="engine.js"></script>
+<script src="view.js"></script>
+<script src="page.js"></script>
+</body>
+</html>
