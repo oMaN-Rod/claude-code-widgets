@@ -452,7 +452,7 @@ const asOf = (order, at) => {
   return { ...seen, widget: isNamed ? order.widget : null, title: isNamed ? order.title : null, sendBacks: stamps.filter(stamp => stamp.result === 'send-back').length, agents: log.filter(isShift).length }
 }
 
-const tape = { orders: null, marks: [], played: [], rate: REPLAY_RATE, speed: 1, at: 0, seenAt: 0, isDone: false }
+const tape = { orders: null, marks: [], played: [], rate: REPLAY_RATE, speed: 1, at: 0, seenAt: 0, isDone: false, isPaused: false }
 const replay = async () => {
   if (tape.orders === null) {
     tape.orders = (await (await fetch('/api/board')).json()).orders
@@ -462,7 +462,7 @@ const replay = async () => {
     tape.rate = Math.max(REPLAY_RATE, (tape.played.at(-1) ?? 0) / REPLAY_LONGEST_MS)
     tape.seenAt = performance.now()
   }
-  tape.at += (performance.now() - tape.seenAt) * tape.rate * tape.speed
+  if (!tape.isPaused) tape.at += (performance.now() - tape.seenAt) * tape.rate * tape.speed
   tape.seenAt = performance.now()
   const played = tape.at
   const next = tape.played.findIndex(mark => mark > played)
@@ -481,7 +481,7 @@ const poll = async () => {
     state.board = board
     syncClock(board.at)
     world.show(orders(), state.selected)
-    pulse.textContent = isDemo ? `rehearsal · ${clock(board.at)}` : isReplay ? `${board.isDone ? 'replay done' : 'replay'} · ${day(board.at)}` : `live · ${clock(board.at)}`
+    pulse.textContent = isDemo ? `rehearsal · ${clock(board.at)}` : isReplay ? `${board.isDone ? 'replay done' : tape.isPaused ? 'paused' : 'replay'} · ${day(board.at)}` : `live · ${clock(board.at)}`
     pulse.classList.add('live')
     paintStats()
     if (key !== state.key) {
@@ -500,12 +500,26 @@ const speed = document.getElementById('speed')
 const setSpeed = value => {
   tape.speed = REPLAY_SPEEDS.includes(value) ? value : 1
   speed.textContent = `${tape.speed}×`
-  world.setPace(REPLAY_PACE * tape.speed)
+  world.setPace(tape.isPaused ? 0 : REPLAY_PACE * tape.speed)
   try {
     localStorage.setItem('replay-speed', String(tape.speed))
   } catch {}
 }
+const pause = document.getElementById('pause')
+const setPaused = isPaused => {
+  tape.isPaused = isPaused
+  pause.textContent = isPaused ? '▶' : '⏸'
+  pause.setAttribute('aria-label', isPaused ? 'Play the replay' : 'Pause the replay')
+  world.setPace(isPaused ? 0 : REPLAY_PACE * tape.speed)
+}
 if (isReplay) {
+  pause.hidden = false
+  pause.addEventListener('click', () => setPaused(!tape.isPaused))
+  document.addEventListener('keydown', event => {
+    if (event.key !== ' ' || event.target.closest('button, input, select, textarea')) return
+    event.preventDefault()
+    setPaused(!tape.isPaused)
+  })
   speed.hidden = false
   document.getElementById('rehearse').hidden = true
   speed.addEventListener('click', () => setSpeed(REPLAY_SPEEDS[(REPLAY_SPEEDS.indexOf(tape.speed) + 1) % REPLAY_SPEEDS.length]))
