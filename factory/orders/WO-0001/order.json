@@ -1,0 +1,175 @@
+{
+  "id": "WO-0001",
+  "kind": "new",
+  "widget": "sieve-widget",
+  "title": "Sieve",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T18:28:51.251Z",
+  "closedAt": "2026-10-04T20:12:49.376Z",
+  "sendBacks": 2,
+  "stamps": [
+    {
+      "at": "2026-10-04T18:48:04.755Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: new ground (tool.describe), but its token saving is a guess from description length, it only takes effect next session, and the card has no moment to match Sieve's.",
+      "subject": "Toolbelt"
+    },
+    {
+      "at": "2026-10-04T18:48:04.819Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a sound safety net on unused prompt.edit, but it stores everything typed in plain text on disk and is a convenience rather than something that changes how a session goes.",
+      "subject": "Drafts"
+    },
+    {
+      "at": "2026-10-04T18:48:04.882Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the same widget as Drafts under the same name, with the same plain-text-on-disk cost.",
+      "subject": "Lost and found"
+    },
+    {
+      "at": "2026-10-04T18:48:04.951Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a string search of the transcript cannot say what Claude still knows after a summary, so its 'lost' verdicts would mislead, and Sieve removes most of the loss it reports.",
+      "subject": "Earshot"
+    },
+    {
+      "at": "2026-10-04T18:48:05.017Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its answer is a git grep guess at a definition, it polls for a selection only some layouts report, and it is a lookup the person can already do in one command.",
+      "subject": "Whatis"
+    },
+    {
+      "at": "2026-10-04T18:48:05.080Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on Drafts and mirror-widget: the same watching of the prompt box, by a one-second poll, for a joke that wears off after a day.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-04T18:48:05.143Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on insight-widget and wager-widget: prompt wording set against how the turn went, narrowed to a word list.",
+      "subject": "Just"
+    },
+    {
+      "at": "2026-10-04T18:48:05.206Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A model call on every qualifying turn for a line that invites invention when nothing was held back, and it sits between socrates-widget, critic-widget and gist-widget.",
+      "subject": "Candor"
+    },
+    {
+      "at": "2026-10-04T18:48:05.269Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Sieve is the only idea that replaces the compactor instead of watching it: every word kept, tool traffic folded, no model call, and every API claim checks out in the types file."
+    },
+    {
+      "at": "2026-10-04T18:54:31.754Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. The empty state has no reachable definition: Commands and A25 say \"on\" computes the preview at once (and A20 says figures come from text length when usage has no tokens), yet A1 expects \"Nothing to sieve yet.\" when on before any measured turn. Say exactly when preview is null (for example: the transcript holds no tool calls, or no messages), whether a restored switch at session.start computes a preview, and make A1 test that condition. 2. The error state \"the preview could not be read\" cannot be represented: preview is null and last is null in that case, which is the empty state, and its drawn text \"The usual summary ran\" would be false because no compaction happened. Give it a state value and its own wording, or drop it, and add an acceptance line. 3. \"now\" breaks its own promise of never spending tokens: a throw while weighing or sieving goes to next(e) even when isSieveOnly is set, which runs the paid summary. With isSieveOnly a failure must answer { skip } and \"now\" needs a sentence for it; add an acceptance line. 4. The outcome of a \"now\" that is not enough is undefined: the text reads as outcome short plus a toast unless isSieveOnly, but does not say what last and the card become on the skip. The short card (\"Not enough: the usual summary ran\") and the short toast would both be untrue there. State what is recorded (nothing, or a kind with its own lines) and extend A18 to prove the card and the toast count. 5. The card does not read at 20 columns outside two states. Short wording is given only for working and sieved. \"A sieve would leave about 118k\" (30 chars), \"Not enough: the usual summary ran\" (33), \"You gave /compact instructions\", \"The usual summary ran, as asked\", \"Could not sieve this conversation\", \"Too much: a summary would run\" and \"Last sieve: about 142k to 31k\" all truncate at 16 inner columns and the 118k figure is cut. Give the short wording for passed on, asked, failed, too much and last sieve, and extend A22 to every state. 6. Lines overflow with realistic large values: at 20 columns \"1212 calls folded\" is 17 characters, so A22 fails once a session passes 999 folded calls; at 40 columns \"1212 tool calls folded into 120 lines\" is 37 against 36. Use size() on these counts or shorter wording, and state the long wording needs 40 columns while the short switch is at 30 (\"No summary written, no tokens spent\" is 35 and is cut from 30 to 38 columns). 7. Acceptance misses: a bare /compact (trigger manual, no instructions) sieves, which the Commands section claims and only auto is tested; the asked state at its note \"passed on\" with both lines; a session.measure whose changed lacks context does nothing; fewer prompts than tailTurns leaves the whole list as tail. 8. \"All <n> of your messages kept\" counts every user row with text and no tool results. Say how rows that are not typed by the person (a core compaction summary from an earlier passed-on compaction, command output, task notifications) are told apart or reword the line so the number cannot be untrue, and prove it in a test with such a row. Checked and sound: session.compact, session.measure, SessionCompacted { messages }, SessionCompactSkipped { skip }, SessionMessage.handle, ToolUseSummary, $.session.messages, $.session.usage, $.session.compact (only the calling command.run hook is skipped) and $.ui.toast all exist in the types file as quoted; the demo section is present.",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-04T19:01:21.848Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. The \"now\" verb contradicts the empty state. Deciding says a not-enough \"now\" stores the weighing as preview and sets face working; Look and State say preview is null and face is empty when the transcript holds no tool call. So \"now\" on a conversation with no tool calls (or no messages) draws a working card with zero tool traffic and \"Too much: a summary would run\", and answers \"A sieve would leave about N: not enough\", where the card should still read \"Nothing to sieve yet.\" Say what \"now\" does when no message holds a tool use (face stays empty, preview null, its own answer sentence such as \"Nothing to sieve: no tool calls yet.\") and add an acceptance line for it. 2. size() has no rule at its rounding boundaries, and A27 does not test them: 9,999 must not read \"10.0k\", 999,999 must not read \"1000k\", 9,999,999 must not read \"10.0M\" (each is 5 characters and breaks the 16 and 36 column limits and the 10 character note). State round down or the carry rule, and add 9,999, 999,999 and 9,999,999 to A27. 3. The kept count has no singular: the spec gives plural() to call and line only, so one kept message reads \"Every word of 1 messages kept\" and \"1 texts kept\" (reachable when the head opens on an image-only prompt and every reply before the tail is tool-only). Give message and text the same rule and prove one kept, one call and one line in a test. 4. The asked outcome says \"You gave /compact instructions\" for any non-blank instructions, but trigger plugin carries instructions from another plugin, not the person. Reword so it is true for both (for example \"Compaction came with instructions\") or pick the line by trigger, and cover trigger plugin with instructions in A14. Checked and sound: all eight faults of the first review are fixed; session.compact, session.measure, SessionCompacted, SessionCompactSkipped, SessionMessage.handle, ToolUseSummary, ToolResultSummary, SessionContextUsage tokens and window, the session messages, usage and compact calls (only the calling hook is skipped) and ui.toast exist in the types file as quoted; every other long line fits 36 and every short line fits 16 with 4-character figures; no shipped widget hooks session.compact; the demo section is present and its figures work out (about 46k, a sieve leaves about 31k).",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-04T19:04:25.881Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. A successful \"now\" is undefined and the spec contradicts itself on it. Deciding says: enough under trigger plugin returns { messages }, outcome sieved, one toast; the next bullet says that with isSieveOnly \"last is never touched and no toast is raised\", with no limit to the skip cases. Read as written, a \"now\" that sieves leaves last null and face working, so the card keeps the stale preview (\"about 142k ... A sieve leaves about 31k\") over a conversation that is already 31k, the \"Last sieve\" line never appears, and the answer sentence has no stated source for before, after and kept. A19 proves only the answer and the transcript, and A11 does not say it covers \"now\". State that a \"now\" that sieves records the sieved outcome like any other (face outcome, last set, the best-moment card) and say whether it toasts (the command already answers, so zero or one, but say which); scope \"last is never touched, no toast\" to the three skip cases; extend A19 to prove the card, last, the toast count and isSieveOnly false afterwards. 2. size() contradicts itself at the top: \"at most 4 characters\" and A27 \"never more than 4 characters\", yet \"capped at 9999M\", and every value from 1000M up is 5 characters. Cap at 999M and add a value past the cap (for example 5,000,000,000 reads 999M) to A27. Checked and sound: all four faults of the second review are fixed (A31, the floor rule with 9,999 / 999,999 / 9,999,999, A32 singulars, the asked wording under plugin); session.compact, session.measure (context, changed), SessionCompacted, SessionCompactSkipped, the four triggers, SessionMessage text / toolUses / toolResults / handle, ToolUseSummary tool_use_id / tool / input / text / isError, ToolResultSummary tool_use_id, SessionContextUsage tokens (optional) and window (always present), the session messages, usage and compact calls and ui.toast exist in the types file as quoted; every long line fits 36 and every short line 16 with 4-character figures and the note fits 10; every face is drawn; the standard is met (no clear and no sync, each with its reason); the demo section is present.",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-04T19:11:45.636Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Both faults of the third review are fixed (a now that sieves records the sieved outcome with no toast, size caps at 999M), the spec is within size at 102 lines and 15 acceptance lines, every hook and call exists in the types file, and nothing blocks; 11 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T19:20:02.390Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "send-back",
+      "reason": "The now verb cannot be built as written: the engine refuses $.session.compact() from a command.run hook every time (HooksError: session.compact: called from a command.run hook, it would compact under the turn this hook is holding; call it from a later event (turn.complete) (host check)), so now would always answer 'A turn is running' and A11, A12 and the skip cases of A13 cannot hold. Say where the compaction is called from instead (a later event such as turn.complete, or a timer) and what now answers when the figures are not known yet, or drop now. Also for the acceptance lines: the kit's bottom session.compact answers {} which the engine rejects, so every next(e) case needs a stand-in plugin beneath the widget in the test; the test engine has no state noun, so last, face, preview and isSieveOnly can only be proven through the card and behaviour (or a probe plugin's command). Everything else is built and loads: sieve, weighing, the hook, the look, the card and A1 pass with the standard tests.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-04T19:23:00.556Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The machinist's fault is fixed (the now verb and isSieveOnly are dropped with the reason stated, and the acceptance preamble covers the stand-in plugin and the missing state noun), nothing that changed breaks the standard or contradicts itself, and the spec is within size at 101 lines and 13 acceptance lines; 14 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T19:32:28.403Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Sieve rebuilt to the revised spec: the now verb, isSieveOnly and every session.compact call are gone, one session.compact hook sieves or steps aside, and all 13 acceptance lines have tests that pass with the checker."
+    },
+    {
+      "at": "2026-10-04T19:55:48.579Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Build meets the spec and the live run proves the sieve works (4 ms, no summary, next request fine), but the spec's weighing counts folded tool output as unremovable rest: live it reported 76k to 54k while the engine counted 6k of conversation left, and the card then shows a 28k context under 'Last sieve: about 76k to 54k'. Weigh the conversation's real share (usage breakdown Messages row or an uncapped scale) and correct last.after from the first measured tokens after a sieve; on the way through build also keep every tail result paired with its call when a text-only user row sits between them, and collapse whitespace in digest entries. See inspection.md.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-04T19:59:44.834Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The inspection's faults are fixed in the spec (conversation weighed from the Messages row with an uncapped scale, last.after replaced by the first measured tokens, tail results kept with their calls, digest whitespace collapsed, size guards NaN, A14 proves 2 characters a token), every call and field exists in the types file, the spec is within size at 102 lines and 14 acceptance lines, and nothing blocks; 12 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T20:04:07.817Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Sieve now weighs the conversation from the usage breakdown's Messages row with an uncapped scale, replaces Last sieve's figure with the first measured tokens, keeps every tail result with its call, collapses whitespace in digest entries and guards size against non-finite numbers; all 14 acceptance lines have passing tests and the checker passes."
+    },
+    {
+      "at": "2026-10-04T20:09:18.360Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Checker passes, the build is unchanged since the fault-free second inspection, and the live run of this build sieved a real 76k session to a 25k context in 11 ms with no summary, the next request answered and only isOn stored; the clerk must add the Demo section's stand-ins before the page shows it."
+    },
+    {
+      "at": "2026-10-04T20:12:49.375Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

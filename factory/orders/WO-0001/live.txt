@@ -1,0 +1,58 @@
+
+>>> /sieve-widget on
+[assistant] sieve-widget: Sieve on; /widgets places it.
+[turn ended: success] sieve-widget: Sieve on; /widgets places it.
+
+>>> Run seq 1 6000 with Bash, then reply only: done one
+[assistant] (tool Bash {"command":"seq 1 6000","description":"Print numbers 1 through 6000"})
+[user] (result "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n61\n62\n63\n64\n65\n66\n67\n68\n69\n70\n71\n72\n73\n74\n75\n76\n77\n78\n79\n80\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n101\n10)
+[assistant] done one
+[turn ended: success] done one
+
+>>> Run seq 10001 15000 with Bash, then reply only: done two
+[assistant] (tool Bash {"command":"seq 10001 15000","description":"Print numbers 10001 through 15000"})
+[user] (result "10001\n10002\n10003\n10004\n10005\n10006\n10007\n10008\n10009\n10010\n10011\n10012\n10013\n10014\n10015\n10016\n10017\n10018\n10019\n10020\n10021\n10022\n10023\n10024\n10025\n10026\n10027\n10028\n10029\n10030\n10031\n10032\n10033\n10034\n10035\n10036\n10037\n10038\n10039\n10040\n10041\n10042\n10043\n10044\n10045\n10046\n10047\n10048\n10049\n10050\n10051\n10052\n10053\n10054\n10055\n10056\n10057\n)
+[assistant] done two
+[turn ended: success] done two
+
+>>> Run seq 20001 25000 with Bash, then reply only: done three
+[assistant] (tool Bash {"command":"seq 20001 25000","description":"Print numbers 20001 through 25000"})
+[user] (result "20001\n20002\n20003\n20004\n20005\n20006\n20007\n20008\n20009\n20010\n20011\n20012\n20013\n20014\n20015\n20016\n20017\n20018\n20019\n20020\n20021\n20022\n20023\n20024\n20025\n20026\n20027\n20028\n20029\n20030\n20031\n20032\n20033\n20034\n20035\n20036\n20037\n20038\n20039\n20040\n20041\n20042\n20043\n20044\n20045\n20046\n20047\n20048\n20049\n20050\n20051\n20052\n20053\n20054\n20055\n20056\n20057\n)
+[assistant] done three
+[turn ended: success] done three
+
+>>> Read README.md, then reply only with its first line
+[assistant] (tool Read {"file_path":"C:\\Users\\OmarRodriguez\\.claude-factory\\scratch-project\\README.md"})
+[user] (result "1\t# scratch\n2\t\n3\tA throwaway project for live widget runs.\n4\t")
+[assistant] # scratch
+[turn ended: success] # scratch
+
+>>> Reply only: ok
+[assistant] ok
+[turn ended: success] ok
+
+>>> Reply only: ready
+[assistant] ready
+[turn ended: success] ready
+
+>>> /compact
+[system status] {"type":"system","subtype":"status","status":"compacting","session_id":"86b29da7-e9f5-4ff6-b590-08652cae6b2a","uuid":"1056e9e9-3e67-48f8-807a-c316ff5b8c64"}
+[system ui_toast] {"type":"system","subtype":"ui_toast","plugin":"sieve-widget","text":"Sieve: about 76k to about 25k, every word kept, no summary.","timeout_ms":4000,"uuid":"bb7252c9-42bf-4615-8c36-6ff633394f8d","session_id":"86b29da7-e9f5-4ff6-b590-08652cae6b2a"}
+[system status] {"type":"system","subtype":"status","status":null,"compact_result":"success","session_id":"86b29da7-e9f5-4ff6-b590-08652cae6b2a","uuid":"aa072d5d-99a5-4f33-932d-6f22f2f7c14c"}
+[system compact_boundary] {"type":"system","subtype":"compact_boundary","session_id":"86b29da7-e9f5-4ff6-b590-08652cae6b2a","uuid":"6131a48a-4120-4027-8cfb-e7ae472096c5","compact_metadata":{"trigger":"manual","pre_tokens":76252,"post_tokens":6093,"cumulative_dropped_tokens":70159,"duration_ms":11},"logical_parent_uuid":"5a04d97c-2871-4dda-a99b-d251a2389e40"}
+[assistant] sieve-widget: Sieve on; /widgets places it.
+[user] <local-command-stdout>Compacted </local-command-stdout>
+[turn ended: success] 
+
+>>> Reply only: after
+[assistant] after
+[turn ended: success] after
+
+>>> /sieve-widget off
+[assistant] sieve-widget: Sieve off.
+[turn ended: success] sieve-widget: Sieve off.
+
+--- sieve-widget store ---
+sieve-widget_inline-d1096eab6928.json: {
+  "isOn": false
+}

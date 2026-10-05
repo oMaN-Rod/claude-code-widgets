@@ -1,0 +1,7 @@
+{
+  "title": "Sieve",
+  "category": "Session",
+  "shows": "A compaction that keeps every word you and Claude said and folds only the old tool traffic, with no summary and no tokens spent",
+  "commands": ["/sieve-widget [on|off]"],
+  "cost": ""
+}

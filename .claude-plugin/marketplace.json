@@ -1154,6 +1154,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "sieve-widget",
+      "source": "./plugins/sieve-widget",
+      "description": "A compaction that keeps every word you and Claude said and folds only the old tool traffic, with no summary and no tokens spent",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "sieve",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

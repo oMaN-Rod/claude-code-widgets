@@ -39,6 +39,16 @@
       return JSON.stringify({ id: 'demo-other', cwd: '/demo/api', at, files: { [file]: { path: file, at } } })
     },
   }
+  const TRAFFIC = [
+    { tool: 'Read', input: { file_path: `${ROOT}/src/sum.js` }, line: '  for (let i = 1; i < list.length; i += 1) total += list[i]', chars: 6000 },
+    { tool: 'Grep', input: { pattern: 'money', path: ROOT }, line: 'src/index.js:4:console.log(money(sum([1, 2, 3])))', chars: 3000 },
+    { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, line: 'AssertionError: 5 !== 6', chars: 4500, isError: true },
+    { tool: 'Edit', input: { file_path: `${ROOT}/src/sum.js` }, line: 'The file has been updated.', chars: 200 },
+    { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, line: 'ok - sum adds every item', chars: 4500 },
+    { tool: 'Bash', input: { command: 'git diff' }, line: '+  for (let i = 0; i < list.length; i += 1) total += list[i]', chars: 1800 },
+  ].map(({ line, chars, ...call }) => ({ ...call, text: `${line}\n`.repeat(Math.ceil(chars / (line.length + 1))).slice(0, chars) }))
+  const PAST = ['Add a helper that formats money', 'Write a test for sum', 'Set up the npm test script', 'Why is the total one short?']
+  const SUMMARY = 'Summary of the conversation so far: sum() skipped the first item of a list; the loop was fixed and the tests pass.'
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
   const SAID = {}
 
@@ -55,6 +65,19 @@
   const sleep = ms => new Promise(done => setTimeout(done, ms))
   const ran = (exitCode, stdout) => ({ exitCode, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false })
   const day = at => new Date(at).toISOString().slice(0, 10)
+  const spoken = (id, prompt, answer) => [
+    { role: 'user', text: prompt, toolUses: [] },
+    ...TRAFFIC.flatMap(({ isError, ...call }, at) => {
+      const use = { tool_use_id: `${id}-${at}`, ...call, ...(isError ? { isError: true } : {}) }
+
+      return [
+        { role: 'assistant', text: '', toolUses: [use] },
+        { role: 'user', text: '', toolUses: [], toolResults: [{ tool_use_id: use.tool_use_id, text: use.text, isError: isError === true }] },
+      ]
+    }),
+    { role: 'assistant', text: answer, toolUses: [] },
+  ]
+  const weight = messages => messages.reduce((sum, message) => sum + message.text.length + message.toolUses.reduce((held, use) => held + JSON.stringify(use.input).length + (use.text ?? '').length, 0), 0)
 
   const create = (name, { onChange = () => {}, onToast = () => {}, onPrint = () => {}, pace = 1, widths = {} } = {}) => {
     const mod = root.DEMO_MODS.mods[name]
@@ -66,6 +89,7 @@
     const timers = new Set()
     const born = Date.now()
     const usage = { tokens: 46_000, usd: 0.38, five: 12, seven: 31 }
+    const transcript = PAST.flatMap((prompt, at) => spoken(`past-${at}`, prompt, 'Done, and the tests pass.'))
     let turns = 0
     let isBusy = false
     let isDirty = false
@@ -272,6 +296,7 @@
       },
       session: {
         usage: async options => usageNow(options?.breakdown !== undefined),
+        messages: async () => transcript.map(message => ({ ...message })),
         root: async () => ROOT,
         cwd: async () => ROOT,
         id: async () => 'demo-session',
@@ -312,6 +337,17 @@
       return result?.text
     }
     const measure = moved => dispatch('session.measure', { ...usageNow(false), changed: moved }, e => ({ changed: e.changed }))
+    const compact = async instructions => {
+      const before = weight(transcript)
+      const messages = transcript.map((message, at) => ({ ...message, handle: `message-${at}` }))
+      const result = await dispatch('session.compact', { trigger: 'manual', messages, ...(instructions ? { instructions } : {}) }, () => ({ messages: [{ role: 'user', text: SUMMARY, toolUses: [] }] }))
+      if (result?.messages !== undefined) {
+        const talk = Math.max(0, usage.tokens - 30_000)
+        transcript.splice(0, transcript.length, ...result.messages.map(({ handle, ...message }) => message))
+        usage.tokens = Math.round(usage.tokens - talk + (before === 0 ? 0 : (talk * weight(transcript)) / before))
+      }
+      changed()
+    }
     const turn = async text => {
       if (isBusy) return
       isBusy = true
@@ -344,6 +380,7 @@
         usage.tokens += 2500
         usage.usd += 0.06
         usage.five = Math.min(100, usage.five + 1)
+        transcript.push(...spoken(turnId, text, ANSWER))
         await measure(['context', 'rateLimits', 'cost'])
         await dispatch('turn.complete', { answer: ANSWER, durationMs: Date.now() - startedAt, isAborted: false, turnId, reason: 'answer' }, e => ({ text: e.answer }))
         files.set(`${ROOT}/src/sum.js`, FILES['src/sum.js'])
@@ -373,6 +410,7 @@
         if (!text.startsWith('/')) return turn(text)
 
         const [word, ...rest] = text.slice(1).split(' ')
+        if (word === 'compact') return compact(rest.join(' ').trim())
         if (!commands.some(entry => entry.name === word)) return onPrint(`Unknown command: /${word}`)
 
         const said = await command(word, rest.join(' '))
@@ -380,7 +418,7 @@
         changed()
       },
       turn: () => turn('Fix the failing test'),
-      compact: () => dispatch('session.compact', { trigger: 'manual', messages: [] }, () => ({})).then(changed),
+      compact: () => compact(''),
       message: data => dispatch('ui.message', { data }, () => ({})),
       render: columns =>
         dispatch(
