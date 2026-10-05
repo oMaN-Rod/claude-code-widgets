@@ -195,6 +195,24 @@
     'strays-widget': at => ({
       [`rows:${hash(ROOT)}`]: { session: 'demo-earlier', rows: [{ port: 3000, pid: 4101, born: at, name: 'node', hint: 'vite', turn: 4, isEarlier: false, isShared: false }] },
     }),
+    'rehearsal-widget': at => ({
+      [`calls:${ROOT}`]: [
+        ['Bash:npm test', 'npm test', { command: 'npm test', description: '' }],
+        ['Bash:git status', 'git status', { command: 'git status' }],
+        ['Read:in', 'Read src/sum.js', { file_path: `${ROOT}/src/sum.js` }],
+        ['Edit:in', 'Edit src/sum.js', { file_path: `${ROOT}/src/sum.js`, old_string: '', new_string: '' }],
+        ['Bash:git push origin', 'git push origin main', { command: 'git push origin main' }],
+        ['Bash:bun install', 'bun install', { command: 'bun install' }],
+      ].map(([key, label, input], ago) => ({ key, tool: key.split(':')[0], input, label, seenAt: at - ago * 60_000 })),
+    }),
+  }
+  const RULED = {
+    'rehearsal-widget': ({ input }) => {
+      const command = String(input?.command ?? '')
+      if (['git push', 'bun install', 'git checkout'].some(head => command.startsWith(head))) return { decision: 'ask' }
+
+      return command.startsWith('npm test') ? { decision: 'allow', rule: 'Bash(npm test:*)' } : { decision: 'allow' }
+    },
   }
   const BESIDE = { 'trial-widget': ['moon-widget'] }
   const SHOT = 'iVBORw0KGgoAAAANSUhEUgAAAGAAAAA2CAIAAAC3LQuFAAAAYklEQVR42u3QMQ0AAAjAMCThXwWOwAEnB+kyBY3K9HIgAAQIECBAgN4CtdYAAQIECBAgQIAACRAgQIAAAQIESIAAAQIECBAgQAIECBAgQIAAAQIkQIAAAQIECBAgAQIE6KwBCOUfelevZDYAAAAASUVORK5CYII='
@@ -610,7 +628,7 @@
 
           return { tool: `mcp__${name}__${entry.name}` }
         },
-        check: async () => ({ decision: 'allow' }),
+        check: async args => RULED[name]?.(args) ?? { decision: 'allow' },
         list: async () => (SHELF[name] === undefined ? [] : [...Object.keys(DESCRIBED), ...SHELF[name].map(entry => entry.tool), 'ToolSearch'].map(tool => ({ name: tool, description: '', mcp: null }))),
       },
       model: {

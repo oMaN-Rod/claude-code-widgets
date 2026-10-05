@@ -1,0 +1,114 @@
+{
+  "id": "WO-0032",
+  "kind": "new",
+  "widget": "rehearsal-widget",
+  "title": "Rehearsal",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T21:04:46.511Z",
+  "closedAt": "2026-10-05T22:10:31.816Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T21:37:58.742Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on stakes-widget (a line under the permission dialog for a Bash command) whose value is a hand-kept flag table for twenty tools that will be wrong or silent on most real commands, while the dialog already carries Claude's own description of the command.",
+      "subject": "Flags"
+    },
+    {
+      "at": "2026-10-05T21:37:58.850Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on lessons-widget and notes-widget (phrases caught from the person's prompts, kept as a list across sessions); matching 'later' and 'after this' by phrase will catch mostly instructions to Claude about ordering, not promises to oneself.",
+      "subject": "Later"
+    },
+    {
+      "at": "2026-10-05T21:37:58.959Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "File times cannot carry the claim: a branch switch rewrites the lockfile's time without changing it and an install need not touch the node_modules folder's time, so the card would cry wolf or stay silent, and a wrong 'In step' is worse than no card.",
+      "subject": "Drift"
+    },
+    {
+      "at": "2026-10-05T21:37:59.065Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It rests on an ordinary plugin's telemetry.log hook receiving the engine's own rows, which the types do not promise and the inventor could not confirm; if it does not, the card is empty for everyone.",
+      "subject": "Outbound"
+    },
+    {
+      "at": "2026-10-05T21:37:59.167Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A one-joke card: a fixed phrase table daubed by string match is funny once and then a forgettable entry among the games, and sixteen labelled squares do not fit a 40-column card legibly.",
+      "subject": "Bingo"
+    },
+    {
+      "at": "2026-10-05T21:37:59.282Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it survives, but its good moment needs an old many-handed repository and is rare elsewhere (most replaced lines are Claude's own from last week), and it sits close to theseus and onthisday in the waiting list.",
+      "subject": "Elders"
+    },
+    {
+      "at": "2026-10-05T21:37:59.397Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: new and feasible on prompt.edit, but telling an erased draft from a send, a history recall or a stash is unsettled, and its use is an occasional curiosity next to Rehearsal's answer to a question asked every day.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T21:37:59.506Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the API is real (classic.InstructionsLoaded with load_reason and trigger_file_path) and it was the runner-up, but it is a diagnostic most sessions with one CLAUDE.md never need, where Rehearsal changes what the person does before every long turn.",
+      "subject": "Rulebook"
+    },
+    {
+      "at": "2026-10-05T21:37:59.928Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Rehearsal is the only idea that answers a question people ask daily and no widget can: what will stop for permission before I walk away, from the engine's own tool.check query, which exists, runs nothing and is ignored by the shipped check hooks."
+    },
+    {
+      "at": "2026-10-05T21:48:06.771Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Every hook and call exists in the 2.1.289 types, all main states and 20 columns are drawn, the demo and live sections are present, 107 lines and 15 acceptance lines; 12 notes, the first being that counts of 41 exceed the 40-shape cap and must be built as 40."
+    },
+    {
+      "at": "2026-10-05T22:04:31.736Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built rehearsal-widget: keeps one example per kind of tool call per project, puts each to the engine's permission query every 5 seconds and on mode changes, and shows what would be refused, ask or run, with show, forget and clear; checker passes with 15 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T22:09:25.285Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Checker passes, the card reads at 20, 40 and 60 columns in every state, the live run matched the spec's good run with a clean store; five small non-blocking findings in inspection.md, the first being that 'and k more' sits inside a group when earlier groups use all four rows."
+    },
+    {
+      "at": "2026-10-05T22:10:31.815Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

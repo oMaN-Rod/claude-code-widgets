@@ -1,0 +1,36 @@
+
+>>> /rehearsal-widget on
+[assistant] rehearsal-widget: Rehearsal on; /widgets places it.
+[turn ended: success] rehearsal-widget: Rehearsal on; /widgets places it.
+
+>>> Read README.md, then call the Write tool once to put the word hi in a new file named rehearsal.txt. If it is refused do not retry. Answer with the one word ok.
+[assistant] (tool Read {"file_path":"C:\\Users\\O\\.claude-factory\\scratch-project\\README.md"})
+[user] (result "1\t# scratch\n2\t\n3\tA throwaway project for live widget runs.\n4\t")
+[assistant] (tool Write {"file_path":"C:\\Users\\O\\.claude-factory\\scratch-project\\rehearsal.txt","content":"hi"})
+[system permission_denied] {"type":"system","subtype":"permission_denied","tool_name":"Write","tool_use_id":"toolu_015YzJJDCt5ckC65f5hrPyvF","message":"Claude requested permissions to write to C:\\Users\\O\\.claude-factory\\scratch-project\\rehearsal.txt, but you haven't granted it yet.","uuid":"40256248-40e2-4c59-bb89-89df882f75b9","session_id":"016d44b6-85f5-4498-a99d-a32adadfb87a"}
+[user] (result "Claude requested permissions to write to C:\\Users\\O\\.claude-factory\\scratch-project\\rehearsal.txt, but you haven't granted it yet.")
+[assistant] ok
+[turn ended: success] ok
+
+>>> /rehearsal-widget show
+[assistant] rehearsal-widget: Rehearsal in scratch-project, default mode: 1 would stop, 0 refused, 1 would run, of 2 seen here.
+1. ask Write rehearsal.txt (Claude requested permissions to write to C:\Users\O\.claude-factory\scratch-project\rehearsal.txt, but you haven't granted it yet.)
+2. run Read README.md (Read)
+By the rules as they stand; PreToolUse hooks and the auto-mode classifier are not asked.
+[turn ended: success] rehearsal-widget: Rehearsal in scratch-project, default mode: 1 would stop, 0 refused, 1 would run, of 2 seen here.
+1. ask Write rehearsal.txt (Claude requested permissions to write to C:\Users\O\.claude-factory\scratch-project\rehearsal.txt, but you haven't granted it yet.)
+2. run Read README.md (Read)
+By the rules as they stand; PreToolUse hooks and the auto-mode classifier are not asked.
+
+>>> /rehearsal-widget clear
+[assistant] rehearsal-widget: Rehearsal cleared: 2 calls forgotten for scratch-project.
+[turn ended: success] rehearsal-widget: Rehearsal cleared: 2 calls forgotten for scratch-project.
+
+>>> /rehearsal-widget off
+[assistant] rehearsal-widget: Rehearsal off.
+[turn ended: success] rehearsal-widget: Rehearsal off.
+
+--- rehearsal-widget store ---
+rehearsal-widget_inline-cf8d1e5e570d.json: {
+  "isOn": false
+}
