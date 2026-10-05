@@ -1,0 +1,20 @@
+{
+  "name": "stakes-widget",
+  "version": "1.0.0",
+  "description": "What a yes would lose, measured from git and written under the permission dialog for a destructive command",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "stakes",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "id": "WO-0005",
+  "kind": "new",
+  "widget": "stakes-widget",
+  "title": "Stakes",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T20:11:05.920Z",
+  "closedAt": "2026-10-04T21:03:13.122Z",
+  "sendBacks": 3,
+  "stamps": [
+    {
+      "at": "2026-10-04T20:15:00.406Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The same idea as Squiggle in this round, minus the paint in the prompt box and the fix on click, so it is the weaker variation of its own sibling.",
+      "subject": "Pointer"
+    },
+    {
+      "at": "2026-10-04T20:15:00.473Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Deciding which hedges the reply 'addressed' by a phrase list and word overlap will be wrong often enough that the card cannot be trusted, and it has nothing to read when thinking is off or summarised.",
+      "subject": "Doubt"
+    },
+    {
+      "at": "2026-10-04T20:15:00.534Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A narrow cut of insight-widget (prompting habits against turn outcomes) with a coloured word added; the inventor ranked it last for the same reason.",
+      "subject": "Famous Last Words"
+    },
+    {
+      "at": "2026-10-04T20:15:00.598Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a charming read of the thinking stream, but it gives the person nothing to act on and is empty whenever thinking is off or summarised.",
+      "subject": "Second Thoughts"
+    },
+    {
+      "at": "2026-10-04T20:15:00.662Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: new and funny once, but it keeps what the person chose to delete, changes no decision, and cannot yet tell a swallowed draft from history recall or a cleared box.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-04T20:15:00.724Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: useful, but it rests on parsing lsof and netstat per platform every turn and on killing processes by pid, a heavier and riskier build than Stakes for a quieter payoff.",
+      "subject": "Strays"
+    },
+    {
+      "at": "2026-10-04T20:15:00.787Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the strongest runner-up, but picking out which typed words are meant as file or branch names will misfire, and @-completion already covers the path case; worth a later order.",
+      "subject": "Squiggle"
+    },
+    {
+      "at": "2026-10-04T20:15:00.852Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a real new interaction, but it works only in fullscreen, needs a second command and one command per note, and helps less often than a line under every destructive permission dialog.",
+      "subject": "Margin"
+    },
+    {
+      "at": "2026-10-04T20:15:05.752Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Stakes is the only idea that changes a decision the person makes alone: it measures what a yes would lose and writes it into the permission dialog, which no widget touches, with every call it needs present in the types file."
+    },
+    {
+      "at": "2026-10-04T20:20:32.471Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and call it names is in the types file, all main states are drawn and it reads at 20 columns; 12 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T20:29:51.300Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built stakes-widget: a Bash tool.check hook that measures five destructive command shapes with read-only git probes, writes one line under the dialog and keeps the last five verdicts on the card."
+    },
+    {
+      "at": "2026-10-04T20:36:31.110Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Two wrong lines under the dialog: rm -rf .git (and rm -rf . in a clean tree) reads 'Nothing lost', and git push -f origin HEAD measures origin/HEAD instead of the pushed branch; both must become 'unrecognised form' with tests in A6 and A5. See inspection.md findings 1 and 2.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-04T20:37:40.293Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed inspection findings 1 and 2: rm of .git, a path under it, or a path that holds the repository (., .., /) and git push -f to HEAD, @ or a ^ or ~ branch word now read unrecognised form with no probe, tested in A6 and A5."
+    },
+    {
+      "at": "2026-10-04T20:40:42.547Z",
+      "station": "inspection",
+      "by": "director",
+      "result": "send-back",
+      "reason": "Acting on the inspector's held finding: rm -rf of the repository's absolute path, or of a path with a .. segment, reads Nothing lost while it deletes .git. Such paths must read unrecognised form unless shown to lie strictly below the top level; add tests in A6.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-04T20:42:50.923Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed inspection finding 1: rm of a path with a .. segment, or of an absolute path not shown by rev-parse --show-toplevel to lie strictly below the top level, now reads unrecognised form with no ls-files probe, tested in A6; a verdict word longer than the card is now broken inside the border, tested in A15."
+    },
+    {
+      "at": "2026-10-04T20:46:32.017Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The spec's rm line 'Nothing lost: no files there' is written when git lists nothing, but git lists nothing for a path in the wrong case on Windows and macOS (rm -rf SRC) and for a file inside a nested repository or worktree, so it appears under commands that delete real work; with U and T zero the widget must confirm the path is absent or say Could not measure, and a nested repository must not count as 1 file. See inspection.md findings 1, 2 and 5.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-04T20:50:04.825Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The three faults of the send-back are answered (an --error-unmatch probe gives 'git sees no files there', a nested repository or submodule gives 'holds another repository', probes follow classic.CwdChanged), every call named is in the types file and nothing in the changes blocks; 17 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T20:54:29.430Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt rm to the new spec: an --error-unmatch probe gives 'git sees no files there' (no more 'Nothing lost: no files there'), a nested repository or submodule gives 'holds another repository', absolute paths go to git under the top level's own text, and probes follow classic.CwdChanged; tested in A6, A8 and A11."
+    },
+    {
+      "at": "2026-10-04T20:58:43.724Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The build matches the spec and standard, the third-pass faults are fixed, and 90 commands driven through the real hook against real git gave no false 'Nothing lost'; the line under a live dialog is still unseen and the director should look at one before shipping."
+    },
+    {
+      "at": "2026-10-04T21:03:13.122Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

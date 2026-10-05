@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 65 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 66 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](docs/index.html): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page, so opening the file works, and GitHub Pages can serve it from `docs/`.
 
@@ -66,6 +66,7 @@ The state of the working tree.
 | `diff-widget` | `/diff-widget [on\|off\|clear]` | The last edit as a syntax-highlighted diff |
 | `watch-widget` | `/watch-widget [on\|off\|run\|stop]`, `/watch <command>` | `/watch bun test` reruns the command after every edit: a pass or fail light and the last failing lines |
 | `map-widget` | `/map-widget [on\|off\|clear]` | A pixel map of the tracked files, lit blue where Claude has read and green where it has edited |
+| `stakes-widget` | `/stakes-widget [on\|off\|clear]` | What a yes would lose, measured from git and written under the permission dialog for a destructive command |
 
 ### Time and focus
 

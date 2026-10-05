@@ -24,6 +24,7 @@
     { tool: 'Read', input: { file_path: `${ROOT}/src/sum.js` }, ms: 500 },
     { tool: 'Bash', input: { command: 'cat .env' }, ms: 400, text: `STRIPE_SECRET=sk_live_${'Demo'.repeat(6)}\nDATABASE_URL=postgres://app:made-up-pass@db/app\n` },
     { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, ms: 1400, isError: true, text: 'AssertionError: 5 !== 6\n1 failing' },
+    { tool: 'Bash', input: { command: 'git checkout -- src/sum.js' }, ms: 500, text: '', isAsked: true },
     {
       tool: 'Edit',
       input: { file_path: `${ROOT}/src/sum.js`, old_string: '  for (let i = 1; i < list.length; i += 1) total += list[i]', new_string: '  for (let i = 0; i < list.length; i += 1) total += list[i]' },
@@ -154,7 +155,7 @@
       }
     }
     const git = argv => {
-      const args = argv.slice(1)
+      const args = argv.slice(1).filter(arg => arg !== '--no-optional-locks')
       const now = Date.now()
       const tracked = [...files.keys()].map(path => path.slice(ROOT.length + 1)).sort()
       if (args[0] === 'ls-files') return ran(0, `${tracked.join('\n')}\n`)
@@ -164,6 +165,7 @@
         return ran(0, isV2 ? '# branch.oid 3f2a1c9\n# branch.head main\n# branch.upstream origin/main\n# branch.ab +1 -0\n1 .M N... 100644 100644 100644 a b src/sum.js\n? notes.txt\n' : '## main...origin/main [ahead 1]\n M src/sum.js\n?? notes.txt\n')
       }
       if (args[0] === 'rev-parse') return ran(0, args.includes('--abbrev-ref') ? 'main\n' : `${ROOT}/.git\n`)
+      if (args[0] === 'diff' && args.includes('--name-only')) return ran(0, 'src/sum.js\n')
       if (args[0] === 'diff') return ran(0, 'diff --git a/src/sum.js b/src/sum.js\n--- a/src/sum.js\n+++ b/src/sum.js\n@@ -3,3 +3,3 @@\n-  for (let i = 1; i < list.length; i += 1) total += list[i]\n+  for (let i = 0; i < list.length; i += 1) total += list[i]\n')
       if (args[0] === 'grep') {
         if (args.includes('-cI') || args.includes('-c')) {
@@ -269,6 +271,7 @@
         open: async () => ({}),
         close: async () => ({}),
         invalidate: async () => void changed(),
+        notice: async () => ({}),
       },
       widgets: root.DEMO_MODS.kit,
       process: {
@@ -360,7 +363,7 @@
         await dispatch('turn.start', { text, turnId }, e => ({ turnId: e.turnId }))
         for (const [at, call] of TURN.entries()) {
           const id = `${turnId}-${at}`
-          await dispatch('tool.check', { tool: call.tool, input: call.input, tool_use_id: id }, () => ({ decision: 'allow' }))
+          await dispatch('tool.check', { tool: call.tool, input: call.input, tool_use_id: id }, () => ({ decision: call.isAsked ? 'ask' : 'allow' }))
           await dispatch('tool.call', { tool: call.tool, tool_use_id: id, ...call.input }, async e => {
             await sleep(call.ms * pace)
             if (e.tool === 'Edit') {

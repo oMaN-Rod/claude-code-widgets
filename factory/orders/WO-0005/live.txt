@@ -1,0 +1,33 @@
+
+>>> /stakes-widget on
+[assistant] stakes-widget: Stakes on; /widgets places it.
+[turn ended: success] stakes-widget: Stakes on; /widgets places it.
+
+>>> Run this one Bash command and nothing else: git checkout .
+[assistant] (tool Bash {"command":"git checkout .","description":"Discard working tree changes to tracked files"})
+[system permission_denied] {"type":"system","subtype":"permission_denied","tool_name":"Bash","tool_use_id":"toolu_019MMpgnButJsEuxrV798ZvA","decision_reason_type":"other","decision_reason":"This command requires approval","message":"This command requires approval","uuid":"59fb0fa3-dd68-4772-aa5d-cf49201cca75","session_id":"502a0fb2-bbc0-4788-a91e-79a46604af09"}
+[user] (result "This command requires approval")
+[assistant] 
+[assistant] `git checkout .` did not run: the harness blocked it with "This command requires approval," and this session can't grant that approval. Nothing was changed.
+
+The repo has no commits and only untracked files (`README.md`, `a.txt`, `t.env`), so the command would not have discarded anything anyway; it would most likely just error out with a pathspec mismatch.
+
+To run it, either approve the command in an interactive session or add a permission rule that allows `git checkout`.
+[turn ended: success] `git checkout .` did not run: the harness blocked it with "This command requires approval," and this session can't grant that approval. Nothing was changed.
+
+The repo has no commits and only untracked files (`README.md`, `a.txt`, `t.env`), so the command would not have discarded anything anyway; it would most likely just error out with a pathspec mismatch.
+
+To run it, either approve the command in an interactive session or add a permission rule that allows `git checkout`.
+
+>>> /stakes-widget clear
+[assistant] stakes-widget: Stakes cleared.
+[turn ended: success] stakes-widget: Stakes cleared.
+
+>>> /stakes-widget off
+[assistant] stakes-widget: Stakes off.
+[turn ended: success] stakes-widget: Stakes off.
+
+--- stakes-widget store ---
+stakes-widget_inline-643c54c2d7f9.json: {
+  "isOn": false
+}
