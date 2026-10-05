@@ -4,7 +4,7 @@ Small cards that sit under the Claude Code prompt, or docked beside the transcri
 
 It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 71 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
-Try every widget in its own little terminal on the [demo page](docs/index.html): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page, so opening the file works, and GitHub Pages can serve it from `docs/`.
+Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
 ## Install
 
