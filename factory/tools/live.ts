@@ -3,7 +3,7 @@ import { basename, join, resolve } from 'node:path'
 
 import { CONFIG, ROOT, fail, flag, typed, words } from './lib'
 
-const USAGE = `Usage: bun factory/tools/live.ts <widget folder> --say "/<name>-widget on" [--say "<prompt or command>"]... [--allow "Bash,Edit"] [--hold 3]
+const USAGE = `Usage: bun factory/tools/live.ts <widget folder> --say "/<name>-widget on" [--say "<prompt or command>"]... [--allow "Bash,Edit"] [--hold 3] [--claude "<more claude arguments>"]
 
 Runs a real headless Claude Code session in a scratch project, under the factory's own
 config directory (FACTORY_CONFIG_DIR, default ~/.claude-factory), with only the layout
@@ -38,8 +38,9 @@ const stores = (): string =>
     : ''
 
 const allow = flag(args, 'allow')
+const more = (flag(args, 'claude') ?? '').split(' ').filter(Boolean)
 const child = Bun.spawn(
-  ['claude', '-p', '--input-format', 'stream-json', '--output-format', 'stream-json', '--verbose', '--plugin-dir', loaded, ...(allow === undefined ? [] : ['--allowedTools', allow])],
+  ['claude', '-p', '--input-format', 'stream-json', '--output-format', 'stream-json', '--verbose', '--plugin-dir', loaded, ...(allow === undefined ? [] : ['--allowedTools', allow]), ...more],
   { cwd: project, env: { ...process.env, CLAUDE_CONFIG_DIR: config }, stdin: 'pipe', stdout: 'pipe', stderr: 'pipe' },
 )
 
