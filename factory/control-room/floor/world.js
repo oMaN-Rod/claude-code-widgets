@@ -632,6 +632,10 @@ export const createWorld = (canvas, onPick) => {
     for (const x of [-3.3, -0.7, 3.5]) for (const side of [-1.75, 1.75]) cyl(truck, 0.62, 0.5, [x, 0.62, side], '#16171f').rotation.x = Math.PI / 2
     box(scene, [2.4, 0.25, 2.2], [TRACK.points.at(-1)[0] - 0.8, 1.1, TRUCK[1]], '#5b6682', 0.06).rotation.z = -0.12
     decal('DOCK', [TRUCK[0] + 1.2, TRUCK[1] - 3.4], 1, '#e8c9a0')
+    const stand = group(scene, [TRUCK[0] + 6.3, 0, TRUCK[1] + 3.6], { type: 'demo' })
+    for (const side of [-1.5, 1.5]) box(stand, [0.2, 2.6, 0.2], [side, 1.3, 0], '#5b6682', 0.05)
+    sign(stand, 'DEMO PAGE', [0, 3.2, 0], 1.2, '#12131c', '#7bd66f')
+    lamp(stand, new THREE.SphereGeometry(0.2, 10, 8), [0, 4.1, 0], '#7bd66f')
 
     const kiln = group(scene, [KILN[0], 0, KILN[1]], { type: 'scrap' })
     kiln.rotation.y = Math.PI / 2

@@ -92,7 +92,7 @@ bun factory/tools/order.ts show WO-0003  # one order and its log
 
 For the floor as a game-style view, run `bun factory/tools/serve.ts` and open http://localhost:4173. It fills the window with the factory drawn in 3D from the state files, refreshed every three seconds, with everything else in panels over it.
 
-- **The floor:** one closed room with five areas round the walls (ideas loft, drafting studio, workshop, inspection lab, shipping bay), joined in order by one conveyor line. Each work order is a numbered crate. It rides the belt to the next area when it passes a gate, a worker carries it back when it is sent back, the porter takes a scrapped one to the kiln, and shipped crates end on the truck.
+- **The floor:** one closed room with five areas round the walls (ideas loft, drafting studio, workshop, inspection lab, shipping bay), joined in order by one conveyor line. Each work order is a numbered crate. It rides the belt to the next area when it passes a gate, a worker carries it back when it is sent back, the porter takes a scrapped one to the kiln, and shipped crates end on the truck. The sign beside the dock, and the truck's own panel, open the demo page where the shipped widgets run.
 - **The panels:** a map (click it to move the camera), the line's totals, a button for each station, the floor log with a tab for everything turned back, and a bar for whatever is selected. "Open details" on that bar opens a window with the order's journey, stamps, log, spec and inspection report, or a station's gate and what it turned back.
 - **The camera:** drag to pan, right-drag to turn, scroll to zoom, and after clicking the scene fly with WASD or the arrows (Q and E go down and up).
 

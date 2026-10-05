@@ -153,6 +153,7 @@ const stationWindow = spec => {
 const listWindow = (title, groups) => {
   frameTitle.textContent = title
   frameBody.replaceChildren(
+    ...(title.includes('truck') ? [el('p', {}, el('a', { className: 'link', href: DEMO, target: '_blank', rel: 'noopener', textContent: 'See the shipped widgets running on the demo page ›' }))] : []),
     ...groups.flatMap(([heading, list, empty]) => [el('h4', { textContent: `${heading} · ${list.length}` }), list.length === 0 ? el('p', { className: 'dim', textContent: empty }) : el('ul', { className: 'rows' }, ...list.map(orderRow))]),
   )
 }
@@ -213,7 +214,11 @@ const paintPick = () => {
     state.isOpen = true
     paintWindow()
   })
-  pick.replaceChildren(badge, el('h3', { textContent: title }), ...lines, el('div', { className: 'row' }, more), close)
+  const demo =
+    type === 'dock' ? el('a', { className: 'link', href: DEMO, target: '_blank', rel: 'noopener', textContent: 'See them on the demo page ›' })
+    : type === 'order' && order.status === 'shipped' ? el('a', { className: 'link', href: `${DEMO}#w=${encodeURIComponent(short(order))}`, target: '_blank', rel: 'noopener', textContent: 'Try it on the demo page ›' })
+    : null
+  pick.replaceChildren(badge, el('h3', { textContent: title }), ...lines, el('div', { className: 'row' }, more, demo), close)
 }
 
 const tileOf = new Map(
@@ -283,7 +288,14 @@ const paint = () => {
   paintWindow()
 }
 
+const DEMO = '/demo/'
+
 const select = (target, isOpen = false, isFocused = false) => {
+  if (target.type === 'demo') {
+    window.open(DEMO, '_blank', 'noopener')
+
+    return
+  }
   state.selected = target
   state.isOpen = isOpen || (state.isOpen && target.type !== 'home')
   history.replaceState(null, '', `${location.pathname}${location.search}${target.type === 'home' ? '' : `#${target.type}${target.id ? `=${target.id}` : ''}`}`)

@@ -601,3 +601,20 @@ body::after {
 .count[hidden] {
   display: none;
 }
+
+a.link {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 2px solid var(--green);
+  border-radius: 9px;
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a.link:hover,
+a.link:focus-visible {
+  background: var(--green);
+  color: #06202a;
+  outline: none;
+}
