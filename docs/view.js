@@ -170,7 +170,7 @@
     const point = (type, event) => {
       const box = node.getBoundingClientRect()
       const x = Math.floor(((event.clientX - box.left) / box.width) * props.width)
-      const y = Math.floor((event.clientY - box.top) / CH)
+      const y = Math.floor(((event.clientY - box.top) / box.height) * props.height)
       for (const run of held.pointers) run({ type, x, y, button: event.button === 2 ? 'right' : 'left' })
     }
     node.addEventListener('mousedown', event => point('down', event))
