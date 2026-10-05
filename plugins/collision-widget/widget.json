@@ -1,0 +1,7 @@
+{
+  "title": "Collision",
+  "category": "Session",
+  "shows": "Stops an edit to a file another Claude Code session on this machine changed since this one last read it, and has Claude read it again first",
+  "commands": ["/collision-widget [on|off|clear]"],
+  "cost": ""
+}

@@ -1137,6 +1137,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "collision-widget",
+      "source": "./plugins/collision-widget",
+      "description": "Stops an edit to a file another Claude Code session on this machine changed since this one last read it, and has Claude read it again first",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "collision",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

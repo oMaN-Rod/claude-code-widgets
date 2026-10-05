@@ -1,5 +1,6 @@
 ;(function (root) {
   const ROOT = '/demo/project'
+  const HOME = '/demo/home'
   const HOUR = 3_600_000
   const DAY = 24 * HOUR
   const FILES = {
@@ -30,6 +31,14 @@
     { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, ms: 1400, text: 'passed' },
     { tool: 'Bash', input: { command: 'git commit -am "Fix the off-by-one in sum"' }, ms: 600, text: '[main 3f2a1c9] Fix the off-by-one in sum' },
   ]
+  const LIVE = {
+    [`${HOME}/.claude/collision-widget/demo-other.json`]: () => {
+      const file = `${ROOT}/src/sum.js`
+      const at = Date.now()
+
+      return JSON.stringify({ id: 'demo-other', cwd: '/demo/api', at, files: { [file]: { path: file, at } } })
+    },
+  }
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
   const SAID = {}
 
@@ -158,13 +167,14 @@
 
       return ran(1, '')
     }
+    const textOf = path => (LIVE[path] === undefined ? files.get(path) : LIVE[path]())
     const listOf = path => {
       const base = `${path.replace(/[\\/]$/, '')}/`
       const seen = new Map()
-      for (const [file, text] of files) {
+      for (const file of [...files.keys(), ...Object.keys(LIVE)]) {
         if (!file.startsWith(base)) continue
         const [head, ...rest] = file.slice(base.length).split('/')
-        seen.set(head, rest.length > 0 ? { name: head, kind: 'dir', size: 0 } : { name: head, kind: 'file', size: text.length })
+        seen.set(head, rest.length > 0 ? { name: head, kind: 'dir', size: 0, mtimeMs: 0 } : { name: head, kind: 'file', size: textOf(file).length, mtimeMs: Date.now() })
       }
       if (seen.size === 0) throw new Error(`no such directory: ${path}`)
 
@@ -246,10 +256,16 @@
       },
       fs: {
         read: async path => {
-          const text = files.get(String(path).replaceAll('\\', '/'))
+          const text = textOf(String(path).replaceAll('\\', '/'))
           if (text === undefined) throw new Error(`no such file: ${path}`)
 
           return text
+        },
+        stat: async path => {
+          const text = textOf(String(path).replaceAll('\\', '/'))
+          if (text === undefined) throw new Error(`no such file: ${path}`)
+
+          return { kind: 'file', size: text.length, mtimeMs: 0, isLink: false }
         },
         write: async (path, text) => void files.set(String(path).replaceAll('\\', '/'), String(text)),
         list: async path => listOf(String(path).replaceAll('\\', '/')),
@@ -282,7 +298,7 @@
       },
       prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({}) },
       http: { fetch: async () => ({ ok: true, status: 200, text: 'ok' }) },
-      env: { get: async () => undefined },
+      env: { get: async key => (key === 'HOME' ? HOME : undefined) },
       audio: { play: async () => ({}) },
       turn: { abort: async () => ({}) },
     }

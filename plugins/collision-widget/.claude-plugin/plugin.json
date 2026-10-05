@@ -1,0 +1,20 @@
+{
+  "name": "collision-widget",
+  "version": "1.0.0",
+  "description": "Stops an edit to a file another Claude Code session on this machine changed since this one last read it, and has Claude read it again first",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "collision",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
