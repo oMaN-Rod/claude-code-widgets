@@ -471,6 +471,7 @@
         notice: async () => ({}),
         selection: async () => (selected === undefined ? undefined : { ...selected }),
         focus: async () => ({}),
+        scroll: async () => ({}),
       },
       widgets: root.DEMO_MODS.kit,
       process: {

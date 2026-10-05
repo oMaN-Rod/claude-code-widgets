@@ -1,0 +1,129 @@
+{
+  "id": "WO-0027",
+  "kind": "new",
+  "widget": "landmarks-widget",
+  "title": "Landmarks",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T13:39:34.100Z",
+  "closedAt": "2026-10-05T16:02:36.406Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T13:45:04.087Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It saves one model request on an exact repeated prompt at the price of a transcript step the model never wrote, and it rests on an unproven assumption that a synthesized tool call with no signed thinking block is accepted by the next request.",
+      "subject": "Reflex"
+    },
+    {
+      "at": "2026-10-05T13:45:04.436Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The engine already defers tools behind ToolSearch, the tokens it would save are cached ones, and hiding a built-in tool Claude does not know to look for costs more than the saving.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T13:45:04.738Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on stakes-widget and pen-widget: the permission dialog already carries a plain description of the command, and a bundled flag table covers only a few dozen commands.",
+      "subject": "Gloss"
+    },
+    {
+      "at": "2026-10-05T13:45:05.059Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on theseus-widget and history-widget: most lines Claude edits in a session are ones it wrote minutes earlier, so the card is usually 'not committed yet' or your own name.",
+      "subject": "Hands"
+    },
+    {
+      "at": "2026-10-05T13:45:05.428Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It is a counter of phrases, which the inventor ranks weakest, and it overlaps the waiting mirror-widget.",
+      "subject": "Jar"
+    },
+    {
+      "at": "2026-10-05T13:45:05.672Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it lowers the quality of steps by fixed rules the person cannot see being wrong, and its saving is unproven until someone measures whether a change of effort inside a turn breaks the prompt cache.",
+      "subject": "Gearbox"
+    },
+    {
+      "at": "2026-10-05T13:45:05.996Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: useful, but it is strays-widget for code built from the same commit-time notice as stakes-widget and customs-widget, and critic-widget already reads the diff for debris.",
+      "subject": "Leftovers"
+    },
+    {
+      "at": "2026-10-05T13:45:06.312Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a fine joke told once, but it keeps text the person chose to delete and gives nothing to do with it, where Landmarks is used in every long session.",
+      "subject": "Unsaid"
+    },
+    {
+      "at": "2026-10-05T13:45:11.893Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Landmarks is the first widget that moves the transcript instead of sitting beside it: a jump list through $.ui.scroll, which exists in the types and no shipped widget calls, used in every long session at no token cost."
+    },
+    {
+      "at": "2026-10-05T13:55:17.642Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every named call is in the 2.1.289 types, all main states are drawn and fit at 20 and 40 columns, the demo section is present, 116 lines and 15 acceptance lines; 14 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T14:22:27.405Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built landmarks-widget as specified (five kinds, stable numbers, fold at 8, list, go <n>, clear, press and go through one jump); checker passes with 15 acceptance tests, but the 2.1.289 test host cannot answer a plugin's own $.ui.scroll, so A7-A9 are tested only on the path where the engine throws and the moved path (At <n>, nearest row, clearing gone, a chosen deny text) is unexercised."
+    },
+    {
+      "at": "2026-10-05T14:49:21.626Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The checker fails 1 run in 3 on a quiet machine: test A12 times out at the 5 s limit (5091 ms) and A1 passes it under load; the widget itself is right (moved, denied and thrown jumps all behave in a demo-engine probe, the live run is good), so only tests/widget.test.tsx and the cost of the tool.call capture need work; see inspection.md findings 1 to 4.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T15:37:18.002Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the send-back: A12 reaches 201 landmarks in 134 calls instead of 197, the tool.call capture is one read and one versioned write, A1/A4/A15 make fewer mounts and round trips, A7-A9 and the header say the moved path is not exercised; checker 9 of 10 in a row, the one failure a stamped standard test at 5209 ms, because eleven stray find / processes hold the 4 cores at 100 percent and no test of any widget is under 2 s here."
+    },
+    {
+      "at": "2026-10-05T16:00:03.193Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Second build passes: checker 12 of 12 with every run under 7.2 s, frames match the spec at 20, 40 and 60 columns, moved, denied and thrown jumps behave in a demo-engine probe, the director's live run is good and the store holds isOn only; the scroll in a real fullscreen terminal stays unproved, as the spec says, and three non-blocking findings are in inspection.md."
+    },
+    {
+      "at": "2026-10-05T16:02:36.405Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

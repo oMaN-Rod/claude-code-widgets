@@ -1,0 +1,20 @@
+{
+  "name": "landmarks-widget",
+  "version": "1.0.0",
+  "description": "A numbered table of contents for the session, built as it happens from prompts, first edits, checks turning red or green, commits and questions; press a line to scroll the transcript to it",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "landmarks",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

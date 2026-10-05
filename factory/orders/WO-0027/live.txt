@@ -1,0 +1,38 @@
+
+>>> /landmarks-widget on
+[assistant] landmarks-widget: Landmarks on; /widgets places it.
+[turn ended: success] landmarks-widget: Landmarks on; /widgets places it.
+
+>>> Write the single word hi to a new file named lm.txt with the Write tool, then run exactly this with the Bash tool: git commit --allow-empty -m lm -q; echo [main abc1234] lm  Then answer ok.
+[assistant] (tool Write {"file_path":"C:\\Users\\O\\.claude-factory\\scratch-project\\lm.txt","content":"hi"})
+[user] (result "The file C:\\Users\\O\\.claude-factory\\scratch-project\\lm.txt has been updated successfully. (file state is current in your context — no need to Read it back)")
+[assistant] (tool Bash {"command":"git commit --allow-empty -m lm -q; echo [main abc1234] lm","description":"Create empty commit and print a line"})
+[system vcs_state_changed] {"type":"system","subtype":"vcs_state_changed","kind":"commit","branch":"main","cwd":"C:\\Users\\O\\.claude-factory\\scratch-project","uuid":"739cb41f-51e7-46c0-9dd9-ad8a2318adea","session_id":"7d4c2a4d-851d-4adb-9e9f-834d74124485"}
+[user] (result "fatal: not a git repository (or any of the parent directories): .git\n[main abc1234] lm")
+[assistant] ok
+
+`lm.txt` was written, but the commit did not happen: the directory isn't a git repository (`fatal: not a git repository`). The `[main abc1234] lm` line is just the `echo` output, not a real commit.
+[turn ended: success] ok
+
+`lm.txt` was written, but the commit did not happen: the directory isn't a git repository (`fatal: not a git repository`). The `[main abc1234] lm` line is just the `echo` output, not a real commit.
+
+>>> /landmarks-widget list
+[assistant] landmarks-widget: 1  t1  you: Write the single word hi to a new file named lm… (near)
+2  t1  edit: lm.txt
+3  t1  commit: lm
+[turn ended: success] landmarks-widget: 1  t1  you: Write the single word hi to a new file named lm… (near)
+2  t1  edit: lm.txt
+3  t1  commit: lm
+
+>>> /landmarks-widget go 2
+[assistant] landmarks-widget: Jumping needs the fullscreen layout (transcript not scrollable here).
+[turn ended: success] landmarks-widget: Jumping needs the fullscreen layout (transcript not scrollable here).
+
+>>> /landmarks-widget off
+[assistant] landmarks-widget: Landmarks off.
+[turn ended: success] landmarks-widget: Landmarks off.
+
+--- landmarks-widget store ---
+landmarks-widget_inline-a77b33e6d4a7.json: {
+  "isOn": false
+}

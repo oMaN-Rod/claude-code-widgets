@@ -1,0 +1,18 @@
+# Spec notes: WO-0027 Landmarks
+
+The spec passes. Every call it names is in the types file (`plugin-authoring/types/claude-code.d.ts`, 2.1.289): `$.ui.scroll` with `UiScrollArgs`, `UiScrollTarget` (`{ requestId }`), `UiScrollBlock` (`'start'`) and `UiScrollResult.deny`; `TurnStartInput` (`text`, `turnId`); `ToolCallInput` with `tool_use_id` and `AgentLoop.agentId`; `ToolCallResult` (`deny`, `result`, `isError`); `ButtonProps` (`key`, `label`, `plain`, `dimColor`, `onPress`); `RenderViewport.isFullscreen?`; `CommandPresentation.isFullscreen`. The checks regex is the one in `plugins/checks-widget/hooks/register.tsx` line 11. The drawings fit (36 inner at 40 columns, 16 at 20). 116 lines, 15 acceptance lines. Settle these while building; each will be looked at on the bench.
+
+1. Label cut. Terms say "cut to 48 characters" and do not say whether the cut carries `…`. The Live section's expected line ends `lm.t…`, which is 49 characters plus the mark, so it matches neither reading. Pick one rule (48 including a closing `…` is the natural one), use it in `list` and on the card, and treat the Live line as illustrative.
+2. Where the Bash output lives. The tool's record is `ran.result` (`{ stdout, stderr, interrupted }`), failure is `ran.isError === true`. For the commit subject take the first line of `stdout` that matches `[branch hash] subject`, not only line one: `npm test && git commit` prints test output first (A5 depends on it).
+3. A stale waiting prompt. A prompt whose turn made no main call must stop waiting at the next `turn.start` (also one with `""`), or it will take a row from a later turn and claim `near`. Add this case to the A2 test.
+4. The commit regex is loose: `git log | grep commit` and `git commit-graph` match and would add a bare `commit` row. Either accept it knowingly or require `commit` as git's subcommand; say which in the test for A5.
+5. The press is asynchronous and `onPress` returns `void`: await the scroll inside a `try`/`catch` so a rejection never escapes, and write the foot row after it settles.
+6. `go` arguments the spec does not name: `go 007`, `go 3 extra`, `GO 3`, `go 99999999999999999999`. Suggested: leading zeros and upper case accepted, trailing words answer the usage, a huge whole number answers `No landmark <n>...`.
+7. Column widths of the rows. Numbers are right-aligned to the widest number shown; say what happens to `t<turn>` at three-digit turns and four-digit numbers at 20 columns, where the line must still end in `…` with its number whole (A15).
+8. The empty sentence wraps at 20 and 40 columns by design. Read A15's "no row longer than the inner width" as: wrapped inside the border, never cut, never breaking it. Draw and test the empty card at 20 columns.
+9. The empty card has no foot row (A1), so a person in the default layout learns that jumping needs fullscreen only after the first landmark. Acceptable; do not add a foot to the empty card without the designer.
+10. `gone` and `near` together: the card shows `gone` only. In `list`, say whether a line can carry both ` (near)` and ` (gone)`; suggested: both, in that order.
+11. `show()` takes one more argument (`e.viewport?.isFullscreen`). Keep the template's two guard lines exactly as the checker expects them and pass the value from all three render hooks.
+12. `edited` is not capped while `marks` is (200). Fine for a session; do not let a dropped mark remove its path from `edited`.
+13. `plural(1, 'landmark')` reads `1 landmark`; the fold row with `k` of three digits still fits 36 columns, check it at 20 (`… 193 more`).
+14. Headless `go 2` in the live run: if the engine throws instead of denying, the answer must still be the fullscreen sentence with the error's message in the brackets; log the text as given.
