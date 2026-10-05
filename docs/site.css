@@ -83,6 +83,11 @@
   .chip:hover { color: var(--text); }
   .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #17110d; font-weight: 600; }
   .chip.play { border-color: var(--accent); color: var(--accent); }
+  .repo { display: flex; width: fit-content; align-items: center; gap: 7px; text-decoration: none; }
+  footer .repo { margin: 20px auto 0; }
+  .repo:hover { border-color: var(--accent); }
+  .repo svg { width: 15px; height: 15px; fill: currentColor; }
+  .repo .stars { color: var(--text); border-left: 1px solid var(--line); padding-left: 8px; margin-left: 1px; }
   .count { margin-left: auto; color: var(--soft); font: 13px var(--mono); }
   .term {
     background: var(--term); border: 1px solid #3a3a40; border-radius: 10px; overflow: hidden;

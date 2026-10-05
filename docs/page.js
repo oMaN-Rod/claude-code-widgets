@@ -7,6 +7,8 @@
   const count = document.getElementById('count')
   const search = document.getElementById('search')
   const none = document.getElementById('none')
+  const repo = document.getElementById('repo')
+  const foot = document.getElementById('foot')
   const make = (tag, props = {}, ...kids) => {
     const el = Object.assign(document.createElement(tag), props)
     el.append(...kids)
@@ -67,6 +69,7 @@
     views.hidden = open !== undefined
     wall.hidden = open !== undefined
     bench.hidden = open === undefined
+    ;(open === undefined ? foot : tools).append(repo)
     if (open === undefined) return fit()
 
     const rail = make('nav', { className: 'rail' })
@@ -143,7 +146,7 @@
     chip.setAttribute('aria-pressed', String(category === chosen))
     chip.addEventListener('click', () => {
       chosen = category
-      for (const other of tools.querySelectorAll(':scope > .chip:not(.play)')) other.setAttribute('aria-pressed', String(other === chip))
+      for (const other of tools.querySelectorAll(':scope > .chip:not(.play, .repo)')) other.setAttribute('aria-pressed', String(other === chip))
       draw()
     })
     tools.insertBefore(chip, count)
@@ -187,6 +190,16 @@
   }
   window.addEventListener('popstate', () => show(fromHash().entry, true))
   document.getElementById('total').textContent = `There are ${widgets.length}`
+  const stars = document.getElementById('stars')
+  fetch('https://api.github.com/repos/oMaN-Rod/claude-code-widgets')
+    .then(reply => (reply.ok ? reply.json() : undefined))
+    .then(repo => {
+      if (!Number.isFinite(repo?.stargazers_count)) return
+      stars.textContent = `★ ${new Intl.NumberFormat('en', { notation: 'compact' }).format(repo.stargazers_count)}`
+      stars.setAttribute('aria-label', `${repo.stargazers_count} stars`)
+      stars.hidden = false
+    })
+    .catch(() => {})
   let kept = 'grid'
   try {
     kept = localStorage.getItem('widgets-view') === 'list' ? 'list' : 'grid'
