@@ -13,7 +13,7 @@ A work order id, a lens to think through, and any ideas already rejected for thi
 
 - Read `README.md` (every shipped widget) and `factory/floor/reference/WAITING.md` if it exists (widgets already queued for a rebuild). An idea that is a variation on any of them will be rejected.
 - Skim `factory/STANDARD.md` to know what a widget is: a card beside or under the prompt, switched by one command, inert while off.
-- Find what the mods API can do. Grep the types file named by the `plugin-authoring` skill, or `plugins/*/.claude-plugin/types/claude-code/index.d.ts`, for the nouns on `$` (`$.model`, `$.tool`, `$.prompt`, `$.audio`, `$.agent`, `$.http`, `$.process`, `$.fs`, `$.session`) and the events (`tool.call`, `tool.check`, `prompt.submit`, `turn.step`, `session.compact`, the streaming events). Note what no shipped widget uses.
+- Find what the mods API can do. The types file is `types/claude-code.d.ts` in the `plugin-authoring` skill's folder; under the system temp folder that is `claude/bundled-skills/*/*/plugin-authoring/types/claude-code.d.ts`. Never search the whole disk for it. Grep it for the nouns on `$` (`$.model`, `$.tool`, `$.prompt`, `$.audio`, `$.agent`, `$.http`, `$.process`, `$.fs`, `$.session`) and the events (`tool.call`, `tool.check`, `prompt.submit`, `turn.step`, `session.compact`, the streaming events). Note what no shipped widget uses.
 
 ## The job
 

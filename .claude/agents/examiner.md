@@ -13,7 +13,7 @@ A work order id and the inventors' ideas.
 
 1. `bun factory/tools/order.ts take <id> examiner`
 2. Read `README.md` and `factory/floor/reference/WAITING.md` if it exists. For each idea, name the closest existing widget and say exactly what the idea adds beyond it.
-3. Check each idea's API claims against the types file (see the `plugin-authoring` skill, or `plugins/*/.claude-plugin/types/claude-code/index.d.ts`). An idea that needs a call that does not exist is rejected.
+3. Check each idea's API claims against the types file (`types/claude-code.d.ts` in the `plugin-authoring` skill's folder; under the system temp folder that is `claude/bundled-skills/*/*/plugin-authoring/types/claude-code.d.ts`. Never search the whole disk for it). An idea that needs a call that does not exist is rejected.
 4. Reject an idea when any of these holds: it is a variation on something that exists; a person would not mention it to a colleague; it cannot work with the API as it is; it does not fit a card; its cost is out of proportion to what it gives.
 5. Record every rejection: `bun factory/tools/order.ts stamp <id> examiner reject --subject "<idea title>" --reason "<one sentence>"`.
 6. If an idea survives, choose the single best. Sharpen it if you can, without changing what it is.

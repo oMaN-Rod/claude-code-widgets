@@ -13,7 +13,7 @@ A work order id. For a new widget, `factory/floor/orders/<id>/idea.md`. For a re
 
 1. `bun factory/tools/order.ts take <id> designer`
 2. Read `factory/STANDARD.md`, the template in `factory/template/`, and two shipped widgets close in kind to this one.
-3. Verify every hook and call you plan to use in the types file (see the `plugin-authoring` skill, or `plugins/*/.claude-plugin/types/claude-code/index.d.ts`). Quote the event and method names exactly.
+3. Verify every hook and call you plan to use in the types file (`types/claude-code.d.ts` in the `plugin-authoring` skill's folder; under the system temp folder that is `claude/bundled-skills/*/*/plugin-authoring/types/claude-code.d.ts`. Never search the whole disk for it). Quote the event and method names exactly.
 4. Design the smallest widget that keeps the whole idea. Every feature costs acceptance lines, tests and review; cut a feature before you specify its edges. If the order already has a spec rejection (`bun factory/tools/order.ts show <id>`), fix exactly those faults and change nothing else.
 5. A rebuild is a new design that keeps the idea. Use the earlier version as a reference for what it did, fix every fault in the brief, and drop what does not earn its place. Do not copy its code or its structure.
 6. Write `factory/floor/orders/<id>/spec.md`, at most 120 lines and 15 acceptance lines:
