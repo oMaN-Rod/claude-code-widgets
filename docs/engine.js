@@ -65,12 +65,15 @@
   const PAST = ['Add a helper that formats money', 'Write a test for sum', 'Set up the npm test script', 'Why is the total one short?']
   const SUMMARY = 'Summary of the conversation so far: sum() skipped the first item of a list; the loop was fixed and the tests pass.'
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
-  const SAID = {}
+  const SAID = {
+    'critic-widget': '- src/sum.js:4: total starts at list[0] and the loop now starts at 0, so the first item is added twice',
+  }
   const OPENING = {
     'queue-widget': { lines: ['until npm test', 'add update the changelog', 'add bump the version'], settleMs: 900 },
     'done-widget': { lines: ['add the tests pass', 'add the fix is committed'] },
     'ledger-widget': { lines: ['scan'] },
     'trial-widget': { lines: [], settleMs: 300 },
+    'critic-widget': { lines: ['review'] },
   }
   const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
   const HELD = {

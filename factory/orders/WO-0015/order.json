@@ -1,0 +1,43 @@
+{
+  "id": "WO-0015",
+  "kind": "rebuild",
+  "widget": "critic-widget",
+  "title": "Critic",
+  "brief": "Rebuild to the standard. What it is: A second pair of eyes: an independent model reads the diff and lists only real defects, which you can hand to Claude. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T01:57:20.538Z",
+  "closedAt": "2026-10-05T03:01:08.699Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T02:12:51.619Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: 100 lines, 14 acceptance lines, every named call is in the types file, all card states drawn and fitting at 20 columns, the brief's test faults covered by A1, A11, A13 and A14; 7 notes for the machinist."
+    },
+    {
+      "at": "2026-10-05T02:45:37.005Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built critic-widget: review sends the uncommitted git diff alone to sonnet, the card lists up to six findings in two rows each, and tell hands them to Claude with the next prompt; 19 acceptance tests for A1-A14 and the checker pass."
+    },
+    {
+      "at": "2026-10-05T02:58:05.274Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Checker passes, frames match the spec at 20, 40 and 60 columns, code and the 19 tests read sound, and the third live run found the real off-by-one in sum.js, handed it to Claude and left only isOn in the store; five non-blocking notes in inspection.md."
+    },
+    {
+      "at": "2026-10-05T03:01:08.698Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

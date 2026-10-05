@@ -1,0 +1,64 @@
+{
+  "agents": {
+    "a13142336a8b64649": {
+      "label": "design:WO-0015",
+      "input": 28,
+      "output": 15607,
+      "cacheWrite": 87287,
+      "cacheRead": 694147,
+      "usd": 0.8875164000000001,
+      "unpriced": 0,
+      "guessed": 10510
+    },
+    "a04d009f42fd85703": {
+      "label": "review-spec:WO-0015",
+      "input": 22,
+      "output": 5231,
+      "cacheWrite": 55817,
+      "cacheRead": 454930,
+      "usd": 0.4747790000000001,
+      "unpriced": 0,
+      "guessed": 2669
+    },
+    "a5e450de2ab6550c6": {
+      "label": "build:WO-0015",
+      "input": 74,
+      "output": 41009,
+      "cacheWrite": 264209,
+      "cacheRead": 3669128,
+      "usd": 2.8753466,
+      "unpriced": 0,
+      "guessed": 35027
+    },
+    "a90cfc68c3c794256": {
+      "label": "inspect:WO-0015",
+      "input": 20,
+      "output": 6788,
+      "cacheWrite": 76145,
+      "cacheRead": 475801,
+      "usd": 0.6117252000000001,
+      "unpriced": 0,
+      "guessed": 5236
+    },
+    "a99ffe381fda309bf": {
+      "label": "inspect:WO-0015",
+      "input": 12,
+      "output": 5264,
+      "cacheWrite": 17721,
+      "cacheRead": 243391,
+      "usd": 0.24261120000000003,
+      "unpriced": 0,
+      "guessed": 3224
+    },
+    "a5178cebbdefce661": {
+      "label": "ship:WO-0015",
+      "input": 16,
+      "output": 1478,
+      "cacheWrite": 49177,
+      "cacheRead": 296379,
+      "usd": 0.33478480000000005,
+      "unpriced": 0,
+      "guessed": 1139
+    }
+  }
+}

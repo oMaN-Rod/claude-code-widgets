@@ -1,0 +1,7 @@
+{
+  "title": "Critic",
+  "category": "Project and git",
+  "shows": "A second pair of eyes: a separate model reads the uncommitted diff and lists only real defects, which you can hand to Claude",
+  "commands": ["/critic-widget [on|off|review|tell|clear]"],
+  "cost": "One model call per review: up to 40,000 characters of diff to sonnet and a reply of at most 900 tokens"
+}

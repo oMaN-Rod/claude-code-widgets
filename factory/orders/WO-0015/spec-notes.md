@@ -1,0 +1,11 @@
+# WO-0015 Critic: spec notes
+
+The spec passes. Every call it names is in the types file (`plugin-authoring/types/claude-code.d.ts`, bundled with the build): `$.process.run` with `exitCode`, `stdout`, `isStdoutTruncated`; `$.model.complete` with `model`, `system`, `prompt`, `maxTokens`, `timeoutMs` and the three reasons; `prompt.submit` with `context` and `origin.kind`. Settle these while building.
+
+1. `review` answers only when the reply is in, so the `command.run` hook stays pending for up to 90 seconds. The kit will let A3 pass either way. In a real session, confirm that the card shows `reading` while the hook waits and that a second `/critic-widget review` typed meanwhile is answered `Still reading.` rather than queued behind the first. If the engine queues it, say so in the build log; do not paper over it.
+2. Live command: the appended line lands in `README.md` after `git add -A; commit`. If the scratch project has no `README.md` before that turn, the file is new and untracked, `git diff HEAD` is blank, and `review` prints `Nothing uncommitted in tracked files.` Check that the file exists there first; if it does not, the live line needs a file that does.
+3. The cut rule for a finding's second row reads two ways (inner width less 3 with or without the indent). The drawings settle it: the row, indent and `…` included, is never longer than the inner width, and the text before `…` is the inner width less 3 at most. Draw what the drawings show at 20 and 40 columns.
+4. A result of `{ isAnswered: false }` with no `reason` is in A5 and the Demo section but not in the Failures term. Make `The reviewing model could not be reached.` the fall-through for any unanswered result whose reason is not `empty-reply` or `aborted`.
+5. Split the reply on `\r?\n`, and treat a reply that is blank after trimming but `isAnswered: true` as `unreadable`.
+6. `plural()` is the standard's way to write counts. The note `<n> found` has no noun to pluralise, so it needs none; do not invent one.
+7. A `review` whose ticket was overtaken answers `Critic dropped the review.` whether it was dropped by `clear`, by switching off, or by a later `review`. A10 and A11 prove the first two on the card; make the answer the same in all three.

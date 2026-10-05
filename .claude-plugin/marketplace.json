@@ -1341,6 +1341,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "critic-widget",
+      "source": "./plugins/critic-widget",
+      "description": "A second pair of eyes: a separate model reads the uncommitted diff and lists only real defects, which you can hand to Claude",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "critic",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
