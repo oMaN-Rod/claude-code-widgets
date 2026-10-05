@@ -174,6 +174,7 @@
     const mod = root.DEMO_MODS.mods[name]
     const hooks = []
     const state = new Map([['widgets/site', 'side'], ['widgets/widths', widths]])
+    const versions = new Map()
     const earlier = Math.floor((Date.now() - 2 * HOUR - 3 * 60_000) / 1000) * 1000
     const store = new Map(Object.entries(KEPT[name]?.(earlier) ?? {}))
     const killed = new Set()
@@ -387,10 +388,17 @@
     const nouns = {
       plugin: { name, root: `/demo/plugins/${name}` },
       state: {
-        get: async ref => ({ value: state.get(`${ref.plugin}/${ref.key}`) }),
-        set: async (ref, value) => {
-          state.set(`${ref.plugin}/${ref.key}`, value)
+        get: async ref => ({ value: state.get(`${ref.plugin}/${ref.key}`), version: versions.get(`${ref.plugin}/${ref.key}`) ?? 0 }),
+        set: async (ref, value, { ifVersion } = {}) => {
+          const key = `${ref.plugin}/${ref.key}`
+          const version = versions.get(key) ?? 0
+          if (ifVersion !== undefined && ifVersion !== version) return { isSet: false, version }
+
+          state.set(key, value)
+          versions.set(key, version + 1)
           changed()
+
+          return { isSet: true, version: version + 1 }
         },
       },
       store: {
@@ -563,9 +571,23 @@
       try {
         await dispatch('prompt.submit', { text, wait: false, origin: { kind: 'composer' } }, e => ({ text: e.text, ...(e.context === undefined ? {} : { context: e.context }) }))
         await dispatch('turn.start', { text, turnId }, e => ({ turnId: e.turnId }))
+        let steps = 0
         for (const [at, call] of TURN.entries()) {
           if (call.tool.startsWith('mcp__') && !tools.has(call.tool)) continue
           const id = `${turnId}-${at}`
+          const written = flow('turn.step', { turnId, index: steps, model: 'claude-demo', messageCount: transcript.length + 1 + steps * 2 }, async function* (e) {
+            yield { kind: 'tool', index: 0, id, name: call.tool }
+            for (const json of pieces(JSON.stringify(call.input), 12)) {
+              await sleep(30 * pace)
+              yield { kind: 'input', index: 0, json }
+            }
+            yield { kind: 'stop', stopReason: 'tool_use', usage: SPENT }
+
+            return { turnId: e.turnId, index: e.index, answer: '', toolUses: [{ tool_use_id: id, tool: call.tool, input: call.input }], stopReason: 'tool_use', usage: SPENT }
+          })
+          for await (const chunk of written) void chunk
+          await written.result
+          steps += 1
           await dispatch('tool.check', { tool: call.tool, input: call.input, tool_use_id: id }, () => ({ decision: call.isAsked ? 'ask' : 'allow' }))
           await dispatch('tool.call', { tool: call.tool, tool_use_id: id, ...call.input }, async e => {
             if (e.tool === 'Bash') shelledAt ??= Math.floor(Date.now() / 1000) * 1000
@@ -585,7 +607,7 @@
           })
           usage.tokens += 1800
         }
-        const stream = flow('turn.step', { turnId, index: 0, model: 'claude-demo', messageCount: transcript.length + 1 }, async function* (e) {
+        const stream = flow('turn.step', { turnId, index: steps, model: 'claude-demo', messageCount: transcript.length + 1 + steps * 2 }, async function* (e) {
           for (const [index, [kind, said]] of [['thinking', THOUGHT], ['text', REPLY]].entries()) {
             for (const text of pieces(said, 7)) {
               await sleep(30 * pace)

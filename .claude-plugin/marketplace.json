@@ -1477,6 +1477,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "pen-widget",
+      "source": "./plugins/pen-widget",
+      "description": "The file, edit or command Claude is writing right now, drawn line by line as the tool call's arguments stream in, before the tool runs",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "pen",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

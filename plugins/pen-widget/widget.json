@@ -1,0 +1,7 @@
+{
+  "title": "Pen",
+  "category": "Session",
+  "shows": "The file, edit or command Claude is writing right now, drawn line by line as the tool call's arguments stream in, before the tool runs",
+  "commands": ["/pen-widget [on|off|show|clear]"],
+  "cost": ""
+}

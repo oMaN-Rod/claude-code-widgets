@@ -1,0 +1,106 @@
+{
+  "id": "WO-0023",
+  "kind": "new",
+  "widget": "pen-widget",
+  "title": "Pen",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T10:18:52.733Z",
+  "closedAt": "2026-10-05T13:24:48.448Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T11:02:16.071Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Thinking chunks carry only what the person is shown live, which is summarised or absent on current models, and hedge keywords cannot tell an unchecked assumption from ordinary deliberation, so the card would be empty or wrong unless it pays for a model call every turn.",
+      "subject": "Unsaid"
+    },
+    {
+      "at": "2026-10-05T11:02:17.832Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its cost is out of proportion: it saves a few thousand cached tokens of built-in tool schemas, which the engine already defers for MCP tools, at the price of silently changing which tools Claude reaches for.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T11:02:19.209Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the look time is inferred from tool.check resolving, which is not the dialog opening when asks queue or a mode's classifier decides, so its headline accusation can be false, and its 'make this a rule' half repeats guard-widget.",
+      "subject": "Stamp"
+    },
+    {
+      "at": "2026-10-05T11:02:21.954Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on squiggle-widget joined to the sessions registry: squiggle already marks the missing file names as you type, and prompts that spell out full paths meant for another window are too rare to carry a widget.",
+      "subject": "Misdial"
+    },
+    {
+      "at": "2026-10-05T11:02:23.931Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its cost is out of proportion to what it gives: help text formats differ per tool and subcommand and there is no man on Windows, so the parser would mostly say 'no help found' or wrongly flag real flags as invented.",
+      "subject": "Gloss"
+    },
+    {
+      "at": "2026-10-05T11:02:25.514Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it is new and it works, but it is a moment of amusement that changes nothing about the work, and telling a retracted thought from a fixed typo without a model is guesswork.",
+      "subject": "Palimpsest"
+    },
+    {
+      "at": "2026-10-05T11:02:27.653Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on wager-widget's prediction scoring with the roles swapped; one similarity figure that is mentioned once and then ignored, and it is blank whenever suggestions do not show.",
+      "subject": "Foregone"
+    },
+    {
+      "at": "2026-10-05T11:03:06.571Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Pen is the only idea that is both new and certain to work: it reads the tool-argument chunks of turn.step, which no widget touches, at no token cost, and moves the person's chance to stop a bad write from after it ran to while it is being written."
+    },
+    {
+      "at": "2026-10-05T11:18:02.115Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every turn.step type and call named is in the 2.1.289 types file, all states are drawn including 20 columns, Demo and Live are present, 108 lines and 14 acceptance lines; 11 notes in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T12:42:40.956Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built pen-widget: a turn.step stream hook with an incremental JSON reader that draws the tail of the Write, Edit, NotebookEdit, Bash or PowerShell call being written, with 14 acceptance tests and the checker passing."
+    },
+    {
+      "at": "2026-10-05T12:51:08.000Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Checker and all 19 tests pass, every state reads at 20, 40 and 60 columns under hostile input, the director's live run shows real argument chunks arriving in 17 pieces with true counts and a store of isOn alone; five non-blocking findings in inspection.md."
+    },
+    {
+      "at": "2026-10-05T13:24:48.447Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}
