@@ -732,11 +732,12 @@ pre {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: center;
+    gap: 4px;
   }
 
   .tools button {
-    padding: 6px 8px;
-    font-size: 11px;
+    padding: 6px 5px;
+    font-size: 10.5px;
     white-space: nowrap;
   }
 

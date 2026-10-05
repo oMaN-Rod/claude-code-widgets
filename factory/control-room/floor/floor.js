@@ -12,6 +12,8 @@ const frameBody = document.getElementById('window-body')
 const map = document.getElementById('map')
 
 const POLL_MS = 3000
+const REPLAY_MS = 450
+const REPLAY_STEPS = 160
 const STATIONS = [
   { name: 'ideation', title: 'Ideas loft', icon: '💡', resident: 'examiner', who: 'Three inventors, then the examiner', out: 'idea.md', gate: 'The examiner rejects any idea that is a variation on an existing widget. Its default answer is no.' },
   { name: 'design', title: 'Drafting studio', icon: '📐', resident: 'designer', who: 'The designer, reviewed by the inspector', out: 'spec.md', gate: 'The inspector rejects only blocking faults. Everything else goes to the machinist as notes.' },
@@ -22,6 +24,7 @@ const STATIONS = [
 const PLACES = [...STATIONS.map(spec => ({ type: 'station', id: spec.name, label: spec.title.split(' ')[0], icon: spec.icon })), { type: 'dock', label: 'Truck', icon: '🚚' }, { type: 'scrap', label: 'Kiln', icon: '🔥' }]
 const asked = new URLSearchParams(location.search)
 const isDemo = asked.has('demo')
+const isReplay = !isDemo && asked.has('replay')
 const state = { board: null, key: '', selected: { type: 'home' }, doc: null, tab: 'log', isOpen: false }
 
 const el = (tag, props = {}, ...kids) => {
@@ -422,14 +425,50 @@ const rehearse = () => {
   return { at: now, orders: rehearsal.orders.map(known => ({ ...known, agents: known.log.length })) }
 }
 
+const isShift = entry => entry.action.startsWith('took the order') || entry.agent === 'inventor'
+const asOf = (order, at) => {
+  const log = order.log.filter(entry => entry.at <= at)
+  const stamps = order.stamps.filter(stamp => stamp.at <= at)
+  const seen = { ...order, log, stamps, status: 'open', station: order.kind === 'new' ? 'ideation' : 'design', holder: null, closedAt: null, cost: null, workedAt: null }
+  for (const stamp of stamps) {
+    const here = STATIONS.findIndex(spec => spec.name === seen.station)
+    if (stamp.result === 'send-back') seen.station = stamp.to
+    else if (stamp.result === 'scrap') Object.assign(seen, { status: 'scrapped', closedAt: stamp.at })
+    else if (stamp.result === 'pass' && here === STATIONS.length - 1) Object.assign(seen, { status: 'shipped', closedAt: stamp.at })
+    else if (stamp.result === 'pass') seen.station = STATIONS[here + 1].name
+  }
+  for (const entry of log) {
+    if (entry.action.startsWith('took the order')) seen.holder = entry.agent
+    else if (entry.action.startsWith('stamped') && !entry.action.startsWith('stamped reject')) seen.holder = null
+  }
+  const isNamed = order.kind !== 'new' || log.some(entry => entry.action.startsWith('named the widget'))
+
+  return { ...seen, widget: isNamed ? order.widget : null, title: isNamed ? order.title : null, sendBacks: stamps.filter(stamp => stamp.result === 'send-back').length, agents: log.filter(isShift).length }
+}
+
+const tape = { orders: null, times: [], at: 0 }
+const replay = async () => {
+  if (tape.orders === null) {
+    tape.orders = (await (await fetch('/api/board')).json()).orders
+    tape.times = [...new Set(tape.orders.flatMap(order => order.log.map(entry => entry.at)))].sort()
+  }
+  tape.at += Math.max(1, Math.ceil(tape.times.length / REPLAY_STEPS))
+  const isDone = tape.at >= tape.times.length
+  const at = (isDone ? tape.times.at(-1) : tape.times[tape.at]) ?? new Date().toISOString()
+
+  return { at, isDone, orders: tape.orders.filter(order => order.openedAt <= at).map(order => asOf(order, at)) }
+}
+const day = at => new Date(at).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+
 const poll = async () => {
+  if (isReplay && tape.at >= tape.times.length && tape.orders !== null) return
   try {
-    const board = isDemo ? rehearse() : await (await fetch('/api/board')).json()
+    const board = isDemo ? rehearse() : isReplay ? await replay() : await (await fetch('/api/board')).json()
     const key = JSON.stringify(board.orders)
     state.board = board
     syncClock(board.at)
     world.show(orders(), state.selected)
-    pulse.textContent = isDemo ? `rehearsal · ${clock(board.at)}` : `live · ${clock(board.at)}`
+    pulse.textContent = isDemo ? `rehearsal · ${clock(board.at)}` : isReplay ? `${board.isDone ? 'replay done' : 'replay'} · ${day(board.at)}` : `live · ${clock(board.at)}`
     pulse.classList.add('live')
     paintStats()
     if (key !== state.key) {
@@ -459,12 +498,16 @@ document.getElementById('window-close').addEventListener('click', () => {
   paintWindow()
 })
 document.getElementById('orders').addEventListener('click', () => select({ type: 'orders' }, true))
-document.getElementById('rehearse').textContent = isDemo ? '■ Live floor' : '▶ Rehearsal'
-document.getElementById('rehearse').addEventListener('click', () => {
-  if (isDemo) asked.delete('demo')
-  else asked.set('demo', '1')
+const mode = (name, isOn) => {
+  asked.delete('demo')
+  asked.delete('replay')
+  if (!isOn) asked.set(name, '1')
   location.search = asked.toString()
-})
+}
+document.getElementById('rehearse').textContent = isDemo ? '■ Live floor' : '▶ Rehearsal'
+document.getElementById('rehearse').addEventListener('click', () => mode('demo', isDemo))
+document.getElementById('replay').textContent = isReplay ? '■ Live floor' : '⏪ Replay'
+document.getElementById('replay').addEventListener('click', () => mode('replay', isReplay))
 for (const tab of document.getElementById('log-tabs').children) {
   tab.addEventListener('click', () => {
     state.tab = tab.dataset.tab
@@ -482,5 +525,5 @@ if (['order', 'station', 'dock', 'scrap'].includes(type)) state.selected = { typ
 paintStats()
 paint()
 poll()
-setInterval(poll, POLL_MS)
+setInterval(poll, isReplay ? REPLAY_MS : POLL_MS)
 setInterval(drawMap, 200)
