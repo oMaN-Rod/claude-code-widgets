@@ -181,6 +181,13 @@
       { tool: 'Bash', input: { command: 'git push origin main' }, ms: 900, isError: true, text: "fatal: unable to access 'https://github.com/demo/demo.git/': The requested URL returned error: 503" },
     ],
   }
+  const LONG = Array.from({ length: 160 }, (_, at) => {
+    if (at === 31) return 'Note: the two integration tests were skipped because the database container did not start.'
+    if (at === 87) return 'I did not run the migration.'
+
+    return at % 8 === 0 ? `## Part ${at / 8 + 1}` : `- src/routes/page-${at + 1}.js now reads its limit from the shared config.`
+  })
+  const DRAFTS = { 'skimmed-widget': { requestId: 'demo-reply', lines: LONG, steps: 4, ms: 150, rows: 40 } }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)
@@ -697,6 +704,22 @@
         })
         for await (const chunk of stream) void chunk
         await stream.result
+        const draft = DRAFTS[name]
+        for (let step = 1; draft !== undefined && step <= draft.steps; step += 1) {
+          const of = Math.round((draft.lines.length * step) / draft.steps)
+          await dispatch(
+            'ui.render',
+            {
+              component: 'AssistantMessage',
+              requestId: draft.requestId,
+              surface: 'terminal',
+              viewport: { columns: 80, rows: draft.rows, isFullscreen: true },
+              props: { text: draft.lines.slice(0, of).join('\n'), isFirstOfReply: true, onScreen: { first: Math.max(0, of - draft.rows), last: of - 1, of } },
+            },
+            () => ({ type: 'Box', props: {}, children: [] }),
+          )
+          await sleep(draft.ms)
+        }
         usage.tokens += 2500
         usage.usd += 0.06
         usage.five = Math.min(100, usage.five + 1)

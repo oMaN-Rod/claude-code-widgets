@@ -1,0 +1,21 @@
+
+>>> /skimmed-widget on
+[assistant] skimmed-widget: Skimmed on; /widgets places it.
+[turn ended: success] skimmed-widget: Skimmed on; /widgets places it.
+
+>>> Reply with exactly: Note: I did not run anything.
+[assistant] Note: I did not run anything.
+[turn ended: success] Note: I did not run anything.
+
+>>> /skimmed-widget show
+[assistant] skimmed-widget: This layout does not report what is on screen. Skimmed needs the fullscreen layout and claims nothing here.
+[turn ended: success] skimmed-widget: This layout does not report what is on screen. Skimmed needs the fullscreen layout and claims nothing here.
+
+>>> /skimmed-widget off
+[assistant] skimmed-widget: Skimmed off.
+[turn ended: success] skimmed-widget: Skimmed off.
+
+--- skimmed-widget store ---
+skimmed-widget_inline-db9069aecfdf.json: {
+  "isOn": false
+}

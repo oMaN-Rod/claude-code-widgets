@@ -1579,6 +1579,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "skimmed-widget",
+      "source": "./plugins/skimmed-widget",
+      "description": "The caveats in Claude's replies that left your screen while Claude was still writing and have not been back, quoted in full; it never claims that what was on screen was read",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "skimmed",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "title": "Skimmed",
+  "category": "Session",
+  "shows": "The caveats in Claude's replies that left your screen while Claude was still writing and have not been back, quoted in full; it never claims that what was on screen was read",
+  "commands": ["/skimmed-widget [on|off|show|clear]"],
+  "cost": ""
+}

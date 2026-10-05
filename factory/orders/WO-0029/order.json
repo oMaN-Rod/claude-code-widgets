@@ -1,0 +1,159 @@
+{
+  "id": "WO-0029",
+  "kind": "new",
+  "widget": "skimmed-widget",
+  "title": "Skimmed",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T16:04:08.233Z",
+  "closedAt": "2026-10-05T19:17:34.911Z",
+  "sendBacks": 2,
+  "stamps": [
+    {
+      "at": "2026-10-05T16:10:02.720Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Rejected twice before and nothing has changed: the engine already defers MCP tools, so the saving is a few cached built-in descriptions, bought with the risk that Claude does not reach for a tool it cannot see.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T16:10:02.825Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The same widget as Deja vu, rejected twice: rare-word overlap on a half-typed prompt seldom fires on a real repeat and misfires on similar-looking ones, and an old answer rarely fits the new conversation.",
+      "subject": "Recall"
+    },
+    {
+      "at": "2026-10-05T16:10:02.931Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Rejected before and nothing has changed: prompt.edit splices cannot reliably tell a swallowed sentence from ordinary editing, and the card puts on screen the words the person chose not to show.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T16:10:03.041Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Rejected before as The jar and nothing has changed: a phrase counter with a picture beside badges-widget and the waiting mirror and wrapped widgets, built on a joke that is already everywhere.",
+      "subject": "Jar"
+    },
+    {
+      "at": "2026-10-05T16:10:03.151Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It runs on the same two hooks as Amendments (WO-0028, on the floor), and the break it would name most days is the idle expiry that the waiting cache-widget already counts down; its best moment, an unstable plugin section, is too rare to carry a card.",
+      "subject": "Culprit"
+    },
+    {
+      "at": "2026-10-05T16:10:03.254Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on tap-widget's clock-polled line and on gh run watch itself: GitHub only, needs a signed-in gh, and what it adds is a trigger on push, which is a feature rather than a new widget.",
+      "subject": "Verdict"
+    },
+    {
+      "at": "2026-10-05T16:10:03.360Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A git blame line per edit beside the history, onthisday and theseus widgets: in a solo or Claude-written repository the answer is always you or Claude, so the moment it is built for almost never comes and the novelty wears off in a day.",
+      "subject": "Byline"
+    },
+    {
+      "at": "2026-10-05T16:10:03.467Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the most original idea here, but onScreen is absent outside the fullscreen layout, dwell must be guessed from edge-only reports while text streams past, and scroll lands on a whole message rather than the passage, so it would often accuse a reader wrongly; Last Green works in every layout and is exact.",
+      "subject": "Skimmed"
+    },
+    {
+      "at": "2026-10-05T16:10:55.414Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Already on the floor: WO-0030 named green-widget for the same idea seconds before this order did, so here it is a duplicate; this order's earlier naming as green-widget and its not-chosen stamp on Skimmed are withdrawn.",
+      "subject": "Last Green"
+    },
+    {
+      "at": "2026-10-05T16:10:55.656Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Skimmed is the only idea left that is new and works with the API as it is: no widget reads onScreen, it is the first to watch what the person saw rather than what Claude did, it costs no tokens, and sharpened to claim only 'never on screen' and to quote the missed caveat on the card it states a fact instead of guessing at reading."
+    },
+    {
+      "at": "2026-10-05T16:24:37.690Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every hook and call is in the types file, all main states are drawn and read at 20 columns, the demo section is present and the spec is within size; 11 notes, the first being that the 100ms module-level queue is an accepted, narrow departure from the standard."
+    },
+    {
+      "at": "2026-10-05T16:40:50.772Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built skimmed-widget: an AssistantMessage render hook queues onScreen reports, a 100ms timer scans them for caveat sentences and credits rows shown, and the card quotes the caveats of the last turn that stayed off screen, with show, clear and a scroll button; checker passes with 15 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T16:45:34.837Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Build is faithful and clean (checker passes, live run good as far as headless goes), but the spec's Apply step 3 reads any new row count under unchanged text as a resize: the types file says onScreen is reported once drawn and again when it changes, so a growing reply's new row count most probably arrives in a second report with the same text, every growth step then marks the whole page shown and the widget never quotes; a probe in that order draws 'all shown' for two caveats that were never on screen. Make the rules hold under both report orders with an acceptance line for the settle order, stop the card claiming 'all shown' for pages written off by doubt or never in the viewport, and see inspection.md for five notes.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T18:53:16.599Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Both send-back faults are fixed (a new row count is taken with its text or within 500ms after it and neither report earns credit, and all shown is drawn only when every counted caveat was judged, with a drawn not-known state) and nothing that changed breaks the standard, the types file or the size limit; 13 notes."
+    },
+    {
+      "at": "2026-10-05T19:03:30.362Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt skimmed-widget to the second spec: a new row count is taken with its text or within 500ms after it and earns no credit, doubt and never-windowed replies are drawn as not judged instead of all shown, good news and table rows are not quoted, a long word fills the row in hand, the flush catches, and a width of 0 reads as 80; checker passes with 15 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T19:07:56.944Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Second build fixes both earlier faults and the story works in probes (both report orders, release after a second on screen, doubt drawn as not judged), but the quote misnames things: quoted() at register.tsx line 97 removes every * and _ so `db_migrate_all` is quoted as dbmigrateall, __init__.py as init.py and a glob loses its stars, against A8's 'markdown marks gone' and the catalog's 'quoted in full'. Keep text inside backtick spans as written and strip * and _ only where they open or close emphasis, with A8 data for it; also do not split a sentence after e.g./i.e./etc. or an ellipsis, and do not let a flush in flight write book after off. See inspection.md; the fullscreen hand check is still the owner's.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T19:12:49.103Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Third build of Skimmed: the scan now strips only markdown marks (code spans kept as written, stars and underscores inside names kept), no longer splits a quote at e.g., i.e., vs., etc. or an ellipsis, and a flush gives up when the switch went off under it."
+    },
+    {
+      "at": "2026-10-05T19:15:24.043Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Third build fixes the quote (code spans kept as written, stars and underscores inside names kept, no split at e.g., i.e., vs., etc. or an ellipsis) and the flush gives up after off; checker passes, A8 and A13 prove it with real data, the headless live run is clean with only isOn stored; four notes in inspection.md and the fullscreen hand check is still the owner's to make."
+    },
+    {
+      "at": "2026-10-05T19:17:34.910Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

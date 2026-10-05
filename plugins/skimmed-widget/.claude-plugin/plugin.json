@@ -1,0 +1,20 @@
+{
+  "name": "skimmed-widget",
+  "version": "1.0.0",
+  "description": "The caveats in Claude's replies that left your screen while Claude was still writing and have not been back, quoted in full; it never claims that what was on screen was read",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "skimmed",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}
