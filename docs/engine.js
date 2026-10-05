@@ -75,7 +75,10 @@
     'trial-widget': { lines: [], settleMs: 300 },
     'critic-widget': { lines: ['review'] },
     'aside-widget': { lines: ['ask Why did the first test fail?'] },
+    'tap-widget': { lines: ['add github list_pull_requests', 'add sentry list_issues'] },
   }
+  const PULLS = ['Fix the login redirect', 'Bump bun', 'Add dark mode']
+  const ISSUES = ['Null user in session.js', 'TypeError in checkout.js', 'Timeout in /api/cart']
   const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
   const HELD = {
     'trial-widget': {
@@ -126,6 +129,7 @@
     ])
     const commands = []
     const tools = new Set()
+    const calls = new Map()
     const timers = new Set()
     const born = Date.now()
     const usage = { tokens: 46_000, usd: 0.38, five: 12, seven: 31 }
@@ -377,6 +381,16 @@
       env: { get: async key => (key === 'HOME' ? HOME : undefined) },
       audio: { play: async () => ({}) },
       turn: { abort: async () => ({}) },
+      mcp: {
+        call: async (server, tool) => {
+          await sleep(20)
+          const asked = (calls.get(`${server} ${tool}`) ?? 0) + 1
+          calls.set(`${server} ${tool}`, asked)
+          if (tool === 'list_pull_requests') return { content: [{ type: 'text', text: JSON.stringify(PULLS.map(title => ({ title }))) }], isError: false }
+          if (tool === 'list_issues') return { content: [], isError: false, structuredContent: { issues: ISSUES.slice(asked === 1 ? 1 : 0).map(title => ({ title })) } }
+          throw new Error(`server ${server} is not connected`)
+        },
+      },
     }
     const $ = new Proxy(nouns, { get: (target, noun) => target[noun] ?? (typeof noun === 'string' ? quiet(noun) : undefined) })
 

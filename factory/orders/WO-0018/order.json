@@ -1,0 +1,114 @@
+{
+  "id": "WO-0018",
+  "kind": "new",
+  "widget": "tap-widget",
+  "title": "Tap",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T03:01:39.967Z",
+  "closedAt": "2026-10-05T04:06:00.892Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T03:14:21.979Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Two full subagent runs, two worktrees and a diff applied to the working tree is a workflow, not a card: the cost and the failure modes (background agents that cannot answer permission prompts, a dirty tree at take) are out of proportion, and the Agent tool already runs isolated worktree agents on request.",
+      "subject": "Duel"
+    },
+    {
+      "at": "2026-10-05T03:14:24.222Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Claude Code already keeps a cleared draft in prompt history and has a stash, so what is left is crash recovery, paid for by writing everything the person types to a plain-text file.",
+      "subject": "Salvage"
+    },
+    {
+      "at": "2026-10-05T03:14:26.999Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A status-page lookup that fires a few times a year and hangs on one hard-coded outside endpoint; a person opens the page once and does not mention the card.",
+      "subject": "Not You"
+    },
+    {
+      "at": "2026-10-05T03:14:29.505Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The answer time is derived by subtraction from classic.PermissionRequest timing the types do not promise and breaks when dialogs queue, the verdict rests on an assumed reading pace, and it is a second reading of the guard-widget and stakes-widget dialog family.",
+      "subject": "Reflex"
+    },
+    {
+      "at": "2026-10-05T03:14:32.260Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A word-overlap match over saved sessions is a guess that stays silent for most people, and it sits in the insight, resume and ledger family that already reads the same history.",
+      "subject": "Deja Vu"
+    },
+    {
+      "at": "2026-10-05T03:14:34.697Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The sentence is a model's opinion that git blame can locate but not verify, delivered through one more Claude-written tool like notebook, wishlist and board, for 80 to 100 tokens of context every session.",
+      "subject": "Kudos"
+    },
+    {
+      "at": "2026-10-05T03:14:37.329Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it works with process.spawn, but the engine's own background shell already keeps a dev server and lets Claude read its output, deciding what counts as an error is a word heuristic, and killing a dev server's child tree on Windows is unsolved; Tap opens a wider door.",
+      "subject": "Tail"
+    },
+    {
+      "at": "2026-10-05T03:14:40.023Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: ui.scroll exists, but the ids of prompt and reply rows are unproven for a card to collect, it works in fullscreen only, and Margin (WO-0016) is already the transcript-interaction widget in flight.",
+      "subject": "Contents"
+    },
+    {
+      "at": "2026-10-05T03:15:14.982Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Tap is the only idea that opens a capability no widget and no engine feature has: any connected MCP server as a live card for zero tokens, through $.mcp.call, which exists as claimed."
+    },
+    {
+      "at": "2026-10-05T03:26:44.444Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every call is in the types file, all main states are drawn and fit at 20 columns, the demo section is present, 107 lines and 15 acceptance lines; 17 notes in spec-notes.md, chiefly awaiting clock.now, guarding overlapping ticks and the 1 events plural."
+    },
+    {
+      "at": "2026-10-05T03:51:16.475Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built tap-widget: up to four taps on connected MCP tools, called by the widget on a ten-minute clock with backoff, one reading per tap on the card, a toast on change, and list, add, run, show, drop and clear on the one command."
+    },
+    {
+      "at": "2026-10-05T04:00:34.851Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker and all 20 tests pass, frames hold at 20, 40 and 60, the live run matches the spec line for line with only isOn in the store, and breaker runs found eight small notes (chiefly the singular of keys like status) and no blocking fault; a successful call against a real server stays the person's one hand check."
+    },
+    {
+      "at": "2026-10-05T04:06:00.891Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

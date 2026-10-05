@@ -1,0 +1,39 @@
+
+>>> /tap-widget on
+
+>>> /tap-widget list
+[assistant] tap-widget: Tap on; /widgets places it.
+[turn ended: success] tap-widget: Tap on; /widgets places it.
+[assistant] tap-widget: claude_ai_Claude_Docs batch
+claude_ai_Claude_Docs create
+claude_ai_Claude_Docs delete
+claude_ai_Claude_Docs export
+claude_ai_Claude_Docs guide
+claude_ai_Claude_Docs query
+claude_ai_Claude_Docs read
+claude_ai_Claude_Docs update
+[turn ended: success] tap-widget: claude_ai_Claude_Docs batch
+claude_ai_Claude_Docs create
+claude_ai_Claude_Docs delete
+claude_ai_Claude_Docs export
+claude_ai_Claude_Docs guide
+claude_ai_Claude_Docs query
+claude_ai_Claude_Docs read
+claude_ai_Claude_Docs update
+
+>>> /tap-widget add nosuch list_things
+[assistant] tap-widget: Not added: call failed: no connected MCP tool "list_things" on a server named "nosuch"
+[turn ended: success] tap-widget: Not added: call failed: no connected MCP tool "list_things" on a server named "nosuch"
+
+>>> /tap-widget add nosuch send_mail
+[assistant] tap-widget: send_mail does not look read-only. Tap would call it every 10m without asking. To add it all the same, end the line with: anyway
+[turn ended: success] tap-widget: send_mail does not look read-only. Tap would call it every 10m without asking. To add it all the same, end the line with: anyway
+
+>>> /tap-widget off
+[assistant] tap-widget: Tap off.
+[turn ended: success] tap-widget: Tap off.
+
+--- tap-widget store ---
+tap-widget_inline-63a949950e11.json: {
+  "isOn": false
+}

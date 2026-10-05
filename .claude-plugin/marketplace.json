@@ -1375,6 +1375,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "tap-widget",
+      "source": "./plugins/tap-widget",
+      "description": "One line per tool of your connected MCP servers, called by the widget on a clock with no model: pull requests, errors, the next meeting",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "tap",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

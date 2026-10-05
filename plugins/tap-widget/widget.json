@@ -1,0 +1,7 @@
+{
+  "title": "Tap",
+  "category": "Session",
+  "shows": "One line per tool of your connected MCP servers, called by the widget on a clock with no model: pull requests, errors, the next meeting",
+  "commands": ["/tap-widget [on|off|list [word]|add <server> <tool> [json] [anyway]|run <n>|show <n>|drop <n>|clear]"],
+  "cost": "Calls the MCP tools you name every 10 minutes without asking, in every open session; no model tokens"
+}
