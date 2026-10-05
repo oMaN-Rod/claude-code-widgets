@@ -89,7 +89,13 @@ class InkPass extends Pass {
 
 export const ROLE = { inventor: '#f2c14e', examiner: '#c79be0', designer: '#5fc9d3', machinist: '#f08a4b', inspector: '#7bd66f', clerk: '#ee6a5f', porter: '#b9c0d4', director: '#e8e6d8' }
 
-export const isBusy = order => order.status === 'open' && Date.now() - Math.max(Date.parse(order.log.at(-1)?.at ?? order.openedAt), order.workedAt ?? 0) < BUSY_MS
+let ahead = 0
+// The page may be open on another machine whose clock differs: ages are measured on the factory's clock.
+export const syncClock = at => {
+  ahead = Date.now() - Date.parse(at)
+}
+
+export const isBusy = order => order.status === 'open' && Date.now() - ahead - Math.max(Date.parse(order.log.at(-1)?.at ?? order.openedAt), order.workedAt ?? 0) < BUSY_MS
 
 export const createWorld = (canvas, onPick) => {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })

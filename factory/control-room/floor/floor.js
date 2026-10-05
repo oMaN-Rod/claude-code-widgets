@@ -1,5 +1,5 @@
 import { markdown } from './markdown.js'
-import { ROLE, createWorld, isBusy } from './world.js'
+import { ROLE, createWorld, isBusy, syncClock } from './world.js'
 
 const feed = document.getElementById('feed')
 const stats = document.getElementById('stats')
@@ -427,12 +427,13 @@ const poll = async () => {
     const board = isDemo ? rehearse() : await (await fetch('/api/board')).json()
     const key = JSON.stringify(board.orders)
     state.board = board
+    syncClock(board.at)
     world.show(orders(), state.selected)
     pulse.textContent = isDemo ? `rehearsal · ${clock(board.at)}` : `live · ${clock(board.at)}`
     pulse.classList.add('live')
+    paintStats()
     if (key !== state.key) {
       state.key = key
-      paintStats()
       paintFeed()
       paint()
     }
