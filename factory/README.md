@@ -29,7 +29,7 @@ bun run --cwd factory board     # the board in the terminal
 ```
 
 - **Setup** says what is missing. The one manual step is a separate Claude Code login for live runs: start `claude` once with `CLAUDE_CONFIG_DIR` set to `~/.claude-factory` (or the folder named in `FACTORY_CONFIG_DIR`) and run `/login`. The factory tests widgets there, never in your own setup.
-- **The line** opens a Claude Code session with the director's instructions from `factory/DIRECTOR.md`. It refills the floor from `factory/backlog.json`, runs the `widget-line` workflow, makes the live runs and checks what shipped. `bun factory/tools/line.ts --until 5` sets how many orders to finish, `--interactive` opens a session you can watch and steer, and anything after `--` goes to `claude` (a permission mode, for instance).
+- **The line** opens a Claude Code session with the director's instructions from `factory/DIRECTOR.md`. It opens orders for new inventions, runs the `widget-line` workflow, makes the live runs and checks what shipped. `bun factory/tools/line.ts --until 5` sets how many orders to finish, `--interactive` opens a session you can watch and steer, and anything after `--` goes to `claude` (a permission mode, for instance).
 - **Permissions.** `.claude/settings.json` allows the crew to run the factory's own tools. Everything else follows your Claude Code permission settings, so an unattended line needs a mode that lets agents edit files and run `bun`, `git` and `claude plugin` in this repository.
 - **Contributing.** A shipped widget is one commit: the widget, its closed work order, its README row, its marketplace entry and the demo page. Send that commit as a pull request. Changes to the factory itself (the standard, the tools, the crew's briefs) go in their own commits.
 - **Moving a factory.** The floor is outside git. `bun factory/tools/move.ts pack` puts it in one archive and `bun factory/tools/move.ts unpack <file>` restores it after cloning on the new machine. Run setup and log in for live runs there too.
@@ -40,7 +40,7 @@ bun run --cwd factory board     # the board in the terminal
 factory/STANDARD.md        what every widget must meet
 factory/template/          what the scaffold stamps out
 factory/DIRECTOR.md        the loop the director session runs
-factory/backlog.json       what the line makes next
+factory/backlog.json       the idea bank: earlier widgets that could be rebuilt
 factory/tools/             setup, line, order, scaffold, check, render, live, ship, serve, move
 factory/control-room/      the factory floor card for Claude Code
 factory/orders/            closed work orders, committed with their widget
@@ -59,7 +59,9 @@ bun factory/tools/order.ts open --kind rebuild --widget moon-widget --title Moon
 
 A rebuild is designed from its brief. If `factory/floor/reference/<name>-widget/` holds an earlier version of the widget, the designer reads that too.
 
-To keep the floor stocked, `bun factory/tools/order.ts refill` opens orders from `factory/backlog.json` until four are on the floor (or `--target <n>`). It takes rebuilds in the backlog's order and opens an order for a new invention after every third rebuild. It prints the orders it opened, ready to hand to the workflow.
+To keep the floor stocked, `bun factory/tools/order.ts refill` opens orders for new inventions until four are on the floor (or `--target <n>`). It prints the orders it opened, ready to hand to the workflow.
+
+`factory/backlog.json` is an idea bank, not a queue: earlier widgets that could be rebuilt to the standard, none of which has to be. `bun factory/tools/order.ts bank` lists them, and `bun factory/tools/order.ts bank <name>-widget` opens a rebuild order for one the director thinks is worth it.
 
 Then run the `widget-line` workflow with `{ orders: [{ id, kind }] }`. To pick an order up where it stopped, read its station from the board and pass it as `from`: `{ id, kind, from: 'build' }`. To stop an order before a station, pass `until`: `{ id, kind, until: 'inspection' }`.
 

@@ -11,10 +11,12 @@ const USAGE = `Usage: bun factory/tools/order.ts <command>
   log <id> <agent> <what was done>
   stamp <id> <agent> pass|send-back|reject|scrap --reason "<why>" [--to <station>] [--subject "<idea>"]
   show <id>
-  refill [--target 4]   open orders from factory/backlog.json until that many are on the floor
+  refill [--target 4]   open orders for new inventions until that many are on the floor
+  bank                  list the idea bank in factory/backlog.json
+  bank <name>-widget    open a rebuild order for one idea from the bank
   board`
 
-type Backlog = { target: number; newEvery: number; newBrief: string; rebuilds: { widget: string; title: string; brief: string }[] }
+type Backlog = { target: number; newBrief: string; rebuilds: { widget: string; title: string; brief: string }[] }
 
 const isStation = (value: string | undefined): value is Station => STATIONS.includes(value as Station)
 
@@ -72,25 +74,27 @@ const create = (kind: 'new' | 'rebuild', brief: string, widget: string | null, t
 const refill = (args: string[]): void => {
   const backlog = JSON.parse(readFileSync(join(FACTORY, 'backlog.json'), 'utf8')) as Backlog
   const target = Number(flag(args, 'target') ?? backlog.target)
-  const known = allIds().map(readOrder)
   const opened: { id: string; kind: string }[] = []
-  let open = known.filter(order => order.status === 'open').length
-  let sinceNew = known.length - 1 - known.findLastIndex(order => order.kind === 'new')
-  const taken = new Set(known.map(order => order.widget))
-  const queue = backlog.rebuilds.filter(entry => !taken.has(entry.widget))
-  while (open < target) {
-    const entry = queue.shift()
-    if (sinceNew >= backlog.newEvery || entry === undefined) {
-      if (entry !== undefined) queue.unshift(entry)
-      opened.push({ id: create('new', backlog.newBrief, null, null), kind: 'new' })
-      sinceNew = 0
-    } else {
-      opened.push({ id: create('rebuild', entry.brief, entry.widget, entry.title), kind: 'rebuild' })
-      sinceNew += 1
-    }
-    open += 1
+  for (let open = allIds().map(readOrder).filter(order => order.status === 'open').length; open < target; open += 1) {
+    opened.push({ id: create('new', backlog.newBrief, null, null), kind: 'new' })
   }
   console.log(JSON.stringify(opened))
+}
+
+const bank = (name: string): void => {
+  const backlog = JSON.parse(readFileSync(join(FACTORY, 'backlog.json'), 'utf8')) as Backlog
+  const taken = new Set(allIds().map(id => readOrder(id).widget))
+  const ideas = backlog.rebuilds.filter(entry => !taken.has(entry.widget))
+  if (name === '') {
+    for (const entry of ideas) console.log(`${entry.widget.padEnd(22)} ${/What it is: (.*?.) Known faults/.exec(entry.brief)?.[1] ?? entry.title}`)
+    console.log(`
+${ideas.length} ideas in the bank. None of them has to be built.`)
+
+    return
+  }
+  const entry = ideas.find(idea => idea.widget === name)
+  if (entry === undefined) fail(`${name} is not in the bank, or already has a work order.`)
+  console.log(JSON.stringify([{ id: create('rebuild', entry.brief, entry.widget, entry.title), kind: 'rebuild' }]))
 }
 
 const stamp = (order: Order, agent: string, result: string, args: string[]): void => {
@@ -163,6 +167,7 @@ const [id = '', agent = '', ...rest] = words(args)
 
 if (command === 'open') open(args)
 else if (command === 'refill') refill(args)
+else if (command === 'bank') bank(id)
 else if (command === 'board') print()
 else if (command === 'show') {
   console.log(JSON.stringify(readOrder(id), null, 2))

@@ -1,6 +1,5 @@
 {
   "target": 4,
-  "newEvery": 3,
   "newBrief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
   "rebuilds": [
     {
