@@ -9,12 +9,38 @@
 </head>
 <body>
 <header id="hero">
+  <div class="pitch">
   <h1>claude-code-<span>widgets</span></h1>
   <p class="lede">Small cards that sit beside your Claude Code session, each one its own mod behind a slash command. <b id="total"></b> of them, from a context meter and git status to a pixel crab, a dungeon crawl and Tetris. Every card below is the real widget, running in your browser against a simulated session. Pick one to open it on the workbench, where you can type its slash commands, <b>run a turn</b> to give it some work, or take the keys of a game.</p>
   <div class="install"><i># in Claude Code</i>
 /plugin marketplace add oMaN-Rod/claude-code-widgets
 /plugin install widgets@claude-code-widgets
 /plugin install pet-widget@claude-code-widgets</div>
+  </div>
+  <figure class="show" id="show" aria-label="How the widget cards sit in the two Claude Code layouts">
+    <div class="modes" role="group" aria-label="Layout">
+      <button type="button" class="chip" data-mode="default" aria-pressed="true">/tui default</button>
+      <button type="button" class="chip" data-mode="fullscreen" aria-pressed="false">/tui fullscreen</button>
+    </div>
+    <div class="term tui" aria-hidden="true">
+      <div class="bar"><u></u><u></u><u></u><span>claude · ~/demo/project</span></div>
+      <div class="stage" data-mode="default">
+        <div class="talk" id="show-talk"></div>
+        <div class="ask"><b>❯</b> <span id="show-ask"></span><i class="caret"></i></div>
+        <div class="cards">
+          <div class="card"><div class="head"><b>Context</b><span id="show-context"></span></div><div class="meter" id="show-meter"></div><div class="row"><span><i class="k1">█</i> Messages</span><span id="show-messages"></span></div><div class="row"><span><i class="k2">█</i> Tools</span><span>16.0k</span></div></div>
+          <div class="card"><div class="head"><b>Activity</b><span id="show-calls"></span></div><div id="show-activity"></div></div>
+          <div class="card"><div class="head"><b>Git</b><span>main ↑1</span></div><div class="row"><span id="show-git"></span></div><div class="row dim"><span>Fix rounding in money()</span></div></div>
+          <div class="card extra"><div class="head"><b>Moon</b><span>36% lit</span></div><pre class="art"> ▗▄██▙█▄▖
+▟█████▜██▙
+██████▌███
+▜█████▟██▛
+ ▝▀██▛█▀▘</pre><div class="row dim"><span>Waning crescent</span></div></div>
+        </div>
+      </div>
+    </div>
+    <figcaption id="show-note"></figcaption>
+  </figure>
 </header>
 <nav class="tools"><div id="tools">
   <input id="search" type="search" placeholder="Search widgets" aria-label="Search widgets">
@@ -32,5 +58,6 @@
 <script src="engine.js"></script>
 <script src="view.js"></script>
 <script src="page.js"></script>
+<script src="hero.js"></script>
 </body>
 </html>
