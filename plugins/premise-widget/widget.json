@@ -1,0 +1,7 @@
+{
+  "title": "Premise",
+  "category": "Session",
+  "shows": "Quotes thinking-summary sentences that name a gap and a choice made anyway, unless the reply flags it, and starts your correction; no model call; needs \"showThinkingSummaries\": true in settings.json",
+  "commands": ["/premise-widget [on|off|show|fix <n>|clear]"],
+  "cost": ""
+}

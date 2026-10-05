@@ -1,0 +1,174 @@
+{
+  "agents": {
+    "a5742458e51def559": {
+      "label": "examine:WO-0021",
+      "input": 12,
+      "output": 7018,
+      "cacheWrite": 59643,
+      "cacheRead": 239224,
+      "usd": 0.4864678,
+      "unpriced": 0,
+      "guessed": 5624
+    },
+    "a595fba0747bd4a0b": {
+      "label": "invent:delight:WO-0021",
+      "input": 26,
+      "output": 4196,
+      "cacheWrite": 36306,
+      "cacheRead": 567602,
+      "usd": 0.37907440000000003,
+      "unpriced": 0,
+      "guessed": 1888
+    },
+    "a8ff1304086747643": {
+      "label": "review-spec:WO-0021",
+      "input": 20,
+      "output": 5818,
+      "cacheWrite": 60255,
+      "cacheRead": 444239,
+      "usd": 0.5065628,
+      "unpriced": 0,
+      "guessed": 3417
+    },
+    "a9ee5d69894287687": {
+      "label": "invent:capability:WO-0021",
+      "input": 20,
+      "output": 5587,
+      "cacheWrite": 71936,
+      "cacheRead": 429974,
+      "usd": 0.5574948000000001,
+      "unpriced": 0,
+      "guessed": 2382
+    },
+    "ab36cda145d8b22bc": {
+      "label": "invent:person:WO-0021",
+      "input": 16,
+      "output": 4117,
+      "cacheWrite": 41794,
+      "cacheRead": 327325,
+      "usd": 0.35683899999999996,
+      "unpriced": 0,
+      "guessed": 1627
+    },
+    "ac96c528583651d87": {
+      "label": "design:WO-0021",
+      "input": 28,
+      "output": 16114,
+      "cacheWrite": 83783,
+      "cacheRead": 669487,
+      "usd": 0.8752044,
+      "unpriced": 0,
+      "guessed": 2051
+    },
+    "ad99a2801111542f1": {
+      "label": "build:WO-0021",
+      "input": 96,
+      "output": 54370,
+      "cacheWrite": 180133,
+      "cacheRead": 7239715,
+      "usd": 3.4363919999999992,
+      "unpriced": 0,
+      "guessed": 48880
+    },
+    "a0a5460cfba79f049": {
+      "label": "inspect:WO-0021",
+      "input": 30,
+      "output": 9161,
+      "cacheWrite": 52244,
+      "cacheRead": 888345,
+      "usd": 0.6222289999999999,
+      "unpriced": 0,
+      "guessed": 6765
+    },
+    "a82c933da3c6db7e9": {
+      "label": "review-spec:WO-0021",
+      "input": 16,
+      "output": 4538,
+      "cacheWrite": 59441,
+      "cacheRead": 354141,
+      "usd": 0.4588572,
+      "unpriced": 0,
+      "guessed": 3950
+    },
+    "aeea99c13d7b4fe19": {
+      "label": "design:WO-0021",
+      "input": 40,
+      "output": 15779,
+      "cacheWrite": 86101,
+      "cacheRead": 1118847,
+      "usd": 0.9700144,
+      "unpriced": 0,
+      "guessed": 12475
+    },
+    "aa820f54dd54e9c86": {
+      "label": "build:WO-0021",
+      "input": 18,
+      "output": 9258,
+      "cacheWrite": 59894,
+      "cacheRead": 551311,
+      "usd": 0.5949641999999999,
+      "unpriced": 0,
+      "guessed": 3609
+    },
+    "a288c9937f6660186": {
+      "label": "inspect:WO-0021",
+      "input": 20,
+      "output": 8287,
+      "cacheWrite": 49969,
+      "cacheRead": 550025,
+      "usd": 0.52567,
+      "unpriced": 0,
+      "guessed": 7143
+    },
+    "ac835069e62359be9": {
+      "label": "design:WO-0021",
+      "input": 34,
+      "output": 20654,
+      "cacheWrite": 107512,
+      "cacheRead": 1184952,
+      "usd": 1.1877664,
+      "unpriced": 0,
+      "guessed": 9610
+    },
+    "a8a0656b8855eda3e": {
+      "label": "review-spec:WO-0021",
+      "input": 24,
+      "output": 3690,
+      "cacheWrite": 62306,
+      "cacheRead": 614186,
+      "usd": 0.5082631999999999,
+      "unpriced": 0,
+      "guessed": 2283
+    },
+    "a05f3a04e890dd4e2": {
+      "label": "design:WO-0021",
+      "input": 10,
+      "output": 1771,
+      "cacheWrite": 41110,
+      "cacheRead": 150181,
+      "usd": 0.2710462,
+      "unpriced": 0,
+      "guessed": 826
+    },
+    "aae2b575c0a10c84c": {
+      "label": "review-spec:WO-0021",
+      "input": 8,
+      "output": 2776,
+      "cacheWrite": 29497,
+      "cacheRead": 163976,
+      "usd": 0.23583219999999996,
+      "unpriced": 0,
+      "guessed": 2701
+    },
+    "ae4a7b01920f288e9": {
+      "label": "build:WO-0021",
+      "input": 54,
+      "output": 30024,
+      "cacheWrite": 313723,
+      "cacheRead": 2343388,
+      "usd": 2.6379886,
+      "unpriced": 0,
+      "guessed": 23837
+    }
+  }
+}

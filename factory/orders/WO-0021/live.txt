@@ -1,0 +1,46 @@
+>>> /premise-widget on
+[assistant] premise-widget: Premise on; /widgets places it.
+[turn ended: success] premise-widget: Premise on; /widgets places it.
+
+>>> Think it through first and use no tools. Reply with only a cron line that backs up my database every night, nothing else.
+[assistant]
+[assistant] ```
+0 2 * * * pg_dump -U postgres mydb | gzip > /var/backups/mydb_$(date +\%F).sql.gz
+```
+[turn ended: success] ```
+0 2 * * * pg_dump -U postgres mydb | gzip > /var/backups/mydb_$(date +\%F).sql.gz
+```
+
+>>> /premise-widget show
+[assistant] premise-widget: The thinking shown words nothing as an assumption.
+Premise reads only the summary of the thinking, for sentences that name something not given and a choice made anyway. Claude may have assumed more than that.
+[turn ended: success] premise-widget: The thinking shown words nothing as an assumption.
+Premise reads only the summary of the thinking, for sentences that name something not given and a choice made anyway. Claude may have assumed more than that.
+
+>>> /premise-widget fix 1
+[assistant] premise-widget: No assumption 1. /premise-widget show lists them.
+[turn ended: success] premise-widget: No assumption 1. /premise-widget show lists them.
+
+>>> Use no tools. Reply with only the command that restarts my web server, nothing else.
+[assistant]
+[assistant] ```
+sudo systemctl restart nginx
+```
+[turn ended: success] ```
+sudo systemctl restart nginx
+```
+
+>>> /premise-widget show
+[assistant] premise-widget: Premise: 1 assumption in the thinking shown that the reply does not flag. Claude may have checked them since.
+1. "The web server isn't specified, but since cron was mentioned earlier, this is likely a Linux server, so I'll go with nginx on systemd for the command."
+[turn ended: success] premise-widget: Premise: 1 assumption in the thinking shown that the reply does not flag. Claude may have checked them since.
+1. "The web server isn't specified, but since cron was mentioned earlier, this is likely a Linux server, so I'll go with nginx on systemd for the command."
+
+>>> /premise-widget off
+[assistant] premise-widget: Premise off.
+[turn ended: success] premise-widget: Premise off.
+
+--- premise-widget store ---
+premise-widget_inline-9a6b664474d4.json: {
+  "isOn": false
+}

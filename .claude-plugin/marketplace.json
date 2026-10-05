@@ -1443,6 +1443,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "premise-widget",
+      "source": "./plugins/premise-widget",
+      "description": "Quotes thinking-summary sentences that name a gap and a choice made anyway, unless the reply flags it, and starts your correction; no model call; needs \"showThinkingSummaries\": true in settings.json",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "premise",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

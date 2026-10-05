@@ -65,6 +65,9 @@
   const PAST = ['Add a helper that formats money', 'Write a test for sum', 'Set up the npm test script', 'Why is the total one short?']
   const SUMMARY = 'Summary of the conversation so far: sum() skipped the first item of a list; the loop was fixed and the tests pass.'
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
+  const THOUGHT = "The test imports sum from src/sum.js. Since the test runner isn't specified, I'll default to node --test. Edit the file."
+  const REPLY = 'Fixed the off-by-one in src/sum.js.'
+  const SPENT = { input_tokens: 2140, output_tokens: 96, cache_read_input_tokens: 18200, cache_creation_input_tokens: 0, model: 'claude-demo' }
   const SAID = {
     'critic-widget': '- src/sum.js:4: total starts at list[0] and the loop now starts at 0, so the first item is added twice',
   }
@@ -142,6 +145,7 @@
     }),
     { role: 'assistant', text: answer, toolUses: [] },
   ]
+  const pieces = (text, size) => text.match(new RegExp(`[\\s\\S]{1,${size}}`, 'g')) ?? []
   const weight = messages => messages.reduce((sum, message) => sum + message.text.length + message.toolUses.reduce((held, use) => held + JSON.stringify(use.input).length + (use.text ?? '').length, 0), 0)
 
   const create = (name, { onChange = () => {}, onToast = () => {}, onPrint = () => {}, pace = 1, widths = {} } = {}) => {
@@ -188,6 +192,35 @@
     const dispatch = (event, e, core) => {
       const chain = hooks.filter(hook => hook.event === event && matches(hook.filter, e))
       const step = (at, input) => (at < 0 ? Promise.resolve(core(input)) : Promise.resolve(chain[at].run($, input, next => step(at - 1, next ?? input))))
+
+      return step(chain.length - 1, e)
+    }
+    const flow = (event, e, core) => {
+      const chain = hooks.filter(hook => hook.event === event && matches(hook.filter, e))
+      const step = (at, input) => {
+        let below
+        const made = at < 0 ? core(input) : chain[at].run($, input, next => (below = step(at - 1, next ?? input)))
+        let settle
+        let fail
+        const result = new Promise((done, failed) => {
+          settle = done
+          fail = failed
+        })
+        result.catch(() => {})
+        const walk = (async function* () {
+          try {
+            const value = (yield* made) ?? (await below?.result)
+            settle(value)
+
+            return value
+          } catch (error) {
+            fail(error)
+            throw error
+          }
+        })()
+
+        return Object.assign(walk, { result })
+      }
 
       return step(chain.length - 1, e)
     }
@@ -504,6 +537,19 @@
           })
           usage.tokens += 1800
         }
+        const stream = flow('turn.step', { turnId, index: 0, model: 'claude-demo', messageCount: transcript.length + 1 }, async function* (e) {
+          for (const [index, [kind, said]] of [['thinking', THOUGHT], ['text', REPLY]].entries()) {
+            for (const text of pieces(said, 7)) {
+              await sleep(30 * pace)
+              yield { kind, index, text }
+            }
+          }
+          yield { kind: 'stop', stopReason: 'end_turn', usage: SPENT }
+
+          return { turnId: e.turnId, index: e.index, answer: REPLY, toolUses: [], stopReason: 'end_turn', usage: SPENT }
+        })
+        for await (const chunk of stream) void chunk
+        await stream.result
         usage.tokens += 2500
         usage.usd += 0.06
         usage.five = Math.min(100, usage.five + 1)

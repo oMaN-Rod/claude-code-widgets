@@ -1,0 +1,166 @@
+{
+  "id": "WO-0021",
+  "kind": "new",
+  "widget": "premise-widget",
+  "title": "Premise",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T06:52:14.233Z",
+  "closedAt": "2026-10-05T12:41:06.263Z",
+  "sendBacks": 2,
+  "stamps": [
+    {
+      "at": "2026-10-05T07:16:28.667Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The engine already defers MCP tools, so what is left to stow is a handful of built-ins whose descriptions are cached anyway, and hiding them risks Claude quietly not reaching for a tool it cannot see: a small unmeasured saving for a real risk.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T07:16:30.664Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Same idea as Attic with a manual verb, and its own inventor doubts the saving once the engine's deferral of MCP tools is counted; a tally of idle tools alone is a variation on context-widget and hogs.",
+      "subject": "Shed"
+    },
+    {
+      "at": "2026-10-05T07:16:33.321Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its benefit cannot be shown on the card (nobody can see that the higher gear fixed the test), while each shift may spend the prompt cache on a full context and it fires on the same repeated-failure signal stuck and pitfalls already act on: cost out of proportion to what it provably gives.",
+      "subject": "Gearbox"
+    },
+    {
+      "at": "2026-10-05T07:16:36.121Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a true and memorable best moment, but it comes a few times a year, the card is dead the rest of the time, and status pages are often green during the very failures it would explain.",
+      "subject": "Outage"
+    },
+    {
+      "at": "2026-10-05T07:16:38.206Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on what exists: footnotes-widget already resolves the symbols and paths of a reply against the working tree and margin-widget already owns the selection; a git grep for definitions is cruder than the editor people already have open, and it works only in fullscreen.",
+      "subject": "Peek"
+    },
+    {
+      "at": "2026-10-05T07:16:41.447Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A one-time novelty: deciding that a draft was abandoned rather than edited is guesswork, the card shows people their own deleted words with nothing to do about them, and it sits beside mirror-widget as another portrait of how you type.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T07:16:43.453Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on the git-history cards (theseus, onthisday, history, stakes): blame for the lines of one edit is a pleasant line of trivia that changes nothing the person does, and for Write it covers the whole file.",
+      "subject": "Hands"
+    },
+    {
+      "at": "2026-10-05T07:16:44.683Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it reads the same thinking stream as Premise but only tallies reversals for amusement, where Premise turns the stream into something the person can act on.",
+      "subject": "Second Thoughts"
+    },
+    {
+      "at": "2026-10-05T07:17:18.292Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Premise is the first widget to read Claude's thinking: it turns a stream that scrolls past into the list of things Claude took for granted in silence, with no model call and no tokens, and gives the person one verb to correct each."
+    },
+    {
+      "at": "2026-10-05T07:46:00.915Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every hook and call is in the 2.1.289 types file, all states are drawn and fit at 20 and 40 columns, demo and live sections are present, 107 lines and 15 acceptance lines; 14 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T08:25:57.833Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built premise-widget: a pass-through turn.step reader that quotes commitment-phrase sentences from the shown thinking, drops those the reply states, draws the three rest states and the red could-not-read row, with show, fix <n> and clear, and 15 acceptance tests passing the checker."
+    },
+    {
+      "at": "2026-10-05T08:51:29.444Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Build matches the spec and passes the checker, but the spec's data source is unproven: in the only live run the turn carried a thinking block and the widget still read nothing, so the real card is always 'No thinking was shown'; the spec must name and prove the condition under which thinking text reaches turn.step (or the order is scrapped), and the no-thinking state must tell the person what makes it appear; 4 notes in inspection.md.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T09:15:32.702Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Both send-back faults are addressed (condition named with a headless probe; the no-thinking state points to a sentence that says what to change) and nothing changed breaks the standard; 10 notes in spec-notes.md, the first being that live.ts needs a --claude pass-through before inspection can make its live run."
+    },
+    {
+      "at": "2026-10-05T09:28:37.206Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt premise-widget to the revised spec: the no-thinking state now reads 'No thinking text reached this card.' with a pointer to show, show answers the WHY sentence naming showThinkingSummaries and --thinking-display summarized (never mid-turn), items of 2 or 3 content words need every word to count as said, 'instead' guards the trigger, fix with more than 3 digits answers the usage, and widget.json and the manifest carry the new description; checker passes."
+    },
+    {
+      "at": "2026-10-05T10:33:08.228Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Build matches the spec and passes the checker, and thinking text now reaches the hook, but in the director's live run the showcase turn (a bare pg_dump cron line resting on five unstated assumptions) got 'No unspoken assumptions this turn.': the rest sentence claims more than the widget knows, and no factory run has yet produced one true quote because the triggers are written for raw first-person thinking while the hook receives a paraphrased summary; the spec must claim only what was read and derive its triggers from real summary text (live.ts must print thinking parts for that), with a good run requiring a true numbered quote, or the order should be scrapped; 4 notes in inspection.md.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T11:02:24.566Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. The widget.json 'shows' sentence is 240 characters; the standard and check.ts line 60 allow 20 to 200, so a build that follows the spec fails the checker. Cut it to 200 or under (the built one, at about 190, shows the size that fits) and keep it true to the new claim: quotes of the thinking summary that name a gap and a choice, not 'the assumptions Claude made'. Nothing else blocks: both send-back faults are addressed (rest sentence claims only what was read; triggers come from 21 real summaries; a good live run needs a true numbered quote), 114 lines, 15 acceptance lines, frames fit 16 and 36. Not blocking, for the next pass: (a) Card says at most 7 rows, but the error row under 3 two-row items and '+N earlier' makes 8 at 40 and more at 20; say which gives way. (b) Said now needs only a flag and one shared content word: 'Replace mydb with your database name' would drop the pg_dump quote though the database type was never flagged; inspection will read the said count for this. (c) 'didn' from didn't is a 4-letter content word and 'best guess' is two words in a list of single words; settle both. (d) For the director: the evidence rests on 22 claude -p sessions the designer ran outside live.ts; the director's own run is the one inspection counts, and live.ts printing thinking parts would let it judge a miss.",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-05T11:06:16.218Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The one blocking fault is fixed (the shows sentence is 198 characters and claims only quotes of the thinking summary that name a gap and a choice) and nothing else changed; 114 lines, 15 acceptance lines; 8 notes in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T11:48:16.507Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt Premise to the revised spec: quotes need a gap phrase and a first-person choice in one thinking-summary sentence, said needs a flag word plus a shared content word in a reply sentence, the rest sentence and show claim only what was read (with the LIMIT sentence), abbreviations no longer end a sentence, opening re-reads the switch, and the new shows sentence is in both JSON files; said rule kept as the spec words it, not tightened"
+    },
+    {
+      "at": "2026-10-05T12:32:48.151Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Build matches the spec, the checker passes, and the director's live run gave one true numbered quote (web server not specified, nginx on systemd chosen, reply silent) with the store holding isOn only; before shipping the director must add the demo turn.step stand-in to docs/engine.js as the spec requires, and fix after a real list is proved by tests only; 6 findings in inspection.md."
+    },
+    {
+      "at": "2026-10-05T12:41:06.263Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

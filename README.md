@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 80 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 81 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
@@ -62,6 +62,7 @@ What Claude is doing and what it is costing.
 | `margin-widget` | `/margin-widget [on\|off\|mark [remark]\|drop <n>\|send\|clear]` | Mark passages of Claude's reply with the mouse, write a remark against each, and send them back as one quoted prompt |
 | `loupe-widget` | `/loupe-widget [on\|off\|look [text]\|copy]` | Select a hash, path, name, timestamp or colour in the transcript with the mouse and the card says what it is, with no model call |
 | `strays-widget` | `/strays-widget [on\|off\|stop <port>\|forget <port>\|clear]` | Servers this session started that still hold a port, with age and turn, one verb to stop one, and the survivors shown when the next session opens |
+| `premise-widget` | `/premise-widget [on\|off\|show\|fix <n>\|clear]` | Quotes thinking-summary sentences that name a gap and a choice made anyway, unless the reply flags it, and starts your correction; no model call; needs "showThinkingSummaries": true in settings.json |
 
 ### Project and git
 
