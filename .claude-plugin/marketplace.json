@@ -1630,6 +1630,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "provenance-widget",
+      "source": "./plugins/provenance-widget",
+      "description": "The conversation behind a line of code: for lines Claude is about to edit, or a path:line you ask about, the prompt you typed before they were written and the command that resumes that session",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "provenance",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

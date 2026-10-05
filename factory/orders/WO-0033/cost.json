@@ -1,0 +1,74 @@
+{
+  "agents": {
+    "a18d722c5d6fa1f07": {
+      "label": "design:WO-0033",
+      "input": 40,
+      "output": 19947,
+      "cacheWrite": 134588,
+      "cacheRead": 1563444,
+      "usd": 1.3847288,
+      "unpriced": 0,
+      "guessed": 19281
+    },
+    "a29935802f64a6927": {
+      "label": "build:WO-0033",
+      "input": 74,
+      "output": 66398,
+      "cacheWrite": 206504,
+      "cacheRead": 4833751,
+      "usd": 3.3275262000000008,
+      "unpriced": 0,
+      "guessed": 37886
+    },
+    "a3eaecaaeca35ea44": {
+      "label": "invent:delight:WO-0033",
+      "input": 12,
+      "output": 6701,
+      "cacheWrite": 43974,
+      "cacheRead": 291829,
+      "usd": 0.41230379999999994,
+      "unpriced": 0,
+      "guessed": 132
+    },
+    "a4302ddf778473c15": {
+      "label": "examine:WO-0033",
+      "input": 16,
+      "output": 6583,
+      "cacheWrite": 64771,
+      "cacheRead": 372292,
+      "usd": 0.5300374,
+      "unpriced": 0,
+      "guessed": 5351
+    },
+    "a81c6836e88149442": {
+      "label": "review-spec:WO-0033",
+      "input": 20,
+      "output": 4073,
+      "cacheWrite": 70383,
+      "cacheRead": 490537,
+      "usd": 0.5315624,
+      "unpriced": 0,
+      "guessed": 3850
+    },
+    "a8c6018421a055023": {
+      "label": "invent:capability:WO-0033",
+      "input": 24,
+      "output": 6405,
+      "cacheWrite": 134116,
+      "cacheRead": 986659,
+      "usd": 0.9961078000000001,
+      "unpriced": 0,
+      "guessed": 2931
+    },
+    "ae08be29a8a8b0e64": {
+      "label": "invent:person:WO-0033",
+      "input": 18,
+      "output": 5104,
+      "cacheWrite": 48947,
+      "cacheRead": 480236,
+      "usd": 0.4429342,
+      "unpriced": 0,
+      "guessed": 3047
+    }
+  }
+}

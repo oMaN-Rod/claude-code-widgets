@@ -20,6 +20,7 @@
     ['Add the test runner', 'Sam', 365],
     ['Start the project', 'Ada', 730],
   ]
+  const HEADS = ['3f2a1c9', '7b0d4e2', '9c41e07', 'c85f316', '1e6a9d4']
   const TURN = [
     { tool: 'Read', input: { file_path: `${ROOT}/src/sum.js` }, ms: 500 },
     { tool: 'Bash', input: { command: 'cat .env' }, ms: 400, text: `STRIPE_SECRET=sk_live_${'Demo'.repeat(6)}\nDATABASE_URL=postgres://app:made-up-pass@db/app\n` },
@@ -173,6 +174,25 @@
         runs: { a: arm(true, 10, 9), b: arm(true, 10, 9), c: arm(true, 9, 9), d: arm(false, 10, 7), e: arm(false, 10, 6), f: arm(false, 10, 7) },
       }),
     },
+    'provenance-widget': {
+      'provenance.json': JSON.stringify({
+        projects: {
+          [ROOT]: {
+            commits: [
+              {
+                short: HEADS[2],
+                subject: COMMITS[2][0],
+                at: Date.now() - COMMITS[2][2] * DAY,
+                session: 'demo-40-days-ago',
+                asks: [{ text: 'Sum the list, but start at 1: row 0 is the header', at: Date.now() - COMMITS[2][2] * DAY, files: ['src/sum.js'] }],
+              },
+            ],
+            sizes: {},
+            scannedAt: 0,
+          },
+        },
+      }),
+    },
   }
   const SERVERS = [
     { port: 3000, pid: 4101, parent: 1, args: 'node /demo/project/node_modules/.bin/vite' },
@@ -257,6 +277,7 @@
   }
   const ran = (exitCode, stdout) => ({ exitCode, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false })
   const day = at => new Date(at).toISOString().slice(0, 10)
+  const sha = head => `${head}${hash(head).toString(16).padStart(8, '0').repeat(5)}`.slice(0, 40)
   const spoken = (id, prompt, answer) => [
     { role: 'user', text: prompt, toolUses: [] },
     ...TRAFFIC.flatMap(({ isError, ...call }, at) => {
@@ -444,7 +465,19 @@
 
         return ran(0, `${rows.map(([path, at, line]) => `${path}:${at}:${line}`).join('\n')}\n`)
       }
+      if (name === 'provenance-widget' && args[0] === 'worktree') return ran(0, `worktree ${ROOT}\nHEAD ${sha(HEADS[0])}\nbranch refs/heads/main\n`)
+      if (name === 'provenance-widget' && args[0] === 'blame') {
+        const [first, last] = (args[args.indexOf('-L') + 1] ?? '').split(',').map(Number)
+        const path = String(args[args.indexOf('--') + 1] ?? '').replaceAll('\\', '/')
+        const lines = (files.get(path) ?? '').split('\n').slice(0, -1)
+        if (!(first >= 1 && last >= first && last <= lines.length)) return ran(128, '')
+        const [subject, author, ago] = COMMITS[2]
+        const about = `author ${author}\nauthor-time ${Math.floor((now - ago * DAY) / 1000)}\nauthor-tz +0000\nsummary ${subject}\nfilename ${path.slice(ROOT.length + 1)}\n`
+
+        return ran(0, lines.slice(first - 1, last).map((line, at) => `${sha(HEADS[2])} ${first + at} ${first + at}${at === 0 ? ` ${last - first + 1}\n${about}` : '\n'}\t${line}\n`).join(''))
+      }
       if (args[0] === 'log') {
+        if (args.includes('--format=%H%x09%at%x09%s')) return ran(0, COMMITS.map(([subject, , ago], at) => `${sha(HEADS[at])}\t${Math.floor((now - ago * DAY) / 1000)}\t${subject}\n`).join(''))
         if (args.includes('--max-parents=0')) return ran(0, `${day(now - 730 * DAY)}\n`)
         if (args.includes('--format=%h%x00%s')) return ran(0, `3f2a1c9\x00${COMMITS[0][0]}\n`)
         if (args.includes('--format=%s')) return ran(0, `${COMMITS[0][0]}\n`)

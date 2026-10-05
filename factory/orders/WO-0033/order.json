@@ -1,0 +1,129 @@
+{
+  "id": "WO-0033",
+  "kind": "new",
+  "widget": "provenance-widget",
+  "title": "Provenance",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T21:56:58.142Z",
+  "closedAt": "2026-10-05T22:42:07.762Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T22:02:24.719Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It covers replies and tool rows but not the prompt box or other plugins' cards, so a privacy tool that is partly blind costs more in false trust than it gives, and walking transcript element trees to mask text is fragile.",
+      "subject": "Veil"
+    },
+    {
+      "at": "2026-10-05T22:02:24.865Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Whether a user plugin sees the engine's own telemetry rows is unverified and can only be settled by a live test in the person's session, and a partial tally presented as what the CLI reports would mislead.",
+      "subject": "Outbox"
+    },
+    {
+      "at": "2026-10-05T22:02:25.047Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a sound sibling of stakes-widget on the same dialog line, but it only helps people who drive kube, cloud or terraform through Claude, and Provenance reaches everyone with a git history.",
+      "subject": "Aim"
+    },
+    {
+      "at": "2026-10-05T22:02:25.250Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: its headline moment rarely happens because reading a file loads the CLAUDE.md above it before any edit, and the list that remains is close to what /memory and /context already show.",
+      "subject": "Bylaws"
+    },
+    {
+      "at": "2026-10-05T22:02:25.548Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Parsing flag tables out of --help text differs per tool and per platform (git --help opens a browser on Windows), so it would be wrong or silent often, for an answer Claude gives on request.",
+      "subject": "Gloss"
+    },
+    {
+      "at": "2026-10-05T22:02:25.798Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A novelty that amuses once: it keeps text the person chose to erase and gives them nothing to act on.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T22:02:26.100Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on timer-widget and the waiting wager-widget and insight-widget: turn length filed under a keyword, with words like just and small matching most prompts.",
+      "subject": "Famous Last Words"
+    },
+    {
+      "at": "2026-10-05T22:02:26.426Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A joke with a counter; its one serious part, marking agreement hollow when the next check fails, is what calibration-widget and flow-widget in waiting already measure.",
+      "subject": "You Were Right"
+    },
+    {
+      "at": "2026-10-05T22:02:26.905Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Provenance is the only idea that makes a new join, from a line of code back to the prompt that asked for it, with typed API throughout, no model cost, and a moment a person would show a colleague."
+    },
+    {
+      "at": "2026-10-05T22:12:24.233Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and call exists in the 2.1.289 types file, all main states are drawn and it is within size at 119 lines and 15 acceptance lines; 10 notes for the machinist, the first being the empty state at 20 columns."
+    },
+    {
+      "at": "2026-10-05T22:29:48.733Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built provenance-widget: live and scanned commits reduce through one pure function into a per-repository map under the plugin root, an Edit or look blames the lines and the card shows the prompt behind them, with 15 acceptance tests and the checker passing."
+    },
+    {
+      "at": "2026-10-05T22:34:49.042Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The Edit trigger skips every multi-line edit of a CRLF file because old_string is searched in the raw file text (normalise line ends before the search and test it); also scan can take an interrupt marker or a compaction summary as the prompt, '1 commits recorded.' is a bad plural, and clear writes the map file in a folder with no repository. Live run and checker were otherwise good; see inspection.md.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T22:37:30.645Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the four inspection findings: the Edit lookup now compares with CRLF folded to LF, scan skips interrupt markers and isCompactSummary rows (two rows the spec's prompt rule does not name), the count-failure rest card says '1 commit recorded.' with no note, and clear writes nothing when the repository has no entry."
+    },
+    {
+      "at": "2026-10-05T22:40:33.248Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "All four first-pass findings are fixed with tests (CRLF Edit lookup, interrupt and compaction rows, the plural, the needless write), the checker passes and the director's live run on the rebuilt widget answers every verb as the spec says with the store holding isOn only."
+    },
+    {
+      "at": "2026-10-05T22:42:07.761Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

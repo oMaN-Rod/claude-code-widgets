@@ -1,0 +1,14 @@
+# Spec notes: WO-0033 Provenance
+
+No blocking fault. Every hook and call was found in `claude-code.d.ts` 2.1.289 (`prompt.submit` with `origin`, `tool.call` with `text`/`isError`/`deny`, `$.process.run`, `$.fs.read/list/write`, `$.env.get`, `$.ui.selection`, `$.ui.copy`, `$.session.root/cwd/id`, `$.clock.now`). The machinist settles these while building; each is checked at inspection.
+
+1. Empty state at 20 columns. A row holds 16 characters and `/provenance-widget` is 18, so the drawn empty sentence cannot wrap cleanly. Under 30 columns drop the command name, as the rest state does (`scan reads this repository's saved sessions; ...`). The same goes for any other sentence that carries the full command name.
+2. The other narrow cards are not drawn. At 20 columns the `no record`, `no blame`, promptless and uncommitted cards should follow the busiest drawing: path cut from the left, `a1b2c3d · 14/18`, and the `<date> · <subject>` row cut at its end, never wrapped. A15 covers them; test each one, not only the traced card.
+3. Singular. `1 of 1 commits trace to a conversation.` is what the Live section expects, so it stays as written; `<t> of <n> commits traced.` and `<r> commits recorded.` are the same case. Do not let `plural()` change one and not the others. `<plural commit>` and `<plural saved session>` in the answers do go through `plural()`.
+4. Units. Blame `author-time` and the log's `%at` are seconds; `at` from `$.clock.now()` and a row's `timestamp` are milliseconds or ISO text. The 120-second join and the UTC day must compare like with like. Give A7 a test with real-shaped values of both.
+5. Root commits. `git init` then a first commit prints `[main (root-commit) a1b2c3d] Add prov`. The commit-line rule covers it through `<anything>`, and the live run depends on it. Include that exact shape in the A2 or A5 data, along with `[detached HEAD 0123abc]`.
+6. The blame runs before `next(e)`, so it holds every Edit for up to 2 seconds. Clear `isLooking` in a `finally`, and let a rejection or a timeout fall through to `next(e)` at once. A8 says the Edit still reaches `next` once; test it with a blame that rejects late.
+7. No acceptance line covers the count failure (`0 of 0`, `<r> commits recorded.`), the ` <k> too long to read.` clause, or a log cut at 4 MiB (`isStdoutTruncated`). Add them to the A2 and A4 tests.
+8. An Edit with `replace_all` is looked up at the first occurrence only. That is fine; say so in a comment so it is not read as a bug.
+9. Live run. The Write of `prov.txt` fails if the file is left from an aborted run, since Write needs a Read of an existing file. If that happens the run reads as `No conversation on record.` for the wrong reason; check the transcript before sending the order back to design.
+10. `look` on Windows. `C:\Work\App\src\a.ts:7` has two colons; the split at the last `:` followed by digits handles it. A10 tests it; also test a path with a space.

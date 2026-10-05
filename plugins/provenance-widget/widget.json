@@ -1,0 +1,7 @@
+{
+  "title": "Provenance",
+  "category": "Project and git",
+  "shows": "The conversation behind a line of code: for lines Claude is about to edit, or a path:line you ask about, the prompt you typed before they were written and the command that resumes that session",
+  "commands": ["/provenance-widget [on|off|scan|look [<path>:<line>]|copy|clear]"],
+  "cost": "One git blame before an edit; keeps your prompts, cut to 240 characters, in a file in the plugin's folder; scan reads up to 40 MB of saved sessions"
+}
