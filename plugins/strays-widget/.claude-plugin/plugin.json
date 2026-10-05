@@ -1,0 +1,20 @@
+{
+  "name": "strays-widget",
+  "version": "1.0.0",
+  "description": "Servers this session started that still hold a port, with age and turn, one verb to stop one, and the survivors shown when the next session opens",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "strays",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

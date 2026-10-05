@@ -1,0 +1,7 @@
+{
+  "title": "Strays",
+  "category": "Session",
+  "shows": "Servers this session started that still hold a port, with age and turn, one verb to stop one, and the survivors shown when the next session opens",
+  "commands": ["/strays-widget [on|off|stop <port>|forget <port>|clear]"],
+  "cost": ""
+}

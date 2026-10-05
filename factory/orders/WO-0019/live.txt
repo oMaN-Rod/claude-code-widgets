@@ -1,0 +1,55 @@
+
+>>> /strays-widget on
+
+>>> Use Bash with run_in_background true to run exactly this, then answer ok: bun -e "Bun.serve({port:47613,fetch:()=>new Response(String(1))})"
+[assistant] strays-widget: Strays on; /widgets places it.
+[turn ended: success] strays-widget: Strays on; /widgets places it.
+[assistant] (tool Bash {"command":"bun -e \"Bun.serve({port:47613,fetch:()=>new Response(String(1))})\"","description":"Start a local Bun HTTP server on port 47613","run_in_background":true})
+[system background_tasks_changed] {"type":"system","subtype":"background_tasks_changed","tasks":[{"task_id":"bvhrsbz6z","task_type":"local_bash","description":"Start a local Bun HTTP server on port 47613"}],"uuid":"305a1a9a-6213-44bb-b7e2-7d24319d4de4","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[system task_started] {"type":"system","subtype":"task_started","task_id":"bvhrsbz6z","tool_use_id":"toolu_014Zt84gbtgiUemXjbfctaC4","description":"Start a local Bun HTTP server on port 47613","is_backgrounded":true,"task_type":"local_bash","uuid":"8cf827fe-51bd-44f4-a8e9-3215e416eecc","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[user] (result "Command running in background with ID: bvhrsbz6z. Output is being written to: C:\\Users\\O\\AppData\\Local\\Temp\\claude\\C--Users-O--claude-factory-scratch-project\\e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4\\tasks\\bvhrsbz6z.output. You will be notified when it completes. To check interim output, use Read on that file path.")
+[assistant] ok
+[turn ended: success] ok
+
+>>> Use Bash to run exactly this, then answer ok: sleep 15
+[assistant] 
+[assistant] (tool Bash {"command":"sleep 15","description":"Pause for 15 seconds"})
+[system task_started] {"type":"system","subtype":"task_started","task_id":"b7kxzqrfv","tool_use_id":"toolu_01G6KSt6s8DfvB7RGni2rcQz","description":"Pause for 15 seconds","is_backgrounded":false,"task_type":"local_bash","uuid":"750b4e6e-1607-4672-a54b-f630623758a4","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[system task_notification] {"type":"system","subtype":"task_notification","task_id":"b7kxzqrfv","tool_use_id":"toolu_01G6KSt6s8DfvB7RGni2rcQz","status":"completed","output_file":"","summary":"Pause for 15 seconds","uuid":"d426107a-c490-451a-9c46-d9b057261f47","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[user] (result "(Bash completed with no output)")
+[assistant] ok
+[turn ended: success] ok
+
+>>> Use Bash to run exactly this, then answer ok: sleep 15
+[assistant] (tool Bash {"command":"sleep 15","description":"Pause for 15 seconds"})
+[system task_started] {"type":"system","subtype":"task_started","task_id":"b2d7mdx9j","tool_use_id":"toolu_017dMZYPpZ5uTyAu246P3nHx","description":"Pause for 15 seconds","is_backgrounded":false,"task_type":"local_bash","uuid":"05074274-87d5-4e7c-98da-e97f57bec70c","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[system task_notification] {"type":"system","subtype":"task_notification","task_id":"b2d7mdx9j","tool_use_id":"toolu_017dMZYPpZ5uTyAu246P3nHx","status":"completed","output_file":"","summary":"Pause for 15 seconds","uuid":"7d48ab3b-6c8f-4693-af8a-9b40eafee687","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[user] (result "(Bash completed with no output)")
+[assistant] ok
+[turn ended: success] ok
+
+>>> /strays-widget stop 47613
+[system background_tasks_changed] {"type":"system","subtype":"background_tasks_changed","tasks":[],"uuid":"85c6c782-9a8f-488e-8985-4c626d3cc5c9","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[system task_updated] {"type":"system","subtype":"task_updated","task_id":"bvhrsbz6z","patch":{"status":"failed","end_time":1791189301374},"uuid":"919510dd-f4ee-4998-9e6f-ed46e14c9e14","session_id":"e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4"}
+[system task_notification] {"type":"system","subtype":"task_notification","task_id":"bvhrsbz6z","tool_use_id":"toolu_014Zt84gbtgiUemXjbfctaC4","status":"failed","output_file":"C:\\Users\\O\\AppData\\Local\\Temp\\claude\\C--Users-O--claude-factory-scratch-project\\e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4\\tasks\\bvhrsbz6z.output","summary":"Background command \"Start a local Bun HTTP server on port 47613\" failed with exit code 
+[assistant] strays-widget: Stopped bun on :47613 (pid 8928).
+[turn ended: success] strays-widget: Stopped bun on :47613 (pid 8928).
+
+>>> /strays-widget stop 47613
+[assistant] The background Bun server on port 47613 has exited (exit code 1) — that's the result of the `/strays-widget stop 47613` you ran, which killed the process, not a crash on its own. Nothing is left running from this session.
+[turn ended: success] The background Bun server on port 47613 has exited (exit code 1) — that's the result of the `/strays-widget stop 47613` you ran, which killed the process, not a crash on its own. Nothing is left running from this session.
+
+>>> /strays-widget off
+[assistant] strays-widget: Nothing of this session's is on port 47613.
+[turn ended: success] strays-widget: Nothing of this session's is on port 47613.
+[assistant] strays-widget: Strays off.
+[turn ended: success] strays-widget: Strays off.
+
+--- strays-widget store ---
+strays-widget_inline-fdc554441f74.json: {
+  "isOn": false,
+  "rows:3420767468": {
+    "session": "e3fe7098-dc9a-4a5d-b649-003ccbb2ebf4",
+    "rows": []
+  }
+}

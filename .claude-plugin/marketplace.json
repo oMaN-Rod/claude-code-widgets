@@ -1426,6 +1426,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "strays-widget",
+      "source": "./plugins/strays-widget",
+      "description": "Servers this session started that still hold a port, with age and turn, one verb to stop one, and the survivors shown when the next session opens",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "strays",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

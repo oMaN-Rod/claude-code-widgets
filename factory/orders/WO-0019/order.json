@@ -1,0 +1,143 @@
+{
+  "id": "WO-0019",
+  "kind": "new",
+  "widget": "strays-widget",
+  "title": "Strays",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T03:47:48.713Z",
+  "closedAt": "2026-10-05T10:11:40.421Z",
+  "sendBacks": 2,
+  "stamps": [
+    {
+      "at": "2026-10-05T04:18:11.055Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on Margin (WO-0016, already on the floor), which also takes the mouse selection and turns it into a prompt; attaching it silently on a pointing word adds little beyond that and risks sending text unasked.",
+      "subject": "This"
+    },
+    {
+      "at": "2026-10-05T04:18:13.961Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The same widget as Loupe (WO-0020, already on the floor): select a word, see its definition, path or commit, with no model.",
+      "subject": "Peek"
+    },
+    {
+      "at": "2026-10-05T04:18:17.231Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Image paints pixels only in kitty and Ghostty, so on this machine and most terminals it is a file-name card, and neither the inspector nor the demo page can see the thing that makes it remarkable.",
+      "subject": "Easel"
+    },
+    {
+      "at": "2026-10-05T04:18:19.680Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on stakes in the same slot under the permission dialog, resting on parsing ten tools' help text, which differs per tool and on Windows is missing (no man; git --help opens a browser).",
+      "subject": "Gloss"
+    },
+    {
+      "at": "2026-10-05T04:18:22.310Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on mirror (a portrait of how you talk to Claude) whose novelty wears off after a day, and the one useful part, restoring a lost draft, the prompt box's own undo already covers.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T04:18:24.585Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on dream, postcard and fortune (a model-written quip about the session) that costs a model call every turn, and its speech works on macOS only.",
+      "subject": "Narrator"
+    },
+    {
+      "at": "2026-10-05T04:18:27.441Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It rests on thinking text arriving whole, which the inventor could not confirm, and a fixed phrase list over summarised thinking gives a count nobody can trust.",
+      "subject": "Second Thoughts"
+    },
+    {
+      "at": "2026-10-05T04:19:05.473Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Strays is the only idea that neither repeats a widget on the floor nor rests on something this machine cannot show: it answers a pain everyone has met (a port still held by a server Claude left running), with no tokens and API that already exists."
+    },
+    {
+      "at": "2026-10-05T04:40:33.900Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: all hooks and calls exist in the 2.1.289 types, every main state is drawn and measures true at 20 and 40 columns, demo and live are given, 91 lines and 15 acceptance lines; 15 notes for the machinist, the first being the hint rule that disagrees with A13."
+    },
+    {
+      "at": "2026-10-05T05:11:01.752Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built strays-widget: port listing after each Bash or PowerShell call and turn end, rows tied to the session by process chain and call window, survivors restored from the store, stop/forget/clear by port, 15 acceptance tests and the checker passing."
+    },
+    {
+      "at": "2026-10-05T05:41:03.494Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The live run failed: both stops answered Nothing of this session's is on port 47613 for a server the session started, so the tie to the session does not work for real. Find the cause and log what the facts call printed (host is unverified; the real chain is three bash.exe deep); make stop go through the one-at-a-time refresh instead of its own sweep; make stop report a listing or facts fault instead of saying nothing is on the port; bring the 12.3 s Windows facts call well under the 15 s bound; use the captured real output as the A2 fixture. Six findings in inspection.md.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T06:05:46.038Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the send-back: host is found through a wrapper shell, stop waits on the one refresh instead of running its own and reports a fault instead of 'Nothing', the command line is read by key for hinted listeners only, and A2 replays the real captured chain; the facts call still measures 11.4 to 12.4 s at 100% CPU because PowerShell alone takes 7.5 s to start, and no live run was made."
+    },
+    {
+      "at": "2026-10-05T06:59:41.641Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The live run failed again: both stops got no answer from the command hook. The spec makes stop await a refresh that another hook started, one at a time; that wait is charged to the engine's 10 s hook budget (HookBudget) while the Windows facts call takes 11 to 12 s, so the hook is dropped. The spec must say what stop does while a refresh is in flight without waiting on it, name a supported way for a refresh to outlive its dispatch (clock.after or session.start, not a bare un-awaited call), raise the facts timeout above 15 s, and make the Live section show a row before stop. Six findings in inspection.md.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T07:21:25.722Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault in the revised spec: the five design findings of the second send-back are fixed (stop waits only on its own calls, one clock.every timer in sync runs refreshes, facts timeout 45 s, Live shows a row before stop, no module map), the timer and budget claims match the 2.1.289 types, 94 lines and 15 acceptance lines; 11 notes for the machinist."
+    },
+    {
+      "at": "2026-10-05T07:55:29.850Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt to the third spec: hooks only ask for a refresh, one one-second timer in sync runs them one at a time, stop waits only on its own calls and answers at once while a refresh is out, facts timeout 45 s, no module-level map; checker passes with 15 acceptance tests, no live run made."
+    },
+    {
+      "at": "2026-10-05T08:47:36.392Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Checker passes, the third build follows the spec, and the live run made a real row, stopped it (Stopped bun on :47613) and then answered Nothing, with only isOn and the rows key in the store; five non-blocking findings in inspection.md."
+    },
+    {
+      "at": "2026-10-05T10:11:40.420Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

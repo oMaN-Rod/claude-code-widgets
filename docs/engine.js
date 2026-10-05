@@ -78,6 +78,7 @@
     'tap-widget': { lines: ['add github list_pull_requests', 'add sentry list_issues'] },
     'margin-widget': { lines: ['mark is this the only loop?', 'send'] },
     'loupe-widget': { lines: ['look sum'], settleMs: 600 },
+    'strays-widget': { lines: [], isSettled: state => state.get('strays-widget/watch')?.isQueued === false && state.get('strays-widget/watch')?.isBusy === false },
   }
   const PULLS = ['Fix the login redirect', 'Bump bun', 'Add dark mode']
   const ISSUES = ['Null user in session.js', 'TypeError in checkout.js', 'Timeout in /api/cart']
@@ -91,6 +92,15 @@
         runs: { a: arm(true, 10, 9), b: arm(true, 10, 9), c: arm(true, 9, 9), d: arm(false, 10, 7), e: arm(false, 10, 6), f: arm(false, 10, 7) },
       }),
     },
+  }
+  const SERVERS = [
+    { port: 3000, pid: 4101, parent: 1, args: 'node /demo/project/node_modules/.bin/vite' },
+    { port: 5173, pid: 4188, parent: 4187, args: 'bun dev' },
+  ]
+  const KEPT = {
+    'strays-widget': at => ({
+      [`rows:${hash(ROOT)}`]: { session: 'demo-earlier', rows: [{ port: 3000, pid: 4101, born: at, name: 'node', hint: 'vite', turn: 4, isEarlier: false, isShared: false }] },
+    }),
   }
   const BESIDE = { 'trial-widget': ['moon-widget'] }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
@@ -107,6 +117,17 @@
   root.Fragment = tag('Fragment')
 
   const sleep = ms => new Promise(done => setTimeout(done, ms))
+  const hash = text => {
+    let held = 2166136261
+    for (const letter of text) held = Math.imul(held ^ letter.codePointAt(0), 16777619)
+
+    return held >>> 0
+  }
+  const lstart = at => {
+    const [week, month, date, year, time] = String(new Date(at)).split(' ')
+
+    return `${week} ${month} ${date} ${time} ${year}`
+  }
   const ran = (exitCode, stdout) => ({ exitCode, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false })
   const day = at => new Date(at).toISOString().slice(0, 10)
   const spoken = (id, prompt, answer) => [
@@ -127,7 +148,9 @@
     const mod = root.DEMO_MODS.mods[name]
     const hooks = []
     const state = new Map([['widgets/site', 'side'], ['widgets/widths', widths]])
-    const store = new Map()
+    const earlier = Math.floor((Date.now() - 2 * HOUR - 3 * 60_000) / 1000) * 1000
+    const store = new Map(Object.entries(KEPT[name]?.(earlier) ?? {}))
+    const killed = new Set()
     const files = new Map([
       ...Object.entries(FILES).map(([path, text]) => [`${ROOT}/${path}`, text]),
       ...Object.entries(HELD[name] ?? {}).map(([path, text]) => [`/demo/plugins/${name}/${path}`, text]),
@@ -143,6 +166,7 @@
     let isBusy = false
     let isDirty = false
     let selected = PICKED[name] === undefined ? SELECTED : undefined
+    let shelledAt
 
     const changed = () => {
       if (isDirty) return
@@ -151,6 +175,10 @@
         isDirty = false
         onChange()
       })
+    }
+    const settle = async () => {
+      await sleep(OPENING[name]?.settleMs ?? 0)
+      for (let waits = 0; waits < 100 && OPENING[name]?.isSettled?.(state) === false; waits += 1) await sleep(50)
     }
     const matches = (filter, e) => Object.entries(filter || {}).every(([key, want]) => {
       const got = e[key] ?? (e.props || {})[key]
@@ -254,6 +282,18 @@
 
       return ran(1, '')
     }
+    const listening = () => SERVERS.slice(0, shelledAt === undefined ? 1 : 2).filter(server => !killed.has(server.pid))
+    const lsof = () => ran(0, listening().map(server => `p${server.pid}\nn*:${server.port}\n`).join(''))
+    const ps = () => {
+      const rows = [
+        [1, 0, earlier - DAY, '/sbin/init'],
+        [900, 1, born - 1000, 'claude'],
+        ...(shelledAt === undefined ? [] : [[4187, 900, shelledAt, '/bin/zsh -c bun dev']]),
+        ...listening().map(server => [server.pid, server.parent, server.pid === 4101 ? earlier : shelledAt, server.args]),
+      ]
+
+      return ran(0, `self 900\n${rows.map(([pid, parent, at, args]) => `${String(pid).padStart(5)} ${String(parent).padStart(5)} ${lstart(at)} ${args}`).join('\n')}\n`)
+    }
     const textOf = path => (LIVE[path] === undefined ? files.get(path) : LIVE[path]())
     const listOf = path => {
       const base = `${path.replace(/[\\/]$/, '')}/`
@@ -340,6 +380,9 @@
         run: async argv => {
           await sleep(20)
           if (argv[0] === 'git') return git(argv)
+          if (argv[0] === 'lsof') return lsof()
+          if (argv[0] === 'sh' && String(argv[2]).includes('exec ps ')) return ps()
+          if (argv[0] === 'kill') killed.add(Number(argv[1]))
 
           return ran(0, '')
         },
@@ -444,6 +487,7 @@
           const id = `${turnId}-${at}`
           await dispatch('tool.check', { tool: call.tool, input: call.input, tool_use_id: id }, () => ({ decision: call.isAsked ? 'ask' : 'allow' }))
           await dispatch('tool.call', { tool: call.tool, tool_use_id: id, ...call.input }, async e => {
+            if (e.tool === 'Bash') shelledAt ??= Math.floor(Date.now() / 1000) * 1000
             await sleep(call.ms * pace)
             if (e.tool === 'Edit') {
               const before = files.get(e.file_path) ?? ''
@@ -468,7 +512,7 @@
         await dispatch('turn.complete', { answer: ANSWER, durationMs: Date.now() - startedAt, isAborted: false, turnId, reason: 'answer' }, e => ({ text: e.answer }))
         if (PICKED[name] !== undefined) selected = PICKED[name](turnId)
         files.set(`${ROOT}/src/sum.js`, FILES['src/sum.js'])
-        await sleep(OPENING[name]?.settleMs ?? 0)
+        await settle()
       } finally {
         isBusy = false
         changed()
@@ -488,7 +532,7 @@
         await command(name, 'on')
         if (state.get(`${name}/isOn`) !== true) await command(name, '')
         for (const line of OPENING[name]?.lines ?? []) await command(name, line)
-        await sleep(OPENING[name]?.settleMs ?? 0)
+        await settle()
         changed()
       },
       run: async line => {
