@@ -16,7 +16,11 @@ const COLUMNS = 12
 const ROWS = 8
 const CELLS = COLUMNS * ROWS
 const MINES = 12
-const COLORS = ['white', 'cyan', 'green', 'yellow', 'magenta', 'red', 'red', 'red', 'red']
+const COLORS = ['white', '#6fc3ff', '#6fdc8c', '#ffd24a', '#e39cf2', '#ff8a80', '#ff8a80', '#ff8a80', '#ff8a80']
+const COVERED = ['#5b6380', '#4b5370']
+const OPENED = ['#272a35', '#1f2129']
+const FLAGGED = '#8a5a1c'
+const BLOWN = '#8f2d2d'
 
 const blank = (): boolean[] => Array.from({ length: CELLS }, () => false)
 
@@ -116,7 +120,7 @@ const Mines: ClientModule<MinesweeperProps, Game> = (props, surface) => {
 
   const game = surface.state ?? fresh(9, 0)
   const flags = game.flags.filter(Boolean).length
-  const mode = game.status === 'play' ? (game.isFlagging ? 'flagging' : 'revealing') : game.status
+  const mode = game.status === 'play' ? (game.isFlagging ? 'flagging' : 'revealing') : `${game.status}, click for a new board`
 
   return (
     <Box flexDirection="column">
@@ -124,13 +128,18 @@ const Mines: ClientModule<MinesweeperProps, Game> = (props, surface) => {
         <Text>
           {Array.from({ length: COLUMNS }, (_unused, x) => {
             const cell = y * COLUMNS + x
+            const shade = (x + y) % 2
             const isMine = game.mines?.[cell] === true
-            if (game.status === 'lost' && isMine) return <Text color="red"> *</Text>
-            if (game.flags[cell] === true) return <Text bold color="yellow"> F</Text>
-            if (game.shown[cell] !== true) return <Text dimColor>░░</Text>
+            if (game.status === 'lost' && isMine) return <Text bold color="white" backgroundColor={BLOWN}> *</Text>
+            if (game.flags[cell] === true) return <Text bold color="#ffd24a" backgroundColor={FLAGGED}> F</Text>
+            if (game.shown[cell] !== true) return <Text backgroundColor={COVERED[shade]}>{'  '}</Text>
             const count = countAt(game.mines ?? [], cell)
 
-            return count === 0 ? <Text>{'  '}</Text> : <Text color={COLORS[count] ?? 'red'}> {count}</Text>
+            return count === 0 ? (
+              <Text backgroundColor={OPENED[shade]}>{'  '}</Text>
+            ) : (
+              <Text bold color={COLORS[count] ?? '#ff8a80'} backgroundColor={OPENED[shade]}> {count}</Text>
+            )
           })}
         </Text>
       ))}

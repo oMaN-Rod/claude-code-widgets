@@ -62,7 +62,8 @@ test('reveals on a click, flags on a right click and keeps the wins', { plugins:
   expect((await $.command.run(run('minesweeper-widget', 'on'))).text).toMatch(/Minesweeper on/)
 
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
-  const hidden = async () => (await ui.findAll({ in: 'mines', type: 'Text', text: /^░░$/ })).length
+  const hidden = async () =>
+    (await ui.findAll({ in: 'mines', type: 'Text', text: /^  $/ })).filter(cell => ['#5b6380', '#4b5370'].includes(String(cell.props.backgroundColor))).length
   const info = async () => (await ui.find({ in: 'mines', type: 'Text', text: /^mines \d+ / }))?.text ?? ''
 
   expect(await ui.find({ text: /^beneath$/ })).toBeDefined()
