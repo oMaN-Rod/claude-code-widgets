@@ -1,0 +1,7 @@
+{
+  "title": "Customs",
+  "category": "Project and git",
+  "shows": "Looks up every package Claude installs on npm or PyPI before the command runs, and holds the install for a yes when the name is missing or under 30 days old",
+  "commands": ["/customs-widget [on|off|show|trust <name>|clear]"],
+  "cost": "Sends the name of each package Claude installs to registry.npmjs.org and api.npmjs.org, or pypi.org; no model calls"
+}

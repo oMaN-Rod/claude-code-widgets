@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 83 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 84 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
@@ -84,6 +84,7 @@ The state of the working tree.
 | `ledger-widget` | `/ledger-widget [on\|off\|scan\|show\|clear]` | What a project has cost across every session, from any folder or worktree in it: measured as each turn ends, and read back from the sessions Claude Code saved |
 | `squiggle-widget` | `/squiggle-widget [on\|off\|check [text]]` | Underlines file names that do not exist, as you type them in the prompt box, and paints the ones that do green |
 | `critic-widget` | `/critic-widget [on\|off\|review\|tell\|clear]` | A second pair of eyes: a separate model reads the uncommitted diff and lists only real defects, which you can hand to Claude |
+| `customs-widget` | `/customs-widget [on\|off\|show\|trust <name>\|clear]` | Looks up every package Claude installs on npm or PyPI before the command runs, and holds the install for a yes when the name is missing or under 30 days old. Scoped names and installs that name a registry, or sit beside a project `.npmrc` that does, are not looked up; user-level and environment registry settings, `bunfig.toml`, `.yarnrc.yml` and pip and uv config files are not seen |
 
 ### Time and focus
 

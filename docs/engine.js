@@ -30,12 +30,19 @@
       input: { file_path: `${ROOT}/src/sum.js`, old_string: '  for (let i = 1; i < list.length; i += 1) total += list[i]', new_string: '  for (let i = 0; i < list.length; i += 1) total += list[i]' },
       ms: 700,
     },
+    { tool: 'Bash', input: { command: 'npm install sum-utils-fast lodash@3.10.1' }, ms: 900, text: 'added 2 packages' },
     { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, ms: 1400, text: 'passed' },
     { tool: 'mcp__done-widget__tick', input: { item: 1, evidence: 'npm test: passed' }, ms: 300 },
     { tool: 'mcp__notebook-widget__jot', input: { text: 'sum() skipped the first item: its loop began at 1. Loops over list start at 0.' }, ms: 300 },
     { tool: 'Bash', input: { command: 'git commit -am "Fix the off-by-one in sum"' }, ms: 600, text: '[main 3f2a1c9] Fix the off-by-one in sum' },
     { tool: 'mcp__done-widget__tick', input: { item: 2, evidence: 'commit 3f2a1c9 on main' }, ms: 300 },
   ]
+  const WEB = {
+    'https://registry.npmjs.org/sum-utils-fast': () => ({ time: { created: new Date(Date.now() - 4 * DAY - HOUR).toISOString() }, 'dist-tags': { latest: '0.1.0' } }),
+    'https://api.npmjs.org/downloads/point/last-week/sum-utils-fast': () => ({ downloads: 30 }),
+    'https://registry.npmjs.org/lodash': () => ({ time: { created: '2012-04-23T16:37:11.912Z' }, 'dist-tags': { latest: '4.17.21' } }),
+    'https://api.npmjs.org/downloads/point/last-week/lodash': () => ({ downloads: 38_000_000 }),
+  }
   const LIVE = {
     [`${HOME}/.claude/collision-widget/demo-other.json`]: () => {
       const file = `${ROOT}/src/sum.js`
@@ -408,6 +415,12 @@
       },
       clock: {
         now: async () => Date.now(),
+        sleep: (ms, { signal } = {}) =>
+          new Promise((done, fail) => {
+            const id = setTimeout(() => (timers.delete(id), done()), ms)
+            timers.add(id)
+            signal?.addEventListener('abort', () => (clearTimeout(id), timers.delete(id), fail(new Error('aborted'))))
+          }),
         every: (ms, run) => {
           const id = setInterval(run, Math.max(30, ms))
           timers.add(id)
@@ -525,7 +538,7 @@
       },
       ...(crew.length === 0 ? {} : { agent: { list: async () => crew.map(({ id, description, status }) => ({ id, type: 'general-purpose', description, status })) } }),
       prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({ isFilled: true, text: '', cursor: 0 }), read: async () => ({ text: 'fix src/formt.js and test.js', cursor: 28 }) },
-      http: { fetch: async () => ({ ok: true, status: 200, text: 'ok' }) },
+      http: { fetch: async url => ({ ok: true, status: 200, text: WEB[url] === undefined ? 'ok' : JSON.stringify(WEB[url]()) }) },
       env: { get: async key => (key === 'HOME' ? HOME : undefined) },
       audio: { play: async () => ({}) },
       turn: { abort: async () => ({}) },

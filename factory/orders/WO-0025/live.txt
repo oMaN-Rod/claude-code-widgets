@@ -1,0 +1,35 @@
+>>> /customs-widget on
+[assistant] customs-widget: Customs on; /widgets places it.
+[turn ended: success] customs-widget: Customs on; /widgets places it.
+
+>>> Run exactly these two commands with the Bash tool, one call each, and nothing else: npm install --dry-run is-odd and then npm install customs-live-zz9-no-such-package. If one is refused do not try another way. Then answer ok.
+[assistant] (tool Bash {"command":"npm install --dry-run is-odd","description":"Dry-run install of is-odd"})
+[user] (result "Exit code 127\n/usr/bin/bash: line 1: npm: command not found")
+[assistant] (tool Bash {"command":"npm install customs-live-zz9-no-such-package","description":"Install customs-live-zz9-no-such-package"})
+[system permission_denied] {"type":"system","subtype":"permission_denied","tool_name":"Bash","tool_use_id":"toolu_01SsNSN8a7iDrRK1cCBof4TB","decision_reason_type":"hook","decision_reason":"customs-live-zz9-no-such-package: no package named customs-live-zz9-no-such-package on npm","message":"Bash needs approval (asked by plugin customs-widget: customs-live-zz9-no-such-package: no package named customs-live-zz9-no-such-packag
+[user] (result "Bash needs approval (asked by plugin customs-widget: customs-live-zz9-no-such-package: no package named customs-live-zz9-no-such-package on npm)")
+[assistant] ok
+
+Neither command completed, though:
+- `npm install --dry-run is-odd` failed with exit code 127: `npm: command not found` in the Bash shell.
+- `npm install customs-live-zz9-no-such-package` was held for approval by the customs-widget plugin, which reported no package by that name on npm. I did not retry it another way.
+[turn ended: success] ok
+
+Neither command completed, though:
+- `npm install --dry-run is-odd` failed with exit code 127: `npm: command not found` in the Bash shell.
+- `npm install customs-live-zz9-no-such-package` was held for approval by the customs-widget plugin, which reported no package by that name on npm. I did not retry it another way.
+
+>>> /customs-widget show
+[assistant] customs-widget: customs-live-zz9-no-such-package (npm): no package named customs-live-zz9-no-such-package on npm [held]
+is-odd (npm): on npm 11 years, 1M downloads last week, latest 3.0.1
+[turn ended: success] customs-widget: customs-live-zz9-no-such-package (npm): no package named customs-live-zz9-no-such-package on npm [held]
+is-odd (npm): on npm 11 years, 1M downloads last week, latest 3.0.1
+
+>>> /customs-widget off
+[assistant] customs-widget: Customs off.
+[turn ended: success] customs-widget: Customs off.
+
+--- customs-widget store ---
+customs-widget_inline-0a9f56b5cc25.json: {
+  "isOn": false
+}

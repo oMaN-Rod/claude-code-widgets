@@ -1,0 +1,128 @@
+{
+  "id": "WO-0025",
+  "kind": "new",
+  "widget": "customs-widget",
+  "title": "Customs",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T12:45:28.307Z",
+  "closedAt": "2026-10-05T13:38:54.293Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T12:54:05.982Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the API allows it, but a verbatim replay only fits rituals with no changing arguments (a version bump or commit message replays yesterday's values), and ok-or-failed divergence cannot see a step that succeeds with stale input, so the risk outweighs what a shell script already gives.",
+      "subject": "Encore"
+    },
+    {
+      "at": "2026-10-05T12:54:06.085Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: reading the streamed arguments is new beside stream-widget and diff-widget, but the gain is a few seconds of early warning on a call the permission dialog and diff already cover.",
+      "subject": "Pen"
+    },
+    {
+      "at": "2026-10-05T12:54:06.186Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on watch-widget joined to situation-widget's prompt context, and it only works if you move your dev server out of your own terminal into a no-shell child the widget owns.",
+      "subject": "Wire"
+    },
+    {
+      "at": "2026-10-05T12:54:06.298Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Cost out of proportion: a keyword rule silently lowers how hard the model thinks, the wrong guess is a poorer answer you may not notice, and the claimed saving cannot be measured against the turn that did not run.",
+      "subject": "Gear"
+    },
+    {
+      "at": "2026-10-05T12:54:06.408Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a pleasant mirror, but it is guard-widget's ask count with a stopwatch and an invented reading time, and it changes nothing a person does.",
+      "subject": "Blink"
+    },
+    {
+      "at": "2026-10-05T12:54:06.511Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on owed-widget, parking-widget and lessons-widget built on premise-widget's phrase matcher, and phrase matching on 'later' and 'for now' will quote mostly noise.",
+      "subject": "Later"
+    },
+    {
+      "at": "2026-10-05T12:54:06.618Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Cost out of proportion: it writes turn counts, corrections and the hour permanently into a shared git history for a novelty line few teams would accept.",
+      "subject": "Colophon"
+    },
+    {
+      "at": "2026-10-05T12:54:11.975Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Customs is the only idea that brings a fact from outside the machine to the moment of decision: it checks each package Claude names against the real registry and holds installs of missing or days-old names, with no model call, on API that exists."
+    },
+    {
+      "at": "2026-10-05T13:02:53.027Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every hook and call is in the 2.1.289 types file, all main states are drawn and fit at 20 columns, demo and live sections are present, 107 lines and 15 acceptance lines; 16 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T13:17:04.778Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built customs-widget: a tool.check gate on Bash and PowerShell that looks each installed npm or PyPI name up before the command runs, lists the findings on the card and raises an allow to an ask for a missing or under-30-day name, with show, trust and clear and 15 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T13:26:46.647Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Spec fault: the word rules read shell redirections, comments and unlisted flag values as package names (pip install requests 2>&1 | tail looks up PyPI '2', > install.log looks up 'install-log', # add looks up 'add', --python-version 3.12 looks up '3-12'), which falsely holds ordinary installs and sends file names to the registry; add a redirection and comment rule and more value flags to Terms and fold the cases into A2/A3. Build is otherwise faithful, checker and live run good; see inspection.md.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T13:29:25.195Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The send-back's faults are fixed in Terms (comment cut, redirection rule, longer value-flag list, digits-and-dots word) and carried by A2 and A3, with no blocking fault in what changed, still 107 lines and 15 acceptance lines; 11 notes in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T13:31:58.538Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt the Customs word parser to the revised Terms: comments cut per line, redirections and a lone & dropped, the longer value-flag list, Python digit-and-dot words ignored, with the new cases proved in A2 and A3."
+    },
+    {
+      "at": "2026-10-05T13:36:47.154Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Second build meets the revised spec, the standard and the bar: checker passes, redirections, comments and flag values no longer name packages, filled frames fit at 20 to 60 columns, and the live run on this build held a missing npm name with the gate line and stored only isOn; six non-blocking findings in inspection.md, chiefly that install lines inside quotes or heredocs are read and the clerk must add the demo stand-ins."
+    },
+    {
+      "at": "2026-10-05T13:38:54.292Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

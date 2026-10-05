@@ -1494,6 +1494,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "customs-widget",
+      "source": "./plugins/customs-widget",
+      "description": "Looks up every package Claude installs on npm or PyPI before the command runs, and holds the install for a yes when the name is missing or under 30 days old",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "customs",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
