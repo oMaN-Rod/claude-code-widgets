@@ -19,6 +19,7 @@ const REPLAY_RATE = 300
 const REPLAY_QUIET_MS = 8 * 60_000
 const REPLAY_LONGEST_MS = 180_000
 const REPLAY_PACE = 10
+const REPLAY_SPEEDS = [0.25, 0.5, 1, 2, 4]
 const STATIONS = [
   { name: 'ideation', title: 'Ideas loft', icon: '💡', resident: 'examiner', who: 'Three inventors, then the examiner', out: 'idea.md', gate: 'The examiner rejects any idea that is a variation on an existing widget. Its default answer is no.' },
   { name: 'design', title: 'Drafting studio', icon: '📐', resident: 'designer', who: 'The designer, reviewed by the inspector', out: 'spec.md', gate: 'The inspector rejects only blocking faults. Everything else goes to the machinist as notes.' },
@@ -451,7 +452,7 @@ const asOf = (order, at) => {
   return { ...seen, widget: isNamed ? order.widget : null, title: isNamed ? order.title : null, sendBacks: stamps.filter(stamp => stamp.result === 'send-back').length, agents: log.filter(isShift).length }
 }
 
-const tape = { orders: null, marks: [], played: [], rate: REPLAY_RATE, startedAt: 0, isDone: false }
+const tape = { orders: null, marks: [], played: [], rate: REPLAY_RATE, speed: 1, at: 0, seenAt: 0, isDone: false }
 const replay = async () => {
   if (tape.orders === null) {
     tape.orders = (await (await fetch('/api/board')).json()).orders
@@ -459,9 +460,11 @@ const replay = async () => {
     tape.played = tape.marks.map(() => 0)
     for (let i = 1; i < tape.marks.length; i += 1) tape.played[i] = tape.played[i - 1] + Math.min(tape.marks[i] - tape.marks[i - 1], REPLAY_QUIET_MS)
     tape.rate = Math.max(REPLAY_RATE, (tape.played.at(-1) ?? 0) / REPLAY_LONGEST_MS)
-    tape.startedAt = performance.now()
+    tape.seenAt = performance.now()
   }
-  const played = (performance.now() - tape.startedAt) * tape.rate
+  tape.at += (performance.now() - tape.seenAt) * tape.rate * tape.speed
+  tape.seenAt = performance.now()
+  const played = tape.at
   const next = tape.played.findIndex(mark => mark > played)
   tape.isDone = next < 0
   const at = new Date(tape.isDone ? (tape.marks.at(-1) ?? Date.now()) : tape.marks[next - 1] + played - tape.played[next - 1]).toISOString()
@@ -493,7 +496,25 @@ const poll = async () => {
 }
 
 const world = createWorld(document.getElementById('floor'), target => select(target))
-if (isReplay) world.setPace(REPLAY_PACE)
+const speed = document.getElementById('speed')
+const setSpeed = value => {
+  tape.speed = REPLAY_SPEEDS.includes(value) ? value : 1
+  speed.textContent = `${tape.speed}×`
+  world.setPace(REPLAY_PACE * tape.speed)
+  try {
+    localStorage.setItem('replay-speed', String(tape.speed))
+  } catch {}
+}
+if (isReplay) {
+  speed.hidden = false
+  document.getElementById('rehearse').hidden = true
+  speed.addEventListener('click', () => setSpeed(REPLAY_SPEEDS[(REPLAY_SPEEDS.indexOf(tape.speed) + 1) % REPLAY_SPEEDS.length]))
+  let kept = 1
+  try {
+    kept = Number(localStorage.getItem('replay-speed') ?? 1)
+  } catch {}
+  setSpeed(kept)
+}
 document.addEventListener('keydown', event => {
   if (event.key !== 'Escape') return
   if (state.isOpen) {
