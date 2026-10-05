@@ -31,6 +31,7 @@
       ms: 700,
     },
     { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, ms: 1400, text: 'passed' },
+    { tool: 'mcp__notebook-widget__jot', input: { text: 'sum() skipped the first item: its loop began at 1. Loops over list start at 0.' }, ms: 300 },
     { tool: 'Bash', input: { command: 'git commit -am "Fix the off-by-one in sum"' }, ms: 600, text: '[main 3f2a1c9] Fix the off-by-one in sum' },
   ]
   const LIVE = {
@@ -88,6 +89,7 @@
     const store = new Map()
     const files = new Map(Object.entries(FILES).map(([path, text]) => [`${ROOT}/${path}`, text]))
     const commands = []
+    const tools = new Set()
     const timers = new Set()
     const born = Date.now()
     const usage = { tokens: 46_000, usd: 0.38, five: 12, seven: 31 }
@@ -104,7 +106,11 @@
         onChange()
       })
     }
-    const matches = (filter, e) => Object.entries(filter || {}).every(([key, want]) => (e[key] ?? (e.props || {})[key]) === want)
+    const matches = (filter, e) => Object.entries(filter || {}).every(([key, want]) => {
+      const got = e[key] ?? (e.props || {})[key]
+
+      return want instanceof RegExp ? want.test(String(got)) : got === want
+    })
     const dispatch = (event, e, core) => {
       const chain = hooks.filter(hook => hook.event === event && matches(hook.filter, e))
       const step = (at, input) => (at < 0 ? Promise.resolve(core(input)) : Promise.resolve(chain[at].run($, input, next => step(at - 1, next ?? input))))
@@ -309,7 +315,11 @@
         repo: async () => ({ root: ROOT, branch: 'main' }),
       },
       tool: {
-        register: async entry => ({ tool: `mcp__${name}__${entry.name}` }),
+        register: async entry => {
+          tools.add(`mcp__${name}__${entry.name}`)
+
+          return { tool: `mcp__${name}__${entry.name}` }
+        },
         check: async () => ({ decision: 'allow' }),
         list: async () => [],
       },
@@ -362,6 +372,7 @@
         await dispatch('prompt.submit', { text, wait: false, origin: { kind: 'composer' } }, e => ({ text: e.text }))
         await dispatch('turn.start', { text, turnId }, e => ({ turnId: e.turnId }))
         for (const [at, call] of TURN.entries()) {
+          if (call.tool.startsWith('mcp__') && !tools.has(call.tool)) continue
           const id = `${turnId}-${at}`
           await dispatch('tool.check', { tool: call.tool, input: call.input, tool_use_id: id }, () => ({ decision: call.isAsked ? 'ask' : 'allow' }))
           await dispatch('tool.call', { tool: call.tool, tool_use_id: id, ...call.input }, async e => {

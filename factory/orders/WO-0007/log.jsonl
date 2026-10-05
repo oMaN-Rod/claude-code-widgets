@@ -1,0 +1,11 @@
+{"at":"2026-10-04T20:49:01.990Z","agent":"director","station":"design","action":"opened the order: Rebuild to the standard. What it is: Gives Claude a note tool for writing down what its future self should know about this project, and reads the notes back next session. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."}
+{"at":"2026-10-04T20:49:13.318Z","agent":"designer","station":"design","action":"took the order at design"}
+{"at":"2026-10-04T20:53:05.820Z","agent":"designer","station":"design","action":"wrote the spec: 15 acceptance lines"}
+{"at":"2026-10-04T20:53:18.433Z","agent":"inspector","station":"design","action":"took the order at design"}
+{"at":"2026-10-04T20:54:27.526Z","agent":"inspector","station":"design","action":"stamped pass: The spec meets the standard, every hook and call it names is in the types file, all card states and the 20-column card are drawn, both faults of the brief are addressed, and it is within size (112 lines, 15 acceptance lines); 11 notes."}
+{"at":"2026-10-04T20:54:38.828Z","agent":"machinist","station":"build","action":"took the order at build"}
+{"at":"2026-10-04T21:02:45.820Z","agent":"machinist","station":"build","action":"stamped pass: Built notebook-widget to the spec: the jot tool, per-project notes read back on the first prompt and after a compaction, the card at three widths, and 15 acceptance tests; the checker passes."}
+{"at":"2026-10-04T21:03:28.542Z","agent":"inspector","station":"inspection","action":"took the order at inspection"}
+{"at":"2026-10-04T21:05:40.985Z","agent":"inspector","station":"inspection","action":"stamped pass: Meets the spec, the standard and the bar: checker passes, cards read at 20, 40 and 60 columns, off is inert, the live run stored only what the spec names; six non-blocking findings, the first being that the read-back still wants a live rerun."}
+{"at":"2026-10-04T21:05:54.139Z","agent":"clerk","station":"shipping","action":"took the order at shipping"}
+{"at":"2026-10-04T21:07:10.347Z","agent":"clerk","station":"shipping","action":"stamped pass: On the demo page, in the README and the marketplace; smoke test clean"}

@@ -1205,6 +1205,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "notebook-widget",
+      "source": "./plugins/notebook-widget",
+      "description": "Gives Claude a jot tool for writing down what its future self should know about this project, and reads the notes back next session",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "notebook",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "id": "WO-0007",
+  "kind": "rebuild",
+  "widget": "notebook-widget",
+  "title": "Notebook",
+  "brief": "Rebuild to the standard. What it is: Gives Claude a note tool for writing down what its future self should know about this project, and reads the notes back next session. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T20:49:01.982Z",
+  "closedAt": "2026-10-04T21:07:10.348Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-04T20:54:27.526Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and call it names is in the types file, all card states and the 20-column card are drawn, both faults of the brief are addressed, and it is within size (112 lines, 15 acceptance lines); 11 notes."
+    },
+    {
+      "at": "2026-10-04T21:02:45.820Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built notebook-widget to the spec: the jot tool, per-project notes read back on the first prompt and after a compaction, the card at three widths, and 15 acceptance tests; the checker passes."
+    },
+    {
+      "at": "2026-10-04T21:05:40.985Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker passes, cards read at 20, 40 and 60 columns, off is inert, the live run stored only what the spec names; six non-blocking findings, the first being that the read-back still wants a live rerun."
+    },
+    {
+      "at": "2026-10-04T21:07:10.347Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

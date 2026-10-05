@@ -1,0 +1,30 @@
+
+>>> /notebook-widget on
+[assistant] notebook-widget: Notebook on; Claude can jot notes from the next prompt. /widgets places it.
+[turn ended: success] notebook-widget: Notebook on; Claude can jot notes from the next prompt. /widgets places it.
+
+>>> Call your jot tool once with the text: Tests run with bun test.
+[assistant] (tool ToolSearch {"query":"select:mcp__notebook-widget__jot","max_results":5})
+[user] (result [{"type":"tool_reference","tool_name":"mcp__notebook-widget__jot"}])
+[assistant] (tool mcp__notebook-widget__jot {"text":"Tests run with bun test."})
+[user] (result "Noted (1 of 8).")
+[assistant] Noted — "Tests run with bun test." is saved as note 1 of 8 in the notebook.
+[turn ended: success] Noted — "Tests run with bun test." is saved as note 1 of 8 in the notebook.
+
+>>> /notebook-widget show
+[assistant] notebook-widget: 1 note for this project:
+1. Tests run with bun test.
+[turn ended: success] notebook-widget: 1 note for this project:
+1. Tests run with bun test.
+
+>>> /notebook-widget off
+[assistant] notebook-widget: Notebook off. The jot tool stays listed until the session ends and writes nothing.
+[turn ended: success] notebook-widget: Notebook off. The jot tool stays listed until the session ends and writes nothing.
+
+--- notebook-widget store ---
+notebook-widget_inline-8e70af7f7ea4.json: {
+  "isOn": false,
+  "notes:c:/users/omarrodriguez/.claude-factory/scratch-project": [
+    "Tests run with bun test."
+  ]
+}

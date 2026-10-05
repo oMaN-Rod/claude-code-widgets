@@ -1,0 +1,7 @@
+{
+  "title": "Notebook",
+  "category": "Session",
+  "shows": "Gives Claude a jot tool for writing down what its future self should know about this project, and reads the notes back next session",
+  "commands": ["/notebook-widget [on|off|show|drop <number>|clear]"],
+  "cost": "The jot tool's description in every request, and up to 8 short notes added to the first prompt of a session and after a compaction"
+}

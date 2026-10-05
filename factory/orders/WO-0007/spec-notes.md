@@ -1,0 +1,15 @@
+# Spec notes for WO-0007 (notebook-widget)
+
+No blocking fault. Settle these while building; each is looked at again at inspection.
+
+1. `widget.json` names the `jot` tool only inside `shows` and `cost`. The standard wants a tool for Claude listed there; keep the word `jot tool` in both sentences so the catalog row says it exists, and do not add it to `commands` (the checker reads those as slash commands).
+2. `replace` with a text that another note already holds is written (step 4 only guards calls without `replace`), so two notes can hold the same text and both numbers turn green, since `fresh` is matched by text. Either answer `Already in the notebook.` when the text is held at a different number, or accept it; say which in a test.
+3. `fresh` is never pruned: a note jotted this session and then dropped or overwritten leaves its text in `fresh`. Harmless for the count (`new` counts held notes only), but jotting the same text again later shows it as new, which is right; just make sure `+<new>` can never exceed the count of notes.
+4. `open()` uses `e.cwd` at `session.start` and `$.session.cwd()` at a switch-on. If the two differ (the session moved directory), the key changes: the store is read again, `fresh` is lost and the tool is registered a second time. Registering again only replaces the tool, so nothing breaks, but A14's "without registering the tool a second time" holds only for an unchanged folder. Keep the test on an unchanged folder.
+5. Step 3's list after `There is no note <replace>. The notebook holds:` and step 5's list carry up to 8 notes of 200 characters in a tool result; that is intended, but `<replace>` itself is model input: print it through `String()` and cut it short (a long string or an object must not blow up the line).
+6. The empty card's first line `Nothing noted yet.` is 18 characters and wraps at 20 columns (inner 16). The spec allows the sentence to wrap; check the 20-column frame reads as two clean lines and does not break the border.
+7. The hint row at 20 columns is `show: in full`, with no command name. Acceptable at that width; the usage and the 40-column wording carry the full name.
+8. At 8 notes with one new the note reads `+1`, not `full`; the `Full:` line is then the only sign the notebook is full. Keep that line present in every 8-note card, new or not, as the short/long table says.
+9. The Live command leaves the scratch project switched on and holding the note. Fine for the rerun the spec describes; the inspection run will add `--say "/notebook-widget off"` at the end, and `isOn` will then print false.
+10. `drop` answers `Dropped note 2: <text>` with the full text (up to 200 characters); `There is no note "<what was typed>"` should cut a very long typed argument.
+11. The block's opening sentence ends in a colon and the list follows after one line break; an empty-after-drop notebook attaches no block even though `isDue` was set, and `isDue` then becomes false. A11 or A12 should show that a `clear` followed by a prompt attaches nothing.
