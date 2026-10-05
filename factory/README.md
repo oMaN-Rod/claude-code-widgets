@@ -59,7 +59,7 @@ bun factory/tools/order.ts open --kind rebuild --widget moon-widget --title Moon
 
 A rebuild is designed from its brief. If `factory/floor/reference/<name>-widget/` holds an earlier version of the widget, the designer reads that too.
 
-To keep the floor stocked, `bun factory/tools/order.ts refill` opens orders from `factory/backlog.json` until three are on the floor (or `--target <n>`). It takes rebuilds in the backlog's order and opens an order for a new invention after every third rebuild. It prints the orders it opened, ready to hand to the workflow.
+To keep the floor stocked, `bun factory/tools/order.ts refill` opens orders from `factory/backlog.json` until four are on the floor (or `--target <n>`). It takes rebuilds in the backlog's order and opens an order for a new invention after every third rebuild. It prints the orders it opened, ready to hand to the workflow.
 
 Then run the `widget-line` workflow with `{ orders: [{ id, kind }] }`. To pick an order up where it stopped, read its station from the board and pass it as `from`: `{ id, kind, from: 'build' }`. To stop an order before a station, pass `until`: `{ id, kind, until: 'inspection' }`.
 

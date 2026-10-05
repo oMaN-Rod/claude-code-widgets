@@ -11,7 +11,7 @@ const USAGE = `Usage: bun factory/tools/order.ts <command>
   log <id> <agent> <what was done>
   stamp <id> <agent> pass|send-back|reject|scrap --reason "<why>" [--to <station>] [--subject "<idea>"]
   show <id>
-  refill [--target 3]   open orders from factory/backlog.json until that many are on the floor
+  refill [--target 4]   open orders from factory/backlog.json until that many are on the floor
   board`
 
 type Backlog = { target: number; newEvery: number; newBrief: string; rebuilds: { widget: string; title: string; brief: string }[] }
