@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { networkInterfaces } from 'node:os'
 import { join } from 'node:path'
 
+import { costs } from './cost'
 import { FACTORY, ROOT, allIds, flag, now, orderDir, readLog, readOrder } from './lib'
 
 const PAGE = join(FACTORY, 'control-room', 'floor')
@@ -9,6 +10,7 @@ const FILES: Record<string, string> = {
   '/': 'index.html',
   '/floor.css': 'floor.css',
   '/floor.js': 'floor.js',
+  '/markdown.js': 'markdown.js',
   '/world.js': 'world.js',
 }
 const TYPES: Record<string, string> = { html: 'text/html', css: 'text/css', js: 'text/javascript' }
@@ -16,15 +18,19 @@ const DEMO = join(ROOT, 'docs')
 const DOCS = ['idea.md', 'spec.md', 'spec-notes.md', 'inspection.md', 'live.txt']
 const isShift = (action: string, agent: string): boolean => action.startsWith('took the order') || agent === 'inventor'
 
-const board = (): object => ({
-  at: now(),
-  orders: allIds().map(id => {
-    const log = readLog(id)
-    const files = readdirSync(orderDir(id))
+const board = (): object => {
+  const spent = costs()
 
-    return { ...readOrder(id), agents: log.filter(entry => isShift(entry.action, entry.agent)).length, log, docs: DOCS.filter(name => files.includes(name)) }
-  }),
-})
+  return {
+    at: now(),
+    orders: allIds().map(id => {
+      const log = readLog(id)
+      const files = readdirSync(orderDir(id))
+
+      return { ...readOrder(id), agents: log.filter(entry => isShift(entry.action, entry.agent)).length, log, docs: DOCS.filter(name => files.includes(name)), cost: spent.get(id) ?? null }
+    }),
+  }
+}
 
 const port = Number(flag(process.argv.slice(2), 'port') ?? 4173)
 const isShared = process.argv.includes('--lan')

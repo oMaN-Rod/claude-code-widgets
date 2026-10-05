@@ -1,3 +1,4 @@
+import { markdown } from './markdown.js'
 import { ROLE, createWorld, isBusy } from './world.js'
 
 const feed = document.getElementById('feed')
@@ -32,10 +33,16 @@ const el = (tag, props = {}, ...kids) => {
 const clock = at => (at ? new Date(at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '')
 const short = order => (order.widget || 'unnamed').replace(/-widget$/, '')
 const orders = () => state.board?.orders ?? []
+const count = tokens => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(tokens)
+const costLine = order => (order.cost ? `${order.cost.guessed > 0 ? '≈ ' : ''}${count(order.cost.tokens)} tokens · $${order.cost.usd.toFixed(2)}${order.status === 'open' ? ' so far' : ''}` : 'cost not recorded')
+const costDetail = ({ cost }) =>
+  cost
+    ? `${count(cost.input)} input, ${count(cost.output)} output, ${count(cost.cacheWrite)} cache writes and ${count(cost.cacheRead)} cache reads over ${cost.agents} agent${cost.agents === 1 ? '' : 's'}, at API list prices. Not counted: the director's session and live runs.${cost.guessed > 0 ? ' Output tokens are partly estimated.' : ''}${cost.unpriced > 0 ? ` ${count(cost.unpriced)} tokens ran on a model with no known price.` : ''}`
+    : 'The agents that worked on this order left no transcripts on this machine.'
 const turnedBack = () => orders().flatMap(order => order.stamps.filter(stamp => stamp.result !== 'pass').map(stamp => ({ stamp, order })))
 const sameTarget = (one, other) => one.type === other.type && one.id === other.id
 
-const facts = rows => el('dl', { className: 'facts' }, ...rows.flatMap(([name, value]) => [el('dt', { textContent: name }), el('dd', { textContent: value })]))
+const facts = rows => el('dl', { className: 'facts' }, ...rows.flatMap(([name, value]) => [el('dt', { textContent: name }), typeof value === 'string' ? el('dd', { textContent: value }) : el('dd', {}, value)]))
 
 const stampLine = (stamp, order) => {
   const line = el(
@@ -80,10 +87,15 @@ const showDoc = (order, name, holder, tabs) => {
 
     return
   }
-  const body = el('pre')
+  const isMarkdown = name.endsWith('.md')
+  const body = isMarkdown ? el('div', { className: 'md' }) : el('pre')
+  const put = text => {
+    if (isMarkdown) body.replaceChildren(...markdown(text))
+    else body.textContent = text
+  }
   holder.replaceChildren(body)
   const kept = state.doc?.id === order.id && state.doc?.name === name ? state.doc.text : 'Loading…'
-  body.textContent = kept
+  put(kept)
   state.doc = { id: order.id, name, text: kept }
   if (name === 'log') {
     state.doc.text = order.log.map(entry => `${clock(entry.at)}  ${entry.agent} @ ${entry.station}\n          ${entry.action}`).join('\n')
@@ -96,7 +108,7 @@ const showDoc = (order, name, holder, tabs) => {
     .then(text => {
       if (state.doc?.id !== order.id || state.doc?.name !== name) return
       state.doc.text = text
-      body.textContent = text
+      put(text)
     })
 }
 
@@ -121,6 +133,7 @@ const orderWindow = order => {
       ['Status', order.status === 'open' ? `at ${order.station}, ${isBusy(order) ? `${order.holder ?? 'someone'} at work` : 'waiting'}` : `${order.status} ${new Date(order.closedAt).toLocaleString()}`],
       ['Opened', new Date(order.openedAt).toLocaleString()],
       ['Agents used', String(order.agents)],
+      ['Cost', el('span', {}, el('b', { textContent: costLine(order) }), el('div', { className: 'dim', textContent: costDetail(order) }))],
       ['Sent back', `${order.sendBacks} time${order.sendBacks === 1 ? '' : 's'}`],
     ]),
     tabs,
@@ -189,6 +202,7 @@ const paintPick = () => {
     badge.style.background = order.status === 'scrapped' ? '#6b6258' : order.kind === 'new' ? '#f2c14e' : '#6cb6e6'
     lines.push(
       el('div', { className: 'line', textContent: order.status === 'open' ? `${order.kind === 'new' ? 'New invention' : 'Rebuild'} · ${isBusy(order) ? `${order.holder ?? 'someone'} at work` : 'waiting'} · ${order.agents} agents · sent back ${order.sendBacks}×` : `${order.status} ${new Date(order.closedAt).toLocaleString()} · ${order.agents} agents` }),
+      el('div', { className: 'line', textContent: `💰 ${costLine(order)}` }),
       journey(order),
     )
   } else if (type === 'station') {
