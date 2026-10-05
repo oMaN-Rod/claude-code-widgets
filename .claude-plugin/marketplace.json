@@ -1222,6 +1222,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "footnotes-widget",
+      "source": "./plugins/footnotes-widget",
+      "description": "Checks every file path, cited line and code symbol in Claude's last reply against the working tree, with no model call, and flags the ones that are not there",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "footnotes",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

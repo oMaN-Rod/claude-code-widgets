@@ -1,0 +1,29 @@
+
+>>> /footnotes-widget on
+[assistant] footnotes-widget: Footnotes on; /widgets places it.
+[turn ended: success] footnotes-widget: Footnotes on; /widgets places it.
+
+>>> Reply with exactly this one sentence, backticks kept, no code block, nothing else: See `README.md:1`, `README.md:99`, `src/nowhere.ts:3` and `refreshSession()`.
+[assistant] See `README.md:1`, `README.md:99`, `src/nowhere.ts:3` and `refreshSession()`.
+[turn ended: success] See `README.md:1`, `README.md:99`, `src/nowhere.ts:3` and `refreshSession()`.
+
+>>> /footnotes-widget show
+[assistant] footnotes-widget: 4 named, 1 found:
+✓ README.md:1
+✗ README.md:99: file has 3 lines
+✗ src/nowhere.ts:3: not on disk
+? refreshSession(): not found in this repository
+[turn ended: success] footnotes-widget: 4 named, 1 found:
+✓ README.md:1
+✗ README.md:99: file has 3 lines
+✗ src/nowhere.ts:3: not on disk
+? refreshSession(): not found in this repository
+
+>>> /footnotes-widget off
+[assistant] footnotes-widget: Footnotes off.
+[turn ended: success] footnotes-widget: Footnotes off.
+
+--- footnotes-widget store ---
+footnotes-widget_inline-6aad394bf09a.json: {
+  "isOn": false
+}

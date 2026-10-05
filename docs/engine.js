@@ -301,6 +301,7 @@
 
           return { kind: 'file', size: text.length, mtimeMs: 0, isLink: false }
         },
+        exists: async path => textOf(String(path).replaceAll('\\', '/')) !== undefined,
         write: async (path, text) => void files.set(String(path).replaceAll('\\', '/'), String(text)),
         list: async path => listOf(String(path).replaceAll('\\', '/')),
       },

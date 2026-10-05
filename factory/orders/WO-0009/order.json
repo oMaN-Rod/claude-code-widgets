@@ -1,0 +1,114 @@
+{
+  "id": "WO-0009",
+  "kind": "new",
+  "widget": "footnotes-widget",
+  "title": "Footnotes",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T21:07:24.430Z",
+  "closedAt": "2026-10-04T21:31:50.997Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-04T21:10:54.541Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Cost out of proportion: it lowers thinking effort on a crude success-or-failure signal, so a wrong downshift quietly costs answer quality, and whether a per-step effort change spends the prompt cache is unknown; dial-widget already covers the person choosing how hard Claude works.",
+      "subject": "Gearbox"
+    },
+    {
+      "at": "2026-10-04T21:10:54.607Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The engine already defers MCP tools behind ToolSearch, so what is left to move is a small set of built-ins; the headline saving cannot be measured because schema size is not exposed, and the card is a static line decided once per session.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-04T21:10:54.672Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on the built-in @ file mention plus situation-widget and rogue-widget: fuzzy matching of plain words to files will attach wrong paths, and a card that moves on every keystroke costs more attention than two Glob calls save.",
+      "subject": "Sightline"
+    },
+    {
+      "at": "2026-10-04T21:10:54.743Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it depends on transcript scrolling that the types allow only for rows still drawn and may deny outside fullscreen, so its one button fails in exactly the long turn it is for; the away summary alone is gist-widget and owed-widget.",
+      "subject": "Bookmark"
+    },
+    {
+      "at": "2026-10-04T21:10:54.809Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on shelf-widget and notes-widget: kept snippets one press from the clipboard, differing only in how the text is picked, and it needs a second command and a selection that may not survive typing it.",
+      "subject": "Highlighter"
+    },
+    {
+      "at": "2026-10-04T21:10:54.878Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a real first use of prompt.edit and worth a screenshot, but it is a novelty that keeps text the person decided to delete, and its 'softened' count needs a judgment the widget cannot make without a model.",
+      "subject": "Unsaid"
+    },
+    {
+      "at": "2026-10-04T21:10:54.944Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on mirror-widget pointed at Claude: a phrase counter over replies, and the phrases it counts are rare enough in current models that the jar would sit empty.",
+      "subject": "Tic Jar"
+    },
+    {
+      "at": "2026-10-04T21:10:55.009Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Cost out of proportion: a forked model call every turn for a self-report that may be confabulated, and it overlaps aside-widget, parking-widget and confidence-widget.",
+      "subject": "Subtext"
+    },
+    {
+      "at": "2026-10-04T21:11:26.703Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Footnotes is the only idea that checks something no widget checks, the references in Claude's prose, with facts and no model call; its API is all present and its cost is a few process runs per reply."
+    },
+    {
+      "at": "2026-10-04T21:17:14.875Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and call it names is in the types file, all main states are drawn and it is within size; 6 notes, the first being a short form for the all-found row at 20 columns."
+    },
+    {
+      "at": "2026-10-04T21:26:51.890Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built footnotes-widget: a model-free check of every backticked path, cited line and symbol in the last main-loop reply against the working tree, with a one-press correction request; the checker passes with 15 acceptance tests."
+    },
+    {
+      "at": "2026-10-04T21:31:02.839Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker passes, frames read at 20, 40 and 60 columns, the live run matched the spec line for line with only isOn stored; six minor findings, none blocking."
+    },
+    {
+      "at": "2026-10-04T21:31:50.997Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

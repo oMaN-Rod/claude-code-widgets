@@ -1,0 +1,7 @@
+{
+  "title": "Footnotes",
+  "category": "Session",
+  "shows": "Checks every file path, cited line and code symbol in Claude's last reply against the working tree, with no model call, and flags the ones that are not there",
+  "commands": ["/footnotes-widget [on|off|show|clear]"],
+  "cost": ""
+}
