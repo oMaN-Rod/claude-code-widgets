@@ -22,6 +22,7 @@
   ]
   const TURN = [
     { tool: 'Read', input: { file_path: `${ROOT}/src/sum.js` }, ms: 500 },
+    { tool: 'Bash', input: { command: 'cat .env' }, ms: 400, text: `STRIPE_SECRET=sk_live_${'Demo'.repeat(6)}\nDATABASE_URL=postgres://app:made-up-pass@db/app\n` },
     { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, ms: 1400, isError: true, text: 'AssertionError: 5 !== 6\n1 failing' },
     {
       tool: 'Edit',

@@ -1171,6 +1171,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "redact-widget",
+      "source": "./plugins/redact-widget",
+      "description": "Replaces API keys, tokens, private keys and passwords in command output and file reads before Claude sees them",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "redact",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

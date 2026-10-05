@@ -1,0 +1,7 @@
+{
+  "title": "Redact",
+  "category": "Session",
+  "shows": "Replaces API keys, tokens, private keys and passwords in command output and file reads before Claude sees them",
+  "commands": ["/redact-widget [on|off|clear]"],
+  "cost": ""
+}

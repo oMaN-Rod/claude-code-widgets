@@ -1,0 +1,58 @@
+{
+  "id": "WO-0006",
+  "kind": "rebuild",
+  "widget": "redact-widget",
+  "title": "Redact",
+  "brief": "Rebuild to the standard. What it is: Replaces API keys, tokens, private keys and passwords in command output and file reads before Claude sees them. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T20:18:02.656Z",
+  "closedAt": "2026-10-04T20:48:11.024Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-04T20:26:14.757Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and field it names is in the types files, all card states are drawn and fit 20 columns, and the brief's test faults are covered by A1, A12, A14 and A15; 12 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T20:34:47.825Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built redact-widget to the spec: scrub with three passes, a tool.call hook that rewrites Bash, PowerShell, Read and Grep results, the tally card in long and short wording, and 15 acceptance tests; the checker passes."
+    },
+    {
+      "at": "2026-10-04T20:39:19.748Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Works live and matches the spec's card, but scrub has two faults: (1) a URL password with an empty user (redis://:secret@host) passes unscrubbed because the user part requires one character; (2) URL_PASSWORD is quadratic on long runs joined by '-', '.' or '+' (100,000 characters 2.5 s, 500,000 characters 63 s), which stalls the tool call. See inspection.md findings 1 and 2.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-04T20:40:30.408Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed both findings in URL_PASSWORD: the user part may be empty so redis://:secret@host is scrubbed, and the scheme is bounded to 31 characters so scanning is linear (250,000 pairs of a- in about 13 ms); A5 gains the Redis, Celery and amqp samples and a timed scrub of 500,000 characters joined by -, . and +."
+    },
+    {
+      "at": "2026-10-04T20:47:09.989Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Both earlier scrub faults are fixed and proven (empty-user URL passwords are replaced; 500,000 joined characters scrub in under 40 ms), the card matches the spec at 20, 40 and 60 columns, and a fresh live run rewrote Bash, Read and errored results with only isOn stored; one slow path on contrived text is recorded as a non-blocking finding."
+    },
+    {
+      "at": "2026-10-04T20:48:11.024Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

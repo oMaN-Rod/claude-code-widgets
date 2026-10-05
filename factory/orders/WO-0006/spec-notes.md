@@ -1,0 +1,16 @@
+# Spec notes: WO-0006 Redact
+
+No blocking fault. Settle these while building; each is looked at again at inspection.
+
+1. `Read` can also answer `type: "file_unchanged"` (no `content`). The spec names `text`, `notebook`, `pdf`, `parts` and `image` only. Treat it as nothing to scrub: return the same object; say in a test whether it counts as checked.
+2. The unchecked line `2 reads unchecked: PDF, notebook` cannot be built from `tally`, which holds only the number `unchecked`. A8 feeds notebook first and still expects `PDF, notebook`, so read the tail as fixed wording, not a list of what was seen. A list that added `parts` would pass 36 characters at `999+`. With one read it says `1 read unchecked: PDF, notebook`; keep it or shorten it, but stay within 36.
+3. "Each is bounded by `\b`" cannot hold as written for `-----BEGIN ... PRIVATE KEY-----` (it starts and ends on a non-word character) or for a key whose last character is `-`. Use a boundary that works for each shape and prove it in A5 with a key block at the start of a line and at the start of the text.
+4. The label for `last` goes through `scrub`; what it finds there must not be added to `total` or `kinds` (A10 expects the placeholder in the label, A9's counts come from results only).
+5. Whether a `Grep` with no `content`, and a `Bash` result with `isImage` `true`, grow `checked` is not said. A4 and A3 only say "the same object". Pick one, keep it the same for both, and show it in the card count of a test.
+6. `Bash` and `PowerShell` records can carry other text (`structuredContent`, a persisted-output path for large output). The spec scrubs `stdout` and `stderr` only; that is acceptable as "a net for known shapes", but do not widen it silently and do not count such a result as unchecked unless the spec is changed.
+7. The assignment rule does not say what may come before the name. `MAX_TOKENS` is safe because the name must end in the suffix, but decide whether `MY_APP_TOKEN` inside `export MY_APP_TOKEN=...` and a name glued to a lower-case prefix (`myAPI_KEY=`) match, and add a sample of the first to A5.
+8. The URL rule does not bound `user`. Keep it free of whitespace, `/`, `@` and `:` so that `http://localhost:3000/a@b` (A6) and a `host:port/path@x` URL stay unchanged.
+9. The empty sentence wraps to about nine rows at 20 columns. That reads, but check in the frame that no word is split and the card is not taller than the busiest state by much; a shorter sentence below an inner width of 36 would fit the long/short pattern used by every other line.
+10. At 20 columns the title row `Redact` plus note `999+ out`, `watching` or `unchecked` fills the 16 characters exactly (`Redact unchecked` leaves one space). Confirm in the frame that the note is not cut.
+11. The errored path returns `{ deny }` after the tool ran. The types allow the shape, but only the live run shows that core accepts it as the result of a call that already ran and that a later `Edit` still works after a rewritten `Read`. The spec already asks for this; the live prompt must exercise both.
+12. The demo needs one more scripted call in `docs/engine.js` (`Bash` `cat .env`). The engine's errored `Bash` answers with a `result` record beside `isError`, unlike core, where an errored `result` is the error text or undefined; the hook must read only `text` on that path, as the spec says.

@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 64 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 65 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](docs/index.html): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page, so opening the file works, and GitHub Pages can serve it from `docs/`.
 
@@ -50,6 +50,7 @@ What Claude is doing and what it is costing.
 | `sessions-widget` | `/relay <number> <message>`, `/sessions-widget [on\|off]` | Every Claude Code session open on this machine: folder, branch, working or waiting and for how long; `/relay 1 <message>` sends a line to one |
 | `collision-widget` | `/collision-widget [on\|off\|clear]` | Stops an edit to a file another Claude Code session on this machine changed since this one last read it, and has Claude read it again first |
 | `sieve-widget` | `/sieve-widget [on\|off]` | A compaction that keeps every word you and Claude said and folds only the old tool traffic, with no summary and no tokens spent |
+| `redact-widget` | `/redact-widget [on\|off\|clear]` | Replaces API keys, tokens, private keys and passwords in command output and file reads before Claude sees them |
 
 ### Project and git
 
