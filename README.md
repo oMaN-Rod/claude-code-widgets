@@ -200,11 +200,15 @@ Plugins cannot import from one another, so `widgets` shares card stacking and th
 
 New widgets are made by the Widget Factory in `factory/`: a crew of Claude Code agents that takes each widget through ideation, design, build, inspection and shipping, with a different agent inspecting than built it. Clone the repository and you can run your own:
 
+https://github.com/user-attachments/assets/6833eb82-8b2e-4b4c-80ca-4194d48d10e7
+
 ```
 bun run --cwd factory setup   # checks what you need and prepares the floor
 bun run --cwd factory floor   # the factory floor in your browser
 bun run --cwd factory line    # opens a Claude Code session that runs the line
 ```
+
+https://github.com/user-attachments/assets/d0953871-4935-4fa9-8ab3-f58b51739a17
 
 [factory/README.md](factory/README.md) explains the stations, the crew, the widget standard and how to contribute a widget.
 
