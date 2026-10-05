@@ -1358,6 +1358,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "aside-widget",
+      "source": "./plugins/aside-widget",
+      "description": "Ask a side question about the conversation, even mid-turn, and get the answer on a card without adding a turn to the transcript",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "aside",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

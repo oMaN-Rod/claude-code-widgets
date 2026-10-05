@@ -1,0 +1,25 @@
+
+>>> /aside-widget on
+[assistant] aside-widget: Aside on; /widgets places it.
+[turn ended: success] aside-widget: Aside on; /widgets places it.
+
+>>> /aside-widget ask What did I ask first?
+[assistant] aside-widget: Nothing to ask about yet. Finish one turn first.
+[turn ended: success] aside-widget: Nothing to ask about yet. Finish one turn first.
+
+>>> Reply with the one word: ok
+[assistant] ok
+[turn ended: success] ok
+
+>>> /aside-widget ask What one word did you just reply with?
+[assistant] aside-widget: Answered on the Aside card.
+[turn ended: success] aside-widget: Answered on the Aside card.
+
+>>> /aside-widget off
+[assistant] aside-widget: Aside off.
+[turn ended: success] aside-widget: Aside off.
+
+--- aside-widget store ---
+aside-widget_inline-fc73a066e635.json: {
+  "isOn": false
+}

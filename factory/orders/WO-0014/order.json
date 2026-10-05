@@ -1,0 +1,58 @@
+{
+  "id": "WO-0014",
+  "kind": "rebuild",
+  "widget": "aside-widget",
+  "title": "Aside",
+  "brief": "Rebuild to the standard. What it is: Ask a side question about the conversation and get the answer on a card, without adding a turn to the transcript. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T01:03:44.998Z",
+  "closedAt": "2026-10-05T03:43:10.049Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T01:13:17.646Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Spec meets the standard, every named call exists in the types file, all main states and the 20-column card are drawn, and the brief's test faults are covered by A10, A12, A13 and A14; 9 notes in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T01:22:01.807Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built aside-widget: an immediate ask command forks the conversation tool-less, shows the one question and its answer on the card with a turns-old note, with ticketed drop of late replies and 14 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T01:59:38.288Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "One fault: answer rows are measured in code units, not terminal cells, so a CJK or emoji answer has about half of every row cut off with an ellipsis (register.tsx wrapped() and the room cut); measure in cells and add a wide-script test beside A13. All else meets the spec; see inspection.md.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T02:07:12.244Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the inspection finding: answer rows and the eight-row cut are now measured in terminal cells (wide scripts and emoji two, combining marks and joiners none), long words break on cell boundaries, and a second A13 test covers Japanese, Korean and emoji answers at 20 and 40 columns."
+    },
+    {
+      "at": "2026-10-05T02:20:53.180Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The wide-script fault is fixed (rows and the eight-row cut are measured in terminal cells and agree with the renderer's measure for CJK, Hangul and emoji), the live run matches the spec's good run with isOn the only stored key, and nothing else regressed; see inspection.md."
+    },
+    {
+      "at": "2026-10-05T03:43:10.049Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

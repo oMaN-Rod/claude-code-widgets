@@ -74,6 +74,7 @@
     'ledger-widget': { lines: ['scan'] },
     'trial-widget': { lines: [], settleMs: 300 },
     'critic-widget': { lines: ['review'] },
+    'aside-widget': { lines: ['ask Why did the first test fail?'] },
   }
   const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
   const HELD = {

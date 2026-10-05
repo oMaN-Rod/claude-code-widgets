@@ -1,0 +1,7 @@
+{
+  "title": "Aside",
+  "category": "Session",
+  "shows": "Ask a side question about the conversation, even mid-turn, and get the answer on a card without adding a turn to the transcript",
+  "commands": ["/aside-widget [on|off|ask <question>|clear]"],
+  "cost": "One model call per question: the conversation so far, from the prompt cache while it is warm, plus a reply of under 280 characters"
+}
