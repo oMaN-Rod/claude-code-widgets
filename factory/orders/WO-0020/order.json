@@ -1,0 +1,121 @@
+{
+  "id": "WO-0020",
+  "kind": "new",
+  "widget": "loupe-widget",
+  "title": "Loupe",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T04:06:41.818Z",
+  "closedAt": "2026-10-05T08:31:08.297Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T04:13:59.960Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The thinking a hook sees is only what the engine shows live, often a summary or nothing, and matching hedge words against the reply would flag nearly every tool-loop turn, so the card cannot keep its promise of what Claude withheld.",
+      "subject": "Subtext"
+    },
+    {
+      "at": "2026-10-05T04:14:02.654Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The engine already puts MCP tools and its own rarely used tools behind ToolSearch, so the few schemas left to move save little while silently changing which tools Claude reaches for.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T04:14:05.432Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: it is the same idea as Loupe, which states the fullscreen limit and the copy button more exactly; its tool-row source line and colour swatch are folded into Loupe.",
+      "subject": "Lens"
+    },
+    {
+      "at": "2026-10-05T04:14:08.300Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: jumping the transcript is new, but its best moment needs rows from long ago that the transcript may no longer keep drawn and prompt row ids that are unconfirmed, so it may refuse exactly when wanted.",
+      "subject": "Landmarks"
+    },
+    {
+      "at": "2026-10-05T04:14:10.897Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a charming joke, but it cannot tell a softened draft from an ordinary rewrite, and it records what the person chose not to say for a novelty that fades after a day.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T04:14:13.404Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on theseus and onthisday that in a solo repository names the same author on every edit and adds a git blame to each one.",
+      "subject": "Whose Line"
+    },
+    {
+      "at": "2026-10-05T04:14:16.060Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A phrase counter in a pixel jar is a variation on mirror and flow, built on a joke that current models rarely give it coins for.",
+      "subject": "Jar"
+    },
+    {
+      "at": "2026-10-05T04:14:21.020Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Loupe is the first widget that knows what the person is pointing at: selecting a hash, path or symbol in the transcript answers what it is, locally, with no tokens and an API verified in the types file."
+    },
+    {
+      "at": "2026-10-05T04:30:21.809Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every call is in the 2.1.289 types file, all main states are drawn and fit at 20 and 40 columns, demo and live sections are present, 114 lines and 15 acceptance lines; 16 notes for the machinist."
+    },
+    {
+      "at": "2026-10-05T05:10:16.416Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built loupe-widget: a 300 ms selection poll and a look verb that name a colour, commit, timestamp, path or symbol with git and the file system, with tool-row source, copy button and verb, and 15 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T05:42:30.573Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Two build faults: (1) a selected UNC or network path such as \\host\\share\\x is passed straight to fs.exists (register.tsx 169-171), opening a network connection with no timeout where the spec tries paths only under the root and cwd; (2) a symbol answered 'not a git repository' or 'no mention in tracked files' has no copy value (lines 191, 194) though the spec copies the name without a definition and the live run expects 'Copied scratch.', and tests A6 and A14 assert the fault. Also reset-proof the ticket across off and on. See inspection.md.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T06:06:30.555Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the inspection findings on Loupe: UNC selections make no fs call, a name without a definition copies the name in all three cases, and a lookup from before off cannot write after it."
+    },
+    {
+      "at": "2026-10-05T07:06:36.029Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Both faults of the first inspection are fixed and proven by tests (no fs call for a network path, a name without a definition copies the name), the checker passes, frames fit at 20, 40 and 60, and the live run matches the spec with only isOn stored; one minor note on the ticket across off and on."
+    },
+    {
+      "at": "2026-10-05T08:31:08.296Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

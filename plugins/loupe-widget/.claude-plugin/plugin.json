@@ -1,0 +1,20 @@
+{
+  "name": "loupe-widget",
+  "version": "1.0.0",
+  "description": "Select a hash, path, name, timestamp or colour in the transcript with the mouse and the card says what it is, with no model call",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "loupe",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

@@ -1,0 +1,37 @@
+
+>>> /loupe-widget on
+
+>>> /loupe-widget look README.md
+[assistant] loupe-widget: Loupe on; /widgets places it.
+[turn ended: success] loupe-widget: Loupe on; /widgets places it.
+[assistant] loupe-widget: README.md: path · file · 53 B · changed 3h 53m ago
+[turn ended: success] loupe-widget: README.md: path · file · 53 B · changed 3h 53m ago
+
+>>> /loupe-widget look #FF8800
+[assistant] loupe-widget: #FF8800: colour · rgb(255, 136, 0)
+[turn ended: success] loupe-widget: #FF8800: colour · rgb(255, 136, 0)
+
+>>> /loupe-widget look 1759612800
+[assistant] loupe-widget: 1759612800: time · 2025-10-04 21:20:00 UTC · 365d 9h ago
+[turn ended: success] loupe-widget: 1759612800: time · 2025-10-04 21:20:00 UTC · 365d 9h ago
+
+>>> /loupe-widget look scratch
+[assistant] loupe-widget: scratch: symbol · not a git repository
+[turn ended: success] loupe-widget: scratch: symbol · not a git repository
+
+>>> /loupe-widget look
+[assistant] loupe-widget: No selection can be seen outside the fullscreen layout. Try /loupe-widget look <text>.
+[turn ended: success] loupe-widget: No selection can be seen outside the fullscreen layout. Try /loupe-widget look <text>.
+
+>>> /loupe-widget copy
+[assistant] loupe-widget: Could not copy: no-surface
+[turn ended: success] loupe-widget: Could not copy: no-surface
+
+>>> /loupe-widget off
+[assistant] loupe-widget: Loupe off.
+[turn ended: success] loupe-widget: Loupe off.
+
+--- loupe-widget store ---
+loupe-widget_inline-7314d96e910b.json: {
+  "isOn": false
+}

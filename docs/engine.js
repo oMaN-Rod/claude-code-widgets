@@ -77,10 +77,12 @@
     'aside-widget': { lines: ['ask Why did the first test fail?'] },
     'tap-widget': { lines: ['add github list_pull_requests', 'add sentry list_issues'] },
     'margin-widget': { lines: ['mark is this the only loop?', 'send'] },
+    'loupe-widget': { lines: ['look sum'], settleMs: 600 },
   }
   const PULLS = ['Fix the login redirect', 'Bump bun', 'Add dark mode']
   const ISSUES = ['Null user in session.js', 'TypeError in checkout.js', 'Timeout in /api/cart']
   const SELECTED = { text: 'The loop in src/sum.js started at index 1, so the first item was never added.', requestId: 'answer-1' }
+  const PICKED = { 'loupe-widget': turnId => ({ text: 'src/sum.js', requestId: `${turnId}-${TURN.findIndex(call => call.tool === 'Edit')}` }) }
   const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
   const HELD = {
     'trial-widget': {
@@ -140,6 +142,7 @@
     let turns = 0
     let isBusy = false
     let isDirty = false
+    let selected = PICKED[name] === undefined ? SELECTED : undefined
 
     const changed = () => {
       if (isDirty) return
@@ -217,6 +220,13 @@
       if (args[0] === 'diff' && args.includes('--name-only')) return ran(0, 'src/sum.js\n')
       if (args[0] === 'diff') return ran(0, 'diff --git a/src/sum.js b/src/sum.js\n--- a/src/sum.js\n+++ b/src/sum.js\n@@ -3,3 +3,3 @@\n-  for (let i = 1; i < list.length; i += 1) total += list[i]\n+  for (let i = 0; i < list.length; i += 1) total += list[i]\n')
       if (args[0] === 'grep') {
+        if (args.includes('-F') && args.includes('-e')) {
+          const word = args[args.indexOf('-e') + 1] ?? ''
+          const isWhole = line => line.split(word).slice(0, -1).some((before, at, parts) => !/[\w]$/.test(before) && !/^[\w]/.test(line.slice(parts.slice(0, at + 1).join(word).length + word.length)))
+          const rows = word === '' ? [] : tracked.flatMap(path => files.get(`${ROOT}/${path}`).split('\n').map((line, at) => [path, at + 1, line]).filter(([, , line]) => isWhole(line)))
+
+          return rows.length === 0 ? ran(1, '') : ran(0, `${rows.map(([path, at, line]) => `${path}:${at}:${line}`).join('\n')}\n`)
+        }
         if (args.includes('-cI') || args.includes('-c')) {
           const isTodo = args.includes('TODO')
           const rows = tracked.map(path => [path, isTodo ? (files.get(`${ROOT}/${path}`).match(/TODO/g) || []).length : files.get(`${ROOT}/${path}`).split('\n').length - 1])
@@ -229,6 +239,7 @@
       }
       if (args[0] === 'log') {
         if (args.includes('--max-parents=0')) return ran(0, `${day(now - 730 * DAY)}\n`)
+        if (args.includes('--format=%h%x00%s')) return ran(0, `3f2a1c9\x00${COMMITS[0][0]}\n`)
         if (args.includes('--format=%s')) return ran(0, `${COMMITS[0][0]}\n`)
         if (args.includes('--format=%ct')) return ran(0, `${Math.floor((now - COMMITS[0][2] * DAY) / 1000)}\n`)
         const since = args.find(arg => arg.startsWith('--since='))
@@ -321,7 +332,7 @@
         close: async () => ({}),
         invalidate: async () => void changed(),
         notice: async () => ({}),
-        selection: async () => ({ ...SELECTED }),
+        selection: async () => (selected === undefined ? undefined : { ...selected }),
         focus: async () => ({}),
       },
       widgets: root.DEMO_MODS.kit,
@@ -340,11 +351,11 @@
 
           return text
         },
-        stat: async path => {
+        stat: async (path, options) => {
           const text = textOf(String(path).replaceAll('\\', '/'))
           if (text === undefined) throw new Error(`no such file: ${path}`)
 
-          return { kind: 'file', size: text.length, mtimeMs: 0, isLink: false }
+          return { kind: 'file', size: text.length, mtimeMs: 0, isLink: false, ...(options?.resolve === true ? { realPath: String(path).replaceAll('\\', '/') } : {}) }
         },
         exists: async path => textOf(String(path).replaceAll('\\', '/')) !== undefined,
         write: async (path, text) => void files.set(String(path).replaceAll('\\', '/'), String(text)),
@@ -455,6 +466,7 @@
         transcript.push(...spoken(turnId, text, ANSWER))
         await measure(['context', 'rateLimits', 'cost'])
         await dispatch('turn.complete', { answer: ANSWER, durationMs: Date.now() - startedAt, isAborted: false, turnId, reason: 'answer' }, e => ({ text: e.answer }))
+        if (PICKED[name] !== undefined) selected = PICKED[name](turnId)
         files.set(`${ROOT}/src/sum.js`, FILES['src/sum.js'])
         await sleep(OPENING[name]?.settleMs ?? 0)
       } finally {
