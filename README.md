@@ -178,6 +178,18 @@ Plugins cannot import from one another, so `widgets` shares card stacking and th
 
 `docs/` is the demo page. `bun run site/build.ts` bundles every widget's hooks module into `docs/mods.js` and writes `docs/catalog.js` from the tables above, so a new widget appears on the page once it has a row here. `docs/engine.js` is a small stand-in for the mod engine (state, store, clock, commands, a made-up project and a scripted turn), and `docs/view.js` draws the card trees. `bun run site/smoke.ts` boots every widget in that engine and runs a turn; a widget that needs an engine call the stand-in lacks shows up there. `docs/widgets.js` holds recordings from the real interface, shown only if a widget fails to start.
 
+## The Widget Factory
+
+New widgets are made by the Widget Factory in `factory/`: a crew of Claude Code agents that takes each widget through ideation, design, build, inspection and shipping, with a different agent inspecting than built it. Clone the repository and you can run your own:
+
+```
+bun run --cwd factory setup   # checks what you need and prepares the floor
+bun run --cwd factory floor   # the factory floor in your browser
+bun run --cwd factory line    # starts a director session that runs the line
+```
+
+[factory/README.md](factory/README.md) explains the stations, the crew, the widget standard and how to contribute a widget.
+
 ## License
 
 MIT
