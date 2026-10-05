@@ -1,0 +1,51 @@
+{
+  "id": "WO-0011",
+  "kind": "rebuild",
+  "widget": "trial-widget",
+  "title": "Trial",
+  "brief": "Rebuild to the standard. What it is: Runs a fair experiment on another widget: alternate sessions with it on and off, and compare how many turns end clean. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T23:44:44.639Z",
+  "closedAt": "2026-10-05T02:10:09.802Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T00:00:19.747Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. The spec breaks the standard's Lifecycle storage rule (STANDARD.md line 47: $.store is across sessions and read once per session; data shared live between sessions belongs in a file under $.plugin.root). The trial's runs are shared live between sessions but are kept only in the store key 'trial' ('No files'). In the real engine a session's store is cached at its start, so the 'read the store's trial again' step in State and storage returns this session's own stale copy: it never sees a run another open session wrote, nor another session's clear. The following $.store.set of the whole 'trial' value then wipes the other session's run and brings a cleared trial back. A7 (another session's later run survives this session's next write and shows in the totals; a trial ended elsewhere stops the writing and empties the card) and the Off section's rejoin cannot hold outside the kit's map-backed store. Right looks like: the trial (subject and runs) lives in one file under $.plugin.root, read and written with $.fs at join, after each counted turn, at test and at clear, named in Data and in State and storage, with the store holding only isOn; A2, A7, A10 and A11 and the Demo stand-in and Live expectation reworded to the file. Everything else passed review; do not redesign the rest.",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-05T00:03:06.174Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The earlier rejection is fixed (the trial now lives in a file under the plugin root and the store holds isOn only), no blocking fault in what changed, 12 notes in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T00:28:34.526Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built trial-widget to the spec: one command with test and clear, the trial kept in trial.json under the plugin root, a 50 ms join that switches the subject, and 14 acceptance tests; the checker prints PASS with the default Claude Code config but, run as written, stops at 'hooks modules are turned off' because ~/.claude-factory has the rollout switch saved off (every floor widget fails the same way)."
+    },
+    {
+      "at": "2026-10-05T00:57:27.808Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Built faithfully to the spec: every state matches its drawing at 20, 40 and 60 columns, off is inert, the live run is the spec's good run with only isOn stored; five minor findings and three items no run can prove (real subject switch, 50 ms join timing, slash commands counted as turns) are in inspection.md."
+    },
+    {
+      "at": "2026-10-05T02:10:09.802Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+
+>>> /trial-widget on
+[assistant] trial-widget: Trial on; /widgets places it.
+[turn ended: success] trial-widget: Trial on; /widgets places it.
+
+>>> /trial-widget test moon
+[assistant] trial-widget: No widget called moon-widget.
+[turn ended: success] trial-widget: No widget called moon-widget.
+
+>>> Reply with the single word one.
+[assistant] one
+[turn ended: success] one
+
+>>> /trial-widget clear
+[assistant] trial-widget: No trial is running.
+[turn ended: success] trial-widget: No trial is running.
+
+--- trial-widget store ---
+trial-widget_inline-ffa32f6f387f.json: {
+  "isOn": true
+}

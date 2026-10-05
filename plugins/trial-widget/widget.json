@@ -1,0 +1,7 @@
+{
+  "title": "Trial",
+  "category": "Session",
+  "shows": "A fair test of another widget: sessions alternate with it on and off, and the card compares how many turns end clean",
+  "commands": ["/trial-widget [on|off|test <widget>|clear]"],
+  "cost": ""
+}

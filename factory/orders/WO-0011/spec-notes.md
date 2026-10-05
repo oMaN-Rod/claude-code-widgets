@@ -1,0 +1,16 @@
+# WO-0011 Trial: spec notes
+
+The spec passed its second review. The rejection of the first (the trial kept in the store) is fixed: the trial lives in `${$.plugin.root}/trial.json`, and the store holds `isOn` only. These notes are for the machinist to settle while building; each is checked at inspection.
+
+1. Types. The spec could not check its calls against the types file. `$.fs.read`, `$.fs.write`, `$.plugin.root` and `$.session.id` are used by the shipped `sessions-widget`; `$.command.list` and the argument of `$.command.run({ command, args })` are not proven anywhere I looked. Check both against `types/index.d.ts` before writing the join. If either does not exist in that shape, stop and send the order back to design; do not invent a substitute.
+2. Kit. `ground()` has no answer for `command.list`; pass it (and `session.id` for a second session) through `given.answers`. Do not edit the stamped kit.
+3. Two sessions closing a turn at the same moment can each read the file before the other writes, so one run's latest count is lost until that session's next counted turn writes its whole run again. That is acceptable; keep the write "whole run from the state", never an increment of what was read, so it heals.
+4. A session that switches off and on again before its first counted turn has no run in the file, so its second join picks the arm afresh and may flip the subject's switch. Accepted by the spec's rule; make sure the note and the `clear` sentence follow the second arm.
+5. A prompt sent in the 50 ms before the join is not counted (turns close only while joined). Make sure `isOpen` from such a prompt cannot make the following turn count twice or count with no prompt of its own.
+6. The check-command pattern also matches harmless commands that mention a word in it (`ls build`, `cat test.log`). A failure of one marks the turn unclean. Keep the pattern as the spec gives it, but have an A5 case show what happens, so the behaviour is on record.
+7. `clear` sums "the file's runs with this session's run put in": when the file already holds this session's run, replace it, do not add it twice. Same for the card's totals.
+8. Card arithmetic to hold: `without is ahead` and `on  100% of 1.2k` are exactly 16 characters, so there is no slack; 999 turns must not be compacted and 1,000 reads `1.0k` or `1k`, pick one and test it. In the long wording the turns use a thousands separator (`1,234 turns`).
+9. The empty sentence wraps at 20 columns; check no word is cut (`/trial-widget` is 13 characters) and the wrapped lines stay inside the border.
+10. Demo. The stand-in needs a file at `/demo/plugins/trial-widget/trial.json` and `moon-widget` in `command.list`; if the demo engine cannot seed a file, say so in the build log, do not fake the card. The figures are right: 29 turns with 27 clean is 93%, 30 with 20 is 67%, and the scripted clean turn gives z of about 2.58.
+11. Live. The named run proves the commands, `$.command.list` and a missing-file read, but not the file write or the switching of a real subject. Say so in the build log; inspection will read the write path in `register.tsx` closely for that reason.
+12. A write that throws is caught: make sure the card still shows this session's count from the state when that happens, and that nothing is logged or toasted.

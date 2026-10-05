@@ -70,7 +70,18 @@
     'queue-widget': { lines: ['until npm test', 'add update the changelog', 'add bump the version'], settleMs: 900 },
     'done-widget': { lines: ['add the tests pass', 'add the fix is committed'] },
     'ledger-widget': { lines: ['scan'] },
+    'trial-widget': { lines: [], settleMs: 300 },
   }
+  const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
+  const HELD = {
+    'trial-widget': {
+      'trial.json': JSON.stringify({
+        subject: 'moon-widget',
+        runs: { a: arm(true, 10, 9), b: arm(true, 10, 9), c: arm(true, 9, 9), d: arm(false, 10, 7), e: arm(false, 10, 6), f: arm(false, 10, 7) },
+      }),
+    },
+  }
+  const BESIDE = { 'trial-widget': ['moon-widget'] }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)
@@ -105,7 +116,10 @@
     const hooks = []
     const state = new Map([['widgets/site', 'side'], ['widgets/widths', widths]])
     const store = new Map()
-    const files = new Map(Object.entries(FILES).map(([path, text]) => [`${ROOT}/${path}`, text]))
+    const files = new Map([
+      ...Object.entries(FILES).map(([path, text]) => [`${ROOT}/${path}`, text]),
+      ...Object.entries(HELD[name] ?? {}).map(([path, text]) => [`/demo/plugins/${name}/${path}`, text]),
+    ])
     const commands = []
     const tools = new Set()
     const timers = new Set()
@@ -181,7 +195,7 @@
     const git = argv => {
       const args = argv.slice(1).filter(arg => arg !== '--no-optional-locks')
       const now = Date.now()
-      const tracked = [...files.keys()].map(path => path.slice(ROOT.length + 1)).sort()
+      const tracked = [...files.keys()].filter(path => path.startsWith(`${ROOT}/`)).map(path => path.slice(ROOT.length + 1)).sort()
       if (args[0] === 'ls-files') return ran(0, `${tracked.join('\n')}\n`)
       if (args[0] === 'status') {
         const isV2 = args.includes('--porcelain=v2')
@@ -278,7 +292,7 @@
           return { command: entry.name }
         },
         run: e => dispatch('command.run', e, () => ({})),
-        list: async () => commands.map(entry => ({ ...entry, plugin: name })),
+        list: async () => [...commands.map(entry => ({ ...entry, plugin: name })), ...(BESIDE[name] ?? []).map(other => ({ name: other, description: '', plugin: other }))],
       },
       ui: {
         resolve: () => ELEMENTS,

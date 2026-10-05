@@ -1,0 +1,94 @@
+{
+  "agents": {
+    "a41bb4d8617a3cfda": {
+      "label": "build:WO-0011",
+      "input": 142,
+      "output": 60413,
+      "cacheWrite": 238630,
+      "cacheRead": 9879572,
+      "usd": 4.377892399999999,
+      "unpriced": 0,
+      "guessed": 47032
+    },
+    "a5ca458728ba32702": {
+      "label": "review-spec:WO-0011",
+      "input": 22,
+      "output": 4738,
+      "cacheWrite": 61383,
+      "cacheRead": 487576,
+      "usd": 0.49927819999999995,
+      "unpriced": 0,
+      "guessed": 3197
+    },
+    "a8f9027f9e6b4d846": {
+      "label": "design:WO-0011",
+      "input": 14,
+      "output": 13435,
+      "cacheWrite": 36971,
+      "cacheRead": 316384,
+      "usd": 0.5168878,
+      "unpriced": 0,
+      "guessed": 10800
+    },
+    "aa091a66eaa4da1bd": {
+      "label": "design:WO-0011",
+      "input": 34,
+      "output": 12395,
+      "cacheWrite": 89457,
+      "cacheRead": 892212,
+      "usd": 0.8737634000000001,
+      "unpriced": 0,
+      "guessed": 11899
+    },
+    "ac02dbfe757b89253": {
+      "label": "review-spec:WO-0011",
+      "input": 12,
+      "output": 3333,
+      "cacheWrite": 31392,
+      "cacheRead": 265999,
+      "usd": 0.2768678,
+      "unpriced": 0,
+      "guessed": 2632
+    },
+    "ac71b2dd2aa3bccc6": {
+      "label": "inspect:WO-0011",
+      "input": 44,
+      "output": 18314,
+      "cacheWrite": 121836,
+      "cacheRead": 1931516,
+      "usd": 1.3619391999999997,
+      "unpriced": 0,
+      "guessed": 8001
+    },
+    "a6801257a196d0b32": {
+      "label": "ship:WO-0011",
+      "input": 6,
+      "output": 853,
+      "cacheWrite": 18141,
+      "cacheRead": 96117,
+      "usd": 0.1270124,
+      "unpriced": 0,
+      "guessed": 62
+    },
+    "a794ce40cdb390173": {
+      "label": "ship:WO-0011",
+      "input": 16,
+      "output": 2175,
+      "cacheWrite": 55816,
+      "cacheRead": 336030,
+      "usd": 0.38985000000000003,
+      "unpriced": 0,
+      "guessed": 1246
+    },
+    "a47a7fc0d07932693": {
+      "label": "ship:WO-0011",
+      "input": 16,
+      "output": 3421,
+      "cacheWrite": 55786,
+      "cacheRead": 302496,
+      "usd": 0.4079132,
+      "unpriced": 0,
+      "guessed": 1365
+    }
+  }
+}

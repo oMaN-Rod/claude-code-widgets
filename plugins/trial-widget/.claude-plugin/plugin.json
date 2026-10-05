@@ -1,0 +1,20 @@
+{
+  "name": "trial-widget",
+  "version": "1.0.0",
+  "description": "A fair test of another widget: sessions alternate with it on and off, and the card compares how many turns end clean",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "trial",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

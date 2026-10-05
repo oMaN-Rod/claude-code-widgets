@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 72 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 73 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
@@ -56,6 +56,7 @@ What Claude is doing and what it is costing.
 | `witness-widget` | `/witness-widget [on\|off\|show\|clear]` | Every line of hidden context the other widgets add to your prompts, word for word, with a running size |
 | `queue-widget` | `/queue-widget [on\|off\|add <prompt>\|until <command\|off>\|start\|drop <number>\|report\|clear]` | A queue of prompts that run back to back while you are away, a gate command each must pass before the next starts, and a report of how each one ended |
 | `done-widget` | `/done-widget [on\|off\|add <criterion>\|drop <number>\|show\|clear]` | A definition of done you write once: Claude ticks each item with evidence through its tick tool, and is pulled up when it says done with items open |
+| `trial-widget` | `/trial-widget [on\|off\|test <widget>\|clear]` | A fair test of another widget: sessions alternate with it on and off, and the card compares how many turns end clean |
 
 ### Project and git
 
