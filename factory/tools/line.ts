@@ -1,12 +1,13 @@
 import { ROOT, fail, flag } from './lib'
 
-const USAGE = `Usage: bun factory/tools/line.ts [--until <n>] [--interactive] [--print] [-- <extra claude arguments>]
+const USAGE = `Usage: bun factory/tools/line.ts [--until <n>] [--headless] [--print] [-- <extra claude arguments>]
 
-Starts a Claude Code session in this repository as the factory's director. It follows
-factory/DIRECTOR.md: refill the floor, run the line, make the live runs, check what shipped.
+Opens a Claude Code session in this repository with the director's instruction already sent.
+The session follows factory/DIRECTOR.md: refill the floor, run the line, make the live runs,
+check what shipped. You can watch it work, answer its questions and steer it.
 
   --until <n>     stop once <n> more orders have shipped or been scrapped (default 3)
-  --interactive   open a normal session with the instruction typed in, to watch and steer
+  --headless      run without the interface and print the report at the end, for unattended use
   --print         show the command and the instruction without starting anything
   -- ...          anything after -- is passed to claude, for example a permission mode`
 
@@ -28,7 +29,7 @@ const instruction = [
   `Stop once ${until} more order${until === 1 ? ' has' : 's have'} shipped or been scrapped, or as soon as something needs me.`,
   'End with a short report: what shipped, what is still on the floor and at which station, and anything that needs my decision.',
 ].join(' ')
-const argv = ['claude', ...(own.includes('--interactive') ? [] : ['-p']), instruction, ...extra]
+const argv = ['claude', ...(own.includes('--headless') ? ['-p'] : []), instruction, ...extra]
 
 if (own.includes('--print')) {
   console.log(argv.map(part => (part.includes(' ') ? JSON.stringify(part) : part)).join(' '))

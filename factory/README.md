@@ -24,12 +24,12 @@ Clone the repository and you have your own factory: its own floor, its own order
 ```
 bun run --cwd factory setup     # checks the tools, installs dependencies, prepares the floor
 bun run --cwd factory floor     # the factory floor in your browser, also on your network
-bun run --cwd factory line      # starts a director session that runs the line
+bun run --cwd factory line      # opens a Claude Code session that runs the line as its director
 bun run --cwd factory board     # the board in the terminal
 ```
 
 - **Setup** says what is missing. The one manual step is a separate Claude Code login for live runs: start `claude` once with `CLAUDE_CONFIG_DIR` set to `~/.claude-factory` (or the folder named in `FACTORY_CONFIG_DIR`) and run `/login`. The factory tests widgets there, never in your own setup.
-- **The line** opens a Claude Code session with the director's instructions from `factory/DIRECTOR.md`. It opens orders for new inventions, runs the `widget-line` workflow, makes the live runs and checks what shipped. `bun factory/tools/line.ts --until 5` sets how many orders to finish, `--interactive` opens a session you can watch and steer, and anything after `--` goes to `claude` (a permission mode, for instance).
+- **The line** opens a normal Claude Code session with the director's instruction already sent, so you can watch it work, answer its questions and steer it. It follows `factory/DIRECTOR.md`: open orders for new inventions, run the `widget-line` workflow, make the live runs and check what shipped. `bun factory/tools/line.ts --until 5` sets how many orders to finish, `--headless` runs it without the interface and prints a report at the end, and anything after `--` goes to `claude` (a permission mode, for instance). You can also start it by hand: open `claude` in the repository and ask it to run the Widget Factory as its director, following `factory/DIRECTOR.md`.
 - **Permissions.** `.claude/settings.json` allows the crew to run the factory's own tools. Everything else follows your Claude Code permission settings, so an unattended line needs a mode that lets agents edit files and run `bun`, `git` and `claude plugin` in this repository.
 - **Contributing.** A shipped widget is one commit: the widget, its closed work order, its README row, its marketplace entry and the demo page. Send that commit as a pull request. Changes to the factory itself (the standard, the tools, the crew's briefs) go in their own commits.
 - **Moving a factory.** The floor is outside git. `bun factory/tools/move.ts pack` puts it in one archive and `bun factory/tools/move.ts unpack <file>` restores it after cloning on the new machine. Run setup and log in for live runs there too.

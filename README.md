@@ -194,7 +194,7 @@ New widgets are made by the Widget Factory in `factory/`: a crew of Claude Code 
 ```
 bun run --cwd factory setup   # checks what you need and prepares the floor
 bun run --cwd factory floor   # the factory floor in your browser
-bun run --cwd factory line    # starts a director session that runs the line
+bun run --cwd factory line    # opens a Claude Code session that runs the line
 ```
 
 [factory/README.md](factory/README.md) explains the stations, the crew, the widget standard and how to contribute a widget.

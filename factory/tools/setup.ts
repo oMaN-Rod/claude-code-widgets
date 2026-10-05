@@ -45,7 +45,7 @@ console.log(lines.join('\n'))
 console.log(`\n${open.length} order(s) on the floor, ${allIds().length - open.length} closed.`)
 console.log(
   missing === 0
-    ? `\nReady. Next:\n  bun run --cwd factory floor     the factory floor in your browser\n  bun run --cwd factory line      start the line with a director session\n  bun run --cwd factory board     the board in the terminal`
+    ? `\nReady. Next:\n  bun run --cwd factory floor     the factory floor in your browser\n  bun run --cwd factory line      open a Claude Code session that runs the line\n  bun run --cwd factory board     the board in the terminal`
     : `\n${missing} thing(s) to do first, marked TODO above. Then run this again.`,
 )
 process.exit(missing === 0 ? 0 : 1)
