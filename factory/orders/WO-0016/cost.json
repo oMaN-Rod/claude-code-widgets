@@ -1,0 +1,104 @@
+{
+  "agents": {
+    "a059bb0dfa6f98b14": {
+      "label": "invent:capability:WO-0016",
+      "input": 26,
+      "output": 5814,
+      "cacheWrite": 77799,
+      "cacheRead": 621296,
+      "usd": 0.6296382,
+      "unpriced": 0,
+      "guessed": 2826
+    },
+    "a11e1478d2312591d": {
+      "label": "invent:person:WO-0016",
+      "input": 16,
+      "output": 3733,
+      "cacheWrite": 44094,
+      "cacheRead": 333922,
+      "usd": 0.36197840000000003,
+      "unpriced": 0,
+      "guessed": 1772
+    },
+    "ac7b008108a09eced": {
+      "label": "invent:delight:WO-0016",
+      "input": 16,
+      "output": 5602,
+      "cacheWrite": 66044,
+      "cacheRead": 285941,
+      "usd": 0.4995122,
+      "unpriced": 0,
+      "guessed": 0
+    },
+    "afbd12aae61e866ec": {
+      "label": "examine:WO-0016",
+      "input": 22,
+      "output": 9008,
+      "cacheWrite": 68579,
+      "cacheRead": 471428,
+      "usd": 0.6174285999999999,
+      "unpriced": 0,
+      "guessed": 2962
+    },
+    "a7e3214ba577cb031": {
+      "label": "design:WO-0016",
+      "input": 34,
+      "output": 17128,
+      "cacheWrite": 76373,
+      "cacheRead": 1020303,
+      "usd": 0.9286216,
+      "unpriced": 0,
+      "guessed": 12361
+    },
+    "a5cc62481ba93cbae": {
+      "label": "review-spec:WO-0016",
+      "input": 24,
+      "output": 4392,
+      "cacheWrite": 66488,
+      "cacheRead": 517609,
+      "usd": 0.5238978,
+      "unpriced": 0,
+      "guessed": 3668
+    },
+    "afb5c9bb44b75fd24": {
+      "label": "build:WO-0016",
+      "input": 60,
+      "output": 42166,
+      "cacheWrite": 171312,
+      "cacheRead": 3424710,
+      "usd": 2.385062,
+      "unpriced": 0,
+      "guessed": 10219
+    },
+    "a43e118ab67f7f214": {
+      "label": "design:WO-0016",
+      "input": 8,
+      "output": 2812,
+      "cacheWrite": 23864,
+      "cacheRead": 148922,
+      "usd": 0.20537640000000001,
+      "unpriced": 0,
+      "guessed": 1784
+    },
+    "ab1b8e7f48258c15f": {
+      "label": "review-spec:WO-0016",
+      "input": 14,
+      "output": 2185,
+      "cacheWrite": 24617,
+      "cacheRead": 301830,
+      "usd": 0.227207,
+      "unpriced": 0,
+      "guessed": 1781
+    },
+    "a8d32e717819e7334": {
+      "label": "build:WO-0016",
+      "input": 14,
+      "output": 2739,
+      "cacheWrite": 47536,
+      "cacheRead": 368883,
+      "usd": 0.3662926,
+      "unpriced": 0,
+      "guessed": 1146
+    }
+  }
+}

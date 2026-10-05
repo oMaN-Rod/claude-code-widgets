@@ -1,0 +1,20 @@
+{
+  "name": "margin-widget",
+  "version": "1.0.0",
+  "description": "Mark passages of Claude's reply with the mouse, write a remark against each, and send them back as one quoted prompt",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "margin",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

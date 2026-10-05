@@ -76,9 +76,11 @@
     'critic-widget': { lines: ['review'] },
     'aside-widget': { lines: ['ask Why did the first test fail?'] },
     'tap-widget': { lines: ['add github list_pull_requests', 'add sentry list_issues'] },
+    'margin-widget': { lines: ['mark is this the only loop?', 'send'] },
   }
   const PULLS = ['Fix the login redirect', 'Bump bun', 'Add dark mode']
   const ISSUES = ['Null user in session.js', 'TypeError in checkout.js', 'Timeout in /api/cart']
+  const SELECTED = { text: 'The loop in src/sum.js started at index 1, so the first item was never added.', requestId: 'answer-1' }
   const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
   const HELD = {
     'trial-widget': {
@@ -98,6 +100,7 @@
     return { type, props: rest, children: flat([children === undefined ? [] : children]) }
   }
   const ELEMENTS = Object.fromEntries(['Box', 'Text', 'Code', 'Button', 'Client', 'Input', 'Select', 'Link', 'Spacer'].map(name => [name, tag(name)]))
+  ELEMENTS.Input = props => ({ type: 'Input', props: props || {}, children: [{ type: 'Text', props: { dimColor: true, wrap: 'truncate-end' }, children: [String(props?.value || props?.placeholder || '')] }] })
   root.h = (type, props, ...children) => (typeof type === 'function' ? type({ ...(props || {}), children: flat(children) }) : { type, props: props || {}, children: flat(children) })
   root.Fragment = tag('Fragment')
 
@@ -318,6 +321,8 @@
         close: async () => ({}),
         invalidate: async () => void changed(),
         notice: async () => ({}),
+        selection: async () => ({ ...SELECTED }),
+        focus: async () => ({}),
       },
       widgets: root.DEMO_MODS.kit,
       process: {
@@ -376,7 +381,7 @@
           return { isAnswered: true, text: 'Only the loop start in src/sum.js changed: it began at 1 and now begins at 0.', usage: { input_tokens: 400, output_tokens: 30, cache_read_input_tokens: 9000, cache_creation_input_tokens: 0 } }
         },
       },
-      prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({}), read: async () => ({ text: 'fix src/formt.js and test.js', cursor: 28 }) },
+      prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({ isFilled: true, text: '', cursor: 0 }), read: async () => ({ text: 'fix src/formt.js and test.js', cursor: 28 }) },
       http: { fetch: async () => ({ ok: true, status: 200, text: 'ok' }) },
       env: { get: async key => (key === 'HOME' ? HOME : undefined) },
       audio: { play: async () => ({}) },
@@ -493,7 +498,7 @@
       render: columns =>
         dispatch(
           'ui.render',
-          { component: 'Pane', requestId: 'widgets', surface: 'terminal', props: { title: 'Widgets', isFocused: false, bodyColumns: columns, placement: 'dock' } },
+          { component: 'Pane', requestId: 'widgets', surface: 'terminal', viewport: { isFullscreen: true }, props: { title: 'Widgets', isFocused: false, bodyColumns: columns, placement: 'dock' } },
           () => ({ type: 'Box', props: {}, children: [] }),
         ),
       stop: () => {

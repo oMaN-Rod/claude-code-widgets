@@ -1392,6 +1392,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "margin-widget",
+      "source": "./plugins/margin-widget",
+      "description": "Mark passages of Claude's reply with the mouse, write a remark against each, and send them back as one quoted prompt",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "margin",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

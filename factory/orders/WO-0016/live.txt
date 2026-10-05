@@ -1,0 +1,29 @@
+
+>>> /margin-widget on
+
+>>> /margin-widget mark why here
+[assistant] margin-widget: Margin on; /widgets places it.
+[turn ended: success] margin-widget: Margin on; /widgets places it.
+[assistant] margin-widget: Margin needs fullscreen: /tui fullscreen
+[turn ended: success] margin-widget: Margin needs fullscreen: /tui fullscreen
+
+>>> /margin-widget send
+[assistant] margin-widget: No marks to send.
+[turn ended: success] margin-widget: No marks to send.
+
+>>> /margin-widget drop 1
+[assistant] margin-widget: No mark 1.
+[turn ended: success] margin-widget: No mark 1.
+
+>>> /margin-widget clear
+[assistant] margin-widget: Margin cleared.
+[turn ended: success] margin-widget: Margin cleared.
+
+>>> /margin-widget off
+[assistant] margin-widget: Margin off.
+[turn ended: success] margin-widget: Margin off.
+
+--- margin-widget store ---
+margin-widget_inline-0df394b0a351.json: {
+  "isOn": false
+}

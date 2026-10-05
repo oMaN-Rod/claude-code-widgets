@@ -1,0 +1,7 @@
+{
+  "title": "Margin",
+  "category": "Session",
+  "shows": "Mark passages of Claude's reply with the mouse, write a remark against each, and send them back as one quoted prompt",
+  "commands": ["/margin-widget [on|off|mark [remark]|drop <n>|send|clear]"],
+  "cost": ""
+}
