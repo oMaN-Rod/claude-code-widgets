@@ -9,3 +9,13 @@ Thumbs.db
 # Written by widgets that share data between sessions
 plugins/*/.sessions.json
 plugins/*/.home.json
+
+# The factory floor: open work orders and widgets still being built
+factory/floor/
+
+# Written by Claude Code beside the control-room mod
+factory/control-room/*/.claude-plugin/types/
+factory/control-room/*/tsconfig.json
+
+# A packed factory floor, on its way to another machine
+factory-floor.tgz

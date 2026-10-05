@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun factory/tools/live.ts:*)",
+      "Bash(bun factory/tools/render.ts:*)",
+      "Bash(bun factory/tools/check.ts:*)",
+      "Bash(bun factory/tools/order.ts:*)",
+      "Bash(bun factory/tools/scaffold.ts:*)",
+      "Bash(bun factory/tools/ship.ts:*)",
+      "Bash(bun factory/tools/setup.ts:*)",
+      "Bash(bun factory/tools/serve.ts:*)",
+      "Bash(bun site/build.ts:*)",
+      "Bash(bun site/smoke.ts:*)",
+      "Bash(claude plugin validate:*)",
+      "Bash(claude plugin test:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  }
+}

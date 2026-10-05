@@ -47,10 +47,10 @@
   const ran = (exitCode, stdout) => ({ exitCode, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false })
   const day = at => new Date(at).toISOString().slice(0, 10)
 
-  const create = (name, { onChange = () => {}, onToast = () => {}, onPrint = () => {}, pace = 1 } = {}) => {
+  const create = (name, { onChange = () => {}, onToast = () => {}, onPrint = () => {}, pace = 1, widths = {} } = {}) => {
     const mod = root.DEMO_MODS.mods[name]
     const hooks = []
-    const state = new Map([['widgets/site', 'side'], ['widgets/widths', {}]])
+    const state = new Map([['widgets/site', 'side'], ['widgets/widths', widths]])
     const store = new Map()
     const files = new Map(Object.entries(FILES).map(([path, text]) => [`${ROOT}/${path}`, text]))
     const commands = []

@@ -1,0 +1,337 @@
+{
+  "target": 3,
+  "newEvery": 3,
+  "newBrief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "rebuilds": [
+    {
+      "widget": "witness-widget",
+      "title": "Witness",
+      "brief": "Rebuild to the standard. What it is: Shows every line of hidden context the other widgets add to your prompts, verbatim, with a running size. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "redact-widget",
+      "title": "Redact",
+      "brief": "Rebuild to the standard. What it is: Replaces API keys, tokens, private keys and passwords in command output and file reads before Claude sees them. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "notebook-widget",
+      "title": "Notebook",
+      "brief": "Rebuild to the standard. What it is: Gives Claude a note tool for writing down what its future self should know about this project, and reads the notes back next session. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "done-widget",
+      "title": "Done",
+      "brief": "Rebuild to the standard. What it is: A definition of done you write once: Claude ticks each item with evidence through a tool, and is pulled up when it says done with items open. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "queue-widget",
+      "title": "Queue",
+      "brief": "Rebuild to the standard. What it is: A queue of prompts that run back to back, a gate that keeps each going until a command passes, and a report of what happened. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "trial-widget",
+      "title": "Trial",
+      "brief": "Rebuild to the standard. What it is: Runs a fair experiment on another widget: alternate sessions with it on and off, and compare how many turns end clean. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "ledger-widget",
+      "title": "Ledger",
+      "brief": "Rebuild to the standard. What it is: What a project has cost across every session, from any folder or worktree in it: measured as you go, and read back from saved sessions. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "aside-widget",
+      "title": "Aside",
+      "brief": "Rebuild to the standard. What it is: Ask a side question about the conversation and get the answer on a card, without adding a turn to the transcript. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "critic-widget",
+      "title": "Critic",
+      "brief": "Rebuild to the standard. What it is: A second pair of eyes: an independent model reads the diff and lists only real defects, which you can hand to Claude. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "baton-widget",
+      "title": "Baton",
+      "brief": "Rebuild to the standard. What it is: Writes a handoff file after every turn so the next session, or a teammate, can pick up where this one stopped. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "runway-widget",
+      "title": "Runway",
+      "brief": "Rebuild to the standard. What it is: Projects whether each rate-limit window will last until it resets at the pace you are going. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "anchor-widget",
+      "title": "Anchor",
+      "brief": "Rebuild to the standard. What it is: Facts pinned to survive compaction: told to Claude again after every one. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "lessons-widget",
+      "title": "Lessons",
+      "brief": "Rebuild to the standard. What it is: Catches the corrections you give Claude and keeps the ones you choose as standing rules. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "playbook-widget",
+      "title": "Playbook",
+      "brief": "Rebuild to the standard. What it is: Learns which commands work in each project and tells Claude at the start of the next session. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "pitfalls-widget",
+      "title": "Pitfalls",
+      "brief": "Rebuild to the standard. What it is: Remembers which command failed and which one then worked, and stops Claude repeating the failing one. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "blackbox-widget",
+      "title": "Blackbox",
+      "brief": "Rebuild to the standard. What it is: A flight recorder of the last 200 session events, saved to a file when a turn fails. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "bonsai-widget",
+      "title": "Bonsai",
+      "brief": "Rebuild to the standard. What it is: A bonsai for each project that grows a branch every session: leaves for passing checks, blossoms for commits. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "bottleneck-widget",
+      "title": "Bottleneck",
+      "brief": "Rebuild to the standard. What it is: Time Claude spent working against time it spent waiting on you. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "breaker-widget",
+      "title": "Breaker",
+      "brief": "Rebuild to the standard. What it is: A circuit breaker that stops a turn once it passes a tool call or time limit. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "cache-widget",
+      "title": "Cache",
+      "brief": "Rebuild to the standard. What it is: A countdown to the prompt cache going cold after each turn. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "calibration-widget",
+      "title": "Calibration",
+      "brief": "Rebuild to the standard. What it is: Keeps score of how often Claude's claims that something is fixed turn out true, and tells it to verify when the score is poor. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "capsule-widget",
+      "title": "Capsule",
+      "brief": "Rebuild to the standard. What it is: Notes sealed for a later session in the same folder. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "codle-widget",
+      "title": "Codle",
+      "brief": "Rebuild to the standard. What it is: A daily five-letter word game drawn from the project's file names. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "concierge-widget",
+      "title": "Concierge",
+      "brief": "Rebuild to the standard. What it is: Watches the session for moments another widget would have helped and suggests it once, with the reason. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "confidence-widget",
+      "title": "Confidence",
+      "brief": "Rebuild to the standard. What it is: Gives Claude a stake tool to put a percentage on its claims, settles each against the next check, and shows how its 90% compares with reality. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "dial-widget",
+      "title": "Dial",
+      "brief": "Rebuild to the standard. What it is: Dials that set how Claude works: terse or thorough, bold or careful, explore or ship. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "diet-widget",
+      "title": "Diet",
+      "brief": "Rebuild to the standard. What it is: Trims long command output before Claude reads it and counts the tokens saved. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "dream-widget",
+      "title": "Dream",
+      "brief": "Rebuild to the standard. What it is: What Claude dreams about your work while you are away. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "epitaph-widget",
+      "title": "Epitaph",
+      "brief": "Rebuild to the standard. What it is: A gravestone for every context that gets compacted. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "fence-widget",
+      "title": "Fence",
+      "brief": "Rebuild to the standard. What it is: Folders Claude may edit without asking; edits anywhere else ask first. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "flow-widget",
+      "title": "Flow",
+      "brief": "Rebuild to the standard. What it is: Reads the rhythm of the session: in flow, steady or thrashing, and tells Claude to restate the goal when you keep correcting it. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "footprint-widget",
+      "title": "Footprint",
+      "brief": "Rebuild to the standard. What it is: What the session did beyond the project: installs, removals, network calls, outside writes. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "ghost-widget",
+      "title": "Ghost",
+      "brief": "Rebuild to the standard. What it is: Race your past self: your turns so far against where your usual session in this project had got to by now. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "gist-widget",
+      "title": "Gist",
+      "brief": "Rebuild to the standard. What it is: Boils a long reply down to what was done and what it needs from you, on a card. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "graduate-widget",
+      "title": "Graduate",
+      "brief": "Rebuild to the standard. What it is: Offers what the learning widgets have proven as lines for CLAUDE.md, one at a time, for you to accept. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "history-widget",
+      "title": "History",
+      "brief": "Rebuild to the standard. What it is: A time-lapse of the repository's git history, file by file. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "hogs-widget",
+      "title": "Hogs",
+      "brief": "Rebuild to the standard. What it is: The biggest tool results in the context and the files read more than once. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "insight-widget",
+      "title": "Insight",
+      "brief": "Rebuild to the standard. What it is: Finds which of your prompting habits lead to clean turns, from your own history. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "mirror-widget",
+      "title": "Mirror",
+      "brief": "Rebuild to the standard. What it is: A portrait of how you talk to Claude. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "nextup-widget",
+      "title": "Nextup",
+      "brief": "Rebuild to the standard. What it is: A suggested next prompt drawn from unverified edits and failing checks. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "notify-widget",
+      "title": "Notify",
+      "brief": "Rebuild to the standard. What it is: Pings a webhook of yours (ntfy, Slack, Discord) when a long turn finishes or Claude is waiting on a permission prompt. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "onthisday-widget",
+      "title": "Onthisday",
+      "brief": "Rebuild to the standard. What it is: What happened in this repository on this day in other years. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "owed-widget",
+      "title": "Owed",
+      "brief": "Rebuild to the standard. What it is: The questions Claude asked that may still need an answer. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "parking-widget",
+      "title": "Parking",
+      "brief": "Rebuild to the standard. What it is: Gives Claude a park tool for questions that are yours to decide but not blocking, so it neither stops nor guesses in silence. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "preflight-widget",
+      "title": "Preflight",
+      "brief": "Rebuild to the standard. What it is: A checklist that reads each prompt for the things Claude works best with. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "resume-widget",
+      "title": "Resume",
+      "brief": "Rebuild to the standard. What it is: Where the last session in this folder left off: its last prompt, edited files and failing checks. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "rogue-widget",
+      "title": "Rogue",
+      "brief": "Rebuild to the standard. What it is: A dungeon built from the repository: walk its folders and pick files into your prompt. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "scorecard-widget",
+      "title": "Scorecard",
+      "brief": "Rebuild to the standard. What it is: A score for how each session went, per project, so you can see whether Claude is getting better here. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "shelf-widget",
+      "title": "Shelf",
+      "brief": "Rebuild to the standard. What it is: A shelf of the code blocks from Claude's replies, each one command away from the clipboard. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "situation-widget",
+      "title": "Situation",
+      "brief": "Rebuild to the standard. What it is: Tells Claude the branch, uncommitted changes and last check result with your prompt, so it does not spend tool calls finding out. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "socrates-widget",
+      "title": "Socrates",
+      "brief": "Rebuild to the standard. What it is: One question you have not asked yourself. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "standup-widget",
+      "title": "Standup",
+      "brief": "Rebuild to the standard. What it is: Each day's work across every project, written up as a standup on request. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "stuck-widget",
+      "title": "Stuck",
+      "brief": "Rebuild to the standard. What it is: A loop detector that tells Claude to step back when it repeats a failing move. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "theseus-widget",
+      "title": "Theseus",
+      "brief": "Rebuild to the standard. What it is: How much of this repository Claude has rewritten, plank by plank. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "vows-widget",
+      "title": "Vows",
+      "brief": "Rebuild to the standard. What it is: Hard rules enforced by a hook: commands and paths Claude is refused, and how often each held. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "wager-widget",
+      "title": "Wager",
+      "brief": "Rebuild to the standard. What it is: Bet on how many tool calls the next turn takes and track how well you predict Claude. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "wishlist-widget",
+      "title": "Wishlist",
+      "brief": "Rebuild to the standard. What it is: Gives Claude a wish tool to say what would have made the work easier here: a missing permission, document, script or instruction. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "wrapped-widget",
+      "title": "Wrapped",
+      "brief": "Rebuild to the standard. What it is: Your month with Claude Code in review: top tool, favourite file, busiest hour and streak. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "typist-widget",
+      "title": "Typist",
+      "brief": "Rebuild to the standard. What it is: The typing Claude did so your hands did not have to. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "paper-widget",
+      "title": "Paper",
+      "brief": "Rebuild to the standard. What it is: This repository as a physical object. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "meanwhile-widget",
+      "title": "Meanwhile",
+      "brief": "Rebuild to the standard. What it is: What the rest of the universe did while a turn ran. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "receipt-widget",
+      "title": "Receipt",
+      "brief": "Rebuild to the standard. What it is: The session printed as a till receipt: tool calls, failures, turns and time. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "postcard-widget",
+      "title": "Postcard",
+      "brief": "Rebuild to the standard. What it is: A postcard from the session, written from the day's numbers, that you can copy and keep. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "parallel-widget",
+      "title": "Parallel",
+      "brief": "Rebuild to the standard. What it is: How this turn went in the universe next door. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "breathe-widget",
+      "title": "Breathe",
+      "brief": "Rebuild to the standard. What it is: A breathing pacer that turns waiting into rest. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    },
+    {
+      "widget": "proof-widget",
+      "title": "Proof",
+      "brief": "Rebuild to the standard. What it is: A light that shows whether edits have been checked since they were made. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."
+    }
+  ]
+}

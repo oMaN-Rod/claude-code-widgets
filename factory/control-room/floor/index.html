@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Widget Factory</title>
+    <link rel="stylesheet" href="floor.css" />
+    <script type="importmap">
+      { "imports": { "three": "/three/build/three.module.js", "three/addons/": "/three/examples/jsm/" } }
+    </script>
+  </head>
+  <body>
+    <canvas id="floor" tabindex="0" aria-label="The factory floor in 3D. Click a crate, an area, the truck or the kiln."></canvas>
+
+    <header class="panel brand">
+      <h1>Widget Factory</h1>
+      <span id="pulse" class="pulse" title="Reads the factory's state files every three seconds">connecting</span>
+      <span class="tools">
+        <button id="home" type="button" title="Back to the default view">⟲ View</button>
+        <button id="rehearse" type="button" title="Run made-up orders through the floor">▶ Rehearsal</button>
+      </span>
+    </header>
+
+    <aside class="side">
+      <section class="panel map" aria-label="Map of the floor">
+        <canvas id="map" width="232" height="206"></canvas>
+      </section>
+      <section id="stats" class="panel stats" aria-label="Line totals"></section>
+      <section class="panel stations">
+        <h2>Stations</h2>
+        <div id="stations" class="tiles"></div>
+        <button id="orders" type="button" class="wide">All orders ›</button>
+      </section>
+    </aside>
+
+    <section class="panel log" aria-label="Floor log">
+      <div class="tabs" id="log-tabs">
+        <button type="button" data-tab="log" aria-pressed="true">▤ Floor log</button>
+        <button type="button" data-tab="turned" aria-pressed="false">↩ Turned back</button>
+      </div>
+      <ol id="feed" class="feed"></ol>
+    </section>
+
+    <section id="pick" class="panel pick" hidden aria-live="polite"></section>
+
+    <section id="window" class="panel window" hidden role="dialog" aria-labelledby="window-title">
+      <header>
+        <h2 id="window-title"></h2>
+        <button id="window-close" type="button" aria-label="Close">✕</button>
+      </header>
+      <div id="window-body" class="body"></div>
+    </section>
+
+    <p class="hint">Drag to pan · right-drag to turn · scroll to zoom · WASD to fly, Q and E down and up</p>
+    <script type="module" src="floor.js"></script>
+  </body>
+</html>

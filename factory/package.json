@@ -1,0 +1,17 @@
+{
+  "name": "widget-factory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "bun tools/setup.ts",
+    "floor": "bun tools/serve.ts --lan",
+    "board": "bun tools/order.ts board",
+    "refill": "bun tools/order.ts refill",
+    "line": "bun tools/line.ts"
+  },
+  "dependencies": {
+    "ink": "^5.2.1",
+    "react": "^18.3.1",
+    "three": "^0.186.1"
+  }
+}

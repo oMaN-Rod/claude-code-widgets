@@ -1,0 +1,20 @@
+{
+  "name": "factory-widget",
+  "version": "1.0.0",
+  "description": "The Widget Factory floor: each work order with its station and holder, what has shipped and what was turned back",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "factory",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

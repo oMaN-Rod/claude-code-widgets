@@ -1,0 +1,9 @@
+{
+  "title": "Factory",
+  "category": "Session",
+  "shows": "The Widget Factory floor: each work order with its station and holder, what has shipped and what was turned back",
+  "commands": [
+    "/factory-widget [on|off|orders|shipped|turned|log <order>]"
+  ],
+  "cost": ""
+}

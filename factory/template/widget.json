@@ -1,0 +1,7 @@
+{
+  "title": "__TITLE__",
+  "category": "__CATEGORY__",
+  "shows": "__SHOWS__",
+  "commands": ["/__NAME__-widget [on|off]"],
+  "cost": ""
+}

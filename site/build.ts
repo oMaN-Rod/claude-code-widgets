@@ -2,7 +2,8 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 const root = resolve(import.meta.dir, '..')
-const plugins = readdirSync(join(root, 'plugins')).filter(name => name.endsWith('-widget') && existsSync(join(root, 'plugins', name, 'hooks', 'register.tsx')))
+const tracked = Bun.spawnSync(['git', 'ls-files', 'plugins/*/hooks/register.tsx'], { cwd: root }).stdout.toString()
+const plugins = [...tracked.matchAll(/^plugins\/([a-z0-9-]+-widget)\//gm)].map(found => found[1] ?? '')
 const lines = [`import { widgets as kit } from '../plugins/widgets/hooks/kit.tsx'`]
 const entries: string[] = []
 
@@ -41,6 +42,12 @@ for (const line of readFileSync(join(root, 'README.md'), 'utf8').split(/\r?\n/))
   const row = /^\| `([a-z0-9-]+)` \| (.*?) \| (.*?)(?: \| ([^|]*))? \|$/.exec(line)
   if (row === null || !plugins.includes(row[1] ?? '')) continue
   const [, name = '', commands = '', shows = '', cost = ''] = row
+  const card = join(root, 'plugins', name, 'widget.json')
+  if (existsSync(card)) {
+    const { commands: uses, shows: says, cost: price } = JSON.parse(readFileSync(card, 'utf8'))
+    catalog.push({ name, category, commands: uses, shows: says, cost: price })
+    continue
+  }
   catalog.push({
     name,
     category,
