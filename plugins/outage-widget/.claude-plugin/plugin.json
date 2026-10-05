@@ -1,0 +1,20 @@
+{
+  "name": "outage-widget",
+  "version": "1.0.0",
+  "description": "When a push or install fails on the network, checks the provider's status page and says whether GitHub, npm, PyPI or crates.io reports an incident",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "outage",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

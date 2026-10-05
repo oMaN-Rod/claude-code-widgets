@@ -42,6 +42,11 @@
     'https://api.npmjs.org/downloads/point/last-week/sum-utils-fast': () => ({ downloads: 30 }),
     'https://registry.npmjs.org/lodash': () => ({ time: { created: '2012-04-23T16:37:11.912Z' }, 'dist-tags': { latest: '4.17.21' } }),
     'https://api.npmjs.org/downloads/point/last-week/lodash': () => ({ downloads: 38_000_000 }),
+    'https://www.githubstatus.com/api/v2/incidents/unresolved.json': () => {
+      const at = new Date(Date.now() - 12 * 60_000).toISOString()
+
+      return { page: { id: 'demo', name: 'GitHub' }, incidents: [{ id: 'demo-incident', name: 'Incident with Git Operations', impact: 'major', started_at: at, created_at: at, components: [{ name: 'Git Operations' }] }] }
+    },
   }
   const LIVE = {
     [`${HOME}/.claude/collision-widget/demo-other.json`]: () => {
@@ -127,6 +132,11 @@
     }),
   }
   const BESIDE = { 'trial-widget': ['moon-widget'] }
+  const AFTER = {
+    'outage-widget': [
+      { tool: 'Bash', input: { command: 'git push origin main' }, ms: 900, isError: true, text: "fatal: unable to access 'https://github.com/demo/demo.git/': The requested URL returned error: 503" },
+    ],
+  }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)
@@ -585,7 +595,7 @@
         await dispatch('prompt.submit', { text, wait: false, origin: { kind: 'composer' } }, e => ({ text: e.text, ...(e.context === undefined ? {} : { context: e.context }) }))
         await dispatch('turn.start', { text, turnId }, e => ({ turnId: e.turnId }))
         let steps = 0
-        for (const [at, call] of TURN.entries()) {
+        for (const [at, call] of [...TURN, ...(AFTER[name] ?? [])].entries()) {
           if (call.tool.startsWith('mcp__') && !tools.has(call.tool)) continue
           const id = `${turnId}-${at}`
           const written = flow('turn.step', { turnId, index: steps, model: 'claude-demo', messageCount: transcript.length + 1 + steps * 2 }, async function* (e) {

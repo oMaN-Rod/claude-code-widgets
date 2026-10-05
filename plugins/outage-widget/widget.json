@@ -1,0 +1,7 @@
+{
+  "title": "Outage",
+  "category": "Session",
+  "shows": "When a push or install fails on the network, checks the provider's status page and says whether GitHub, npm, PyPI or crates.io reports an incident",
+  "commands": ["/outage-widget [on|off|check|clear]"],
+  "cost": "About 50 tokens added to one failed tool result per provider incident; no model calls"
+}

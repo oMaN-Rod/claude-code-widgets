@@ -1,0 +1,104 @@
+{
+  "agents": {
+    "ae6c717d4ab462cb7": {
+      "label": "ship:WO-0024",
+      "input": 6,
+      "output": 592,
+      "cacheWrite": 10627,
+      "cacheRead": 94798,
+      "usd": 0.08395860000000001,
+      "unpriced": 0,
+      "guessed": 138
+    },
+    "afd799614c91ebda5": {
+      "label": "inspect:WO-0024",
+      "input": 32,
+      "output": 7253,
+      "cacheWrite": 73396,
+      "cacheRead": 1012489,
+      "usd": 0.7146658,
+      "unpriced": 0,
+      "guessed": 5332
+    },
+    "a109edcf8f283b4d3": {
+      "label": "design:WO-0024",
+      "input": 26,
+      "output": 15537,
+      "cacheWrite": 102758,
+      "cacheRead": 716598,
+      "usd": 0.9679536000000001,
+      "unpriced": 0,
+      "guessed": 15116
+    },
+    "a4fc1c1cef03ee7da": {
+      "label": "examine:WO-0024",
+      "input": 28,
+      "output": 7055,
+      "cacheWrite": 71083,
+      "cacheRead": 685255,
+      "usd": 0.633678,
+      "unpriced": 0,
+      "guessed": 2270
+    },
+    "a6055ced532668d5a": {
+      "label": "invent:delight:WO-0024",
+      "input": 18,
+      "output": 5557,
+      "cacheWrite": 47728,
+      "cacheRead": 412501,
+      "usd": 0.4323522,
+      "unpriced": 0,
+      "guessed": 491
+    },
+    "a6d02debbbd69dc15": {
+      "label": "invent:capability:WO-0024",
+      "input": 24,
+      "output": 5517,
+      "cacheWrite": 87024,
+      "cacheRead": 651518,
+      "usd": 0.6758596000000001,
+      "unpriced": 0,
+      "guessed": 2340
+    },
+    "a87dbcf6269155f93": {
+      "label": "invent:person:WO-0024",
+      "input": 20,
+      "output": 4243,
+      "cacheWrite": 40562,
+      "cacheRead": 464538,
+      "usd": 0.38065759999999993,
+      "unpriced": 0,
+      "guessed": 2293
+    },
+    "ab7dfcc52f8b5ccfb": {
+      "label": "build:WO-0024",
+      "input": 84,
+      "output": 51865,
+      "cacheWrite": 154773,
+      "cacheRead": 5605806,
+      "usd": 2.9326621999999998,
+      "unpriced": 0,
+      "guessed": 15411
+    },
+    "aba1ba222fb4f6a31": {
+      "label": "review-spec:WO-0024",
+      "input": 20,
+      "output": 5360,
+      "cacheWrite": 68307,
+      "cacheRead": 494412,
+      "usd": 0.5476974000000001,
+      "unpriced": 0,
+      "guessed": 3263
+    },
+    "a9a9ab2d4ea207bd5": {
+      "label": "ship:WO-0024",
+      "input": 14,
+      "output": 3007,
+      "cacheWrite": 33874,
+      "cacheRead": 309763,
+      "usd": 0.2915186,
+      "unpriced": 0,
+      "guessed": 1635
+    }
+  }
+}

@@ -1,0 +1,24 @@
+>>> /outage-widget on
+[assistant] outage-widget: Outage on; /widgets places it.
+[turn ended: success] outage-widget: Outage on; /widgets places it.
+
+>>> Run exactly this one command with Bash, once, and do not retry it. Then answer ok: curl -sS -m 3 https://github.com:81/
+[assistant] (tool Bash {"command":"curl -sS -m 3 https://github.com:81/","description":"Request GitHub on port 81 with a 3-second timeout"})
+[system task_started] {"type":"system","subtype":"task_started","task_id":"b7184wq8v","tool_use_id":"toolu_011txxzhDX8YEvnX6HrUKi3U","description":"Request GitHub on port 81 with a 3-second timeout","is_backgrounded":false,"task_type":"local_bash","uuid":"a791001b-4aad-4963-a684-5c8b2d2a413b","session_id":"a8917333-4d14-4e67-ab73-8af910553f9b"}
+[system task_notification] {"type":"system","subtype":"task_notification","task_id":"b7184wq8v","tool_use_id":"toolu_011txxzhDX8YEvnX6HrUKi3U","status":"failed","output_file":"","summary":"Request GitHub on port 81 with a 3-second timeout","uuid":"d1fe7877-0385-46ff-8a1a-abf03367f9d1","session_id":"a8917333-4d14-4e67-ab73-8af910553f9b"}
+[user] (result "Exit code 28\ncurl: (28) Connection timed out after 3009 milliseconds")
+[assistant] ok — the command ran once and timed out after 3 seconds (curl exit code 28), with no response from `github.com:81`.
+[turn ended: success] ok — the command ran once and timed out after 3 seconds (curl exit code 28), with no response from `github.com:81`.
+
+>>> /outage-widget check
+[assistant] outage-widget: GitHub reports no incident.
+[turn ended: success] outage-widget: GitHub reports no incident.
+
+>>> /outage-widget off
+[assistant] outage-widget: Outage off.
+[turn ended: success] outage-widget: Outage off.
+
+--- outage-widget store ---
+outage-widget_inline-e404c81733b9.json: {
+  "isOn": false
+}

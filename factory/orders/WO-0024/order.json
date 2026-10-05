@@ -1,0 +1,114 @@
+{
+  "id": "WO-0024",
+  "kind": "new",
+  "widget": "outage-widget",
+  "title": "Outage",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T12:42:11.953Z",
+  "closedAt": "2026-10-05T14:35:36.532Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T12:51:23.788Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It is pen-widget, which WO-0023 already has at inspection: the same file drawn from the same streaming Write and Edit arguments, with only a stop verb added.",
+      "subject": "Ink"
+    },
+    {
+      "at": "2026-10-05T12:51:23.964Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the mechanism is new, but it puts words in the transcript as Claude's that no model wrote, a false match swallows a real instruction, and the tokens it spares are mostly cheap cache reads, so the headline figure overstates the gain.",
+      "subject": "Courtesy"
+    },
+    {
+      "at": "2026-10-05T12:51:24.452Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The engine already defers MCP tools behind ToolSearch by itself, ToolInfo carries no schema so the weight it reports is a guess, and each stow spends the prompt cache: too little gained for the cost.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T12:51:24.583Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on footnotes-widget: the same check of paths and names against the working tree, pointed at CLAUDE.md instead of the reply, and silent for good once the file is fixed.",
+      "subject": "Drift"
+    },
+    {
+      "at": "2026-10-05T12:51:24.698Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on what exists: activity-widget and checks-widget already time commands and ghost-widget (waiting) already races this project's past runs; it adds only a remembered average.",
+      "subject": "Usual"
+    },
+    {
+      "at": "2026-10-05T12:51:24.815Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "It puts on a standing card exactly the sentences the person decided not to show, in view of any screen share, for a novelty that fades in a day: the exposure is out of proportion to what it gives.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T12:51:24.934Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on wager-widget with the bet turned round: one more prediction score, nothing to act on, and empty wherever prompt suggestions are off.",
+      "subject": "Understudy"
+    },
+    {
+      "at": "2026-10-05T12:51:25.049Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on premise-widget, as its inventor concedes: the same thinking-summary sentences filtered by a different pattern, and it does nothing with them.",
+      "subject": "Overheard"
+    },
+    {
+      "at": "2026-10-05T12:51:29.947Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "The only idea that tells the person something from beyond the machine at the moment it matters: a failed push or install is checked against the provider's status page, with no model call and nothing fetched while things work; first use of http.fetch in the catalog."
+    },
+    {
+      "at": "2026-10-05T12:59:53.366Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every call is in the 2.1.289 types file, all main states are drawn and fit at 20 columns, 114 lines and 15 acceptance lines; 13 notes in spec-notes.md, the first (program words catching test timeouts) to settle while building."
+    },
+    {
+      "at": "2026-10-05T13:15:54.792Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built outage-widget: a failed Bash or PowerShell network command is matched to GitHub, npm, PyPI or crates.io, the provider's unresolved-incidents page is read within 2 s, the verdict is drawn on the card and one sentence per new related incident is appended to the failed result, with a one-minute poll and toast while an incident is open; 15 acceptance tests and the checker pass."
+    },
+    {
+      "at": "2026-10-05T13:21:59.388Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker and all tests pass, frames match the drawings, off is inert, the live run showed real failures reach the hook and the status page is read, the store holds isOn alone; six non-blocking findings in inspection.md, the first that the sentence and the failure-time fetch could not be seen live."
+    },
+    {
+      "at": "2026-10-05T14:35:36.530Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}
