@@ -998,6 +998,7 @@ export const createWorld = (canvas, onPick) => {
 
   let last = 0
   let drift = 0
+  let pace = 1
   const frame = time => {
     const beat = time / 1000
     const dt = Math.min(1, beat - last)
@@ -1009,7 +1010,7 @@ export const createWorld = (canvas, onPick) => {
       const place = places.get(order.id)
       if (place === undefined) continue
       const crate = crateOf(order)
-      ride(order, crate, place, dt)
+      ride(order, crate, place, dt * pace)
       crate.edges.visible = view.selected.type === 'order' && view.selected.id === order.id
       crate.flag.visible = order.sendBacks > 0 && order.status === 'open'
       crate.snooze.visible = order.status === 'open' && !isBusy(order) && crate.carrier === null
@@ -1024,7 +1025,7 @@ export const createWorld = (canvas, onPick) => {
     haul(places)
     direct()
     for (const walker of figures) {
-      stride(walker, dt)
+      stride(walker, dt * pace)
       pose(walker, beat)
     }
     prowl(beat, dt)
@@ -1190,6 +1191,9 @@ export const createWorld = (canvas, onPick) => {
 
   return {
     resetView,
+    setPace: value => {
+      pace = value
+    },
     show: (orders, selected) => {
       view.orders = orders
       view.selected = selected

@@ -12,8 +12,13 @@ const frameBody = document.getElementById('window-body')
 const map = document.getElementById('map')
 
 const POLL_MS = 3000
-const REPLAY_MS = 450
-const REPLAY_STEPS = 160
+const REPLAY_MS = 200
+// A replay runs the factory's clock this many times faster, sits through at most REPLAY_QUIET_MS of nothing being logged,
+// and speeds up further when the whole history would take longer than REPLAY_LONGEST_MS. Crates and crew move REPLAY_PACE times faster.
+const REPLAY_RATE = 300
+const REPLAY_QUIET_MS = 8 * 60_000
+const REPLAY_LONGEST_MS = 180_000
+const REPLAY_PACE = 10
 const STATIONS = [
   { name: 'ideation', title: 'Ideas loft', icon: '💡', resident: 'examiner', who: 'Three inventors, then the examiner', out: 'idea.md', gate: 'The examiner rejects any idea that is a variation on an existing widget. Its default answer is no.' },
   { name: 'design', title: 'Drafting studio', icon: '📐', resident: 'designer', who: 'The designer, reviewed by the inspector', out: 'spec.md', gate: 'The inspector rejects only blocking faults. Everything else goes to the machinist as notes.' },
@@ -446,22 +451,27 @@ const asOf = (order, at) => {
   return { ...seen, widget: isNamed ? order.widget : null, title: isNamed ? order.title : null, sendBacks: stamps.filter(stamp => stamp.result === 'send-back').length, agents: log.filter(isShift).length }
 }
 
-const tape = { orders: null, times: [], at: 0 }
+const tape = { orders: null, marks: [], played: [], rate: REPLAY_RATE, startedAt: 0, isDone: false }
 const replay = async () => {
   if (tape.orders === null) {
     tape.orders = (await (await fetch('/api/board')).json()).orders
-    tape.times = [...new Set(tape.orders.flatMap(order => order.log.map(entry => entry.at)))].sort()
+    tape.marks = [...new Set(tape.orders.flatMap(order => order.log.map(entry => Date.parse(entry.at))))].sort((one, other) => one - other)
+    tape.played = tape.marks.map(() => 0)
+    for (let i = 1; i < tape.marks.length; i += 1) tape.played[i] = tape.played[i - 1] + Math.min(tape.marks[i] - tape.marks[i - 1], REPLAY_QUIET_MS)
+    tape.rate = Math.max(REPLAY_RATE, (tape.played.at(-1) ?? 0) / REPLAY_LONGEST_MS)
+    tape.startedAt = performance.now()
   }
-  tape.at += Math.max(1, Math.ceil(tape.times.length / REPLAY_STEPS))
-  const isDone = tape.at >= tape.times.length
-  const at = (isDone ? tape.times.at(-1) : tape.times[tape.at]) ?? new Date().toISOString()
+  const played = (performance.now() - tape.startedAt) * tape.rate
+  const next = tape.played.findIndex(mark => mark > played)
+  tape.isDone = next < 0
+  const at = new Date(tape.isDone ? (tape.marks.at(-1) ?? Date.now()) : tape.marks[next - 1] + played - tape.played[next - 1]).toISOString()
 
-  return { at, isDone, orders: tape.orders.filter(order => order.openedAt <= at).map(order => asOf(order, at)) }
+  return { at, isDone: tape.isDone, orders: tape.orders.filter(order => order.openedAt <= at).map(order => asOf(order, at)) }
 }
 const day = at => new Date(at).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
 
 const poll = async () => {
-  if (isReplay && tape.at >= tape.times.length && tape.orders !== null) return
+  if (isReplay && tape.isDone) return
   try {
     const board = isDemo ? rehearse() : isReplay ? await replay() : await (await fetch('/api/board')).json()
     const key = JSON.stringify(board.orders)
@@ -483,6 +493,7 @@ const poll = async () => {
 }
 
 const world = createWorld(document.getElementById('floor'), target => select(target))
+if (isReplay) world.setPace(REPLAY_PACE)
 document.addEventListener('keydown', event => {
   if (event.key !== 'Escape') return
   if (state.isOpen) {
