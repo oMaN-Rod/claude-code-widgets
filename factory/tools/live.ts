@@ -3,11 +3,13 @@ import { basename, join, resolve } from 'node:path'
 
 import { CONFIG, ROOT, fail, flag, typed, words } from './lib'
 
-const USAGE = `Usage: bun factory/tools/live.ts <widget folder> --say "/<name>-widget on" [--say "<prompt or command>"]... [--allow "Bash,Edit"] [--hold 3] [--claude "<more claude arguments>"]
+const USAGE = `Usage: bun factory/tools/live.ts <widget folder> --say "/<name>-widget on" [--say "<prompt or command>"]... [--allow "Bash,Edit"] [--hold 3] [--claude "<more claude arguments>"] [--keep]
 
 Runs a real headless Claude Code session in a scratch project, under the factory's own
 config directory (FACTORY_CONFIG_DIR, default ~/.claude-factory), with only the layout
-plugin and this widget loaded. Prints what the session said and what the widget stored.`
+plugin and this widget loaded. Prints what the session said and what the widget stored.
+With --keep as the last argument, the loaded copy of the widget stays in <config>/live/<name>
+until the next run, so a file the widget wrote there can be read.`
 const QUIET_MS = 20_000
 
 const args = process.argv.slice(2)
@@ -101,5 +103,6 @@ child.kill()
 const errors = (await new Response(child.stderr).text()).trim()
 if (errors !== '') console.log(`\n--- stderr ---\n${errors.slice(0, 1500)}`)
 console.log(`\n--- ${name} store ---\n${stores() || '(nothing stored)'}`)
-rmSync(loaded, { recursive: true, force: true })
+if (args.at(-1) === '--keep') console.log(`\nKept ${join(loaded, name)}`)
+else rmSync(loaded, { recursive: true, force: true })
 process.exit(0)
