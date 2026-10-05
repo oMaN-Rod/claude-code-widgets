@@ -1273,6 +1273,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "done-widget",
+      "source": "./plugins/done-widget",
+      "description": "A definition of done you write once: Claude ticks each item with evidence through its tick tool, and is pulled up when it says done with items open",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "done",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

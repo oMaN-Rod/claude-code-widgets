@@ -31,8 +31,10 @@
       ms: 700,
     },
     { tool: 'Bash', input: { command: 'npm test', description: 'Run the tests' }, ms: 1400, text: 'passed' },
+    { tool: 'mcp__done-widget__tick', input: { item: 1, evidence: 'npm test: passed' }, ms: 300 },
     { tool: 'mcp__notebook-widget__jot', input: { text: 'sum() skipped the first item: its loop began at 1. Loops over list start at 0.' }, ms: 300 },
     { tool: 'Bash', input: { command: 'git commit -am "Fix the off-by-one in sum"' }, ms: 600, text: '[main 3f2a1c9] Fix the off-by-one in sum' },
+    { tool: 'mcp__done-widget__tick', input: { item: 2, evidence: 'commit 3f2a1c9 on main' }, ms: 300 },
   ]
   const LIVE = {
     [`${HOME}/.claude/collision-widget/demo-other.json`]: () => {
@@ -54,7 +56,10 @@
   const SUMMARY = 'Summary of the conversation so far: sum() skipped the first item of a list; the loop was fixed and the tests pass.'
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
   const SAID = {}
-  const OPENING = { 'queue-widget': { lines: ['until npm test', 'add update the changelog', 'add bump the version'], settleMs: 900 } }
+  const OPENING = {
+    'queue-widget': { lines: ['until npm test', 'add update the changelog', 'add bump the version'], settleMs: 900 },
+    'done-widget': { lines: ['add the tests pass', 'add the fix is committed'] },
+  }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)

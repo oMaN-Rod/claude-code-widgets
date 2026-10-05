@@ -1,0 +1,51 @@
+
+>>> /done-widget on
+[assistant] done-widget: Done on; /done-widget add <criterion> writes the list. /widgets places it.
+[turn ended: success] done-widget: Done on; /done-widget add <criterion> writes the list. /widgets places it.
+
+>>> /done-widget add the README has a title
+[assistant] done-widget: Item 1: done when the README has a title. Claude is told with your next prompt.
+[turn ended: success] done-widget: Item 1: done when the README has a title. Claude is told with your next prompt.
+
+>>> /done-widget add the tests pass
+[assistant] done-widget: Item 2: done when the tests pass. Claude is told with your next prompt.
+[turn ended: success] done-widget: Item 2: done when the tests pass. Claude is told with your next prompt.
+
+>>> Call your tick tool for item 1 with the evidence: README.md line 1 is # scratch. Then end your reply with the word Done.
+[assistant] 
+[assistant] (tool ToolSearch {"query":"select:mcp__done-widget__tick","max_results":5})
+[user] (result [{"type":"tool_reference","tool_name":"mcp__done-widget__tick"}])
+[assistant] (tool Read {"file_path":"C:\\Users\\OmarRodriguez\\.claude-factory\\scratch-project\\README.md","limit":5})
+[user] (result "1\t# scratch\n2\t\n3\tA throwaway project for live widget runs.\n4\t")
+[assistant] (tool mcp__done-widget__tick {"item":1,"evidence":"README.md line 1 is # scratch"})
+[user] (result "1. [x] the README has a title (README.md line 1 is # scratch)\n2. [ ] the tests pass\nStill open: 2.")
+[assistant] 
+[assistant] Item 1 is ticked: I confirmed `README.md` line 1 is `# scratch`.
+
+Item 2 (the tests pass) is still open — I have not run any tests, so the task as a whole is not finished. The closing word below refers only to the tick you asked for.
+
+Done
+[turn ended: success] Item 1 is ticked: I confirmed `README.md` line 1 is `# scratch`.
+
+Item 2 (the tests pass) is still open — I have not run any tests, so the task as a whole is not finished. The closing word below refers only to the tick you asked for.
+
+Done
+
+>>> /done-widget show
+[assistant] done-widget: 2 items, 1 met:
+1. [x] the README has a title (README.md line 1 is # scratch)
+2. [ ] the tests pass
+Said done too soon: 1 nudge
+[turn ended: success] done-widget: 2 items, 1 met:
+1. [x] the README has a title (README.md line 1 is # scratch)
+2. [ ] the tests pass
+Said done too soon: 1 nudge
+
+>>> /done-widget off
+[assistant] done-widget: Done off. The tick tool stays listed until the session ends and ticks nothing.
+[turn ended: success] done-widget: Done off. The tick tool stays listed until the session ends and ticks nothing.
+
+--- done-widget store ---
+done-widget_inline-1257b45a53ec.json: {
+  "isOn": false
+}

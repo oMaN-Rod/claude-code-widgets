@@ -1,0 +1,7 @@
+{
+  "title": "Done",
+  "category": "Session",
+  "shows": "A definition of done you write once: Claude ticks each item with evidence through its tick tool, and is pulled up when it says done with items open",
+  "commands": ["/done-widget [on|off|add <criterion>|drop <number>|show|clear]"],
+  "cost": "The tick tool's description in every request, and the list of up to 6 items added to one prompt after each change to it and after a compaction"
+}

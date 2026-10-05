@@ -1,0 +1,95 @@
+{
+  "id": "WO-0008",
+  "kind": "rebuild",
+  "widget": "done-widget",
+  "title": "Done",
+  "brief": "Rebuild to the standard. What it is: A definition of done you write once: Claude ticks each item with evidence through a tool, and is pulled up when it says done with items open. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T21:03:29.361Z",
+  "closedAt": "2026-10-05T00:58:21.201Z",
+  "sendBacks": 3,
+  "stamps": [
+    {
+      "at": "2026-10-04T21:08:11.658Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and call it names is in the types file, all card states are drawn down to 20 columns and the brief's fault is addressed; 9 notes, the first on the claim pattern firing on honest answers."
+    },
+    {
+      "at": "2026-10-04T21:14:23.204Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built done-widget to the spec: the switch, add/drop/show/clear, the tick tool with evidence, the due block on prompts and after compaction, and the said-done-too-soon nudge that skips denied claims and the phrases done list and definition of done; 15 acceptance tests and the checker pass."
+    },
+    {
+      "at": "2026-10-04T21:36:52.669Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The nudge counts honest answers as said-done-too-soon: 'Item 1 is done; item 2 is open because...', an answer quoting an item whose own text holds a claim word ('the bug is fixed'), 'still need to be done', 'once the tests are fixed', 'far from complete'. Nudge only on a claim about the whole work that does not own up to open items; add these to A9. Card, verbs, off state, store and live run are all good; see inspection.md finding 1.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-04T21:38:46.835Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed inspection finding 1: the nudge now reads the answer clause by clause after taking out the list's own item texts, and fires only on a clause that ends in a claim word, is not hedged or denied (not, still, open, once, until, far from, to be) and is not about a numbered item; the seven honest answers are quiet in A9 and the whole-work claims still nudge. The rule is narrower than the spec's bare pattern: a claim word mid-clause (Fixed the import in x) is no longer a claim."
+    },
+    {
+      "at": "2026-10-05T00:41:14.354Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The seven honest answers are quiet now, but the rewritten claim rule has three holes: (1) it misses the plainest claims, 'I have completed the work.', 'I've finished everything.', 'everything is completed as requested.', because a claim word counts only at a clause end; (2) questions nudge: 'Is the migration done?', 'What would you like done?', 'Should I mark this as resolved?'; (3) 'done so far', 'Mostly done.' and 'Everything but the tests is done.' nudge. Fix in claims() and add each quoted answer to A8/A9; card, verbs, off state, store and live run are good. See inspection.md findings 1 to 3.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T00:43:13.145Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed inspection findings 1 to 3 in claims(): a clause now also claims when finished, completed or done with is followed by the work as a whole (the work, the task, everything, the refactor, the migration...) or the claim word by a closing phrase (as requested, as asked, as planned); a sentence ending in a question mark never claims; so far, mostly, mainly, largely and everything but / all but make a clause quiet. Every answer quoted in the findings is in A9, the four claims as nudging and the seven others as quiet; the earlier A8 and A9 answers are unchanged and the checker passes."
+    },
+    {
+      "at": "2026-10-05T00:47:47.895Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Second-pass findings are fixed and the card, verbs, tool, off state, store and live run all pass, but the claim rule lives only in claims() and the tests while spec line 24 still gives the bare pattern: write the rule down in line 24, A8 and A9. Two holes for the written rule to close: (1) claims ending in an adverb are missed, 'The task has been completed successfully.', 'All tasks completed successfully.', 'I'm finished with the task.'; (2) honest reports of a run nudge, 'bun test finished: 14 pass, 2 fail.', 'The test run is complete: 2 failures.', 'The build finished.' See inspection.md findings 1 to 3.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T00:52:10.147Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The claim rule is now written in six steps in lines 24 to 31, closes the adverb and run-report holes of the third inspection, and agrees with every answer quoted in A8 and A9; the spec is at 120 lines and 15 acceptance lines with nothing else changed; 7 notes."
+    },
+    {
+      "at": "2026-10-05T00:54:22.183Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt claims() to the six written steps of spec lines 25 to 31: closers successfully, correctly, properly, fully, entirely; finished with and finished/completed implementing|building|writing as whole-work phrases; a clause whose claim follows a process that ran, a code span or a command name is quiet; a clause ending at a colon before a count of failures is dropped; a number may stand between all and items. A8 now holds every quoted claim and A9 every quoted quiet answer; the checker passes."
+    },
+    {
+      "at": "2026-10-05T00:57:27.766Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The build follows the six-step claim rule as written: all 27 claims and 41 quiet answers of the spec land right, the card, verbs, tool, off state and store match the spec, the checker passes and the live run ticked item 1 and counted the nudge; five notes for the README row, none a fault under the director's ruling."
+    },
+    {
+      "at": "2026-10-05T00:58:21.201Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}
