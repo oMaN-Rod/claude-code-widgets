@@ -1,0 +1,43 @@
+{
+  "id": "WO-0002",
+  "kind": "rebuild",
+  "widget": "moon-widget",
+  "title": "Moon",
+  "brief": "Rebuild the moon phase card to the standard. Known faults of the earlier version: the phase comes from a mean-lunation approximation, so 'Full tonight' can be a day out; northern hemisphere only; the 14-column disc does not fit a 20-column card; its one test never checks the off state, restore, the bare toggle, the placements or a narrow width.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T18:28:51.319Z",
+  "closedAt": "2026-10-04T19:30:29.222Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-04T18:50:28.217Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the standard; every call exists in the types file; all A1-A18 values, bars and the 16-character limit reproduced independently from the spec's formulae (full moons within 1 minute of published times); every fault in the brief has an acceptance line; card reads at 20 columns; demo present."
+    },
+    {
+      "at": "2026-10-04T18:57:24.071Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built moon-widget to the spec: truncated-Meeus elongation, hemisphere-aware disc sized by card width with a bar off the terminal, full-moon countdown and lore, minute tick while on; 19 acceptance tests and the five standard tests pass and the checker passes."
+    },
+    {
+      "at": "2026-10-04T19:29:25.543Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Checker passes, frames at 20, 40 and 60 columns and every verb match the spec, the code is inert while off, and the director's live run gave the spec's six answers with a store of isOn and isSouth only."
+    },
+    {
+      "at": "2026-10-04T19:30:29.221Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

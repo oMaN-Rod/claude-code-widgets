@@ -1120,6 +1120,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "moon-widget",
+      "source": "./plugins/moon-widget",
+      "description": "The real moon right now, drawn for your hemisphere, with a countdown to the next full moon and what it means for your deploy",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "moon",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

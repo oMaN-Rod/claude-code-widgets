@@ -1,0 +1,30 @@
+
+>>> /moon-widget on
+[assistant] moon-widget: Moon on; /widgets places it.
+[turn ended: success] moon-widget: Moon on; /widgets places it.
+
+>>> /moon-widget south
+[assistant] moon-widget: Moon drawn for the southern sky.
+[turn ended: success] moon-widget: Moon drawn for the southern sky.
+
+>>> Reply with the single word: ok
+[assistant] ok
+[turn ended: success] ok
+
+>>> /moon-widget sideways
+[assistant] moon-widget: Usage: /moon-widget [on|off|north|south]
+[turn ended: success] moon-widget: Usage: /moon-widget [on|off|north|south]
+
+>>> /moon-widget off
+[assistant] moon-widget: Moon off.
+[turn ended: success] moon-widget: Moon off.
+
+>>> /moon-widget north
+[assistant] moon-widget: Moon is off; /moon-widget on shows it.
+[turn ended: success] moon-widget: Moon is off; /moon-widget on shows it.
+
+--- moon-widget store ---
+moon-widget_inline-6046aed4ade8.json: {
+  "isOn": false,
+  "isSouth": true
+}
