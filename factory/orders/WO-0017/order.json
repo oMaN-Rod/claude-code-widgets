@@ -1,0 +1,203 @@
+{
+  "id": "WO-0017",
+  "kind": "new",
+  "widget": "earpiece-widget",
+  "title": "Earpiece",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T02:14:05.033Z",
+  "closedAt": "2026-10-05T12:44:47.625Z",
+  "sendBacks": 5,
+  "stamps": [
+    {
+      "at": "2026-10-05T02:42:06.265Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "An automatic aside-widget question in the calibration/proof/critic family, and it pays a cache-read of the whole context on every editing turn for a self-report nobody can check.",
+      "subject": "Fine print"
+    },
+    {
+      "at": "2026-10-05T02:42:09.277Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The same widget as Loupe from the same order, widened with a port lookup that does not belong on the card.",
+      "subject": "Lens"
+    },
+    {
+      "at": "2026-10-05T02:42:12.985Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The answered half of owed-widget and parking-widget: a log read once a month that nobody would mention to a colleague.",
+      "subject": "Decisions"
+    },
+    {
+      "at": "2026-10-05T02:42:16.037Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Keeping deleted drafts on screen costs more in privacy than a novelty line gives, and the rescue of a wiped draft is too rare to carry a card.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T02:42:19.321Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A word-list match over the stream that stream-widget and marquee-widget already tap, noisy on ordinary uses of 'actually' and empty where thinking is not shown.",
+      "subject": "Double take"
+    },
+    {
+      "at": "2026-10-05T02:42:22.560Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Dropping a prompt on a capitals-and-punctuation guess makes every false hold cost the person a send, which is out of proportion to a joke told once.",
+      "subject": "Count to ten"
+    },
+    {
+      "at": "2026-10-05T02:42:25.711Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a real new input (the mouse selection) but fullscreen only, its answer is a git grep guess at a definition, and it only looks things up where Earpiece changes how the work goes.",
+      "subject": "Loupe"
+    },
+    {
+      "at": "2026-10-05T02:42:28.167Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: useful, but it is a fixed pattern list over tool.call edits, the shape footprint, proof and todos already have, with false alarms on 'as any' and 'noqa'; it does not go beyond the catalog as the order asks.",
+      "subject": "Corners"
+    },
+    {
+      "at": "2026-10-05T02:43:27.214Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Earpiece is the only idea that does something no widget and no part of the catalog can: read inside a running subagent and correct it without stopping the turn, at no token cost, on calls that all exist."
+    },
+    {
+      "at": "2026-10-05T02:57:11.345Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Every call exists in the types file, all main states are drawn and fit at 20 columns, the second command is justified and the spec is within size; 15 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T03:09:51.072Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "send-back",
+      "reason": "A4 and A6 cannot be tested as written: in claude plugin test (2.1.289) a plugin's $.session.append always rejects with 'HooksError: no implementation for session.append' before any hook runs, so no test hook, ground() answer, other plugin or engine.create stand-in can record the append, answer it with a uuid or answer { deny } (a test hook that answers the event without next is skipped; session.send, agent.list and session.messages stand in fine). Tests can only prove the reject-then-send path; rewrite A4/A6 and the Acceptance preamble so the successful append and its { deny } branch are proven by the Live run, or name another seam. register.tsx, types and widget.json are built to the spec and validate; tests/widget.test.tsx is still the scaffold stub.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T03:15:25.432Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The build's send-back is answered: A4, A6 and the Acceptance preamble now prove the reject-then-send path under test and leave the uuid append to the Live run, with no contradiction, no new call and the spec at 120 lines and 15 acceptance lines; 17 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T03:40:38.406Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Earpiece built to the revised spec: numbered subagent rows with tool and last sentence, /whisper with append then send fallback (answer says by message), sent/heard/missed marks, 16 acceptance tests for A1-A15 passing with the standard five."
+    },
+    {
+      "at": "2026-10-05T03:59:24.584Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Build meets the spec and the checker passes, but in both live runs the whispered subagent's first tool call did not start until /earpiece-widget off, so heron, heard and 'has finished' never appeared: (1) the spec must name runs that tell the awaited tool.call refresh, the mid-tool append, the timer and the headless session apart, and stop holding next(e) on a refresh if the hook is the cause; (2) the Live script's waiting turn cannot wait in a headless session and must be rewritten so a good run is reachable; (3) say what a note appended during an in-flight tool use does; minor build items (1e+23 number echo, uncapped description) are in inspection.md.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T04:23:04.465Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The inspection's three faults are answered: no agent hook awaits a refresh, the Live script waits with bun timers and names control runs A and B, and the in-flight note is settled, with no contradiction, no new call and the spec at 120 lines and 15 acceptance lines; 15 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T04:55:45.741Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt Earpiece to the revised spec: no hook on an agent's path awaits a refresh, overlapping refreshes are ordered by a ticket so a late one never writes over a newer one, /whisper takes 1 to 4 digits and descriptions are cut to 80 characters."
+    },
+    {
+      "at": "2026-10-05T05:32:52.638Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Rebuild meets the revised spec and the append works live (no hold, heron came back), but two good-run signs failed: (1) /whisper 1 too late was refused by append and the fallback send resumed the finished agent, costing a subagent turn and two unprompted main-loop turns, so the spec must stop a refused append from ending in a resume; (2) the bare /whisper still read sent after the agent had answered past the note, so the heard rule does not match what a real read returns and the Live script must show why; also word sign 2 as a time and make control run B once (the agent idled between main turns), and the A14 test timed out in one of three checker runs.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T06:11:40.898Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The second inspection's faults are answered: the send fallback is gone so a refused append can never resume an agent, heard is counted on assistant messages with unread shown in the bare listing, sign 2 is a time against a single control run B and A14 is split, with no contradiction, no new call and the spec at 120 lines and 15 acceptance lines; 15 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T06:36:04.208Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt Earpiece to the fourth spec: the send path is gone so a refused append only answers could not be reached, heard is counted on assistant messages from a baseline read, bare /whisper runs one bounded refresh and lists unread, and A14 is split per width."
+    },
+    {
+      "at": "2026-10-05T07:04:13.102Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Spec is met and the live proof works (append, heron, done heard, late whisper costs nothing), but (1) bare /whisper throws in the demo engine: render.ts --do \"/whisper\" faults with $.clock.sleep is not a function at register.tsx:244, a call the spec does not name and docs/engine.js lacks, where the spec says draw the error card, not throw; bound the wait with $.clock.after or guard it, and test it; (2) every subagent tool cycle was about 6 s slower than in control run B (16 s against 10 s) and sign 2 fails as worded, so tool.call must await nothing before next(e) and the next live run is read by those gaps; (3) session.start and /earpiece-widget on await an unbounded refresh and should use the bounded one; details in inspection.md.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T07:40:33.498Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the third inspection: bare /whisper, session.start and switching on now bound their refresh with $.clock.after (no $.clock.sleep anywhere), and the agent tool.call hook awaits nothing before next(e); the extra session-only $.state key lap { begun, landed } is kept as the refresh ticket and is not in the spec's State section."
+    },
+    {
+      "at": "2026-10-05T08:52:17.152Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "The build is unchanged since the director's ruling and still fails (a): /whisper <n> <note> answers No agent <n> on the card from the stored roster without looking (register.tsx:380-382), so in live.txt a whisper typed while the agent was on its first tool call was never appended and the agent replied NONE; (1) when the row is missing, run the bounded refresh and read again, retrying within a few seconds via $.clock.after, before answering No agent; (2) after agent.spawn look again if the refresh found no new live agent; (3) add tests for a whisper against an empty roster with a running agent and for a number that is truly absent. (c) holds: nothing throws on the demo page and the checker passes. Details in inspection.md.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T09:56:24.316Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed the fifth inspection: /whisper <n> <note> now looks for a missing row itself (up to three bounded refreshes 750 ms apart inside a 4 s limit by $.clock.after) before answering No agent, agent.spawn looks again up to twice when its refresh found no new agent, and tests cover a whisper against an empty roster, a late-listed agent, a number that is not there and a hanging list."
+    },
+    {
+      "at": "2026-10-05T10:43:57.381Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the director's ruling: (a) a whisper typed as the agent started was appended, (b) the bare /whisper read heard and heron came back, (c) nothing throws on the demo page; the checker passed 7 of 8 runs, its one failure being 5 s timeouts on a busy host, recorded with three other findings in inspection.md."
+    },
+    {
+      "at": "2026-10-05T12:44:47.624Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

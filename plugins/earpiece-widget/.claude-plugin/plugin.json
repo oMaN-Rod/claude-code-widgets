@@ -1,0 +1,20 @@
+{
+  "name": "earpiece-widget",
+  "version": "1.0.0",
+  "description": "Every running subagent with the tool it is on and its last sentence, and /whisper slips one of them a note without stopping the turn",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "earpiece",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

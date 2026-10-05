@@ -82,6 +82,20 @@
     'margin-widget': { lines: ['mark is this the only loop?', 'send'] },
     'loupe-widget': { lines: ['look sum'], settleMs: 600 },
     'strays-widget': { lines: [], isSettled: state => state.get('strays-widget/watch')?.isQueued === false && state.get('strays-widget/watch')?.isBusy === false },
+    'earpiece-widget': { lines: ['/whisper 2 leave tests alone'], settleMs: 300 },
+  }
+  const CREW = {
+    'earpiece-widget': [
+      { id: 'demo-agent-audit', description: 'audit the auth module', said: 'Two callers skip the token check.', use: { tool: 'Grep', input: { pattern: 'verifyToken', path: ROOT } }, last: 'Two callers skip the token check.' },
+      {
+        id: 'demo-agent-tests',
+        description: 'rewrite tests',
+        said: 'Now rewriting the tests folder.',
+        use: { tool: 'Edit', input: { file_path: `${ROOT}/test.js` } },
+        noted: { said: 'Understood, leaving tests alone.', use: { tool: 'Read', input: { file_path: `${ROOT}/src/sum.js` } } },
+        last: 'Left tests alone; fixed src/sum.js instead.',
+      },
+    ],
   }
   const PULLS = ['Fix the login redirect', 'Bump bun', 'Add dark mode']
   const ISSUES = ['Null user in session.js', 'TypeError in checkout.js', 'Timeout in /api/cart']
@@ -145,6 +159,14 @@
     }),
     { role: 'assistant', text: answer, toolUses: [] },
   ]
+  const worked = (id, at, { said, use }, isAnswered) => {
+    const call = { tool_use_id: `${id}-${at}`, ...use, ...(isAnswered ? { text: 'ok' } : {}) }
+
+    return [
+      { role: 'assistant', text: said, toolUses: [call] },
+      ...(isAnswered ? [{ role: 'user', text: '', toolUses: [], toolResults: [{ tool_use_id: call.tool_use_id, text: 'ok', isError: false }] }] : []),
+    ]
+  }
   const pieces = (text, size) => text.match(new RegExp(`[\\s\\S]{1,${size}}`, 'g')) ?? []
   const weight = messages => messages.reduce((sum, message) => sum + message.text.length + message.toolUses.reduce((held, use) => held + JSON.stringify(use.input).length + (use.text ?? '').length, 0), 0)
 
@@ -165,6 +187,17 @@
     const timers = new Set()
     const born = Date.now()
     const usage = { tokens: 46_000, usd: 0.38, five: 12, seven: 31 }
+    const crew = (CREW[name] ?? []).map(agent => ({ ...agent, status: 'running', reads: undefined }))
+    const talk = agent => {
+      const isOver = agent.status !== 'running'
+      const steps = [agent, ...(agent.noted !== undefined && agent.reads >= 2 ? [agent.noted] : [])]
+
+      return [
+        { role: 'user', text: agent.description, toolUses: [] },
+        ...steps.flatMap((step, at) => worked(agent.id, at, step, isOver || at < steps.length - 1)),
+        ...(isOver ? [{ role: 'assistant', text: agent.last, toolUses: [] }] : []),
+      ]
+    }
     const transcript = PAST.flatMap((prompt, at) => spoken(`past-${at}`, prompt, 'Done, and the tests pass.'))
     let turns = 0
     let isBusy = false
@@ -439,7 +472,21 @@
       },
       session: {
         usage: async options => usageNow(options?.breakdown !== undefined),
-        messages: async () => transcript.map(message => ({ ...message })),
+        messages: async args => {
+          if (args?.agentId === undefined) return transcript.map(message => ({ ...message }))
+          const agent = crew.find(known => known.id === args.agentId)
+          if (agent === undefined) return { deny: `no agent ${args.agentId}` }
+          if (agent.reads !== undefined) agent.reads += 1
+
+          return talk(agent)
+        },
+        append: async args => {
+          const agent = crew.find(known => known.id === args?.agentId && known.status === 'running')
+          if (agent === undefined) return { deny: 'that id names no running loop' }
+          agent.reads = 0
+
+          return { uuid: `demo-note-${agent.id}` }
+        },
         root: async () => ROOT,
         cwd: async () => ROOT,
         id: async () => 'demo-session',
@@ -468,6 +515,7 @@
           return { isAnswered: true, text: 'Only the loop start in src/sum.js changed: it began at 1 and now begins at 0.', usage: { input_tokens: 400, output_tokens: 30, cache_read_input_tokens: 9000, cache_creation_input_tokens: 0 } }
         },
       },
+      ...(crew.length === 0 ? {} : { agent: { list: async () => crew.map(({ id, description, status }) => ({ id, type: 'general-purpose', description, status })) } }),
       prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({ isFilled: true, text: '', cursor: 0 }), read: async () => ({ text: 'fix src/formt.js and test.js', cursor: 28 }) },
       http: { fetch: async () => ({ ok: true, status: 200, text: 'ok' }) },
       env: { get: async key => (key === 'HOME' ? HOME : undefined) },
@@ -555,6 +603,10 @@
         usage.five = Math.min(100, usage.five + 1)
         transcript.push(...spoken(turnId, text, ANSWER))
         await measure(['context', 'rateLimits', 'cost'])
+        for (const agent of crew) {
+          agent.status = 'completed'
+          await dispatch('turn.complete', { answer: agent.last, durationMs: Date.now() - startedAt, isAborted: false, turnId, reason: 'answer', agentId: agent.id }, e => ({ text: e.answer }))
+        }
         await dispatch('turn.complete', { answer: ANSWER, durationMs: Date.now() - startedAt, isAborted: false, turnId, reason: 'answer' }, e => ({ text: e.answer }))
         if (PICKED[name] !== undefined) selected = PICKED[name](turnId)
         files.set(`${ROOT}/src/sum.js`, FILES['src/sum.js'])
@@ -577,7 +629,10 @@
         await measure(['context', 'rateLimits', 'cost'])
         await command(name, 'on')
         if (state.get(`${name}/isOn`) !== true) await command(name, '')
-        for (const line of OPENING[name]?.lines ?? []) await command(name, line)
+        for (const line of OPENING[name]?.lines ?? []) {
+          const [word, ...rest] = line.startsWith('/') ? line.slice(1).split(' ') : [name, line]
+          await command(word, rest.join(' '))
+        }
         await settle()
         changed()
       },

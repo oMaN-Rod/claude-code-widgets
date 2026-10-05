@@ -1,0 +1,7 @@
+{
+  "title": "Earpiece",
+  "category": "Session",
+  "shows": "Every running subagent with the tool it is on and its last sentence, and /whisper slips one of them a note without stopping the turn",
+  "commands": ["/earpiece-widget [on|off]", "/whisper <number> <note>"],
+  "cost": "A whisper adds its note to one subagent's context; no model calls"
+}
