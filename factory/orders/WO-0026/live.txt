@@ -1,0 +1,25 @@
+
+>>> /seen-widget on
+[assistant] seen-widget: Seen on; /widgets places it.
+[turn ended: success] seen-widget: Seen on; /widgets places it.
+
+>>> Run exactly this with the Bash tool: echo iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg== | base64 -d > seen.png  Then Read seen.png with the Read tool and answer ok.
+[assistant] (tool Bash {"command":"echo iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg== | base64 -d > seen.png","description":"Decode base64 data into seen.png"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Read {"file_path":"C:\\Users\\O\\.claude-factory\\scratch-project\\seen.png"})
+[user] (result [{"type":"image","source":{"type":"base64","data":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==","media_type":"image/png"}}])
+[assistant] ok
+[turn ended: success] ok
+
+>>> /seen-widget show
+[assistant] seen-widget: #1 Read C:\Users\O\.claude-factory\scratch-project\seen.png: PNG 1×1, 70 B, 08:44, preview
+[turn ended: success] seen-widget: #1 Read C:\Users\O\.claude-factory\scratch-project\seen.png: PNG 1×1, 70 B, 08:44, preview
+
+>>> /seen-widget off
+[assistant] seen-widget: Seen off.
+[turn ended: success] seen-widget: Seen off.
+
+--- seen-widget store ---
+seen-widget_inline-5e3c724cd414.json: {
+  "isOn": false
+}

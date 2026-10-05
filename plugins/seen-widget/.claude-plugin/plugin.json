@@ -1,0 +1,20 @@
+{
+  "name": "seen-widget",
+  "version": "1.0.0",
+  "description": "The pictures Claude looked at this session, image files it read and screenshots that came back from tools, drawn as Claude received them and opened full size with one command",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "seen",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

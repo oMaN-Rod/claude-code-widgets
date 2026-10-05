@@ -1,0 +1,7 @@
+{
+  "title": "Seen",
+  "category": "Session",
+  "shows": "The pictures Claude looked at this session, image files it read and screenshots that came back from tools, drawn as Claude received them and opened full size with one command",
+  "commands": ["/seen-widget [on|off|show|open [n]|clear]"],
+  "cost": ""
+}

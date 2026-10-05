@@ -132,7 +132,9 @@
     }),
   }
   const BESIDE = { 'trial-widget': ['moon-widget'] }
+  const SHOT = 'iVBORw0KGgoAAAANSUhEUgAAAGAAAAA2CAIAAAC3LQuFAAAAYklEQVR42u3QMQ0AAAjAMCThXwWOwAEnB+kyBY3K9HIgAAQIECBAgN4CtdYAAQIECBAgQIAACRAgQIAAAQIESIAAAQIECBAgQAIECBAgQIAAAQIkQIAAAQIECBAgAQIE6KwBCOUfelevZDYAAAAASUVORK5CYII='
   const AFTER = {
+    'seen-widget': [{ tool: 'Read', input: { file_path: `${ROOT}/out/shot.png` }, ms: 500, image: SHOT }],
     'outage-widget': [
       { tool: 'Bash', input: { command: 'git push origin main' }, ms: 900, isError: true, text: "fatal: unable to access 'https://github.com/demo/demo.git/': The requested URL returned error: 503" },
     ],
@@ -620,6 +622,7 @@
               const before = files.get(e.file_path) ?? ''
               files.set(e.file_path, before.includes(e.old_string) ? before.replace(e.old_string, e.new_string) : before)
             }
+            if (e.tool === 'Read' && call.image !== undefined) return { result: { type: 'image', file: { base64: call.image, type: 'image/png', originalSize: atob(call.image).length } }, text: '' }
             if (e.tool === 'Read') {
               const content = files.get(e.file_path) ?? ''
 

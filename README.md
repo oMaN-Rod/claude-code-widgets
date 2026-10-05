@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 86 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 87 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
@@ -67,6 +67,7 @@ What Claude is doing and what it is costing.
 | `pen-widget` | `/pen-widget [on\|off\|show\|clear]` | The file, edit or command Claude is writing right now, drawn line by line as the tool call's arguments stream in, before the tool runs |
 | `outage-widget` | `/outage-widget [on\|off\|check\|clear]` | When a push or install fails on the network, checks the provider's status page and says whether GitHub, npm, PyPI or crates.io reports an incident |
 | `landmarks-widget` | `/landmarks-widget [on\|off\|list\|go <n>\|clear]` | A numbered table of contents for the session, built as it happens from prompts, first edits, checks turning red or green, commits and questions; press a line to scroll the transcript to it |
+| `seen-widget` | `/seen-widget [on\|off\|show\|open [n]\|clear]` | The pictures Claude looked at this session, image files it read and screenshots that came back from tools, drawn as Claude received them and opened full size with one command |
 
 ### Project and git
 

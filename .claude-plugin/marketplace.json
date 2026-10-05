@@ -1545,6 +1545,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "seen-widget",
+      "source": "./plugins/seen-widget",
+      "description": "The pictures Claude looked at this session, image files it read and screenshots that came back from tools, drawn as Claude received them and opened full size with one command",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "seen",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
