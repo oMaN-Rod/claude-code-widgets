@@ -1,0 +1,94 @@
+{
+  "agents": {
+    "a0268ce50f1f859de": {
+      "label": "invent:capability:WO-0031",
+      "input": 20,
+      "output": 6629,
+      "cacheWrite": 91359,
+      "cacheRead": 591277,
+      "usd": 0.7077104,
+      "unpriced": 0,
+      "guessed": 3289
+    },
+    "a332ccfc9c9953ad0": {
+      "label": "examine:WO-0031",
+      "input": 16,
+      "output": 7563,
+      "cacheWrite": 67743,
+      "cacheRead": 405029,
+      "usd": 0.5710448,
+      "unpriced": 0,
+      "guessed": 5622
+    },
+    "a4fc5f9359bbf62b9": {
+      "label": "invent:delight:WO-0031",
+      "input": 14,
+      "output": 3786,
+      "cacheWrite": 45623,
+      "cacheRead": 358948,
+      "usd": 0.3756806,
+      "unpriced": 0,
+      "guessed": 1534
+    },
+    "a7ec8c4b8fc42324a": {
+      "label": "invent:person:WO-0031",
+      "input": 16,
+      "output": 11606,
+      "cacheWrite": 57445,
+      "cacheRead": 447576,
+      "usd": 0.6089242,
+      "unpriced": 0,
+      "guessed": 719
+    },
+    "ab6361e3b97963363": {
+      "label": "build:WO-0031",
+      "input": 70,
+      "output": 43240,
+      "cacheWrite": 178494,
+      "cacheRead": 4165289,
+      "usd": 2.5906078000000003,
+      "unpriced": 0,
+      "guessed": 26958
+    },
+    "ab92edb713af9c56a": {
+      "label": "design:WO-0031",
+      "input": 36,
+      "output": 17533,
+      "cacheWrite": 102641,
+      "cacheRead": 1169465,
+      "usd": 1.0979019999999997,
+      "unpriced": 0,
+      "guessed": 3921
+    },
+    "abe1cef7fd7c76018": {
+      "label": "review-spec:WO-0031",
+      "input": 24,
+      "output": 5293,
+      "cacheWrite": 69583,
+      "cacheRead": 596835,
+      "usd": 0.573238,
+      "unpriced": 0,
+      "guessed": 4625
+    },
+    "a97c08c1c063846df": {
+      "label": "inspect:WO-0031",
+      "input": 18,
+      "output": 6323,
+      "cacheWrite": 82837,
+      "cacheRead": 476609,
+      "usd": 0.6360387999999999,
+      "unpriced": 0,
+      "guessed": 5265
+    },
+    "aa32a5cfb280aa2c0": {
+      "label": "build:WO-0031",
+      "input": 16,
+      "output": 9185,
+      "cacheWrite": 81645,
+      "cacheRead": 545206,
+      "usd": 0.7010302,
+      "unpriced": 0,
+      "guessed": 3432
+    }
+  }
+}

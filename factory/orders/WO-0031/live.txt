@@ -1,0 +1,100 @@
+=== run 1 of the order proof: switch on ===
+
+>>> /attic-widget on
+[assistant] attic-widget: Attic on; /widgets places it.
+[turn ended: success] attic-widget: Attic on; /widgets places it.
+
+--- attic-widget store ---
+attic-widget_inline-507307c7ffd1.json: {
+  "isOn": true
+}
+
+=== run 2 of the order proof: a new session, no verb moved a tool ===
+
+>>> Call ToolSearch once with the query select:Skill, then answer with the one word ok.
+[assistant] (tool ToolSearch {"query":"select:Skill","max_results":5})
+[user] (result [{"type":"tool_reference","tool_name":"Skill"}])
+[assistant] ok
+[turn ended: success] ok
+
+>>> /attic-widget show
+[assistant] attic-widget: Attic, session 1 of 5 in scratch-project: watching, nothing moved.
+would go Agent: never called here
+would go ListAgents: never called here
+would go PowerShell: never called here
+would go ReportFindings: never called here
+would go ScheduleWakeup: never called here
+would go Skill: never called here
+would go Workflow: never called here
+On demand now: 24.3k tokens
+[turn ended: success] attic-widget: Attic, session 1 of 5 in scratch-project: watching, nothing moved.
+would go Agent: never called here
+would go ListAgents: never called here
+would go PowerShell: never called here
+would go ReportFindings: never called here
+would go ScheduleWakeup: never called here
+would go Skill: never called here
+would go Workflow: never called here
+On demand now: 24.3k tokens
+
+>>> /attic-widget clear
+[assistant] attic-widget: Attic cleared: 36 tools forgotten for scratch-project.
+[turn ended: success] attic-widget: Attic cleared: 36 tools forgotten for scratch-project.
+
+>>> /attic-widget off
+[assistant] attic-widget: Attic off.
+[turn ended: success] attic-widget: Attic off.
+
+--- attic-widget store ---
+attic-widget_inline-507307c7ffd1.json: {
+  "isOn": false
+}
+
+=== the spec's run ===
+
+>>> /attic-widget on
+[assistant] attic-widget: Attic on; /widgets places it.
+[turn ended: success] attic-widget: Attic on; /widgets places it.
+
+>>> /attic-widget stow Skill
+[assistant] attic-widget: Skill is in the attic from the next request. One prompt-cache miss.
+[turn ended: success] attic-widget: Skill is in the attic from the next request. One prompt-cache miss.
+
+>>> Call ToolSearch once with the query select:Skill, then answer with the one word ok.
+[assistant] (tool ToolSearch {"query":"select:Skill","max_results":5})
+[user] (result [{"type":"tool_reference","tool_name":"Skill"}])
+[assistant] ok
+[turn ended: success] ok
+
+>>> /attic-widget show
+[assistant] attic-widget: Attic, session 1 of 5 in scratch-project: watching, nothing moved.
+away Skill: stowed by you
+would go Agent: never called here
+would go ListAgents: never called here
+would go PowerShell: never called here
+would go ReportFindings: never called here
+would go ScheduleWakeup: never called here
+would go Workflow: never called here
+On demand now: 25.2k tokens
+[turn ended: success] attic-widget: Attic, session 1 of 5 in scratch-project: watching, nothing moved.
+away Skill: stowed by you
+would go Agent: never called here
+would go ListAgents: never called here
+would go PowerShell: never called here
+would go ReportFindings: never called here
+would go ScheduleWakeup: never called here
+would go Workflow: never called here
+On demand now: 25.2k tokens
+
+>>> /attic-widget clear
+[assistant] attic-widget: Attic cleared: 36 tools forgotten for scratch-project.
+[turn ended: success] attic-widget: Attic cleared: 36 tools forgotten for scratch-project.
+
+>>> /attic-widget off
+[assistant] attic-widget: Attic off.
+[turn ended: success] attic-widget: Attic off.
+
+--- attic-widget store ---
+attic-widget_inline-507307c7ffd1.json: {
+  "isOn": false
+}

@@ -133,6 +133,16 @@
     Edit: 'Replaces one exact string in a file.\nRead the file before you edit it.',
     Bash: SHELL.join('\n'),
   }
+  const SHELF = {
+    'attic-widget': [
+      { tool: 'PowerShell', description: 'Executes a PowerShell command and returns its output.' },
+      { tool: 'Artifact', description: 'Publishes a page the person can open and share.' },
+      { tool: 'SendFeedback', description: 'Drafts feedback about the session for the person to send.' },
+      { tool: 'ReportFindings', description: 'Reports code review findings as a typed list.' },
+      { tool: 'WebFetch', description: 'Fetches a page and answers a question about it.', isDeferred: true },
+    ],
+  }
+  const ON_DEMAND = { 'attic-widget': 8400 }
   const sections = Object.fromEntries(PROMPT.filter(section => section.scope === 'shared').map(section => [`s/${section.id}`, section.text]))
   const HELD = {
     'amendments-widget': {
@@ -168,7 +178,20 @@
     { port: 3000, pid: 4101, parent: 1, args: 'node /demo/project/node_modules/.bin/vite' },
     { port: 5173, pid: 4188, parent: 4187, args: 'bun dev' },
   ]
+  const shelved = (used, isDeferred) => ({ isEngine: true, isDeferred, since: 1, seen: 11, used })
   const KEPT = {
+    'attic-widget': () => ({
+      [`book:${ROOT}`]: {
+        sessions: 11,
+        base: 3100,
+        keep: [],
+        stow: [],
+        tools: {
+          ...Object.fromEntries(SHELF['attic-widget'].map(({ tool, isDeferred }) => [tool, shelved(isDeferred ? [8, 9, 11] : [], isDeferred === true)])),
+          ...Object.fromEntries(Object.keys(DESCRIBED).map(tool => [tool, shelved([7, 8, 9, 10, 11], false)])),
+        },
+      },
+    }),
     'strays-widget': at => ({
       [`rows:${hash(ROOT)}`]: { session: 'demo-earlier', rows: [{ port: 3000, pid: 4101, born: at, name: 'node', hint: 'vite', turn: 4, isEarlier: false, isShared: false }] },
     }),
@@ -177,6 +200,7 @@
   const SHOT = 'iVBORw0KGgoAAAANSUhEUgAAAGAAAAA2CAIAAAC3LQuFAAAAYklEQVR42u3QMQ0AAAjAMCThXwWOwAEnB+kyBY3K9HIgAAQIECBAgN4CtdYAAQIECBAgQIAACRAgQIAAAQIESIAAAQIECBAgQAIECBAgQIAAAQIkQIAAAQIECBAgAQIE6KwBCOUfelevZDYAAAAASUVORK5CYII='
   const AFTER = {
     'seen-widget': [{ tool: 'Read', input: { file_path: `${ROOT}/out/shot.png` }, ms: 500, image: SHOT }],
+    'attic-widget': [{ tool: 'PowerShell', input: { command: 'Get-ChildItem src' }, ms: 500, text: 'format.js\nindex.js\nsum.js' }],
     'outage-widget': [
       { tool: 'Bash', input: { command: 'git push origin main' }, ms: 900, isError: true, text: "fatal: unable to access 'https://github.com/demo/demo.git/': The requested URL returned error: 503" },
     ],
@@ -355,6 +379,7 @@
           row('Messages', messages, 'permission', 'used'),
           row('Free space', Math.max(0, 200_000 - used - 33_000), 'inactive', 'free'),
           row('Autocompact buffer', 33_000, 'inactive', 'buffer'),
+          ...(ON_DEMAND[name] === undefined ? [] : [{ ...row('Tools on demand', ON_DEMAND[name], 'inactive', 'deferred'), isDeferred: true }]),
         ],
         totalTokens: used,
         maxTokens: 200_000,
@@ -586,7 +611,7 @@
           return { tool: `mcp__${name}__${entry.name}` }
         },
         check: async () => ({ decision: 'allow' }),
-        list: async () => [],
+        list: async () => (SHELF[name] === undefined ? [] : [...Object.keys(DESCRIBED), ...SHELF[name].map(entry => entry.tool), 'ToolSearch'].map(tool => ({ name: tool, description: '', mcp: null }))),
       },
       model: {
         complete: async () => {
@@ -652,6 +677,11 @@
           if (described.has(tool)) continue
           described.add(tool)
           await dispatch('tool.describe', { tool, description, provider: { plugin: 'engine', tier: 'core' } }, e => ({ description: e.description }))
+        }
+        for (const { tool, description, isDeferred } of SHELF[name] ?? []) {
+          if (described.has(tool)) continue
+          described.add(tool)
+          await dispatch('tool.describe', { tool, description, ...(isDeferred ? { isDeferred: true } : {}), provider: { plugin: 'engine', tier: 'core' } }, e => ({ description: e.description }))
         }
         await dispatch('prompt.compose', { model: 'claude-demo', promptModel: 'claude-demo', surfaces: ['terminal'], tools: Object.keys(DESCRIBED), outputStyle: null, traits: [] }, () => ({ sections: PROMPT.map(section => ({ ...section })) }))
         let steps = 0

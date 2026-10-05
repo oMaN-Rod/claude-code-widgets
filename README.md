@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 89 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 90 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
@@ -70,6 +70,7 @@ What Claude is doing and what it is costing.
 | `seen-widget` | `/seen-widget [on\|off\|show\|open [n]\|clear]` | The pictures Claude looked at this session, image files it read and screenshots that came back from tools, drawn as Claude received them and opened full size with one command |
 | `amendments-widget` | `/amendments-widget [on\|off\|show [n]\|clear]` | What changed in the system prompt and the built-in tool descriptions Claude Code gives Claude since the version you last ran, with the before and after one command away |
 | `skimmed-widget` | `/skimmed-widget [on\|off\|show\|clear]` | The caveats in Claude's replies that left your screen while Claude was still writing and have not been back, quoted in full; it never claims that what was on screen was read |
+| `attic-widget` | `/attic-widget [on\|off\|show\|keep <tool>\|stow <tool>\|clear]` | Counts which tools Claude calls in this project, puts the unused ones behind ToolSearch, lists the daily ones up front, and reports how many schema tokens each request no longer carries |
 
 ### Project and git
 

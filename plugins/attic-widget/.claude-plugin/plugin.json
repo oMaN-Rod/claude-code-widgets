@@ -1,0 +1,20 @@
+{
+  "name": "attic-widget",
+  "version": "1.0.0",
+  "description": "Counts which tools Claude calls in this project, puts the unused ones behind ToolSearch, lists the daily ones up front, and reports how many schema tokens each request no longer carries",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "attic",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

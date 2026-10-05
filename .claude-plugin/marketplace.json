@@ -1596,6 +1596,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "attic-widget",
+      "source": "./plugins/attic-widget",
+      "description": "Counts which tools Claude calls in this project, puts the unused ones behind ToolSearch, lists the daily ones up front, and reports how many schema tokens each request no longer carries",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "attic",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

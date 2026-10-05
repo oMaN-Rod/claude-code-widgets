@@ -1,0 +1,7 @@
+{
+  "title": "Attic",
+  "category": "Session",
+  "shows": "Counts which tools Claude calls in this project, puts the unused ones behind ToolSearch, lists the daily ones up front, and reports how many schema tokens each request no longer carries",
+  "commands": ["/attic-widget [on|off|show|keep <tool>|stow <tool>|clear]"],
+  "cost": "Changes which tool schemas each request carries; one prompt-cache miss when you move a tool mid-session, and one extra ToolSearch step when Claude needs a stowed tool"
+}
