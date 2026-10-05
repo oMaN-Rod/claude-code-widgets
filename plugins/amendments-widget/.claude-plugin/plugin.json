@@ -1,0 +1,20 @@
+{
+  "name": "amendments-widget",
+  "version": "1.0.0",
+  "description": "What changed in the system prompt and the built-in tool descriptions Claude Code gives Claude since the version you last ran, with the before and after one command away",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "amendments",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

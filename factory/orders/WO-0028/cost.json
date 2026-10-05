@@ -1,0 +1,114 @@
+{
+  "agents": {
+    "a8119155338ce79b3": {
+      "label": "invent:person:WO-0028",
+      "input": 24,
+      "output": 6199,
+      "cacheWrite": 50182,
+      "cacheRead": 596318,
+      "usd": 0.4942496,
+      "unpriced": 0,
+      "guessed": 1939
+    },
+    "ac2f8636543f907d0": {
+      "label": "invent:capability:WO-0028",
+      "input": 26,
+      "output": 6719,
+      "cacheWrite": 89950,
+      "cacheRead": 717051,
+      "usd": 0.7276442000000001,
+      "unpriced": 0,
+      "guessed": 1518
+    },
+    "a575cf13c7b2becd2": {
+      "label": "invent:delight:WO-0028",
+      "input": 18,
+      "output": 4543,
+      "cacheWrite": 37723,
+      "cacheRead": 386493,
+      "usd": 0.35684560000000004,
+      "unpriced": 0,
+      "guessed": 1085
+    },
+    "a26716fdf12972268": {
+      "label": "examine:WO-0028",
+      "input": 16,
+      "output": 7842,
+      "cacheWrite": 68058,
+      "cacheRead": 381464,
+      "usd": 0.5734868000000001,
+      "unpriced": 0,
+      "guessed": 1584
+    },
+    "a9ee561308af5846b": {
+      "label": "design:WO-0028",
+      "input": 38,
+      "output": 22073,
+      "cacheWrite": 114041,
+      "cacheRead": 1339912,
+      "usd": 1.2797994,
+      "unpriced": 0,
+      "guessed": 3028
+    },
+    "ab146f9fc678bd929": {
+      "label": "review-spec:WO-0028",
+      "input": 22,
+      "output": 4502,
+      "cacheWrite": 67347,
+      "cacheRead": 464529,
+      "usd": 0.5197688,
+      "unpriced": 0,
+      "guessed": 3851
+    },
+    "afeecebf9ed3ad23f": {
+      "label": "build:WO-0028",
+      "input": 90,
+      "output": 86412,
+      "cacheWrite": 191143,
+      "cacheRead": 6317276,
+      "usd": 3.9477702,
+      "unpriced": 0,
+      "guessed": 51089
+    },
+    "a93a2d7848d6a7117": {
+      "label": "inspect:WO-0028",
+      "input": 42,
+      "output": 15034,
+      "cacheWrite": 97604,
+      "cacheRead": 1934868,
+      "usd": 1.1758415999999998,
+      "unpriced": 0,
+      "guessed": 10019
+    },
+    "a207ffe9cc3d394b2": {
+      "label": "build:WO-0028",
+      "input": 48,
+      "output": 19980,
+      "cacheWrite": 137008,
+      "cacheRead": 2448146,
+      "usd": 1.5744612,
+      "unpriced": 0,
+      "guessed": 16747
+    },
+    "a2ad17decbe34d802": {
+      "label": "inspect:WO-0028",
+      "input": 40,
+      "output": 17492,
+      "cacheWrite": 95626,
+      "cacheRead": 1726975,
+      "usd": 1.173525,
+      "unpriced": 0,
+      "guessed": 16566
+    },
+    "aabe9da10067ab942": {
+      "label": "ship:WO-0028",
+      "input": 22,
+      "output": 5074,
+      "cacheWrite": 58138,
+      "cacheRead": 693410,
+      "usd": 0.53094,
+      "unpriced": 0,
+      "guessed": 4461
+    }
+  }
+}

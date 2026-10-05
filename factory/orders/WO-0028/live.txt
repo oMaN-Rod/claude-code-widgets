@@ -1,0 +1,21 @@
+
+>>> /amendments-widget on
+[assistant] amendments-widget: Amendments on; /widgets places it.
+[turn ended: success] amendments-widget: Amendments on; /widgets places it.
+
+>>> Answer with the single word ok.
+[assistant] ok
+[turn ended: success] ok
+
+>>> /amendments-widget show
+[assistant] amendments-widget: Baseline taken at 2.1.289: 1 section, 28 tools. Nothing to compare yet.
+[turn ended: success] amendments-widget: Baseline taken at 2.1.289: 1 section, 28 tools. Nothing to compare yet.
+
+>>> /amendments-widget off
+[assistant] amendments-widget: Amendments off.
+[turn ended: success] amendments-widget: Amendments off.
+
+--- amendments-widget store ---
+amendments-widget_inline-11d422b44778.json: {
+  "isOn": false
+}

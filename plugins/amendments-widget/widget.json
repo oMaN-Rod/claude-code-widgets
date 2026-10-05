@@ -1,0 +1,7 @@
+{
+  "title": "Amendments",
+  "category": "Session",
+  "shows": "What changed in the system prompt and the built-in tool descriptions Claude Code gives Claude since the version you last ran, with the before and after one command away",
+  "commands": ["/amendments-widget [on|off|show [n]|clear]"],
+  "cost": ""
+}

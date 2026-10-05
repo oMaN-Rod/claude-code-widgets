@@ -1562,6 +1562,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "amendments-widget",
+      "source": "./plugins/amendments-widget",
+      "description": "What changed in the system prompt and the built-in tool descriptions Claude Code gives Claude since the version you last ran, with the before and after one command away",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "amendments",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

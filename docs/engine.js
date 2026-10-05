@@ -114,7 +114,49 @@
   const SELECTED = { text: 'The loop in src/sum.js started at index 1, so the first item was never added.', requestId: 'answer-1' }
   const PICKED = { 'loupe-widget': turnId => ({ text: 'src/sum.js', requestId: `${turnId}-${TURN.findIndex(call => call.tool === 'Edit')}` }) }
   const arm = (isWith, turns, clean) => ({ isWith, turns, clean })
+  const VERSION = '2.1.289'
+  const EARLIER = '2.1.287'
+  const TONE = ['# Tone and style', 'Keep answers short and say what changed.', 'Use Markdown only where it helps the reader.', 'Do not use emojis unless asked.', 'State results plainly, without superlatives.', 'Do not put a colon before a tool call.']
+  const SHELL = ['Executes a bash command and returns its output.', 'The working directory persists between calls.', 'Prefer the dedicated tools for reading and searching files.', 'Quote any path that contains spaces.']
+  const PROMPT = [
+    ['intro', 'shared', 'You are Claude Code, a command line tool for software engineering.'],
+    ['system', 'shared', '# System\nTool results may carry reminders from the system.'],
+    ['doing_tasks', 'shared', '# Doing tasks\nRead the code before you change it.\nRun the tests after you change it.'],
+    ['actions', 'shared', '# Actions\nAsk before an action that cannot be undone.'],
+    ['tools', 'shared', '# Using your tools\nCall independent tools in the same turn.'],
+    ['tone', 'shared', TONE.join('\n')],
+    ['session_guidance', 'shared', '# Session guidance\nKeep to the task the user gave you.'],
+    ['memory', 'session', `# Memory\nContents of ${ROOT}/CLAUDE.md follow.`],
+  ].map(([id, scope, text]) => ({ id, text, scope }))
+  const DESCRIBED = {
+    Read: 'Reads a file from the local filesystem.\nThe path must be absolute.',
+    Edit: 'Replaces one exact string in a file.\nRead the file before you edit it.',
+    Bash: SHELL.join('\n'),
+  }
+  const sections = Object.fromEntries(PROMPT.filter(section => section.scope === 'shared').map(section => [`s/${section.id}`, section.text]))
   const HELD = {
+    'amendments-widget': {
+      'amendments.json': JSON.stringify({
+        last: 'claude-demo||',
+        books: {
+          'claude-demo||': {
+            now: {
+              version: EARLIER,
+              at: Date.now() - 9 * DAY - 4 * HOUR,
+              texts: {
+                ...Object.fromEntries(Object.entries(sections).filter(([id]) => id !== 's/session_guidance')),
+                's/tone': [TONE[0], 'Answer in as few words as you can.', 'Only use emojis when the user asks.', TONE.at(-1)].join('\n'),
+                't/Read': DESCRIBED.Read,
+                't/Edit': DESCRIBED.Edit,
+                't/Bash': [...SHELL, 'Never run a command that waits for input.', 'Avoid cd in a compound command.', 'Do not sleep between commands.'].join('\n'),
+              },
+            },
+            before: null,
+            loose: [],
+          },
+        },
+      }),
+    },
     'trial-widget': {
       'trial.json': JSON.stringify({
         subject: 'moon-widget',
@@ -204,6 +246,7 @@
     const commands = []
     const tools = new Set()
     const calls = new Map()
+    const described = new Set()
     const timers = new Set()
     const born = Date.now()
     const usage = { tokens: 46_000, usd: 0.38, five: 12, seven: 31 }
@@ -524,6 +567,7 @@
         root: async () => ROOT,
         cwd: async () => ROOT,
         id: async () => 'demo-session',
+        version: async () => ({ version: VERSION, base: VERSION }),
         send: async () => ({}),
         model: async () => ({ id: 'claude-demo', name: 'Claude' }),
         repo: async () => ({ root: ROOT, branch: 'main' }),
@@ -597,6 +641,12 @@
       try {
         await dispatch('prompt.submit', { text, wait: false, origin: { kind: 'composer' } }, e => ({ text: e.text, ...(e.context === undefined ? {} : { context: e.context }) }))
         await dispatch('turn.start', { text, turnId }, e => ({ turnId: e.turnId }))
+        for (const [tool, description] of Object.entries(DESCRIBED)) {
+          if (described.has(tool)) continue
+          described.add(tool)
+          await dispatch('tool.describe', { tool, description, provider: { plugin: 'engine', tier: 'core' } }, e => ({ description: e.description }))
+        }
+        await dispatch('prompt.compose', { model: 'claude-demo', promptModel: 'claude-demo', surfaces: ['terminal'], tools: Object.keys(DESCRIBED), outputStyle: null, traits: [] }, () => ({ sections: PROMPT.map(section => ({ ...section })) }))
         let steps = 0
         for (const [at, call] of [...TURN, ...(AFTER[name] ?? [])].entries()) {
           if (call.tool.startsWith('mcp__') && !tools.has(call.tool)) continue

@@ -1,0 +1,129 @@
+{
+  "id": "WO-0028",
+  "kind": "new",
+  "widget": "amendments-widget",
+  "title": "Amendments",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T14:37:54.405Z",
+  "closedAt": "2026-10-05T16:11:33.210Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T14:49:28.697Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its cost is out of proportion: every pinned schema is paid for on every request of every session in exchange for an unmeasured saving of a few ToolSearch round trips, and the card is a counter nobody would mention.",
+      "subject": "Regulars"
+    },
+    {
+      "at": "2026-10-05T14:49:31.791Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on what exists: the model of a subagent type is already settable in its agent definition and in the Agent tool's own parameter, earpiece-widget already hooks agent.spawn, and the card is a per-type cost table beside ledger and usage.",
+      "subject": "Casting"
+    },
+    {
+      "at": "2026-10-05T14:49:34.499Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its cost is out of proportion: a model call on every prompt for a three-way classification that will often be wrong, to keep a return address that board-widget and the waiting resume and flow widgets already come close to.",
+      "subject": "Yak stack"
+    },
+    {
+      "at": "2026-10-05T14:49:37.927Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on the waiting situation and preflight widgets (project state checked for you), and its own inventor calls it the least surprising: nobody would mention it to a colleague.",
+      "subject": "Out of step"
+    },
+    {
+      "at": "2026-10-05T14:49:40.699Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Telling a swallowed sentence from ordinary editing with prompt.edit splices is unreliable, and the card puts on screen exactly the words the person chose not to show; a novelty that wears off after one look.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T14:49:43.596Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on badges-widget and the waiting mirror and wrapped widgets: a phrase counter with a picture, built on a joke that is already everywhere.",
+      "subject": "The jar"
+    },
+    {
+      "at": "2026-10-05T14:49:45.897Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Word-shingle overlap with no model will almost never fire on a real repeat and will misfire on boilerplate prompts, so the best moment barely happens; it is also another reader of saved sessions beside ledger and the waiting insight widget.",
+      "subject": "Deja vu"
+    },
+    {
+      "at": "2026-10-05T14:49:48.612Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the strongest runner-up, but a transcript row scrolls and a card row is clickable only in the fullscreen layout (the call answers 'none scrolls' elsewhere), so in the default layout it is a list of your own prompts; Amendments works everywhere at no cost.",
+      "subject": "Trail"
+    },
+    {
+      "at": "2026-10-05T14:50:01.565Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Amendments reads what no widget has touched (the engine's own system prompt and tool descriptions), shows a changelog nobody publishes, costs no tokens and no cache, and works in every layout."
+    },
+    {
+      "at": "2026-10-05T15:03:58.357Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every hook and call exists in the 2.1.289 types, all six states and the 20-column card are drawn, demo and live sections present, 118 lines and 15 acceptance lines; 13 notes in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T15:38:10.948Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built amendments-widget: captures the engine's shared prompt sections and built-in tool descriptions once per session key, flushes them to amendments.json at turn end, and lists what was added, dropped or rewritten since the version last run, with show [n] for the line diff; 15 acceptance tests and the checker pass."
+    },
+    {
+      "at": "2026-10-05T15:51:05.961Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "send-back",
+      "reason": "Nothing is captured when next.trace is absent (own() throws on undefined and the catch swallows it), so the spec's demo path never leaves the working card; at 20 columns wrapped sentences start with a stray space in the empty and unchanged cards; A3 proves the engine path only on the helper. Six findings in inspection.md; the next build needs a fresh live run with --keep.",
+      "to": "build"
+    },
+    {
+      "at": "2026-10-05T16:01:38.431Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Fixed all six inspection findings: capture now works when next.trace is absent, sentences are wrapped by the widget so no line starts with a space, A3 raises the widget's own hooks by hand with and without an engine trace entry, show <n> past six digits answers the usage, the age row reads 'since just now' under a minute, and the formatting slip is gone; 15 acceptance tests and the checker pass."
+    },
+    {
+      "at": "2026-10-05T16:08:36.342Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "All six findings of the first inspection are fixed: the demo path without next.trace reaches the best-moment card, every state fits 20, 40 and 60 columns with no stray indent, bad files, loose text, big diffs and odd verbs all hold, and the live run took a real baseline of 1 section and 28 tools; five notes in inspection.md."
+    },
+    {
+      "at": "2026-10-05T16:11:33.209Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}
