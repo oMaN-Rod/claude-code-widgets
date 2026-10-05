@@ -1,0 +1,20 @@
+{
+  "name": "queue-widget",
+  "version": "1.0.0",
+  "description": "A queue of prompts that run back to back while you are away, a gate command each must pass before the next starts, and a report of how each one ended",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "queue",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

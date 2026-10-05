@@ -54,6 +54,7 @@
   const SUMMARY = 'Summary of the conversation so far: sum() skipped the first item of a list; the loop was fixed and the tests pass.'
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
   const SAID = {}
+  const OPENING = { 'queue-widget': { lines: ['until npm test', 'add update the changelog', 'add bump the version'], settleMs: 900 } }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)
@@ -402,6 +403,7 @@
         await measure(['context', 'rateLimits', 'cost'])
         await dispatch('turn.complete', { answer: ANSWER, durationMs: Date.now() - startedAt, isAborted: false, turnId, reason: 'answer' }, e => ({ text: e.answer }))
         files.set(`${ROOT}/src/sum.js`, FILES['src/sum.js'])
+        await sleep(OPENING[name]?.settleMs ?? 0)
       } finally {
         isBusy = false
         changed()
@@ -420,6 +422,8 @@
         await measure(['context', 'rateLimits', 'cost'])
         await command(name, 'on')
         if (state.get(`${name}/isOn`) !== true) await command(name, '')
+        for (const line of OPENING[name]?.lines ?? []) await command(name, line)
+        await sleep(OPENING[name]?.settleMs ?? 0)
         changed()
       },
       run: async line => {

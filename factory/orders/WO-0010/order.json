@@ -1,0 +1,43 @@
+{
+  "id": "WO-0010",
+  "kind": "rebuild",
+  "widget": "queue-widget",
+  "title": "Queue",
+  "brief": "Rebuild to the standard. What it is: A queue of prompts that run back to back, a gate that keeps each going until a command passes, and a report of what happened. Known faults of the earlier version: it acts or writes while switched off; it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T21:32:08.185Z",
+  "closedAt": "2026-10-05T00:45:19.982Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-04T21:38:32.989Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, every hook and call it names is in the types file, the five card states are drawn and fit 20 columns, and both brief faults are addressed; 15 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T21:52:28.515Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built queue-widget to the spec: a prompt queue with a gate command, three retries, a report and a card, inert while off, with 15 acceptance tests and the checker passing."
+    },
+    {
+      "at": "2026-10-05T00:42:25.067Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The checker passes, every frame matches the spec at 20, 40 and 60 columns, the widget is inert while off, the live run sent both queued prompts in order through a passing gate and stored only isOn; five minor findings, none blocking."
+    },
+    {
+      "at": "2026-10-05T00:45:19.982Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

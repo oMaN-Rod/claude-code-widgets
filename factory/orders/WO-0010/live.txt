@@ -1,0 +1,33 @@
+
+>>> /queue-widget on
+[assistant] queue-widget: Queue on; /queue-widget add <prompt> lines one up. /widgets places it.
+[turn ended: success] queue-widget: Queue on; /queue-widget add <prompt> lines one up. /widgets places it.
+
+>>> /queue-widget until git --version
+[assistant] queue-widget: Gate set: after each queued prompt `git --version` runs; while it fails Claude is sent its output, up to 3 times.
+[turn ended: success] queue-widget: Gate set: after each queued prompt `git --version` runs; while it fails Claude is sent its output, up to 3 times.
+
+>>> /queue-widget add Reply with the single word one.
+[assistant] queue-widget: Queued at 1.
+[turn ended: success] queue-widget: Queued at 1.
+
+>>> /queue-widget add Reply with the single word two.
+[assistant] queue-widget: Queued at 2.
+[turn ended: success] queue-widget: Queued at 2.
+
+>>> /queue-widget report
+[assistant] queue-widget: Nothing has finished yet.
+2 prompts waiting.
+Gate: git --version
+[turn ended: success] queue-widget: Nothing has finished yet.
+2 prompts waiting.
+Gate: git --version
+[assistant] one
+[turn ended: success] one
+[assistant] two
+[turn ended: success] two
+
+--- queue-widget store ---
+queue-widget_inline-634cdb26e69b.json: {
+  "isOn": true
+}

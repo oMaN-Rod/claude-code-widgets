@@ -1256,6 +1256,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "queue-widget",
+      "source": "./plugins/queue-widget",
+      "description": "A queue of prompts that run back to back while you are away, a gate command each must pass before the next starts, and a report of how each one ended",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "queue",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "title": "Queue",
+  "category": "Session",
+  "shows": "A queue of prompts that run back to back while you are away, a gate command each must pass before the next starts, and a report of how each one ended",
+  "commands": ["/queue-widget [on|off|add <prompt>|until <command|off>|start|drop <number>|report|clear]"],
+  "cost": "Each queued prompt is a turn, and each failed gate adds a turn carrying up to 4000 characters of its output, at most 3 per prompt"
+}
