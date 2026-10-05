@@ -2,7 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { networkInterfaces } from 'node:os'
 import { join } from 'node:path'
 
-import { costs } from './cost'
+import { costs, lastWork } from './cost'
 import { FACTORY, ROOT, allIds, flag, now, orderDir, readLog, readOrder } from './lib'
 
 const PAGE = join(FACTORY, 'control-room', 'floor')
@@ -20,6 +20,7 @@ const isShift = (action: string, agent: string): boolean => action.startsWith('t
 
 const board = (): object => {
   const spent = costs()
+  const worked = lastWork()
 
   return {
     at: now(),
@@ -27,7 +28,7 @@ const board = (): object => {
       const log = readLog(id)
       const files = readdirSync(orderDir(id))
 
-      return { ...readOrder(id), agents: log.filter(entry => isShift(entry.action, entry.agent)).length, log, docs: DOCS.filter(name => files.includes(name)), cost: spent.get(id) ?? null }
+      return { ...readOrder(id), agents: log.filter(entry => isShift(entry.action, entry.agent)).length, log, docs: DOCS.filter(name => files.includes(name)), cost: spent.get(id) ?? null, workedAt: worked.get(id) ?? null }
     }),
   }
 }

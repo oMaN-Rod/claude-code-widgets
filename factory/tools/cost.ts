@@ -47,7 +47,8 @@ const sizeOf = (block: Block): number =>
   block.type === 'tool_use' ? JSON.stringify(block.input ?? {}).length + (block.name ?? '').length : (block.text ?? block.thinking ?? '').length
 
 const read = new Map<string, { stamp: string; spend: Omit<Spend, 'label'> }>()
-let counted: { at: number; byOrder: Map<string, Record<string, Spend>> } | undefined
+type Count = { byOrder: Map<string, Record<string, Spend>>; workedAt: Map<string, number> }
+let counted: (Count & { at: number }) | undefined
 
 const metas = (folder: string): string[] =>
   !existsSync(folder) ? [] : readdirSync(folder, { withFileTypes: true }).flatMap(entry =>
@@ -92,10 +93,11 @@ const spendOf = (path: string): Omit<Spend, 'label'> => {
   return spend
 }
 
-const count = (): Map<string, Record<string, Spend>> => {
+const count = (): Count => {
   const slug = ROOT.replace(/[^A-Za-z0-9]/g, '-')
   const homes = new Set([process.env.CLAUDE_CONFIG_DIR ?? join(homedir(), '.claude'), CONFIG])
   const byOrder = new Map<string, Record<string, Spend>>()
+  const workedAt = new Map<string, number>()
   for (const home of homes) {
     for (const meta of metas(join(home, 'projects', slug))) {
       const transcript = meta.replace(/\.meta\.json$/, '.jsonl')
@@ -107,12 +109,22 @@ const count = (): Map<string, Record<string, Spend>> => {
         const [id] = [...ids]
         const agent = transcript.replace(/^.*agent-|\.jsonl$/g, '')
         byOrder.set(id, { ...byOrder.get(id), [agent]: { label, ...spendOf(transcript) } })
+        workedAt.set(id, Math.max(workedAt.get(id) ?? 0, statSync(transcript).mtimeMs))
       } catch {}
     }
   }
 
-  return byOrder
+  return { byOrder, workedAt }
 }
+
+const fresh = (): Count => {
+  if (counted === undefined || Date.now() - counted.at > RECOUNT_MS) counted = { at: Date.now(), ...count() }
+
+  return counted
+}
+
+// When an agent last wrote to its transcript for each order: the sign that someone is at work between two log entries.
+export const lastWork = (): Map<string, number> => fresh().workedAt
 
 const kept = (id: string): Record<string, Spend> => {
   const path = join(orderDir(id), 'cost.json')
@@ -124,11 +136,11 @@ const kept = (id: string): Record<string, Spend> => {
 }
 
 export const costs = (): Map<string, Cost> => {
-  if (counted === undefined || Date.now() - counted.at > RECOUNT_MS) counted = { at: Date.now(), byOrder: count() }
+  const { byOrder } = fresh()
   const out = new Map<string, Cost>()
   for (const id of allIds()) {
     const before = kept(id)
-    const agents = { ...before, ...counted.byOrder.get(id) }
+    const agents = { ...before, ...byOrder.get(id) }
     const list = Object.values(agents)
     if (list.length === 0) continue
     if (orderDir(id).startsWith(OPEN) && JSON.stringify(agents) !== JSON.stringify(before)) save(join(orderDir(id), 'cost.json'), `${JSON.stringify({ agents }, null, 2)}\n`)
