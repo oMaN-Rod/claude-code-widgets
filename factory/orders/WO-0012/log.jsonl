@@ -1,0 +1,12 @@
+{"at":"2026-10-04T23:44:44.676Z","agent":"director","station":"design","action":"opened the order: Rebuild to the standard. What it is: What a project has cost across every session, from any folder or worktree in it: measured as you go, and read back from saved sessions. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."}
+{"at":"2026-10-04T23:51:57.808Z","agent":"designer","station":"design","action":"took the order at design"}
+{"at":"2026-10-05T00:01:58.691Z","agent":"designer","station":"design","action":"wrote the spec: 15 acceptance lines"}
+{"at":"2026-10-05T00:02:14.174Z","agent":"inspector","station":"design","action":"took the order at design"}
+{"at":"2026-10-05T00:05:35.576Z","agent":"inspector","station":"design","action":"stamped pass: No blocking fault: within the standard and size, every named call is used by a shipped widget, all main states drawn and the brief's four test faults covered by A1, A12 and A15; 12 notes for the machinist, the first being the this-session row at 40 columns."}
+{"at":"2026-10-05T00:05:45.172Z","agent":"machinist","station":"build","action":"took the order at build"}
+{"at":"2026-10-05T00:17:58.093Z","agent":"machinist","station":"build","action":"stamped pass: Built ledger-widget to the spec: one project figure from measured turn ends and scanned cost records across worktrees, 31 tests over A1-A15, with over-long files shown apart as 'too long to read'."}
+{"at":"2026-10-05T00:49:41.967Z","agent":"inspector","station":"inspection","action":"took the order at inspection"}
+{"at":"2026-10-05T00:50:00.586Z","agent":"inspector","station":"inspection","action":"took the order at inspection"}
+{"at":"2026-10-05T00:54:42.774Z","agent":"inspector","station":"inspection","action":"stamped pass: Meets the spec, the standard and the bar: checker passes, frames match the drawings at 20, 40 and 60 columns, and the director's live run measured a real turn and read real saved sessions, counting the running one once and storing only isOn; five non-blocking findings in inspection.md, the fourth for the clerk (the demo needs its three stand-in files)."}
+{"at":"2026-10-05T00:55:05.305Z","agent":"clerk","station":"shipping","action":"took the order at shipping"}
+{"at":"2026-10-05T00:57:46.341Z","agent":"clerk","station":"shipping","action":"stamped pass: On the demo page, in the README and the marketplace; smoke test clean"}

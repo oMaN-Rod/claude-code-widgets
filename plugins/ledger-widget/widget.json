@@ -1,0 +1,7 @@
+{
+  "title": "Ledger",
+  "category": "Project and git",
+  "shows": "What a project has cost across every session, from any folder or worktree in it: measured as each turn ends, and read back from the sessions Claude Code saved",
+  "commands": ["/ledger-widget [on|off|scan|show|clear]"],
+  "cost": ""
+}

@@ -1,0 +1,43 @@
+{
+  "id": "WO-0012",
+  "kind": "rebuild",
+  "widget": "ledger-widget",
+  "title": "Ledger",
+  "brief": "Rebuild to the standard. What it is: What a project has cost across every session, from any folder or worktree in it: measured as you go, and read back from saved sessions. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T23:44:44.655Z",
+  "closedAt": "2026-10-05T00:57:46.342Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T00:05:35.576Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: within the standard and size, every named call is used by a shipped widget, all main states drawn and the brief's four test faults covered by A1, A12 and A15; 12 notes for the machinist, the first being the this-session row at 40 columns."
+    },
+    {
+      "at": "2026-10-05T00:17:58.093Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built ledger-widget to the spec: one project figure from measured turn ends and scanned cost records across worktrees, 31 tests over A1-A15, with over-long files shown apart as 'too long to read'."
+    },
+    {
+      "at": "2026-10-05T00:54:42.774Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker passes, frames match the drawings at 20, 40 and 60 columns, and the director's live run measured a real turn and read real saved sessions, counting the running one once and storing only isOn; five non-blocking findings in inspection.md, the fourth for the clerk (the demo needs its three stand-in files)."
+    },
+    {
+      "at": "2026-10-05T00:57:46.341Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

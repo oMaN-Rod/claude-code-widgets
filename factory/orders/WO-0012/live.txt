@@ -1,0 +1,31 @@
+
+>>> /ledger-widget on
+[assistant] ledger-widget: Ledger on; /widgets places it.
+[turn ended: success] ledger-widget: Ledger on; /widgets places it.
+
+>>> Reply with the one  word: ok
+[assistant] ok
+[turn ended: success] ok
+
+>>> /ledger-widget scan
+[assistant] ledger-widget: Read 2 saved sessions of scratch-project.
+$0.18 over 2 sessions since 4 Oct 2026.
+[turn ended: success] ledger-widget: Read 2 saved sessions of scratch-project.
+$0.18 over 2 sessions since 4 Oct 2026.
+
+>>> /ledger-widget show
+[assistant] ledger-widget: scratch-project (C:\Users\O\.claude-factory\scratch-project)
+$0.18 over 2 sessions since 4 Oct 2026.
+This session: $0.08
+[turn ended: success] ledger-widget: scratch-project (C:\Users\O\.claude-factory\scratch-project)
+$0.18 over 2 sessions since 4 Oct 2026.
+This session: $0.08
+
+>>> /ledger-widget off
+[assistant] ledger-widget: Ledger off.
+[turn ended: success] ledger-widget: Ledger off.
+
+--- ledger-widget store ---
+ledger-widget_inline-4ed203371af9.json: {
+  "isOn": false
+}

@@ -1290,6 +1290,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "ledger-widget",
+      "source": "./plugins/ledger-widget",
+      "description": "What a project has cost across every session, from any folder or worktree in it: measured as each turn ends, and read back from the sessions Claude Code saved",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "ledger",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

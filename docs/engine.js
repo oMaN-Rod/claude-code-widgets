@@ -43,6 +43,16 @@
 
       return JSON.stringify({ id: 'demo-other', cwd: '/demo/api', at, files: { [file]: { path: file, at } } })
     },
+    ...Object.fromEntries(
+      [
+        ['demo-first', 12, 3.1],
+        ['demo-second', 5, 2.75],
+        ['demo-third', 1, 1.42],
+      ].map(([id, ago, usd]) => [
+        `${HOME}/.claude/projects/-demo-project/${id}.jsonl`,
+        () => `${JSON.stringify({ cwd: ROOT, timestamp: new Date(Date.now() - ago * DAY).toISOString() })}\n${JSON.stringify({ type: 'cost-state', totalCostUSD: usd })}\n`,
+      ]),
+    ),
   }
   const TRAFFIC = [
     { tool: 'Read', input: { file_path: `${ROOT}/src/sum.js` }, line: '  for (let i = 1; i < list.length; i += 1) total += list[i]', chars: 6000 },
@@ -59,6 +69,7 @@
   const OPENING = {
     'queue-widget': { lines: ['until npm test', 'add update the changelog', 'add bump the version'], settleMs: 900 },
     'done-widget': { lines: ['add the tests pass', 'add the fix is committed'] },
+    'ledger-widget': { lines: ['scan'] },
   }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
