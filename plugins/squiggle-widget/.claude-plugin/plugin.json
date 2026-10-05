@@ -1,0 +1,20 @@
+{
+  "name": "squiggle-widget",
+  "version": "1.0.0",
+  "description": "Underlines file names that do not exist, as you type them in the prompt box, and paints the ones that do green",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "squiggle",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

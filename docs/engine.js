@@ -368,7 +368,7 @@
           return { isAnswered: true, text: 'Only the loop start in src/sum.js changed: it began at 1 and now begins at 0.', usage: { input_tokens: 400, output_tokens: 30, cache_read_input_tokens: 9000, cache_creation_input_tokens: 0 } }
         },
       },
-      prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({}) },
+      prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({}), read: async () => ({ text: 'fix src/formt.js and test.js', cursor: 28 }) },
       http: { fetch: async () => ({ ok: true, status: 200, text: 'ok' }) },
       env: { get: async key => (key === 'HOME' ? HOME : undefined) },
       audio: { play: async () => ({}) },

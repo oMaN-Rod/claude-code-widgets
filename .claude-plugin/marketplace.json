@@ -1324,6 +1324,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "squiggle-widget",
+      "source": "./plugins/squiggle-widget",
+      "description": "Underlines file names that do not exist, as you type them in the prompt box, and paints the ones that do green",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "squiggle",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

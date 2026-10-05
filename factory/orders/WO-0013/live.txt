@@ -1,0 +1,31 @@
+
+>>> /squiggle-widget on
+
+>>> /squiggle-widget check open README.md and REDME.md
+[assistant] squiggle-widget: Squiggle on; /widgets places it.
+[turn ended: success] squiggle-widget: Squiggle on; /widgets places it.
+[assistant] squiggle-widget: Squiggle: 1 file.
+✓ README.md
+✗ REDME.md  no such file, nearest: README.md
+[turn ended: success] squiggle-widget: Squiggle: 1 file.
+✓ README.md
+✗ REDME.md  no such file, nearest: README.md
+
+>>> Create the file notes/plan.md containing the word hi. Do nothing else.
+[assistant] (tool Write {"file_path":"C:\\Users\\O\\.claude-factory\\scratch-project\\notes\\plan.md","content":"hi\n"})
+[user] (result "File created successfully at: C:\\Users\\O\\.claude-factory\\scratch-project\\notes\\plan.md (file state is current in your context — no need to Read it back)")
+[assistant] Created `notes/plan.md` containing `hi`.
+[turn ended: success] Created `notes/plan.md` containing `hi`.
+
+>>> /squiggle-widget check notes/plan.md and notes/plam.md
+[assistant] squiggle-widget: Squiggle: 2 files.
+✓ notes/plan.md
+✗ notes/plam.md  no such file, nearest: notes/plan.md
+[turn ended: success] squiggle-widget: Squiggle: 2 files.
+✓ notes/plan.md
+✗ notes/plam.md  no such file, nearest: notes/plan.md
+
+--- squiggle-widget store ---
+squiggle-widget_inline-a0f57e91ad87.json: {
+  "isOn": true
+}

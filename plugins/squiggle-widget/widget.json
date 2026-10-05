@@ -1,0 +1,7 @@
+{
+  "title": "Squiggle",
+  "category": "Project and git",
+  "shows": "Underlines file names that do not exist, as you type them in the prompt box, and paints the ones that do green",
+  "commands": ["/squiggle-widget [on|off|check [text]]"],
+  "cost": ""
+}

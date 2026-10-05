@@ -1,0 +1,122 @@
+{
+  "id": "WO-0013",
+  "kind": "new",
+  "widget": "squiggle-widget",
+  "title": "Squiggle",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T23:44:44.677Z",
+  "closedAt": "2026-10-05T02:12:42.483Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T01:11:23.042Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Real pixels appear only on kitty-protocol terminals, so on Windows Terminal and most others the card falls back to a line of file names and sizes, which is a variation on changes-widget and activity-widget at twelve rows of height.",
+      "subject": "Lightbox"
+    },
+    {
+      "at": "2026-10-05T01:11:23.930Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Its cost is out of proportion: a netstat or lsof run plus loopback requests every few seconds, with no reliable way to tie a listener to this session, for a problem that turns up a few times a month.",
+      "subject": "Ports"
+    },
+    {
+      "at": "2026-10-05T01:11:24.438Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on git-widget's ahead and behind line that pays for itself with a background git fetch moving the person's remote-tracking refs every few minutes.",
+      "subject": "Upstream"
+    },
+    {
+      "at": "2026-10-05T01:11:25.118Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on mirror-widget and coffee-widget: a backspace ratio is too noisy to tell tiredness from editing a long prompt, so the one line it exists for would mostly be wrong.",
+      "subject": "Tired"
+    },
+    {
+      "at": "2026-10-05T01:11:25.714Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The same swallowed-draft idea as Unsent, rejected twice already: it still cannot tell a solved problem from a change of mind, as its own inventor says.",
+      "subject": "Duck"
+    },
+    {
+      "at": "2026-10-05T01:11:26.449Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: ui.selection is real and unused, but it saves only a copy and a paste the terminal already offers, and it needs a mouse in the fullscreen layout to work at all.",
+      "subject": "Quote"
+    },
+    {
+      "at": "2026-10-05T01:11:27.378Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: useful on the day it fires, but it is stakes-widget's line under the dialog fed from a different source, it is an empty card for anyone without kubectl, AWS or a database URL, and guessing which name means production will misfire.",
+      "subject": "Aim"
+    },
+    {
+      "at": "2026-10-05T01:11:28.022Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: the strongest runner-up, but most edits replace lines the person or Claude wrote this week, so the card is noise until the rare old line, and a blame before every edit is paid for all of them.",
+      "subject": "Chesterton"
+    },
+    {
+      "at": "2026-10-05T01:11:35.406Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "The only idea that draws inside the prompt box as the person types, on the unused prompt.edit decorations: it stops the misnamed-file turn before it is sent, costs no tokens, and is narrowed to path-shaped words so it does not misfire."
+    },
+    {
+      "at": "2026-10-05T01:22:39.400Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. Demo contradicts Verdicts on what the card shows: the Demo section promises the row 'nearest src/sum.js' for the stand-in word src/sun.js, but the Nearest rule requires a base name of at least 4 characters before the extension and 'sun'/'sum' has 3, so by the spec's own rule the miss has no nearest row. Change the stand-in draft to a word the rule accepts (for example src/formt.js, nearest src/format.js, with the cursor still on test.js) or change the rule, and keep Demo, Verdicts and A5 in agreement. Not blocking, settle while there: the partial line 'Over 10,000 files' is untrue when partial comes from the 2,000-file or 200-folder walk cap or truncated git output; that line and the error text wrap at 20 columns although rows are said to be one line each; say that check ignores the cursor rule.",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-05T01:27:34.124Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The demo contradiction is fixed (formt/format satisfies the Nearest rule and both files exist in the demo engine), the changed parts hold no blocking fault, and the spec is within size at 119 lines and 15 acceptance lines; 14 notes for the machinist."
+    },
+    {
+      "at": "2026-10-05T01:44:41.106Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built squiggle-widget: a prompt.edit hook that paints path-shaped words green or red-underlined against a git ls-files or folder-walk index, a card listing each verdict with its nearest real name, and a check verb, with 15 acceptance tests passing."
+    },
+    {
+      "at": "2026-10-05T02:02:52.871Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec and the standard at 20, 40 and 60 columns, the live run proved the folder index, the nearest name and the rebuild after a real Write with only isOn stored, and it is the first widget to paint inside the prompt box; six non-blocking notes in inspection.md, the first being that docs/engine.js still lacks the prompt.read stand-in."
+    },
+    {
+      "at": "2026-10-05T02:12:42.482Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}
