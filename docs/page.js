@@ -15,6 +15,8 @@
 
     return el
   }
+  const BAY = 1.3
+  const PAD = [['↑', 'up'], ['←', 'left'], ['↓', 'down'], ['→', 'right'], ['space', ' '], ['enter', 'return']]
   const isPaid = widget => widget.cost && !/^free\.?$/i.test(widget.cost)
   const entries = widgets.map(widget => {
     const live = terminal(widget)
@@ -53,6 +55,16 @@
     if (tile !== undefined && natural > 0) wall.style.setProperty('--fit', String(tile.frame.clientWidth / natural))
   }
   new ResizeObserver(fit).observe(wall)
+  const stacked = matchMedia('(max-width: 1100px)')
+  const fitBay = () => {
+    const room = bench.querySelector('.desk')?.clientWidth ?? 0
+    if (stacked.matches && room > 0 && natural > 0) bench.style.setProperty('--bay', String(Math.min(BAY, room / natural)))
+    else bench.style.removeProperty('--bay')
+  }
+  new ResizeObserver(fitBay).observe(bench)
+  const bar = tools.parentElement
+  new ResizeObserver(() => document.documentElement.style.setProperty('--tools', `${bar.offsetHeight}px`)).observe(bar)
+  const hasKeys = widget => Object.keys(window.DEMO_MODS?.mods[widget.name]?.clients ?? {}).length > 0
 
   const shown = () => {
     const words = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean)
@@ -74,10 +86,15 @@
 
     const rail = make('nav', { className: 'rail' })
     rail.setAttribute('aria-label', 'Widgets')
+    const pick = make('select')
+    pick.setAttribute('aria-label', 'Widget')
+    if (!list.includes(open)) pick.append(make('option', { textContent: open.live.title, selected: true }))
+    pick.addEventListener('change', () => show(entries.find(entry => entry.live.title === pick.value)))
     for (const category of categories) {
       const inIt = list.filter(entry => entry.widget.category === category)
       if (inIt.length === 0) continue
       rail.append(make('h3', { textContent: `${category} · ${inIt.length}` }))
+      pick.append(make('optgroup', { label: category }, ...inIt.map(entry => make('option', { textContent: entry.live.title, selected: entry === open }))))
       for (const entry of inIt) {
         const item = make('button', { type: 'button', textContent: entry.live.title })
         item.setAttribute('aria-current', String(entry === open))
@@ -86,14 +103,30 @@
       }
     }
     const { live, widget } = open
-    const back = make('button', { className: 'back', type: 'button', textContent: '← all widgets' })
+    const back = make('button', { className: 'back', type: 'button' }, '← all', make('span', { className: 'word', textContent: ' widgets' }))
     back.addEventListener('click', () => show(undefined))
     const prev = make('button', { type: 'button', textContent: '↑ previous' })
     const next = make('button', { type: 'button', textContent: '↓ next' })
     prev.addEventListener('click', () => step(-1))
     next.addEventListener('click', () => step(1))
+    const before = make('button', { type: 'button', textContent: '‹' })
+    const after = make('button', { type: 'button', textContent: '›' })
+    before.setAttribute('aria-label', 'Previous widget')
+    after.setAttribute('aria-label', 'Next widget')
+    before.addEventListener('click', () => step(-1))
+    after.addEventListener('click', () => step(1))
+    const jump = make('div', { className: 'jump' }, before, pick, after)
+    const keys = make('div', { className: 'keys' }, ...PAD.map(([label, key]) => {
+      const button = make('button', { type: 'button', textContent: label })
+      button.dataset.key = key
+      button.addEventListener('click', () => live.press(key))
+
+      return button
+    }))
+    keys.setAttribute('role', 'group')
+    keys.setAttribute('aria-label', 'Keys for this widget')
     const desk = make('section', { className: 'desk' },
-      make('div', { className: 'bay' }, live.node),
+      make('div', { className: 'bay' }, live.node, ...(hasKeys(widget) ? [keys] : [])),
       make('div', { className: 'about' },
         make('span', { className: 'kind', textContent: widget.category }),
         make('h2', { textContent: live.title }),
@@ -105,7 +138,8 @@
         make('div', { className: 'pager' }, prev, next),
       ),
     )
-    bench.replaceChildren(back, make('div', { className: 'bench' }, rail, desk))
+    bench.replaceChildren(make('div', { className: 'top' }, back, jump), make('div', { className: 'bench' }, rail, desk))
+    fitBay()
     const mark = rail.querySelector('[aria-current="true"]')
     if (mark) rail.scrollTop = Math.max(0, mark.offsetTop - rail.clientHeight / 2)
   }
@@ -141,15 +175,20 @@
 
   for (const entry of entries) entry.thumb.addEventListener('click', () => show(entry))
 
+  const cats = make('span', { className: 'cats' })
+  cats.setAttribute('role', 'group')
+  cats.setAttribute('aria-label', 'Category')
+  tools.insertBefore(cats, count)
   for (const category of ['All', ...categories]) {
     const chip = make('button', { className: 'chip', type: 'button', textContent: category })
     chip.setAttribute('aria-pressed', String(category === chosen))
     chip.addEventListener('click', () => {
       chosen = category
-      for (const other of tools.querySelectorAll(':scope > .chip:not(.play, .repo)')) other.setAttribute('aria-pressed', String(other === chip))
+      for (const other of cats.children) other.setAttribute('aria-pressed', String(other === chip))
+      chip.scrollIntoView({ block: 'nearest', inline: 'center' })
       draw()
     })
-    tools.insertBefore(chip, count)
+    cats.append(chip)
   }
   const views = make('span', { className: 'views' })
   const look = name => {
@@ -160,14 +199,16 @@
     } catch {}
     fit()
   }
-  for (const [name, label] of [['grid', '▦ grid'], ['list', '☰ list']]) {
-    const button = make('button', { className: 'chip', type: 'button', textContent: label })
+  for (const [name, icon] of [['grid', '▦'], ['list', '☰']]) {
+    const button = make('button', { className: 'chip', type: 'button' }, icon, make('span', { className: 'word', textContent: ` ${name}` }))
+    button.setAttribute('aria-label', `Show as a ${name}`)
     button.dataset.view = name
     button.addEventListener('click', () => look(name))
     views.append(button)
   }
   tools.append(views)
-  const all = make('button', { className: 'chip play', type: 'button', textContent: '▶ run a turn' })
+  const all = make('button', { className: 'chip play', type: 'button' }, '▶ run', make('span', { className: 'word', textContent: ' a turn' }))
+  all.setAttribute('aria-label', 'Run a turn')
   all.title = 'Run a simulated turn in every widget on screen'
   const play = () => {
     for (const entry of entries) if (entry.live.isSeen) entry.live.turn()

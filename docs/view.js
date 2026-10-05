@@ -18,6 +18,7 @@
     redBright: '#ff7b80', greenBright: '#6ff0b0', yellowBright: '#ffec70', blueBright: '#8cc8ff', magentaBright: '#eaa5f5', cyanBright: '#8fe6f5', whiteBright: '#ffffff',
     claude: '#d97757', warning: '#f5d90a', permission: '#b1b9f9', promptBorder: '#9a9cab', inactive: '#6b6c78', success: '#3dd68c', error: '#e5484d', suggestion: '#55aaff', text: FG,
   }
+  const SWIPE = 24
   const KEYS = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', Enter: 'return', Backspace: 'backspace', Delete: 'delete', Tab: 'tab', Home: 'home', End: 'end', PageUp: 'pageup', PageDown: 'pagedown' }
   const hex = value => (value === 'default' ? null : /^[0-9a-f]{6}$/i.test(value) ? `#${value}` : value)
   const inkOf = value => (value === undefined ? undefined : (INK[value] ?? value))
@@ -173,6 +174,18 @@
       const y = Math.floor(((event.clientY - box.top) / box.height) * props.height)
       for (const run of held.pointers) run({ type, x, y, button: event.button === 2 ? 'right' : 'left' })
     }
+    let touch
+    node.addEventListener('touchstart', event => { touch = event.touches.length === 1 ? event.touches[0] : undefined }, { passive: true })
+    node.addEventListener('touchend', event => {
+      const end = event.changedTouches[0]
+      if (touch === undefined || end === undefined) return
+      const [dx, dy] = [end.clientX - touch.clientX, end.clientY - touch.clientY]
+      touch = undefined
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE) return
+      event.preventDefault()
+      const key = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : dy > 0 ? 'down' : 'up'
+      for (const run of held.keys) run({ key })
+    })
     node.addEventListener('mousedown', event => point('down', event))
     node.addEventListener('mouseup', event => point('up', event))
     node.addEventListener('contextmenu', event => event.preventDefault())
@@ -298,6 +311,9 @@
       widget, node, go, chips, input, title: short(widget.name), engine: undefined, clients: new Map(), isSeen: false,
       isRecorded: window.DEMO_MODS === undefined || window.DEMO_MODS.mods[widget.name] === undefined,
       isDrawing: false, isStale: false, at: still ? widget.frames.length - 1 : 0, due: 0, tape: undefined,
+    }
+    live.press = key => {
+      for (const held of live.clients.values()) for (const run of held.keys) run({ key })
     }
     live.say = (text, kind) => {
       const row = document.createElement('div')
