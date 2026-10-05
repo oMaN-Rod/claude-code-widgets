@@ -1,0 +1,7 @@
+{
+  "title": "Witness",
+  "category": "Session",
+  "shows": "Every line of hidden context the other widgets add to your prompts, word for word, with a running size",
+  "commands": ["/witness-widget [on|off|show|clear]"],
+  "cost": ""
+}

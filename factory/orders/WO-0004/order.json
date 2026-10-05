@@ -1,0 +1,43 @@
+{
+  "id": "WO-0004",
+  "kind": "rebuild",
+  "widget": "witness-widget",
+  "title": "Witness",
+  "brief": "Rebuild to the standard. What it is: Shows every line of hidden context the other widgets add to your prompts, verbatim, with a running size. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-04T20:11:05.914Z",
+  "closedAt": "2026-10-05T00:43:49.714Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-04T20:15:04.023Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The spec meets the standard, names only hooks and fields the types file has, draws every state and the 20-column card, and answers the brief's test faults in A1, A11, A13 and A14; 7 notes for the machinist."
+    },
+    {
+      "at": "2026-10-04T20:23:30.597Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built witness-widget to the spec: a prompt.submit hook that records the hidden context entering with each prompt, the card in its four states, show and clear, with 14 acceptance tests; the checker passes."
+    },
+    {
+      "at": "2026-10-04T20:25:47.555Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: the checker passes, every state matches its drawing at 20, 40 and 60 columns, and the live run answered every command with only isOn stored; four findings, none blocking, the first that a live run beside a context-adding widget is still owed."
+    },
+    {
+      "at": "2026-10-05T00:43:49.714Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

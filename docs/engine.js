@@ -54,6 +54,7 @@
   const SUMMARY = 'Summary of the conversation so far: sum() skipped the first item of a list; the loop was fixed and the tests pass.'
   const ANSWER = 'The loop in `src/sum.js` started at index 1, so the first item was never added. It starts at 0 now and the tests pass.'
   const SAID = {}
+  const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)
   const tag = type => props => {
@@ -344,6 +345,7 @@
     }
     const $ = new Proxy(nouns, { get: (target, noun) => target[noun] ?? (typeof noun === 'string' ? quiet(noun) : undefined) })
 
+    if (HIDDEN[name] !== undefined) hooks.push({ event: 'prompt.submit', filter: {}, run: (_$, e, next) => next({ ...e, context: [...(e.context ?? []), HIDDEN[name]] }) })
     mod.register((event, filter, run) => hooks.push(typeof filter === 'function' ? { event, filter: {}, run: filter } : { event, filter, run }))
 
     const command = async (word, args) => {
@@ -370,7 +372,7 @@
       const turnId = `turn-${turns}`
       const startedAt = Date.now()
       try {
-        await dispatch('prompt.submit', { text, wait: false, origin: { kind: 'composer' } }, e => ({ text: e.text }))
+        await dispatch('prompt.submit', { text, wait: false, origin: { kind: 'composer' } }, e => ({ text: e.text, ...(e.context === undefined ? {} : { context: e.context }) }))
         await dispatch('turn.start', { text, turnId }, e => ({ turnId: e.turnId }))
         for (const [at, call] of TURN.entries()) {
           if (call.tool.startsWith('mcp__') && !tools.has(call.tool)) continue

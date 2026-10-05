@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 68 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 69 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](docs/index.html): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page, so opening the file works, and GitHub Pages can serve it from `docs/`.
 
@@ -53,6 +53,7 @@ What Claude is doing and what it is costing.
 | `redact-widget` | `/redact-widget [on\|off\|clear]` | Replaces API keys, tokens, private keys and passwords in command output and file reads before Claude sees them |
 | `notebook-widget` | `/notebook-widget [on\|off\|show\|drop <number>\|clear]` | Gives Claude a jot tool for writing down what its future self should know about this project, and reads the notes back next session |
 | `footnotes-widget` | `/footnotes-widget [on\|off\|show\|clear]` | Checks every file path, cited line and code symbol in Claude's last reply against the working tree, with no model call, and flags the ones that are not there |
+| `witness-widget` | `/witness-widget [on\|off\|show\|clear]` | Every line of hidden context the other widgets add to your prompts, word for word, with a running size |
 
 ### Project and git
 

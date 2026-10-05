@@ -1,0 +1,12 @@
+{"at":"2026-10-04T20:11:05.920Z","agent":"director","station":"design","action":"opened the order: Rebuild to the standard. What it is: Shows every line of hidden context the other widgets add to your prompts, verbatim, with a running size. Known faults of the earlier version: it has one long test that never checks the off state, restore from the store, the placements or a narrow card. Keep the idea, design it afresh, and drop what does not earn its place."}
+{"at":"2026-10-04T20:11:17.869Z","agent":"designer","station":"design","action":"took the order at design"}
+{"at":"2026-10-04T20:14:06.978Z","agent":"designer","station":"design","action":"wrote the spec: 14 acceptance lines"}
+{"at":"2026-10-04T20:14:21.809Z","agent":"inspector","station":"design","action":"took the order at design"}
+{"at":"2026-10-04T20:15:04.023Z","agent":"inspector","station":"design","action":"stamped pass: The spec meets the standard, names only hooks and fields the types file has, draws every state and the 20-column card, and answers the brief's test faults in A1, A11, A13 and A14; 7 notes for the machinist."}
+{"at":"2026-10-04T20:15:14.025Z","agent":"machinist","station":"build","action":"took the order at build"}
+{"at":"2026-10-04T20:23:30.597Z","agent":"machinist","station":"build","action":"stamped pass: Built witness-widget to the spec: a prompt.submit hook that records the hidden context entering with each prompt, the card in its four states, show and clear, with 14 acceptance tests; the checker passes."}
+{"at":"2026-10-04T20:23:51.850Z","agent":"inspector","station":"inspection","action":"took the order at inspection"}
+{"at":"2026-10-04T20:25:47.555Z","agent":"inspector","station":"inspection","action":"stamped pass: Meets the spec, the standard and the bar: the checker passes, every state matches its drawing at 20, 40 and 60 columns, and the live run answered every command with only isOn stored; four findings, none blocking, the first that a live run beside a context-adding widget is still owed."}
+{"at":"2026-10-04T20:32:33.568Z","agent":"clerk","station":"shipping","action":"took the order at shipping"}
+{"at":"2026-10-05T00:43:28.499Z","agent":"clerk","station":"shipping","action":"took the order at shipping"}
+{"at":"2026-10-05T00:43:49.714Z","agent":"clerk","station":"shipping","action":"stamped pass: On the demo page, in the README and the marketplace; smoke test clean"}

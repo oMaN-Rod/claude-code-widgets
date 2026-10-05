@@ -1239,6 +1239,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "witness-widget",
+      "source": "./plugins/witness-widget",
+      "description": "Every line of hidden context the other widgets add to your prompts, word for word, with a running size",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "witness",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }
