@@ -1664,6 +1664,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "aim-widget",
+      "source": "./plugins/aim-widget",
+      "description": "Where a command lands outside this folder: the kube context, cloud profile, Terraform workspace or database it is aimed at, named in the permission dialog",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "aim",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

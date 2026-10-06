@@ -1,0 +1,38 @@
+>>> /aim-widget on
+[assistant] aim-widget: Aim on; /widgets places it.
+[turn ended: success] aim-widget: Aim on; /widgets places it.
+
+>>> /aim-widget prod example
+[assistant] aim-widget: Production words: prod, example.
+[turn ended: success] aim-widget: Production words: prod, example.
+
+>>> Use Bash to run exactly this once and nothing else, then answer ok: psql -h db.example.invalid -c "select 1"
+[assistant] (tool Bash {"command":"psql -h db.example.invalid -c \"select 1\"","description":"Run a test query against the example database host"})
+[system permission_denied] {"type":"system","subtype":"permission_denied","tool_name":"Bash","tool_use_id":"toolu_01CKwHZx35fDiUb55r2Dsfqm","decision_reason_type":"other","decision_reason":"This command requires approval","message":"PRODUCTION: goes to db.example.invalid (database, named in the command) · This command requires approval","uuid":"6fd22dbd-5058-4cfd-9452-3b57c6d3c354","session_id":"4a8bb6ed-1568-478b-be2c-01c7
+[user] (result "PRODUCTION: goes to db.example.invalid (database, named in the command) · This command requires approval")
+[assistant]
+[assistant] The command didn't run: it was blocked as a production target (`db.example.invalid`) and requires approval, which I can't give in this session. I did not retry it, so I can't answer "ok".
+[turn ended: success] The command didn't run: it was blocked as a production target (`db.example.invalid`) and requires approval, which I can't give in this session. I did not retry it, so I can't answer "ok".
+
+>>> /aim-widget show
+[assistant] aim-widget: No outside targets found here.
+Production words: prod, example.
+Last: psql -h db.example.invalid -c "select 1"
+PRODUCTION: goes to db.example.invalid (database, named in the command)
+[turn ended: success] aim-widget: No outside targets found here.
+Production words: prod, example.
+Last: psql -h db.example.invalid -c "select 1"
+PRODUCTION: goes to db.example.invalid (database, named in the command)
+
+>>> /aim-widget off
+[assistant] aim-widget: Aim off.
+[turn ended: success] aim-widget: Aim off.
+
+--- aim-widget store ---
+aim-widget_inline-7b5918d7fac7.json: {
+  "isOn": false,
+  "words": [
+    "prod",
+    "example"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Aim",
+  "category": "Session",
+  "shows": "Where a command lands outside this folder: the kube context, cloud profile, Terraform workspace or database it is aimed at, named in the permission dialog",
+  "commands": ["/aim-widget [on|off|prod <word>|unprod <word>|show|clear]"],
+  "cost": ""
+}

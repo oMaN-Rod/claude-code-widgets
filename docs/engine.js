@@ -96,6 +96,7 @@
     'loupe-widget': { lines: ['look sum'], settleMs: 600 },
     'strays-widget': { lines: [], isSettled: state => state.get('strays-widget/watch')?.isQueued === false && state.get('strays-widget/watch')?.isBusy === false },
     'earpiece-widget': { lines: ['/whisper 2 leave tests alone'], settleMs: 300 },
+    'aim-widget': { lines: [], isSettled: state => (state.get('aim-widget/aim')?.at ?? 0) > 0 && state.get('aim-widget/aim')?.isBusy === false },
   }
   const CREW = {
     'earpiece-widget': [
@@ -234,11 +235,14 @@
       return command.startsWith('npm test') ? { decision: 'allow', rule: 'Bash(npm test:*)' } : { decision: 'allow' }
     },
   }
+  const SET = { 'aim-widget': { AWS_PROFILE: 'dev' } }
+  const PROBED = { 'aim-widget': { 'kubectl config current-context': 'staging-eu\n' } }
   const BESIDE = { 'trial-widget': ['moon-widget'] }
   const SHOT = 'iVBORw0KGgoAAAANSUhEUgAAAGAAAAA2CAIAAAC3LQuFAAAAYklEQVR42u3QMQ0AAAjAMCThXwWOwAEnB+kyBY3K9HIgAAQIECBAgN4CtdYAAQIECBAgQIAACRAgQIAAAQIESIAAAQIECBAgQAIECBAgQIAAAQIkQIAAAQIECBAgAQIE6KwBCOUfelevZDYAAAAASUVORK5CYII='
   const AFTER = {
     'seen-widget': [{ tool: 'Read', input: { file_path: `${ROOT}/out/shot.png` }, ms: 500, image: SHOT }],
     'attic-widget': [{ tool: 'PowerShell', input: { command: 'Get-ChildItem src' }, ms: 500, text: 'format.js\nindex.js\nsum.js' }],
+    'aim-widget': [{ tool: 'Bash', input: { command: 'kubectl --context prod-eu rollout restart deploy/api' }, ms: 500, text: 'deployment.apps/api restarted', isAsked: true }],
     'outage-widget': [
       { tool: 'Bash', input: { command: 'git push origin main' }, ms: 900, isError: true, text: "fatal: unable to access 'https://github.com/demo/demo.git/': The requested URL returned error: 503" },
     ],
@@ -620,6 +624,7 @@
           if (argv[0] === 'lsof') return lsof()
           if (argv[0] === 'sh' && String(argv[2]).includes('exec ps ')) return ps()
           if (argv[0] === 'kill') killed.add(Number(argv[1]))
+          if (PROBED[name]?.[argv.join(' ')] !== undefined) return ran(0, PROBED[name][argv.join(' ')])
 
           return ran(0, '')
         },
@@ -690,7 +695,7 @@
       ...(crew.length === 0 ? {} : { agent: { list: async () => crew.map(({ id, description, status }) => ({ id, type: 'general-purpose', description, status })) } }),
       prompt: { suggest: async () => ({ isShown: true }), submit: async () => ({}), fill: async () => ({ isFilled: true, text: '', cursor: 0 }), read: async () => ({ text: 'fix src/formt.js and test.js', cursor: 28 }) },
       http: { fetch: async url => ({ ok: true, status: 200, text: WEB[url] === undefined ? 'ok' : JSON.stringify(WEB[url]()) }) },
-      env: { get: async key => (key === 'HOME' ? HOME : undefined) },
+      env: { get: async key => (key === 'HOME' ? HOME : SET[name]?.[key]) },
       audio: { play: async () => ({}) },
       turn: { abort: async () => ({}) },
       mcp: {
