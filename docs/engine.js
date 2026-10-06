@@ -255,6 +255,7 @@
   })
   const DRAFTS = { 'skimmed-widget': { requestId: 'demo-reply', lines: LONG, steps: 4, ms: 150, rows: 40 } }
   const HIDDEN = { 'witness-widget': 'collision-widget: src/sum.js is also open in another session; read it again before you edit.' }
+  const TYPED = { 'earshot-widget': { over: 'Edit', text: 'wait, leave the tests alone' } }
 
   const flat = kids => kids.flat(Infinity).filter(kid => kid !== null && kid !== undefined && kid !== false && kid !== true)
   const tag = type => props => {
@@ -768,6 +769,7 @@
           for await (const chunk of written) void chunk
           await written.result
           steps += 1
+          if (TYPED[name]?.over === call.tool) await dispatch('prompt.submit', { text: TYPED[name].text, wait: false, origin: { kind: 'composer' }, turnId }, e => ({ text: e.text }))
           await dispatch('tool.check', { tool: call.tool, input: call.input, tool_use_id: id }, () => ({ decision: call.isAsked ? 'ask' : 'allow' }))
           await dispatch('tool.call', { tool: call.tool, tool_use_id: id, ...call.input }, async e => {
             if (e.tool === 'Bash') shelledAt ??= Math.floor(Date.now() / 1000) * 1000

@@ -1681,6 +1681,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "earshot-widget",
+      "source": "./plugins/earshot-widget",
+      "description": "Whether Claude has got the message you typed while it was working: how late a request first carried it, and what Claude changed before it heard you",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "earshot",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

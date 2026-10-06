@@ -1,0 +1,128 @@
+{
+  "id": "WO-0034",
+  "kind": "new",
+  "widget": "earshot-widget",
+  "title": "Earshot",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T22:10:45.183Z",
+  "closedAt": "2026-10-06T00:20:34.916Z",
+  "sendBacks": 1,
+  "stamps": [
+    {
+      "at": "2026-10-05T22:16:24.587Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Cost out of proportion and a poor fit for a card: it launches a headless browser after every burst of edits and must restate a PNG decoder, yet in a 40-column card the page is an unreadable block thumbnail, so what is left is a blank-page light that watch-widget with a smoke command already gives.",
+      "subject": "Viewport"
+    },
+    {
+      "at": "2026-10-05T22:16:24.711Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The card cannot carry its own claim: it lists records that passed a hook, not what left the machine, and whether a third-party hook sees the engine's rows at all is unprobed, so the best case is a list of event names with a disclaimer.",
+      "subject": "Outbox"
+    },
+    {
+      "at": "2026-10-05T22:16:24.833Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The loaded-files list is a variation on the built-in /memory view, and its one remarkable moment, a governing CLAUDE.md never loaded, is what the engine's own nested traversal exists to prevent, so the card would either stay quiet or raise false alarms on timing.",
+      "subject": "Bylaws"
+    },
+    {
+      "at": "2026-10-05T22:16:24.955Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on what exists: a phrase counter over Claude's reply (flow-widget and calibration-widget count the same steering by correction) drawn as one more pixel scene, a joke told once.",
+      "subject": "The You're Right Jar"
+    },
+    {
+      "at": "2026-10-05T22:16:25.073Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: answering a model step locally is new and the saving is real, but it files a canned line in the transcript as Claude's own reply and a wrong guess swallows a prompt the person meant for the model, a higher risk than Earshot for a counter card.",
+      "subject": "Courtesy"
+    },
+    {
+      "at": "2026-10-05T22:16:25.196Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: new and memorable, but it records text the person chose to delete and gives nothing to act on, where Earshot answers a question people actually have mid-turn.",
+      "subject": "Unsaid"
+    },
+    {
+      "at": "2026-10-05T22:16:25.314Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: a pleasant line of git blame per edit whose best moment (an old warning on a removed guard) is rare, and in a solo repository it mostly says the lines were yours.",
+      "subject": "Whose Line It Was"
+    },
+    {
+      "at": "2026-10-05T22:16:25.790Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "Earshot answers a question every user has and nothing can answer today (did Claude hear my mid-turn message before or after it acted), from measurements only, on an unused hook the types confirm, at no token cost."
+    },
+    {
+      "at": "2026-10-05T22:23:15.720Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault: every hook and call is in the 2.1.289 types, the main states are drawn and fit 20 and 40 columns, the demo and live sections are present, 113 lines and 15 acceptance lines; 12 notes in spec-notes.md, the first being that the unproven queued_command delivery is proven by the live run before tests."
+    },
+    {
+      "at": "2026-10-05T22:42:10.966Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built Earshot to the spec (checker passes, 15 acceptance lines tested, frames read at 20/40/60), but the spec's first step is NOT done: the machinist may not run claude sessions, so no live run has shown prompt.attachment queued_command firing for a typed mid-turn prompt; the director must run the spec's Live command before inspection, and a not-heard or no-message result there sends the order back to design."
+    },
+    {
+      "at": "2026-10-05T22:45:06.177Z",
+      "station": "inspection",
+      "by": "director",
+      "result": "send-back",
+      "reason": "Live run fails the spec's own test. Run 1: the session blocks a standalone 'sleep 30' and Claude moves it to the background, so the turn ends and the recipe proves nothing; the recipe needs a wait the session allows (bun -e \"await Bun.sleep(30000)\" stays in the foreground). Run 2 with that wait: 'Also say pineapple.' was sent about 20s into the 30s command, Claude answered 'done' and 'pineapple' in the same turn, so a request did carry it, yet last answers 'was not heard: the turn ended 1s after you sent it.' Both parts are wrong: it was heard, and it was sent about 10s or more before the turn ended, so in a headless session the prompt event seems to reach the widget only when the engine takes the message off its queue, and no prompt.attachment matched it. No attachment types or texts were captured; if the design needs them, have the build write them to a file in the plugin folder and the director will run with --keep. See live.txt.",
+      "to": "design"
+    },
+    {
+      "at": "2026-10-05T22:51:27.100Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "No blocking fault in the revised spec: the send-back's three faults are addressed (allowed foreground wait in the Live recipe, sdk and bridge prompts heard at delivery and untimed, the next main-loop turn.step hears a waiting message without any attachment), names are in the 2.1.289 types, 120 lines and 15 acceptance lines; 16 notes in spec-notes.md, the first being that four 20-column sentences exceed 16 characters and must be shortened."
+    },
+    {
+      "at": "2026-10-05T22:58:01.518Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Rebuilt Earshot to the second spec: a composer message is recorded before next and heard by a queued_command attachment or the next main-loop turn.step of its turn, sdk and bridge messages are heard at delivery and untimed, and the four narrow sentences now fit 16 characters; checker passes with 26 acceptance tests."
+    },
+    {
+      "at": "2026-10-05T23:05:50.870Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker passes with 26 tests, the director's live run gives the specified untimed answer with only isOn stored and no errors, frames fit 20/40/60; four minor findings in inspection.md, and the composer (timed) path is still owed a hand check by the user because no headless run can show it."
+    },
+    {
+      "at": "2026-10-06T00:20:34.915Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

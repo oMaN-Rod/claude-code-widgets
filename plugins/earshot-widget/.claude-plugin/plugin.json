@@ -1,0 +1,20 @@
+{
+  "name": "earshot-widget",
+  "version": "1.0.0",
+  "description": "Whether Claude has got the message you typed while it was working: how late a request first carried it, and what Claude changed before it heard you",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "earshot",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

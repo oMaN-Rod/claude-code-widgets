@@ -1,0 +1,65 @@
+=== first run: Claude answered only done ===
+
+>>> /earshot-widget on
+[assistant] earshot-widget: Earshot on; /widgets places it.
+[turn ended: success] earshot-widget: Earshot on; /widgets places it.
+
+>>> Run this exact Bash command in the foreground, then answer with the one word done: bun -e "await Bun.sleep(30000)"
+[assistant] (tool Bash {"command":"bun -e \"await Bun.sleep(30000)\"","description":"Sleep for 30 seconds using Bun"})
+[system task_started] {"type":"system","subtype":"task_started","task_id":"bxvbhcs7q","tool_use_id":"toolu_012rUpLsU4dzihU8YeLbf7VB","description":"Sleep for 30 seconds using Bun","is_backgrounded":false,"task_type":"local_bash","uuid":"c18f21ad-d636-4c22-af06-9e185f088632","session_id":"99be45fb-2ab9-4a83-bbec-a1e519d6063f"}
+
+>>> Also say pineapple.
+[system task_notification] {"type":"system","subtype":"task_notification","task_id":"bxvbhcs7q","tool_use_id":"toolu_012rUpLsU4dzihU8YeLbf7VB","status":"completed","output_file":"","summary":"Sleep for 30 seconds using Bun","uuid":"28c2151c-7427-42b8-877d-998c53de0433","session_id":"99be45fb-2ab9-4a83-bbec-a1e519d6063f"}
+[user] (result "(Bash completed with no output)")
+[assistant] done
+
+pineapple
+[turn ended: success] done
+
+pineapple
+
+>>> /earshot-widget last
+[assistant] earshot-widget: "Also say pineapple." was heard in the turn it was sent over. It was sent remotely, so Earshot got it only at delivery and its wait is not measured.
+[turn ended: success] earshot-widget: "Also say pineapple." was heard in the turn it was sent over. It was sent remotely, so Earshot got it only at delivery and its wait is not measured.
+
+>>> /earshot-widget off
+[assistant] earshot-widget: Earshot off.
+[turn ended: success] earshot-widget: Earshot off.
+
+--- earshot-widget store ---
+earshot-widget_inline-9583d0027888.json: {
+  "isOn": false
+}
+
+=== second run, same command: done and pineapple ===
+
+>>> /earshot-widget on
+[assistant] earshot-widget: Earshot on; /widgets places it.
+[turn ended: success] earshot-widget: Earshot on; /widgets places it.
+
+>>> Run this exact Bash command in the foreground, then answer with the one word done: bun -e "await Bun.sleep(30000)"
+[assistant] (tool Bash {"command":"bun -e \"await Bun.sleep(30000)\"","description":"Sleep for 30 seconds using Bun","timeout":60000})
+[system task_started] {"type":"system","subtype":"task_started","task_id":"b8wsfjbjq","tool_use_id":"toolu_01B1CyFvibjhC391qxRf45oR","description":"Sleep for 30 seconds using Bun","is_backgrounded":false,"task_type":"local_bash","uuid":"f351bdc7-5261-43e9-8721-03ba125d3df9","session_id":"171aa66d-cdfa-4010-a66b-f386e937663e"}
+
+>>> Also say pineapple.
+[system task_notification] {"type":"system","subtype":"task_notification","task_id":"b8wsfjbjq","tool_use_id":"toolu_01B1CyFvibjhC391qxRf45oR","status":"completed","output_file":"","summary":"Sleep for 30 seconds using Bun","uuid":"f1522011-e36d-4e81-be65-2989cde698f8","session_id":"171aa66d-cdfa-4010-a66b-f386e937663e"}
+[user] (result "(Bash completed with no output)")
+[assistant] done
+
+pineapple
+[turn ended: success] done
+
+pineapple
+
+>>> /earshot-widget last
+[assistant] earshot-widget: "Also say pineapple." was heard in the turn it was sent over. It was sent remotely, so Earshot got it only at delivery and its wait is not measured.
+[turn ended: success] earshot-widget: "Also say pineapple." was heard in the turn it was sent over. It was sent remotely, so Earshot got it only at delivery and its wait is not measured.
+
+>>> /earshot-widget off
+[assistant] earshot-widget: Earshot off.
+[turn ended: success] earshot-widget: Earshot off.
+
+--- earshot-widget store ---
+earshot-widget_inline-9583d0027888.json: {
+  "isOn": false
+}

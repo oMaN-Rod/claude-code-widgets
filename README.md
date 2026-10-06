@@ -2,7 +2,7 @@
 
 Small cards that sit under the Claude Code prompt, or docked beside the transcript in fullscreen. Each widget is its own mod, toggled with a slash command.
 
-It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 94 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
+It started with a few useful ones (context, usage, file tree) and then got carried away: there are now 95 widgets, from git status and a turn timer to a pixel crab, a dungeon crawl and Tetris.
 
 Try every widget in its own little terminal on the [demo page](https://oman-rod.github.io/claude-code-widgets/): the real widget code runs in the browser against a simulated session, so you can type its slash commands, run a turn and play the games. It is a static page in `docs/`, published to GitHub Pages on every push to `main` that changes it; opening `docs/index.html` from a checkout works too.
 
@@ -73,6 +73,7 @@ What Claude is doing and what it is costing.
 | `attic-widget` | `/attic-widget [on\|off\|show\|keep <tool>\|stow <tool>\|clear]` | Counts which tools Claude calls in this project, puts the unused ones behind ToolSearch, lists the daily ones up front, and reports how many schema tokens each request no longer carries |
 | `rehearsal-widget` | `/rehearsal-widget [on\|off\|show\|forget <n>\|clear]` | Which of the commands and edits Claude has made in this project would stop for permission or be refused right now, asked of the engine's own permission check without running anything |
 | `aim-widget` | `/aim-widget [on\|off\|prod <word>\|unprod <word>\|show\|clear]` | Where a command lands outside this folder: the kube context, cloud profile, Terraform workspace or database it is aimed at, named in the permission dialog |
+| `earshot-widget` | `/earshot-widget [on\|off\|last\|clear]` | Whether Claude has got the message you typed while it was working: how late a request first carried it, and what Claude changed before it heard you |
 
 ### Project and git
 

@@ -1,0 +1,7 @@
+{
+  "title": "Earshot",
+  "category": "Session",
+  "shows": "Whether Claude has got the message you typed while it was working: how late a request first carried it, and what Claude changed before it heard you",
+  "commands": ["/earshot-widget [on|off|last|clear]"],
+  "cost": ""
+}
