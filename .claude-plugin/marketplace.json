@@ -1647,6 +1647,23 @@
         "widgets"
       ],
       "license": "MIT"
+    },
+    {
+      "name": "green-widget",
+      "source": "./plugins/green-widget",
+      "description": "What changed in the working tree since each test, lint or build command last passed, measured against a hidden git snapshot taken at that moment and handed to Claude on request",
+      "version": "1.0.0",
+      "author": {
+        "name": "oMaN-Rod",
+        "email": "orod41285@gmail.com"
+      },
+      "category": "widgets",
+      "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+      "keywords": [
+        "green",
+        "widgets"
+      ],
+      "license": "MIT"
     }
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "title": "Last green",
+  "category": "Project and git",
+  "shows": "What changed in the working tree since each test, lint or build command last passed, measured against a hidden git snapshot taken at that moment and handed to Claude on request",
+  "commands": ["/green-widget [on|off|tell|clear]"],
+  "cost": "Keeps hidden git refs under refs/widgets/green in your repository (shown by git log --all, not sent by a plain git push) until clear; tell fills one short prompt for you to send"
+}

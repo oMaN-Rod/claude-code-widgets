@@ -1,0 +1,122 @@
+{
+  "id": "WO-0030",
+  "kind": "new",
+  "widget": "green-widget",
+  "title": "Last green",
+  "brief": "Invent one new widget that goes beyond everything in the catalog. One remarkable idea, or none.",
+  "status": "shipped",
+  "station": "shipping",
+  "holder": null,
+  "openedAt": "2026-10-05T16:04:08.260Z",
+  "closedAt": "2026-10-06T00:08:48.334Z",
+  "sendBacks": 0,
+  "stamps": [
+    {
+      "at": "2026-10-05T16:10:00.372Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The engine already puts MCP tools and the rarely used built-ins behind ToolSearch, so what is left to stow is a few percent of a cached prefix, bought with a cache miss and tools Claude no longer sees, and ToolInfo carries no schema so the per-tool cost on the card would be a guess.",
+      "subject": "Attic"
+    },
+    {
+      "at": "2026-10-05T16:10:00.477Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Not chosen: turn.step does let effort be rewritten, but it can only shift up from the person's own setting, nothing shows that more effort turns a failing check green, the tally cannot tell cause from coincidence, and a possible whole-conversation cache miss per shift is unmeasured.",
+      "subject": "Gearbox"
+    },
+    {
+      "at": "2026-10-05T16:10:00.583Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "The picture draws only in kitty-protocol terminals, so for most people it is a 40-column block-character thumbnail of a web page, paid for with a headless browser launch after every burst of edits.",
+      "subject": "Porthole"
+    },
+    {
+      "at": "2026-10-05T16:10:00.687Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "Correct and cheap, but it speaks only on the rare day an install was forgotten and is one more context line in the situation-widget family, not something a person would tell a colleague about.",
+      "subject": "Stale ground"
+    },
+    {
+      "at": "2026-10-05T16:10:00.792Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A variation on timer-widget, activity-widget and timeline-widget: the same Bash durations drawn as a forecast, useful only for the few commands that repeat verbatim.",
+      "subject": "Command ETA"
+    },
+    {
+      "at": "2026-10-05T16:10:00.904Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "prompt.edit cannot tell a sentence thought better of from ordinary rewording and typo fixing, so the card would be mostly noise around a rare good moment, and it is a second mirror-widget kept on keystrokes.",
+      "subject": "Unsent"
+    },
+    {
+      "at": "2026-10-05T16:10:01.013Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "A phrase list matched against prompts with no measurable moment at which a prediction ends, so the minutes and medians it reports are a joke counter and not a fact.",
+      "subject": "Famous Last Words"
+    },
+    {
+      "at": "2026-10-05T16:10:01.126Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "reject",
+      "reason": "In the repositories this is used in, most replaced lines are the person's own or Claude's from days ago, so the best moment is rare and the usual card says nothing worth a glance; theseus-widget already covers whose code is being rewritten.",
+      "subject": "Hands"
+    },
+    {
+      "at": "2026-10-05T16:10:30.626Z",
+      "station": "ideation",
+      "by": "examiner",
+      "result": "pass",
+      "reason": "The only idea that states a new fact about the tree, what changed since the checks last passed, with no model call, a claim the person can verify with git diff, and nothing like it shipped or waiting."
+    },
+    {
+      "at": "2026-10-05T16:19:07.288Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "reject",
+      "reason": "1. Row order contradicts itself on what the person sees: the Card rule (and A10's 'specified order') puts red commands never green before green ones, but the 'Best moment' drawing and the 'Busiest at 20 columns' drawing both show the green row (bun run lint) above the never-green red row (bun run build). Make the two drawings and the rule agree; nothing else in the spec is blocking.",
+      "subject": "spec"
+    },
+    {
+      "at": "2026-10-05T16:20:13.242Z",
+      "station": "design",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "The row-order contradiction is fixed in both drawings and nothing else blocks; 9 notes for the machinist in spec-notes.md."
+    },
+    {
+      "at": "2026-10-05T16:33:58.125Z",
+      "station": "build",
+      "by": "machinist",
+      "result": "pass",
+      "reason": "Built green-widget: each passing test, lint or build command keeps the working tree as a hidden git commit, a later failure shows and tells what changed since, with 14 acceptance tests and the checker passing."
+    },
+    {
+      "at": "2026-10-05T16:41:08.070Z",
+      "station": "inspection",
+      "by": "inspector",
+      "result": "pass",
+      "reason": "Meets the spec, the standard and the bar: checker passes, 14 states fit at 20, 40 and 60 columns, the director's live run showed a real red, toast, tell and clear against real git with only isOn stored; 7 non-blocking findings in inspection.md, the first for the clerk (demo stand-ins)."
+    },
+    {
+      "at": "2026-10-06T00:08:48.333Z",
+      "station": "shipping",
+      "by": "clerk",
+      "result": "pass",
+      "reason": "On the demo page, in the README and the marketplace; smoke test clean"
+    }
+  ]
+}

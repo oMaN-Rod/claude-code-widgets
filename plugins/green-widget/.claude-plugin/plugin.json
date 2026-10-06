@@ -1,0 +1,20 @@
+{
+  "name": "green-widget",
+  "version": "1.0.0",
+  "description": "What changed in the working tree since each test, lint or build command last passed, measured against a hidden git snapshot taken at that moment and handed to Claude on request",
+  "author": {
+    "name": "oMaN-Rod",
+    "email": "orod41285@gmail.com"
+  },
+  "homepage": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "repository": "https://github.com/oMaN-Rod/claude-code-widgets",
+  "license": "MIT",
+  "keywords": [
+    "green",
+    "widgets"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "widgets"
+  ]
+}

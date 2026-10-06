@@ -1,0 +1,103 @@
+
+>>> /green-widget on
+[assistant] green-widget: Last green on; /widgets places it.
+[turn ended: success] green-widget: Last green on; /widgets places it.
+
+>>> Run these Bash commands one per call, exactly as written, then answer ok: (1) rm -rf green-live && mkdir green-live && cd green-live && git init -q (2) echo one > a.txt (3) echo 'test -f a.txt || exit 2' > check.sh (4) sh check.sh (5) echo two > b.txt (6) rm a.txt (7) sh check.sh
+[assistant] (tool Bash {"command":"rm -rf green-live && mkdir green-live && cd green-live && git init -q","description":"Recreate green-live directory and initialize a git repo in it"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"echo one > a.txt","description":"Write \"one\" to a.txt"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"echo 'test -f a.txt || exit 2' > check.sh","description":"Create check script that verifies a.txt exists"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"sh check.sh","description":"Run the check script"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"echo two > b.txt","description":"Write \"two\" to b.txt"})
+[user] (result "(Bash completed with no output)")
+[assistant] Running the listed commands one at a time — five done, now removing `a.txt` and re-running the check.
+[assistant] (tool Bash {"command":"rm a.txt","description":"Delete a.txt"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"sh check.sh","description":"Run the check script again"})
+[system ui_toast] {"type":"system","subtype":"ui_toast","plugin":"green-widget","text":"sh check.sh went red: 2 files, +1 -1 since green 7s ago","timeout_ms":4000,"uuid":"63818239-c1f5-48a0-a060-b35f55b3e4ef","session_id":"92a54507-0649-464f-8896-1713ed6e0978"}
+[user] (result "Exit code 2")
+[assistant] ok — all seven commands ran. The first `sh check.sh` passed (exit 0); the final one exited with code 2, as expected since `a.txt` was removed in step 6.
+[turn ended: success] ok — all seven commands ran. The first `sh check.sh` passed (exit 0); the final one exited with code 2, as expected since `a.txt` was removed in step 6.
+
+>>> /green-widget tell
+[assistant] green-widget: `sh check.sh` passed 10s ago and fails now. The tree as it was when it passed is the git commit b2e64b79d629 (refs/widgets/green/b71x91/stzhpb).
+
+At the failing run 3s ago, 2 files had changed since then, +1 -1:
+a.txt +0 -1
+b.txt +1 -0
+
+Read a file's hunks with `git diff b2e64b79d629 -- <path>`. A file listed here that the diff does not show is new since green: read it whole. Ignored files are not in the snapshot.
+
+Find which of these changes broke `sh check.sh` before looking anywhere else.
+[turn ended: success] green-widget: `sh check.sh` passed 10s ago and fails now. The tree as it was when it passed is the git commit b2e64b79d629 (refs/widgets/green/b71x91/stzhpb).
+
+At the failing run 3s ago, 2 files had changed since then, +1 -1:
+a.txt +0 -1
+b.txt +1 -0
+
+Read a file's hunks with `git diff b2e64b79d629 -- <path>`. A file listed here that the diff does not show is new since green: read it whole. Ignored files are not in the snapshot.
+
+Find which of these changes broke `sh check.sh` before looking anywhere else.
+
+>>> /green-widget clear
+[assistant] green-widget: Last green cleared: 1 snapshot deleted.
+[turn ended: success] green-widget: Last green cleared: 1 snapshot deleted.
+
+>>> /green-widget off
+[assistant] green-widget: Last green off.
+[turn ended: success] green-widget: Last green off.
+
+--- green-widget store ---
+green-widget_inline-0aad91e66cf6.json: {
+  "isOn": false
+}
+
+
+===== the run as the spec words it (test -f as the check) =====
+
+>>> /green-widget on
+[assistant] green-widget: Last green on; /widgets places it.
+[turn ended: success] green-widget: Last green on; /widgets places it.
+
+>>> Run these Bash commands one per call, exactly as written, then answer ok: (1) rm -rf green-live && mkdir green-live && cd green-live && git init -q (2) echo one > a.txt (3) test -f a.txt (4) echo two > b.txt (5) rm a.txt (6) test -f a.txt
+[assistant] (tool Bash {"command":"rm -rf green-live && mkdir green-live && cd green-live && git init -q","description":"Recreate green-live directory and initialize a git repo"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"echo one > a.txt","description":"Write \"one\" to a.txt"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"test -f a.txt","description":"Check that a.txt exists"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"echo two > b.txt","description":"Write \"two\" to b.txt"})
+[user] (result "(Bash completed with no output)")
+[assistant] (tool Bash {"command":"rm a.txt","description":"Delete a.txt"})
+[user] (result "(Bash completed with no output)")
+[assistant] Running the last of the six commands — checking whether `a.txt` still exists after deleting it.
+[assistant] (tool Bash {"command":"test -f a.txt","description":"Check whether a.txt still exists"})
+[user] (result "(Bash completed with no output)")
+[assistant] 
+[assistant] ok
+
+All six commands ran. One note: step 6 (`test -f a.txt`) should exit non-zero since `a.txt` was deleted in step 5, but the tool reported it the same way as the others, with no output and no visible exit status, so I can't confirm the failure from what came back.
+[turn ended: success] ok
+
+All six commands ran. One note: step 6 (`test -f a.txt`) should exit non-zero since `a.txt` was deleted in step 5, but the tool reported it the same way as the others, with no output and no visible exit status, so I can't confirm the failure from what came back.
+
+>>> /green-widget tell
+[assistant] green-widget: Nothing is red.
+[turn ended: success] green-widget: Nothing is red.
+
+>>> /green-widget clear
+[assistant] green-widget: Last green cleared: 1 snapshot deleted.
+[turn ended: success] green-widget: Last green cleared: 1 snapshot deleted.
+
+>>> /green-widget off
+[assistant] green-widget: Last green off.
+[turn ended: success] green-widget: Last green off.
+
+--- green-widget store ---
+green-widget_inline-0aad91e66cf6.json: {
+  "isOn": false
+}

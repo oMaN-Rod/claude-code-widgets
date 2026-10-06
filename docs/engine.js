@@ -444,7 +444,18 @@
 
         return ran(0, isV2 ? '# branch.oid 3f2a1c9\n# branch.head main\n# branch.upstream origin/main\n# branch.ab +1 -0\n1 .M N... 100644 100644 100644 a b src/sum.js\n? notes.txt\n' : '## main...origin/main [ahead 1]\n M src/sum.js\n?? notes.txt\n')
       }
+      if (args[0] === 'rev-parse' && args.includes('--show-toplevel')) return ran(0, `${ROOT}\n`)
       if (args[0] === 'rev-parse') return ran(0, args.includes('--abbrev-ref') ? 'main\n' : `${ROOT}/.git\n`)
+      if (args[0] === 'for-each-ref') {
+        const under = args.find(arg => arg.startsWith('refs/widgets/green/') && arg.endsWith('/'))
+        const isWhole = args.some(arg => arg.includes('%(contents:subject)'))
+
+        return ran(0, under === undefined || !isWhole ? '' : `${[`${under}${hash('npm test').toString(36)}`, sha(HEADS[1]), sha(HEADS[2]), Math.floor((now - 14 * 60_000) / 1000), 'npm test'].join('\x00')}\n`)
+      }
+      if (['add', 'update-ref', 'read-tree'].includes(args[0])) return ran(0, '')
+      if (args[0] === 'write-tree') return ran(0, `${sha(HEADS[3])}\n`)
+      if (args[0] === 'commit-tree') return ran(0, `${sha(HEADS[0])}\n`)
+      if (args[0] === 'diff' && args.includes('--numstat')) return ran(0, `1\t1\tsrc/sum.js${args.includes('-z') ? '\x00' : '\n'}`)
       if (args[0] === 'diff' && args.includes('--name-only')) return ran(0, 'src/sum.js\n')
       if (args[0] === 'diff') return ran(0, 'diff --git a/src/sum.js b/src/sum.js\n--- a/src/sum.js\n+++ b/src/sum.js\n@@ -3,3 +3,3 @@\n-  for (let i = 1; i < list.length; i += 1) total += list[i]\n+  for (let i = 0; i < list.length; i += 1) total += list[i]\n')
       if (args[0] === 'grep') {
