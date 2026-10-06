@@ -13,7 +13,7 @@ A work order id at the shipping station.
 
 1. `bun factory/tools/order.ts take <id> clerk`
 2. `bun factory/tools/ship.ts prepare <id>`. It runs the checker, moves the widget from the floor to `plugins/`, adds its README row and marketplace entry from `widget.json`, rebuilds the demo page and runs the demo smoke test for this widget, printing the card at rest and after a turn.
-3. Read what the smoke test printed against the spec's Demo section (`factory/floor/orders/<id>/spec.md`). The card on the demo page must show the widget at its best after the scripted turn, not an empty state. If the stand-in engine lacks something the widget needs (a call it does not simulate, data the widget reads), add it to `docs/engine.js` in the style of what is there, then run `prepare` again. Do not change the widget to suit the demo.
+3. Read what the smoke test printed against the spec's Demo section (`factory/floor/orders/<id>/spec.md`). The card on the demo page must show the widget at its best after the scripted turn, not an empty state. If the stand-in engine lacks something the widget needs (a call it does not simulate, data the widget reads), add it to `docs/engine.js` in the style of what is there, then run `prepare` again. Make that change with the Edit tool, as a step of its own; never patch the file from a shell command. Do not change the widget to suit the demo.
 4. Read the new README row. Fix the row only if it reads wrongly.
 5. `bun factory/tools/ship.ts commit <id>`. It stamps the order shipped, files the order under `factory/orders/` and commits the widget, its order, the README, the marketplace and the demo page as `Add <name> widget`.
 6. `git status --short` must show nothing of this widget left over.
